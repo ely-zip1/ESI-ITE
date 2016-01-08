@@ -1,0 +1,16 @@
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe.config
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.pdb
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\MySql.Data.dll
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\MainWindow.g.cs
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\App.g.cs
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.cache
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.lref
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\MainWindow.baml
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.g.resources
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI_ITE.Properties.Resources.resources
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.GenerateResource.Cache
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
