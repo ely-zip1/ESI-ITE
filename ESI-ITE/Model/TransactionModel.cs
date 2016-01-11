@@ -30,34 +30,36 @@ namespace ESI_ITE.Model
 
         private DataAccess db = new DataAccess();
 
+        private StringBuilder insert = new StringBuilder();
+
         public List<TransactionModel> fetchAllTransactions()
         {
-            List<List<string>> records = new List<List<string>>();
+            List<Dictionary<string, string>> records = new List<Dictionary<string, string>>();
             List<TransactionModel> allTrans = new List<TransactionModel>();
             TransactionModel trans = new TransactionModel();
 
             records = db.SelectMultiple("select * from view_transaction_entry where status = 0 ");
 
-            foreach (List<string> attribute in records)
+            foreach (Dictionary<string, string> attribute in records)
             {
-                trans.Id = Int32.Parse(attribute[0]);
-                trans.TransactionNumber = attribute[1];
-                trans.TransactionType = attribute[2];
-                trans.DocumentNumber = attribute[3];
-                trans.TransactionDate = DateTime.Parse(attribute[4]);
-                trans.SourceWarehouse = attribute[5];
-                trans.SourceLocation = attribute[6];
-                trans.SourceSalesman = attribute[7];
-                trans.DestinationWarehouse = attribute[8];
-                trans.DestinationLocation = attribute[9];
-                trans.DestinationSalesman = attribute[10];
-                trans.PriceCategory = attribute[11];
-                trans.PriceType = attribute[12];
-                trans.Reason = attribute[13];
-                trans.ReasonCode = attribute[14];
-                trans.Comment = attribute[15];
+                trans.Id = Int32.Parse(attribute["id"]);
+                trans.TransactionNumber = attribute["transaction_number"];
+                trans.TransactionType = attribute["transaction_type"];
+                trans.DocumentNumber = attribute["document_number"];
+                trans.TransactionDate = DateTime.Parse(attribute["transaction_date"]);
+                trans.SourceWarehouse = attribute["source_warehouse"];
+                trans.SourceLocation = attribute["source_location"];
+                trans.SourceSalesman = attribute["source_salesman"];
+                trans.DestinationWarehouse = attribute["destination_warehouse"];
+                trans.DestinationLocation = attribute["destination_location"];
+                trans.DestinationSalesman = attribute["destination_salesman"];
+                trans.PriceCategory = attribute["price_category"];
+                trans.PriceType = attribute["price_type"];
+                trans.Reason = attribute["reason_description"];
+                trans.ReasonCode = attribute["reason_code"];
+                trans.Comment = attribute["comment"];
 
-                if (attribute[16] == "0")
+                if (attribute["status"] == "0")
                 {
                     trans.IsPosted = false;
                 }
@@ -73,11 +75,8 @@ namespace ESI_ITE.Model
             return allTrans;
         }
 
-       
         public void addTransactionEntry(TransactionModel trans)
         {
-            string insert = string.Empty;
-
             //foreign key id holders
             string transactionTypeId = string.Empty;
             string wareHouseIdSource = string.Empty;
@@ -107,27 +106,32 @@ namespace ESI_ITE.Model
             else
             { isPosted = 0; }
 
-            insert = "insert into transaction_entry values(null,'" +
-                "'" + trans.TransactionNumber + "'," +
-                "'" + transactionTypeId + "'," +
-                "'" + trans.DocumentNumber + "'," +
-                "'" + trans.TransactionDate + "'," +
-                "'" + wareHouseIdSource + "'," +
-                "'" + locationIdSource + "'," +
-                "null," +
-                "'" + wareHouseIdDestination + "'," +
-                "'" + locationIdDestination + "'," +
-                "null," +
-                "'" + trans.PriceCategory + "'," +
-                "'" + trans.PriceType + "'," +
-                "'" + reasonId + "'," +
-                "'" + trans.Comment + "'," +
-                "'" + isPosted + "'" +
-                ")";
+            insert.Clear();
 
-            db.Insert(insert);
+            insert.Append("insert into transaction_entry values(");
+            insert.Append("null,");
+            insert.Append("'" + trans.TransactionNumber + "',");
+            insert.Append("'" + transactionTypeId + "',");
+            insert.Append("'" + trans.DocumentNumber + "',");
+            insert.Append("'" + trans.TransactionDate.ToString("MM/dd/yyyy") + "',");
+            insert.Append("'" + wareHouseIdSource + "',");
+            insert.Append("'" + locationIdSource + "',");
+            insert.Append("null,");
+            insert.Append("'" + wareHouseIdDestination + "',");
+            insert.Append("'" + locationIdDestination + "',");
+            insert.Append("null,");
+            insert.Append("'" + trans.PriceCategory + "',");
+            insert.Append("'" + trans.PriceType + "',");
+            insert.Append("'" + reasonId + "',");
+            insert.Append("'" + trans.Comment + "',");
+            insert.Append("'" + isPosted + "'");
+            insert.Append(")");
 
+            db.Insert(insert.ToString());
+
+            insert.Clear();
 
         }
+
     }
 }

@@ -113,10 +113,10 @@ namespace ESI_ITE.Data_Access
         }
 
         //Select multiple statement
-        public List<List<string>> SelectMultiple(string query)
+        public List<Dictionary<string, string>> SelectMultiple(string query)
         {
-            List<List<string>> lol = new List<List<string>>();
-            List<string> listOfStrings = new List<string>();
+            List<Dictionary<string, string>> lol = new List<Dictionary<string, string>>();
+            Dictionary<string, string> listOfStrings = new Dictionary<string, string>();
 
             if (this.OpenConnection() == true)
             {
@@ -128,7 +128,7 @@ namespace ESI_ITE.Data_Access
                     int columns = dataReader.FieldCount;
                     for (int x = 0; x < columns; x++)
                     {
-                        listOfStrings.Add(dataReader[x].ToString());
+                        listOfStrings.Add(dataReader.GetName(x), dataReader[x].ToString());
                     }
                     lol.Add(listOfStrings);
 
@@ -150,7 +150,7 @@ namespace ESI_ITE.Data_Access
         {
             string record = string.Empty;
 
-            if(this.OpenConnection() == true)
+            if (this.OpenConnection() == true)
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 MySqlDataReader dataReader = cmd.ExecuteReader();
@@ -198,9 +198,9 @@ namespace ESI_ITE.Data_Access
         //Transaction 
         public void RunMySqlTransaction(List<string> transString)
         {
-            if(this.OpenConnection() == true)
+            if (this.OpenConnection() == true)
             {
-                MySqlTransaction myTransaction = 
+                MySqlTransaction myTransaction =
                     connection.BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
                 try
                 {
@@ -217,7 +217,7 @@ namespace ESI_ITE.Data_Access
                 {
                     myTransaction.Rollback();
                 }
-                
+
             }
         }
     }

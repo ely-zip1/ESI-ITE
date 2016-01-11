@@ -84,6 +84,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\PostingModel.cs" />
+    <Compile Include="Model\PricingModel.cs" />
     <Compile Include="ViewModel\TransactionEntryViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Page Include="MainWindow.xaml">
@@ -101,9 +103,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\InventoryDummyModel.cs" />
     <Compile Include="Model\ItemModel.cs" />
-    <Compile Include="Model\TransactionDetailsModel.cs" />
+    <Compile Include="Model\InventoryDummyModel.cs" />
     <Compile Include="Model\TransactionModel.cs" />
     <Compile Include="Model\WareHouseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
