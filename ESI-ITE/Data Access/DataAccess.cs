@@ -17,6 +17,8 @@ namespace ESI_ITE.Data_Access
         private string uid;
         private string password;
 
+        private StringBuilder sb = new StringBuilder();
+
         public DataAccess()
         {
             Initialize();
@@ -149,15 +151,26 @@ namespace ESI_ITE.Data_Access
         public string Select(string query)
         {
             string record = string.Empty;
+            int i = 0;
+
+            sb.Clear();
 
             if (this.OpenConnection() == true)
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                if (dataReader.Read())
+                while (dataReader.Read())
                 {
-                    record = dataReader.GetString(0);
+                    record = dataReader.GetString(i);
+                    sb.Append(record);
+
+                    i++;
+
+                    if (dataReader[i] != DBNull.Value)
+                    {
+                        sb.Append("|");
+                    }
                 }
                 dataReader.Close();
                 this.CloseConnection();
@@ -196,7 +209,7 @@ namespace ESI_ITE.Data_Access
         }
 
         //Transaction 
-        public void RunMySqlTransaction(List<string> transString)
+        public void RunMySqlTransaction(string transString)
         {
             if (this.OpenConnection() == true)
             {
@@ -205,15 +218,13 @@ namespace ESI_ITE.Data_Access
                 try
                 {
                     MySqlCommand cmd = new MySqlCommand();
-                    foreach (string query in transString)
-                    {
-                        cmd.CommandText = query;
-                        cmd.ExecuteNonQuery();
-                    }
+
+                    cmd.CommandText = transString;
+                    cmd.ExecuteNonQuery();
 
                     myTransaction.Commit();
                 }
-                catch (Exception ex)
+                catch (MySqlException ex)
                 {
                     myTransaction.Rollback();
                 }

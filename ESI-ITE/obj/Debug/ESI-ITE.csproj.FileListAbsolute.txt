@@ -14,3 +14,4 @@ C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI
 C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.GenerateResource.Cache
 C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
 C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.g.cs
