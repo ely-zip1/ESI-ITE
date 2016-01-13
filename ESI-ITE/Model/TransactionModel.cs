@@ -9,6 +9,7 @@ namespace ESI_ITE.Model
 {
     public class TransactionModel
     {
+        //Properties
         public int Id { get; set; }
         public string TransactionNumber { get; set; }
         public string TransactionCode { get; set; }
@@ -29,13 +30,56 @@ namespace ESI_ITE.Model
         public bool IsPosted { get; set; }
 
         private DataAccess db = new DataAccess();
-
         private StringBuilder insert = new StringBuilder();
+        
+        public List<TransactionModel> AllTransactions = new List<TransactionModel>();
 
-        public List<TransactionModel> fetchAllTransactions()
+        //Constructors
+        public TransactionModel()
+        {
+        }
+
+        public TransactionModel(string transactionNumber)
         {
             List<Dictionary<string, string>> records = new List<Dictionary<string, string>>();
-            List<TransactionModel> allTrans = new List<TransactionModel>();
+            TransactionModel trans = new TransactionModel();
+
+            records = db.SelectMultiple("select * from view_transaction_entry where transaction_number = '" + transactionNumber + "' ");
+
+            foreach (Dictionary<string, string> attribute in records)
+            {
+                trans.Id = Int32.Parse(attribute["id"]);
+                trans.TransactionNumber = attribute["transaction_number"];
+                trans.TransactionType = attribute["transaction_type"];
+                trans.DocumentNumber = attribute["document_number"];
+                trans.TransactionDate = DateTime.Parse(attribute["transaction_date"]);
+                trans.SourceWarehouse = attribute["source_warehouse"];
+                trans.SourceLocation = attribute["source_location"];
+                trans.SourceSalesman = attribute["source_salesman"];
+                trans.DestinationWarehouse = attribute["destination_warehouse"];
+                trans.DestinationLocation = attribute["destination_location"];
+                trans.DestinationSalesman = attribute["destination_salesman"];
+                trans.PriceCategory = attribute["price_category"];
+                trans.PriceType = attribute["price_type"];
+                trans.Reason = attribute["reason_description"];
+                trans.ReasonCode = attribute["reason_code"];
+                trans.Comment = attribute["comment"];
+
+                if (attribute["status"] == "0")
+                {
+                    trans.IsPosted = false;
+                }
+                else
+                {
+                    trans.IsPosted = true;
+                }
+
+            }
+        }
+
+        public void FetchAll()
+        {
+            List<Dictionary<string, string>> records = new List<Dictionary<string, string>>();
             TransactionModel trans = new TransactionModel();
 
             records = db.SelectMultiple("select * from view_transaction_entry where status = 0 ");
@@ -68,14 +112,12 @@ namespace ESI_ITE.Model
                     trans.IsPosted = true;
                 }
 
-                allTrans.Add(trans);
+                AllTransactions.Add(trans);
 
             }
-
-            return allTrans;
         }
 
-        public void addTransactionEntry(TransactionModel trans)
+        public void AddTransactionEntry(TransactionModel trans)
         {
             //foreign key id holders
             string transactionTypeId = string.Empty;

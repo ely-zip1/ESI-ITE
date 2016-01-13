@@ -41,7 +41,7 @@ namespace ESI_ITE.Model
             {
                 td.Id = Int32.Parse(row["id"]);
                 td.TransactionCode = row["transaction_code"];
-                td.Location = row["location"];
+                td.Location = row["location_code"];
                 td.PriceType = row["price_type"];
                 td.ItemCode = row["item_code"];
                 td.ItemDescription = row["item_description"];

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\App.xaml
-2-116408617
+5-234940705
 
-19-323330157
-72140225017
-MainWindow.xaml;View\TransactionEntryView.xaml;
+22-1200374137
+73-1600185144
+MainWindow.xaml;View\PrintingFooterTemplateView.xaml;View\PrintingHeaderTemplateView.xaml;View\PrintingItemTemplateView.xaml;View\TransactionEntryView.xaml;
 
 False
 
