@@ -27,9 +27,9 @@ namespace ESI_ITE.Data_Access
         private void Initialize()
         {
             server = "localhost";
-            database = "test";
-            uid = "admin";
-            password = "admin";
+            database = "esidb2";
+            uid = "root";
+            password = "1234";
 
             string connectionString;
             connectionString = "Server=" + server + ";Database=" + database +
@@ -115,10 +115,9 @@ namespace ESI_ITE.Data_Access
         }
 
         //Select multiple statement
-        public List<Dictionary<string, string>> SelectMultiple(string query)
+        public List<CloneableDictionary<string, string>> SelectMultiple(string query)
         {
-            List<Dictionary<string, string>> lol = new List<Dictionary<string, string>>();
-            Dictionary<string, string> listOfStrings = new Dictionary<string, string>();
+            var lol = new List<CloneableDictionary<string, string>>();
 
             if (this.OpenConnection() == true)
             {
@@ -127,12 +126,14 @@ namespace ESI_ITE.Data_Access
 
                 while (dataReader.Read())
                 {
+                    var listOfStrings = new CloneableDictionary<string, string>();
                     int columns = dataReader.FieldCount;
                     for (int x = 0; x < columns; x++)
                     {
-                        listOfStrings.Add(dataReader.GetName(x), dataReader[x].ToString());
+                        listOfStrings.Add(dataReader.GetName(x).ToLower(), dataReader[x].ToString());
                     }
-                    lol.Add(listOfStrings);
+
+                    lol.Add(listOfStrings.Clone());
 
                 }
                 dataReader.Close();
@@ -146,6 +147,20 @@ namespace ESI_ITE.Data_Access
             }
 
         }
+
+        //private Dictionary<string, string> arrayToDictionary(string[] key, string[] value)
+        //{
+        //    var dictionary = new Dictionary<string, string>();
+
+        //    int i = 0;
+        //    foreach(string v in key)
+        //    {
+        //        dictionary.Add(v, value[i]);
+        //        i++;
+        //    }
+
+        //    return dictionary;
+        //}
 
         //Select single
         public string Select(string query)
@@ -167,7 +182,7 @@ namespace ESI_ITE.Data_Access
 
                     i++;
 
-                    if (dataReader[i] != DBNull.Value)
+                    if (dataReader.NextResult())
                     {
                         sb.Append("|");
                     }
@@ -226,6 +241,7 @@ namespace ESI_ITE.Data_Access
                 }
                 catch (MySqlException ex)
                 {
+                    MessageBox.Show(ex.Message);
                     myTransaction.Rollback();
                 }
 

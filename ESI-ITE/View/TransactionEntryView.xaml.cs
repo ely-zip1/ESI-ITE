@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ESI_ITE.ViewModel;
 
 namespace ESI_ITE.View
 {
@@ -23,6 +24,7 @@ namespace ESI_ITE.View
         public TransactionEntryView()
         {
             InitializeComponent();
+            //this.DataContext = new TransactionEntryViewModel();
         }
     }
 }

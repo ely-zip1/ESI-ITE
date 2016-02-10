@@ -4,51 +4,346 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ESI_ITE.Data_Access;
+using System.ComponentModel;
+using System.Text.RegularExpressions;
 
 namespace ESI_ITE.Model
 {
-    public class TransactionModel
+    public class TransactionModel : ObjectBase, IDataErrorInfo
     {
-        //Properties
-        public int Id { get; set; }
-        public string TransactionNumber { get; set; }
-        public string TransactionCode { get; set; }
-        public string TransactionType { get; set; }
-        public string DocumentNumber { get; set; }
-        public DateTime TransactionDate { get; set; }
-        public string SourceWarehouse { get; set; }
-        public string DestinationWarehouse { get; set; }
-        public string SourceLocation { get; set; }
-        public string DestinationLocation { get; set; }
-        public string SourceSalesman { get; set; }
-        public string DestinationSalesman { get; set; }
-        public string PriceCategory { get; set; }
-        public string PriceType { get; set; }
-        public string Reason { get; set; }
-        public string ReasonCode { get; set; }
-        public string Comment { get; set; }
-        public bool IsPosted { get; set; }
+        #region Properties
+        private int id;
+        public int Id
+        {
+            get { return id; }
+            set
+            {
+                if (id != value)
+                {
+                    id = value;
+                    OnPropertyChanged("Id");
+                }
+            }
+        }
+
+        private string transactionNumber;
+        public string TransactionNumber
+        {
+            get { return transactionNumber; }
+            set
+            {
+                if (transactionNumber != value)
+                {
+                    transactionNumber = value;
+                    OnPropertyChanged("TransactioNumber");
+                }
+            }
+        }
+
+        private string transactionCode;
+        public string TransactionCode
+        {
+            get { return transactionCode; }
+            set
+            {
+                if (transactionCode != value)
+                {
+                    transactionCode = value;
+                    OnPropertyChanged("TransactionCode");
+                }
+            }
+        }
+
+        private string transactionType;
+        public string TransactionType
+        {
+            get { return transactionCode; }
+            set
+            {
+                if (transactionType != value)
+                {
+                    transactionType = value;
+                    OnPropertyChanged("TransactionType");
+                }
+            }
+        }
+
+        private string documentNumber;
+        public string DocumentNumber
+        {
+            get { return documentNumber; }
+            set
+            {
+                if (documentNumber != value)
+                {
+                    documentNumber = value;
+                    OnPropertyChanged("DocumentNumber");
+                }
+            }
+        }
+
+        private DateTime transactionDate;
+        public DateTime TransactionDate
+        {
+            get { return transactionDate; }
+            set
+            {
+                if (transactionDate != value)
+                {
+                    transactionDate = value;
+                    OnPropertyChanged("TransactionDate");
+                }
+            }
+        }
+
+        private string sourceWarehouse;
+        public string SourceWarehouse
+        {
+            get { return sourceWarehouse; }
+            set
+            {
+                if (sourceWarehouse != value)
+                {
+                    sourceWarehouse = value;
+                    OnPropertyChanged("SourceWarehouse");
+                }
+            }
+        }
+
+        private string sourceWarehouseCode;
+        public string SourceWarehouseCode
+        {
+            get { return sourceWarehouseCode; }
+            set
+            {
+                if (sourceWarehouseCode != value)
+                {
+                    sourceWarehouseCode = value;
+                    OnPropertyChanged("SourceWarehouseCode");
+                }
+            }
+        }
+
+        private string destinationWarehouse;
+        public string DestinationWarehouse
+        {
+            get { return destinationWarehouse; }
+            set
+            {
+                if (destinationWarehouse != value)
+                {
+                    destinationWarehouse = value;
+                    OnPropertyChanged("DestinationWarehouse");
+                }
+            }
+        }
+
+        private string destinationWarehouseCode;
+        public string DestinationWarehouseCode
+        {
+            get { return destinationWarehouseCode; }
+            set
+            {
+                if (destinationWarehouseCode != value)
+                {
+                    destinationWarehouseCode = value;
+                    OnPropertyChanged("DestinationWarehouseCode");
+                }
+            }
+        }
+
+        private string sourceLocation;
+        public string SourceLocation
+        {
+            get { return sourceLocation; }
+            set
+            {
+                if (sourceLocation != value)
+                {
+                    sourceLocation = value;
+                    OnPropertyChanged("SourceLocation");
+                }
+            }
+        }
+
+        private string sourceLocationCode;
+        public string SourceLocationCode
+        {
+            get { return sourceLocationCode; }
+            set
+            {
+                if (sourceLocationCode != value)
+                {
+                    sourceLocationCode = value;
+                    OnPropertyChanged("SourceLocationCode");
+                }
+            }
+        }
+
+        private string destinationLocation;
+        public string DestinationLocation
+        {
+            get { return destinationLocation; }
+            set
+            {
+                if (destinationLocation != value)
+                {
+                    destinationLocation = value;
+                    OnPropertyChanged("DestinationLocation");
+                }
+            }
+        }
+
+        private string destinationLocationCode;
+        public string DestinationLocationCode
+        {
+            get { return destinationLocationCode; }
+            set
+            {
+                if (destinationLocationCode != value)
+                {
+                    destinationLocationCode = value;
+                    OnPropertyChanged("DestinationLocationCode");
+                }
+            }
+        }
+
+        private string sourceSalesman;
+        public string SourceSalesman
+        {
+            get { return sourceSalesman; }
+            set
+            {
+                if (sourceSalesman != value)
+                {
+                    sourceSalesman = value;
+                    OnPropertyChanged("SourceSalesman");
+                }
+            }
+        }
+
+        private string destinationSalesman;
+        public string DestinationSalesman
+        {
+            get { return destinationSalesman; }
+            set
+            {
+                if (destinationSalesman != value)
+                {
+                    destinationSalesman = value;
+                    OnPropertyChanged("DestinationSalesman");
+                }
+            }
+        }
+
+        private string priceCategory;
+        public string PriceCategory
+        {
+            get { return priceCategory; }
+            set
+            {
+                if (priceCategory != value)
+                {
+                    priceCategory = value;
+                    OnPropertyChanged("PriceCategory");
+                }
+            }
+        }
+
+        private string priceType;
+        public string PriceType
+        {
+            get { return priceType; }
+            set
+            {
+                if (priceType != value)
+                {
+                    priceType = value;
+                    OnPropertyChanged("PriceType");
+                }
+            }
+        }
+
+        private string reason;
+        public string Reason
+        {
+            get { return reason; }
+            set
+            {
+                if (reason != value)
+                {
+                    reason = value;
+                    OnPropertyChanged("Reason");
+                }
+            }
+        }
+
+        private string reasonCode;
+        public string ReasonCode
+        {
+            get { return reasonCode; }
+            set
+            {
+                if (reasonCode != value)
+                {
+                    reasonCode = value;
+                    OnPropertyChanged("ReasonCode");
+                }
+            }
+        }
+
+        private string comment;
+        public string Comment
+        {
+            get { return comment; }
+            set
+            {
+                if (comment != value)
+                {
+                    comment = value;
+                    OnPropertyChanged("Comment");
+                }
+            }
+        }
+
+        private bool isPosted;
+        public bool IsPosted
+        {
+            get { return isPosted; }
+            set
+            {
+                if (isPosted != value)
+                {
+                    isPosted = value;
+                    OnPropertyChanged("IsPosted");
+                }
+            }
+        }
 
         private DataAccess db = new DataAccess();
-        private StringBuilder insert = new StringBuilder();
-        
-        public List<TransactionModel> AllTransactions = new List<TransactionModel>();
 
-        //Constructors
+        private StringBuilder insert = new StringBuilder();
+
+        private List<TransactionModel> _allTransactions = new List<TransactionModel>();
+
+        #endregion
+
+        #region Constructors
         public TransactionModel()
         {
+
         }
 
         public TransactionModel(string transactionNumber)
         {
-            List<Dictionary<string, string>> records = new List<Dictionary<string, string>>();
-            TransactionModel trans = new TransactionModel();
+            var records = new List<CloneableDictionary<string, string>>();
+            var trans = new TransactionModel();
 
             records = db.SelectMultiple("select * from view_transaction_entry where transaction_number = '" + transactionNumber + "' ");
 
-            foreach (Dictionary<string, string> attribute in records)
+            foreach (var attribute in records)
             {
-                trans.Id = Int32.Parse(attribute["id"]);
+                trans.Id = int.Parse(attribute["id"]);
                 trans.TransactionNumber = attribute["transaction_number"];
                 trans.TransactionType = attribute["transaction_type"];
                 trans.DocumentNumber = attribute["document_number"];
@@ -73,48 +368,48 @@ namespace ESI_ITE.Model
                 {
                     trans.IsPosted = true;
                 }
+
+                _allTransactions.Add(trans);
 
             }
         }
+        #endregion
 
-        public void FetchAll()
+        public List<TransactionModel> FetchAll()
         {
-            List<Dictionary<string, string>> records = new List<Dictionary<string, string>>();
-            TransactionModel trans = new TransactionModel();
+            var records = new List<Dictionary<string, string>>();
+            var trans = new TransactionModel();
 
-            records = db.SelectMultiple("select * from view_transaction_entry where status = 0 ");
+            //records.AddRange(db.SelectMultiple("select * from view_transaction_entry where status = 0 "));
 
-            foreach (Dictionary<string, string> attribute in records)
+            foreach (Dictionary<string, string> attribute in (db.SelectMultiple("select * from view_transaction_entry where status = 0 ")))
             {
-                trans.Id = Int32.Parse(attribute["id"]);
+                trans.Id = int.Parse(attribute["id"]);
                 trans.TransactionNumber = attribute["transaction_number"];
+                trans.TransactionCode = attribute["transaction_code"];
                 trans.TransactionType = attribute["transaction_type"];
                 trans.DocumentNumber = attribute["document_number"];
                 trans.TransactionDate = DateTime.Parse(attribute["transaction_date"]);
                 trans.SourceWarehouse = attribute["source_warehouse"];
+                trans.SourceWarehouseCode = attribute["source_warehouse_code"];
                 trans.SourceLocation = attribute["source_location"];
-                trans.SourceSalesman = attribute["source_salesman"];
+                trans.SourceLocationCode = attribute["source_location_code"];
+                //trans.SourceSalesman = attribute["source_salesman"];
                 trans.DestinationWarehouse = attribute["destination_warehouse"];
                 trans.DestinationLocation = attribute["destination_location"];
-                trans.DestinationSalesman = attribute["destination_salesman"];
+                //trans.DestinationSalesman = attribute["destination_salesman"];
                 trans.PriceCategory = attribute["price_category"];
                 trans.PriceType = attribute["price_type"];
                 trans.Reason = attribute["reason_description"];
                 trans.ReasonCode = attribute["reason_code"];
                 trans.Comment = attribute["comment"];
 
-                if (attribute["status"] == "0")
-                {
-                    trans.IsPosted = false;
-                }
-                else
-                {
-                    trans.IsPosted = true;
-                }
+                trans.IsPosted = attribute["status"] != "0";
 
-                AllTransactions.Add(trans);
+                _allTransactions.Add(trans);
 
             }
+            return _allTransactions;
         }
 
         public void AddTransactionEntry(TransactionModel trans)
@@ -174,6 +469,139 @@ namespace ESI_ITE.Model
             insert.Clear();
 
         }
+
+
+        #region IDataErrorInfo Members
+        string IDataErrorInfo.Error
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        string IDataErrorInfo.this[string propertyName]
+        {
+            get
+            {
+                return GetValidationError(propertyName);
+
+            }
+        }
+        #endregion
+
+        #region Validation
+
+
+        static readonly string[] ValidatedProperties =
+        {
+            "Id",
+            "TransactionNumber",
+            "TransactionCode",
+            "TransactionType",
+            "DocumentNumber",
+            "TransactionDate",
+            "SourceWarehouse",
+            "DestinationWarehouse",
+            "SourceLocation",
+            "DestinationLocation",
+            "PriceCategory",
+            "PriceType",
+            "Reason",
+            "ReasonCode",
+            "Comment"
+        };
+
+        public bool Isvalid
+        {
+            get
+            {
+                int i = 0;
+                foreach (var property in ValidatedProperties)
+                {
+                    if (GetValidationError(property) != null)
+                        i++;
+                }
+
+                if (i > 0)
+                    return false;
+                else
+                    return true;
+            }
+        }
+
+        private string GetValidationError(string propertyName)
+        {
+            string error = null;
+
+            switch (propertyName)
+            {
+                case "TransactionNumber":
+                    error = ValidateNullOrEmpty(propertyName, this.TransactionNumber.ToString());
+                    break;
+                case "TransactionCode":
+                    error = ValidateNullOrEmpty(propertyName, this.TransactionCode.ToString());
+                    break;
+                case "TransactionType":
+                    error = ValidateNullOrEmpty(propertyName, this.TransactionType.ToString());
+                    break;
+                case "TransactionDate":
+                    error = ValidateNullOrEmpty(propertyName, this.TransactionDate.ToString());
+                    break;
+                case "SourceWarehouse":
+                    error = ValidateNullOrEmpty(propertyName, this.SourceWarehouse.ToString());
+                    break;
+                case "DestinationWarehouse":
+                    error = ValidateNullOrEmpty(propertyName, this.DestinationWarehouse.ToString());
+                    break;
+                case "PriceCategory":
+                    error = ValidateNullOrEmpty(propertyName, this.PriceCategory.ToString());
+                    break;
+                case "PriceType":
+                    error = ValidateNullOrEmpty(propertyName, this.PriceType.ToString());
+                    break;
+                case "Reason":
+                    error = ValidateNullOrEmpty(propertyName, this.Reason.ToString());
+                    break;
+                case "ReasonCode":
+                    error = ValidateNullOrEmpty(propertyName, this.ReasonCode.ToString());
+                    break;
+                case "Comment":
+                    error = ValidateNullOrEmpty(propertyName, this.Comment.ToString());
+                    break;
+                case "DocumentNumber":
+                    error = ValidateDocumentNumber();
+                    break;
+            }
+
+            return error;
+        }
+
+        private string ValidateDocumentNumber()
+        {
+            Regex regex = new Regex("^[A-Za-z]*$");
+            if (string.IsNullOrWhiteSpace(DocumentNumber))
+            {
+                return "Document Number cannot be empty!";
+            }
+            else if (regex.IsMatch(DocumentNumber))
+            {
+                return "Document Number cannot accept non-numeric values!";
+            }
+
+            return null;
+        }
+
+        private string ValidateNullOrEmpty(string propertyName, string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return propertyName + " cannot be empty!";
+            else
+                return null;
+        }
+
+        #endregion
+
 
     }
 }

@@ -7,19 +7,21 @@ using System.Threading.Tasks;
 
 namespace ESI_ITE.ViewModel
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
+        #region INotifyPropertyChanged Members
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void RaisePropertyChanged(string propertyName)
+        protected internal void OnPropertyChanged(string propertyName)
         {
-            PropertyChangedEventHandler handler = this.PropertyChanged;
-            if (handler != null)
+            if (this.PropertyChanged != null)
             {
-                PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
-
-                handler(this, args);
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        #endregion
+
     }
 }

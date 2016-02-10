@@ -1,0 +1,107 @@
+﻿<UserControl x:Class="ESI_ITE.Printing.PrintingHeaderTemplate"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ESI_ITE.Printing"
+             mc:Ignorable="d" 
+             d:DesignHeight="302.4" d:DesignWidth="816">
+
+    <Grid Height="Auto" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="181"></RowDefinition>
+            <RowDefinition Height="61"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="204"/>
+                <ColumnDefinition Width="408"/>
+                <ColumnDefinition Width="204"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="0" Grid.Row="0" Margin="5,0,0,0" Name="txbUser">JAY</TextBlock>
+            <TextBlock VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="0" Grid.Row="1" Margin="5,0,0,0" Name="txbPrintDate">01/13/2016</TextBlock>
+            <TextBlock VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="0" Grid.Row="2" Margin="5,0,0,0" Name="txbPrintTime">09:53:13</TextBlock>
+
+            <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Courier New" Grid.Column="1" Grid.Row="1" Margin="5,0,0,0">Extract Sales, Inc</Label>
+            <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Courier New" Grid.Column="1" Grid.Row="2" Margin="5,0,0,0">Inventory Transaction</Label>
+
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" FontFamily="Courier New" Grid.Column="2" Grid.Row="1" Margin="5,0,10,0" Name="txbPrintPageNo">Page 1</TextBlock>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="31"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="163"/>
+                <ColumnDefinition Width="326"/>
+                <ColumnDefinition Width="164"/>
+                <ColumnDefinition Width="163"/>
+            </Grid.ColumnDefinitions>
+            <Label VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="0" Grid.Row="1" Margin="5,0,0,0">Transaction Type :</Label>
+            <Label VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="0" Grid.Row="2" Margin="5,0,0,0">Transaction No. :</Label>
+            <Label VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="0" Grid.Row="3" Margin="5,0,0,0">Transaction Date :</Label>
+            <Label VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="0" Grid.Row="4" Margin="5,0,0,0">Document No. :</Label>
+            <Label VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="0" Grid.Row="5" Margin="5,0,0,0">Reason :</Label>
+
+            <TextBlock VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="1" Grid.Row="1" Margin="5,0,0,0" Name="txbTransType">STOCKS LOCATION ENTRY</TextBlock>
+            <TextBlock VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="1" Grid.Row="2" Margin="5,0,0,0" Name="txbTransNo">060632</TextBlock>
+            <TextBlock VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="1" Grid.Row="3" Margin="5,0,0,0" Name="txbTransDate">01/13/2016</TextBlock>
+            <TextBlock VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="1" Grid.Row="4" Margin="5,0,0,0" Name="txbDocNo">123456</TextBlock>
+            <TextBlock VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="1" Grid.Row="5" Margin="5,0,0,0" Name="txbReason">UNREGISTERED PO ITEM</TextBlock>
+
+            <Label VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="2" Grid.Row="1" Margin="5,0,0,0">Source Warehouse :</Label>
+            <Label VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="2" Grid.Row="2" Margin="5,0,0,0">Source Location :</Label>
+            <Label VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="2" Grid.Row="3" Margin="5,0,0,0">Salesman:</Label>
+            <Label VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="2" Grid.Row="4" Margin="5,0,0,0">Comment :</Label>
+
+            <TextBlock VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="3" Grid.Row="1" Margin="5,0,0,0" Name="txbSourceWH">01</TextBlock>
+            <TextBlock VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="3" Grid.Row="2" Margin="5,0,0,0" Name="txbLocation">GD</TextBlock>
+            <TextBlock VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="3" Grid.Row="3" Margin="5,0,0,0" Name="txbSaleman"></TextBlock>
+            <TextBlock VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="3" Grid.Row="4" Margin="5,0,0,0" Name="txbComment"></TextBlock>
+        </Grid>
+        <Grid Grid.Row="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="69"/>
+                <ColumnDefinition Width="294"/>
+                <ColumnDefinition Width="27"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="91"/>
+                <ColumnDefinition Width="105"/>
+                <ColumnDefinition Width="130"/>
+            </Grid.ColumnDefinitions>
+            <Border BorderThickness="0,1,0,1" Grid.ColumnSpan="8">
+                <Border.BorderBrush>
+                    <VisualBrush>
+                        <VisualBrush.Visual>
+                            <Rectangle StrokeThickness="3"
+                    Stroke="Black" 
+                    StrokeDashArray="1 2"
+                    Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualWidth}"
+                    Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualHeight}" />
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Border.BorderBrush>
+            </Border>
+            <Label VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="0"  Margin="5,0,0,0">ItemCode</Label>
+            <Label VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="1"  Margin="5,0,0,0">Description</Label>
+            <Label VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="2"  Margin="5,0,0,0">LC</Label>
+            <Label VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="3"  Margin="5,0,0,0">Cases</Label>
+            <Label VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="4"  Margin="5,0,0,0">Pieces</Label>
+            <Label VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="5"  Margin="5,0,0,0">Expiry</Label>
+            <Label VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="6"  Margin="5,0,0,0">Unit Price</Label>
+            <Label VerticalAlignment="Center" FontFamily="Courier New" Grid.Column="7"  Margin="5,0,0,0">Value</Label>
+        </Grid>
+    </Grid>
+</UserControl>

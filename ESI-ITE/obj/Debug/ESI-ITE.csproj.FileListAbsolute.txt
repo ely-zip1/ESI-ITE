@@ -1,17 +1,107 @@
 C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe.config
 C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe
 C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.pdb
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.dll
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Composition.dll
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Interactivity.dll
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.Desktop.dll
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.dll
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.PubSubEvents.dll
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.dll
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.dll
 C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\MySql.Data.dll
-C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache
-C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\MainWindow.g.cs
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.pdb
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.xml
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Composition.xml
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Interactivity.xml
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.xml
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.xml
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.g.cs
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.g.cs
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.g.cs
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.g.cs
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.g.cs
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.g.cs
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.g.cs
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.g.cs
 C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\App.g.cs
 C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.cache
 C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.lref
-C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\MainWindow.baml
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.baml
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.baml
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.baml
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.baml
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.baml
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.baml
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.baml
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.baml
 C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.g.resources
 C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI_ITE.Properties.Resources.resources
 C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.GenerateResource.Cache
 C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
 C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
-C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.g.cs
+C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache
+G:\New folder\Projects\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe.config
+G:\New folder\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
+G:\New folder\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
+C:\Users\Ely\Documents\Projects\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe.config
+C:\Users\Ely\Documents\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
+C:\Users\Ely\Documents\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe.config
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\App.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\GeneratedInternalTypeHelper.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.cache
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.lref
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.pdb
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Composition.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Interactivity.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.Desktop.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.PubSubEvents.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\MySql.Data.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Interactivity.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Composition.xml
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Interactivity.xml
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.xml
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.xml
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\de\System.Windows.Interactivity.resources.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\en\System.Windows.Interactivity.resources.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\es\System.Windows.Interactivity.resources.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\it\System.Windows.Interactivity.resources.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.baml
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.baml
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.baml
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.baml
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.baml
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.baml
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.baml
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.baml
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.g.resources
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI_ITE.Properties.Resources.resources
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.GenerateResource.Cache

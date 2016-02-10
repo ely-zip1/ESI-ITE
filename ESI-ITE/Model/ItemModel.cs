@@ -29,7 +29,7 @@ namespace ESI_ITE.Model
 
         public DataTable FetchAll()
         {
-            List<Dictionary<string, string>> table = new List<Dictionary<string, string>>();
+            List<CloneableDictionary<string, string>> table = new List<CloneableDictionary<string, string>>();
 
             DataTable itemTable = new DataTable();
 

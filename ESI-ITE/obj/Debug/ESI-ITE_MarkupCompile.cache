@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\obj\Debug\
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\
 ESI_ITE
 none
 false
 DEBUG;TRACE
-C:\Users\Eli\Documents\Visual Studio 2015\Projects\ESI-ITE\ESI-ITE\App.xaml
-2-116408617
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\App.xaml
+81915011600
 
-15216060011
-72140225017
-MainWindow.xaml;View\TransactionEntryView.xaml;
+30-1387216828
+771567010060
+Printing\PrintingFooterTemplate.xaml;Printing\PrintingHeaderTemplate.xaml;View\MainWindow.xaml;Printing\PrintingCanvas.xaml;Printing\PrintingItemTemplate.xaml;Printing\UserControl1.xaml;View\Transaction Printing.xaml;View\TransactionEntryView.xaml;
 
-True
+False
 

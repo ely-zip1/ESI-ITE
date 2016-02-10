@@ -2,7 +2,8 @@ create view view_transaction_entry as
 select
 	t.entry_id as id,
 	t.trans_no as transaction_number,
-	tt.id as transaction_type,
+	tt.transaction_code as transaction_code,
+	tt.transaction_type as transaction_type,
 	t.doc_no as document_number,
 	t.trans_date as transaction_date,
 	w.code as source_warehouse_code,

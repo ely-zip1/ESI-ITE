@@ -12,7 +12,7 @@ namespace ESI_ITE.Model
     {
         private int warehouseId;
         private int transactionId;
-        private List<Dictionary<string, string>> inventory_dummy = new List<Dictionary<string, string>>();
+        private List<CloneableDictionary<string, string>> inventory_dummy = new List<CloneableDictionary<string, string>>();
         private Dictionary<string, string> _piecePerUnit = new Dictionary<string, string>();
         private Dictionary<string, List<int>> itemTotal = new Dictionary<string, List<int>>();
 
