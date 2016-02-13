@@ -6,14 +6,14 @@
         xmlns:local="clr-namespace:ESI_ITE.ViewModel"
         xmlns:myControls="clr-namespace:ESI_ITE.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1024">
+        Title="MainWindow" Height="786" Width="1226">
     <Window.Resources>
         <local:TransactionEntryViewModel x:Key="transEntryVM"/>
     </Window.Resources>
     <Grid HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="341"></ColumnDefinition>
-            <ColumnDefinition Width="682"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
@@ -22,7 +22,10 @@
 
 
         <!--Region Transaction Entry-->
-        <myControls:TransactionEntryView x:Name="ucTransactionEntry" Grid.Column="0" Grid.Row="1" Width="auto"/>
+        <myControls:TransactionEntryView x:Name="ucTransactionEntry" Grid.Column="0" Grid.Row="1" Margin="10"/>
         <!--End Region-->
+
+        <myControls:LineItemView x:Name="ucLineItems" Grid.Column="1" Grid.Row="1" Margin="10"/>
+        
     </Grid>
 </Window>

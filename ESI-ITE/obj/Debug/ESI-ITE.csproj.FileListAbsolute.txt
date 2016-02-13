@@ -52,23 +52,9 @@ C:\Users\Ely\Documents\Projects\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe.config
 C:\Users\Ely\Documents\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
 C:\Users\Ely\Documents\Projects\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe.config
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.g.cs
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.g.cs
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.g.cs
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.g.cs
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.g.cs
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.g.cs
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.g.cs
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.g.cs
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\App.g.cs
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\GeneratedInternalTypeHelper.g.cs
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.cache
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.lref
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.pdb
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Expression.Interactions.dll
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Composition.dll
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Interactivity.dll
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.Desktop.dll
@@ -84,6 +70,16 @@ G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mv
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.xml
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\de\Microsoft.Expression.Interactions.resources.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\en\Microsoft.Expression.Interactions.resources.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\es\Microsoft.Expression.Interactions.resources.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\fr\Microsoft.Expression.Interactions.resources.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\it\Microsoft.Expression.Interactions.resources.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\ja\Microsoft.Expression.Interactions.resources.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\ko\Microsoft.Expression.Interactions.resources.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\ru\Microsoft.Expression.Interactions.resources.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\Microsoft.Expression.Interactions.resources.dll
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\zh-Hant\Microsoft.Expression.Interactions.resources.dll
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\de\System.Windows.Interactivity.resources.dll
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\en\System.Windows.Interactivity.resources.dll
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\es\System.Windows.Interactivity.resources.dll
@@ -94,14 +90,29 @@ G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\ko\System.Windows.Interactiv
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\ru\System.Windows.Interactivity.resources.dll
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.baml
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.baml
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\App.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\GeneratedInternalTypeHelper.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.cache
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.lref
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.baml
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.baml
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.baml
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.baml
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.baml
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.baml
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.baml
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.baml
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.g.resources
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI_ITE.Properties.Resources.resources
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.GenerateResource.Cache
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.g.cs
+G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.baml

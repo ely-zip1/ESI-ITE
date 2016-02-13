@@ -1,0 +1,163 @@
+﻿<UserControl x:Class="ESI_ITE.View.LineItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ESI_ITE.View"
+             mc:Ignorable="d"
+             Background="White" Width="766.544" Height="682">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Name="grdTransactionHeader" ShowGridLines="false">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Content="Weeks Cover" />
+            <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Content="Transaction Number" />
+            <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Content="Document Number"/>
+            <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Content="Transaction Date"/>
+            <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Content="Transaction Type"/>
+            <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" Content="Reason Code"/>
+            <Label Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" Content="Comment"/>
+
+            <Label Content="Stocks On Hand" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center"/>
+            <Label Content="Source Warehouse" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center"/>
+            <Label Content="Location" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center"/>
+            <Label Content="Salesman" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center"/>
+            <Label Content="Destination Warehouse" Grid.Column="2" Grid.Row="4" VerticalAlignment="Center"/>
+            <Label Content="Location" Grid.Column="2" Grid.Row="5" VerticalAlignment="Center"/>
+            <Label Content="Salesman" Grid.Column="2" Grid.Row="6" VerticalAlignment="Center"/>
+
+            <TextBox Grid.Column="1" Grid.Row="0" Margin="2" Name="txtWeeksCover"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="1" Margin="2" Name="txtTransactionNumber"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="2" Margin="2" Name="txtDocumentNumber"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="3" Margin="2" Name="txtTransactionDate"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="4" Margin="2" Name="txtTransactionType"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="5" Margin="2" Name="txtReasonCode"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="6" Margin="2" Name="txtComment"></TextBox>
+
+            <TextBox Grid.Column="3" Grid.Row="0" Margin="2" Name="txtStocksOnHand"></TextBox>
+            <TextBox Grid.Column="3" Grid.Row="1" Margin="2" Name="txtSourceWarehouse"></TextBox>
+            <TextBox Grid.Column="3" Grid.Row="2" Margin="2" Name="txtSourceLocation"></TextBox>
+            <TextBox Grid.Column="3" Grid.Row="3" Margin="2" Name="txtSourceSalesman"></TextBox>
+            <TextBox Grid.Column="3" Grid.Row="4" Margin="2" Name="txtDestinationWarehouse"></TextBox>
+            <TextBox Grid.Column="3" Grid.Row="5" Margin="2" Name="txtDestinationLocation"></TextBox>
+            <TextBox Grid.Column="3" Grid.Row="6" Margin="2" Name="txtDestinationSalesman"></TextBox>
+        </Grid>
+
+        <DataGrid Grid.Row="1" Margin="0,10,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="70"  Header="Item Code"/>
+                <DataGridTextColumn Width="30"  Header="P/T"/>
+                <DataGridTextColumn Width="300" Header="Description"/>
+                <DataGridTextColumn Width="30"  Header="LC"/>
+                <DataGridTextColumn Width="50"  Header="Cases"/>
+                <DataGridTextColumn Width="50"  Header="Pieces"/>
+                <DataGridTextColumn Width="80"  Header="Price/Piece"/>
+                <DataGridTextColumn Width="130" Header="Line Amount"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal">
+
+                <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
+                    <Label Content="Item Code" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
+                    <TextBox Height="22" Width="90" Name="txtItemCode"></TextBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
+                    <Label Content="P/T" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
+                    <ComboBox Width="60" Name="cmbPriceType"></ComboBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
+                    <Label Content="LC" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
+                    <TextBox Height="22" Width="60" Name="txtLC"></TextBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
+                    <Label Content="Cases" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
+                    <TextBox Height="22" Width="80" Name="txtCases"></TextBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
+                    <Label Content="Pieces" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
+                    <TextBox Height="22" Width="80" Name="txtPieces"></TextBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
+                    <Label Content="Unit Price" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
+                    <TextBox Height="22" Width="90" Name="txtUnitPrice"></TextBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
+                    <Label Content="Expiry" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
+                    <TextBox Height="22" Width="90" Name="txtExpiry"></TextBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
+                    <Label Content="Tax Rate" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
+                    <TextBox Height="22" Width="90" Name="txtTaxRate"></TextBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical"  Margin="2,0,0,0">
+                    <Label Content="Warehouse Code" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
+                    <TextBox Height="22" Width="90" Name="txtWarehouseCode"></TextBox>
+                </StackPanel>
+
+            </StackPanel>
+
+            <TextBlock Grid.Row="1" Grid.ColumnSpan="9" TextAlignment="Center"
+                       IsEnabled="False" VerticalAlignment="Center" Padding="5" 
+                       FontSize="15" FontWeight="DemiBold" Background="AliceBlue"/>
+
+            <StackPanel  Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,0"  VerticalAlignment="Center">
+                <Label HorizontalAlignment="Right" Content="Order Amount ₱" FontSize="15" FontWeight="DemiBold"></Label>
+                <TextBlock Width="250" Background="AliceBlue" TextAlignment="Right" Text="0.00"
+                           FontFamily="Consolas" FontSize="22" VerticalAlignment="Center"></TextBlock>
+            </StackPanel>
+
+            <Grid Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Width="70" Margin="4" Background="White" Content="Add Item" Name="btnAdd"></Button>
+                    <Button Width="70" Margin="4" Background="White" Content="Delete Line" Name="btnDelete"></Button>
+                    <Button Width="70" Margin="4" Background="White" Content="Print Entry" Name="btnPrint"></Button>
+                </StackPanel>
+
+                <Button Grid.Row="1" Content="Cancel" Margin="4" Width="70" HorizontalAlignment="Right" Background="White" Name="btnCancel"></Button>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</UserControl>

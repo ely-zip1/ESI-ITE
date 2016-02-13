@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ESI_ITE.Printing
+namespace ESI_ITE.View
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for LineItemView.xaml
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class LineItemView : UserControl
     {
-        public UserControl1()
+        public LineItemView()
         {
             InitializeComponent();
         }
