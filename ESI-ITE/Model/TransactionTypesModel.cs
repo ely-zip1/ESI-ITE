@@ -9,6 +9,17 @@ namespace ESI_ITE.Model
 {
     public class TransactionTypesModel
     {
+        public TransactionTypesModel()
+        {
+
+        }
+
+        public TransactionTypesModel(TransactionTypesModel source)
+        {
+            Id = source.Id;
+            Code = source.Code;
+            Description = source.Description;
+        }
         DataAccess db = new DataAccess();
         private List<TransactionTypesModel> _transactionTypes { get; } = new List<TransactionTypesModel>();
 

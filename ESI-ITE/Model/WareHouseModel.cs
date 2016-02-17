@@ -9,6 +9,19 @@ namespace ESI_ITE.Model
 {
     public class WareHouseModel
     {
+        public WareHouseModel()
+        {
+
+        }
+
+        public WareHouseModel(WareHouseModel source)
+        {
+            Id = source.Id;
+            Code = source.Code;
+            Name = source.Name;
+            Location = source.Location;
+        }
+
         DataAccess db = new DataAccess();
         private List<WareHouseModel> _warehouses = new List<WareHouseModel>();
 

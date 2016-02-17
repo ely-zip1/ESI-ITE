@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\
 ESI_ITE
 none
 false
 DEBUG;TRACE
-G:\Documents\Google Drive\ESI-ITE\ESI-ITE\App.xaml
+G:\PROJECT\ESI-ITE\ESI-ITE\App.xaml
 8524263022
 
-301836777608
-78122125534
+31399123940
+78143954157
 Printing\PrintingFooterTemplate.xaml;Printing\PrintingHeaderTemplate.xaml;View\LineItemView.xaml;View\MainWindow.xaml;Printing\PrintingCanvas.xaml;Printing\PrintingItemTemplate.xaml;View\Transaction Printing.xaml;View\TransactionEntryView.xaml;
 
 False

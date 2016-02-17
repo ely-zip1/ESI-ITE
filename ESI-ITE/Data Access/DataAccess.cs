@@ -38,7 +38,7 @@ namespace ESI_ITE.Data_Access
             connection = new MySqlConnection(connectionString);
         }
 
-        //Close connection
+        //Open connection
         private bool OpenConnection()
         {
             try
@@ -224,7 +224,7 @@ namespace ESI_ITE.Data_Access
         }
 
         //Transaction 
-        public void RunMySqlTransaction(string transString)
+        public void RunMySqlTransaction(List<string> transString)
         {
             if (this.OpenConnection() == true)
             {
@@ -234,15 +234,32 @@ namespace ESI_ITE.Data_Access
                 {
                     MySqlCommand cmd = new MySqlCommand();
 
-                    cmd.CommandText = transString;
-                    cmd.ExecuteNonQuery();
-
+                    foreach (var query in transString)
+                    {
+                        cmd.CommandText = query;
+                        cmd.ExecuteNonQuery();
+                    }
                     myTransaction.Commit();
                 }
                 catch (MySqlException ex)
                 {
-                    MessageBox.Show(ex.Message);
-                    myTransaction.Rollback();
+                    try
+                    {
+                        myTransaction.Rollback();
+                    }
+                    catch (MySqlException ex1)
+                    {
+                        MessageBox.Show("Error: {0}", ex1.Message);
+                    }
+                    MessageBox.Show("Error: {0}", ex.Message);
+                }
+                finally
+                {
+                    if (this.OpenConnection() == true)
+                    {
+                        this.CloseConnection();
+                    }
+
                 }
 
             }

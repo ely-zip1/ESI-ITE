@@ -4,13 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ESI_ITE.View"
+             xmlns:vm ="clr-namespace:ESI_ITE.ViewModel"
              mc:Ignorable="d"
-             Background="White" Width="766.544" Height="682">
+             Background="White" Width="766.544" Height="550">
+
+    <UserControl.DataContext>
+        <vm:LineItemViewModel x:Name="viewModel"/>
+    </UserControl.DataContext>
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Name="grdTransactionHeader" ShowGridLines="false">
@@ -30,37 +36,37 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Content="Weeks Cover" />
-            <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Content="Transaction Number" />
-            <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Content="Document Number"/>
-            <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Content="Transaction Date"/>
-            <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Content="Transaction Type"/>
-            <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" Content="Reason Code"/>
-            <Label Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" Content="Comment"/>
+            <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Content="Weeks Cover" FontSize="10.667" />
+            <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Content="Transaction Number" FontSize="10.667" />
+            <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Content="Document Number" FontSize="10.667"/>
+            <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Content="Transaction Date" FontSize="10.667"/>
+            <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Content="Transaction Type" FontSize="10.667"/>
+            <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" Content="Reason Code" FontSize="10.667"/>
+            <Label Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" Content="Comment" FontSize="10.667"/>
 
-            <Label Content="Stocks On Hand" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center"/>
-            <Label Content="Source Warehouse" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center"/>
-            <Label Content="Location" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center"/>
-            <Label Content="Salesman" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center"/>
-            <Label Content="Destination Warehouse" Grid.Column="2" Grid.Row="4" VerticalAlignment="Center"/>
-            <Label Content="Location" Grid.Column="2" Grid.Row="5" VerticalAlignment="Center"/>
-            <Label Content="Salesman" Grid.Column="2" Grid.Row="6" VerticalAlignment="Center"/>
+            <Label Content="Stocks On Hand" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667"/>
+            <Label Content="Source Warehouse" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667"/>
+            <Label Content="Location" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667"/>
+            <Label Content="Salesman" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667"/>
+            <Label Content="Destination Warehouse" Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667"/>
+            <Label Content="Location" Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667"/>
+            <Label Content="Salesman" Grid.Column="2" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667"/>
 
-            <TextBox Grid.Column="1" Grid.Row="0" Margin="2" Name="txtWeeksCover"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="1" Margin="2" Name="txtTransactionNumber"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="2" Margin="2" Name="txtDocumentNumber"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="3" Margin="2" Name="txtTransactionDate"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="4" Margin="2" Name="txtTransactionType"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="5" Margin="2" Name="txtReasonCode"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="6" Margin="2" Name="txtComment"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="0" Margin="2" Name="txtWeeksCover" IsEnabled="False" Text="{Binding WeeksCover}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="1" Margin="2" Name="txtTransactionNumber" IsEnabled="False" Text="{Binding TransactionNumber}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="2" Margin="2" Name="txtDocumentNumber" IsEnabled="False" Text="{Binding DocumentNumber}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="3" Margin="2" Name="txtTransactionDate" IsEnabled="False" Text="{Binding TransactionDate}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="4" Margin="2" Name="txtTransactionType" IsEnabled="False" Text="{Binding TransactionType}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="5" Margin="2" Name="txtReasonCode" IsEnabled="False" Text="{Binding ReasonCode}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="6" Margin="2" Name="txtComment" IsEnabled="False" Text="{Binding Comment}"></TextBox>
 
-            <TextBox Grid.Column="3" Grid.Row="0" Margin="2" Name="txtStocksOnHand"></TextBox>
-            <TextBox Grid.Column="3" Grid.Row="1" Margin="2" Name="txtSourceWarehouse"></TextBox>
-            <TextBox Grid.Column="3" Grid.Row="2" Margin="2" Name="txtSourceLocation"></TextBox>
-            <TextBox Grid.Column="3" Grid.Row="3" Margin="2" Name="txtSourceSalesman"></TextBox>
-            <TextBox Grid.Column="3" Grid.Row="4" Margin="2" Name="txtDestinationWarehouse"></TextBox>
-            <TextBox Grid.Column="3" Grid.Row="5" Margin="2" Name="txtDestinationLocation"></TextBox>
-            <TextBox Grid.Column="3" Grid.Row="6" Margin="2" Name="txtDestinationSalesman"></TextBox>
+            <TextBox Grid.Column="3" Grid.Row="0" Margin="2" Name="txtStocksOnHand" IsEnabled="False" Text="{Binding StocksOnHand}"></TextBox>
+            <TextBox Grid.Column="3" Grid.Row="1" Margin="2" Name="txtSourceWarehouse" IsEnabled="False" Text="{Binding SourceWarehouse}"></TextBox>
+            <TextBox Grid.Column="3" Grid.Row="2" Margin="2" Name="txtSourceLocation" IsEnabled="False" Text="{Binding SourceLocation}"></TextBox>
+            <TextBox Grid.Column="3" Grid.Row="3" Margin="2" Name="txtSourceSalesman" IsEnabled="False"></TextBox>
+            <TextBox Grid.Column="3" Grid.Row="4" Margin="2" Name="txtDestinationWarehouse" IsEnabled="False" Text="{Binding DestinationWarehouse}"></TextBox>
+            <TextBox Grid.Column="3" Grid.Row="5" Margin="2" Name="txtDestinationLocation" IsEnabled="False" Text="{Binding DestinationLocation}"></TextBox>
+            <TextBox Grid.Column="3" Grid.Row="6" Margin="2" Name="txtDestinationSalesman" IsEnabled="False"></TextBox>
         </Grid>
 
         <DataGrid Grid.Row="1" Margin="0,10,0,10">

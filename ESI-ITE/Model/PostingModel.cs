@@ -44,6 +44,8 @@ namespace ESI_ITE.Model
 
         private bool calculateAndPost()
         {
+            List<string> commands = new List<string>();
+
             List<string> transactionStrings = new List<string>();
             string[,] inventoryMaster = new string[inventory_dummy.Count, 3];
 
@@ -90,6 +92,8 @@ namespace ESI_ITE.Model
                     sb.Append("'" + row["expiration_date"] + "'");
                     sb.AppendLine(");");
 
+                    commands.Add(sb.ToString());
+
                     //casesPiecesList.Clear();
 
                     index++;
@@ -106,20 +110,23 @@ namespace ESI_ITE.Model
 
                     //itemTotal.Add(row["item_link"], casesPiecesList);
 
+                    sb.Clear();
+
                     sb.Append("update inventory_master set ");
                     sb.Append("i_cases = '" + Int32.Parse(row["cases"]) + "',");
                     sb.Append("i_pieces = '" + Int32.Parse(row["pieces"]) + "' ");
                     sb.Append("where i_id = '" + inventoryMaster[index, 0] + "'");
                     sb.AppendLine(");");
 
+                    commands.Add(sb.ToString());
                     //casesPiecesList.Clear();
                     index++;
                 }
             }
 
-            sb.Append("delete * from inventory_dummy where transaction_link = '" + transactionId + "'");
+            commands.Add("delete * from inventory_dummy where transaction_link = '" + transactionId + "'");
 
-            db.RunMySqlTransaction(sb.ToString());
+            db.RunMySqlTransaction(commands);
 
             return true;
         }

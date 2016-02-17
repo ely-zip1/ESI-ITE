@@ -101,7 +101,7 @@
         <ComboBox x:Name="cmbSourceWareHouse" Grid.Column="1" Grid.Row="4" Height="20"
 			HorizontalAlignment="Stretch" VerticalAlignment="center" Margin="0" 
                   ItemsSource="{Binding CmbWarehouse}"
-                  SelectedValue="{Binding SelectedSourceWarehouse, ValidatesOnDataErrors=True}" 
+                  SelectedValue="{Binding SelectedSourceWarehouse, ValidatesOnDataErrors=True, Mode=TwoWay}" 
                   SelectedIndex="{Binding IndexSourceWarehouse, Mode=TwoWay}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -238,10 +238,11 @@
             </Grid.ColumnDefinitions>
 
             <Button HorizontalAlignment="Right" VerticalAlignment="Center" 
-				Margin="0,0,20,0" Padding="5" Content="Line Items" IsEnabled="{Binding IsLineable, Mode=TwoWay}" />
+				Margin="0,0,20,0" Padding="5" Content="Line Items" IsEnabled="{Binding IsLineable, Mode=TwoWay}" 
+                    Command="{Binding LineItemCommand}"/>
 
             <Button Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" 
-				Margin="20,0,0,0" Padding="5" Content="Delete Entry"/>
+				Margin="20,0,0,0" Padding="5" Content="Delete Entry" IsEnabled="False" Command="{Binding}"/>
         </Grid>
     </Grid>
 </UserControl>

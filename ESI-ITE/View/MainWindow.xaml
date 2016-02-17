@@ -16,8 +16,8 @@
             <ColumnDefinition Width="2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
 
@@ -25,7 +25,7 @@
         <myControls:TransactionEntryView x:Name="ucTransactionEntry" Grid.Column="0" Grid.Row="1" Margin="10"/>
         <!--End Region-->
 
-        <myControls:LineItemView x:Name="ucLineItems" Grid.Column="1" Grid.Row="1" Margin="10"/>
-        
+        <myControls:LineItemView x:Name="ucLineItems" Grid.Column="1" Grid.Row="1" Margin="10" VerticalAlignment="Top"/>
+
     </Grid>
 </Window>

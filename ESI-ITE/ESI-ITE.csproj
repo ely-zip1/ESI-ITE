@@ -130,6 +130,7 @@
       <DependentUpon>PrintingHeaderTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Command\DelegateCommand.cs" />
+    <Compile Include="ViewModel\LineItemViewModel.cs" />
     <Compile Include="ViewModel\TransactionEntryViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="Printing\PrintingItemTemplate.xaml.cs">

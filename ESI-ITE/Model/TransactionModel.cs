@@ -11,7 +11,81 @@ namespace ESI_ITE.Model
 {
     public class TransactionModel : ObjectBase, IDataErrorInfo
     {
+
+        #region Constructors
+        public TransactionModel()
+        {
+
+        }
+
+        public TransactionModel(TransactionModel source)
+        {
+            Id = source.Id;
+            TransactionNumber = source.TransactionNumber;
+            TransactionCode = source.TransactionCode;
+            TransactionType = source.TransactionType;
+            DocumentNumber = source.DocumentNumber;
+            TransactionDate = source.TransactionDate;
+            SourceWarehouse = source.SourceWarehouse;
+            SourceWarehouseCode = source.SourceWarehouseCode;
+            SourceLocation = source.SourceLocation;
+            SourceLocationCode = source.SourceLocationCode;
+            DestinationWarehouse = source.DestinationWarehouse;
+            DestinationWarehouseCode = source.DestinationWarehouseCode;
+            DestinationLocation = source.DestinationLocation;
+            DestinationLocationCode = source.DestinationLocationCode;
+            PriceCategory = source.PriceCategory;
+            PriceType = source.PriceType;
+            Reason = source.Reason;
+            ReasonCode = source.ReasonCode;
+            Comment = source.Comment;
+            IsPosted = source.IsPosted;
+
+        }
+
+        public TransactionModel(string transactionNumber)
+        {
+            var records = new List<CloneableDictionary<string, string>>();
+            var trans = new TransactionModel();
+
+            records = db.SelectMultiple("select * from view_transaction_entry where transaction_number = '" + transactionNumber + "' ");
+
+            foreach (var attribute in records)
+            {
+                trans.Id = int.Parse(attribute["id"]);
+                trans.TransactionNumber = attribute["transaction_number"];
+                trans.TransactionType = attribute["transaction_type"];
+                trans.DocumentNumber = attribute["document_number"];
+                trans.TransactionDate = DateTime.Parse(attribute["transaction_date"]);
+                trans.SourceWarehouse = attribute["source_warehouse"];
+                trans.SourceLocation = attribute["source_location"];
+                trans.SourceSalesman = attribute["source_salesman"];
+                trans.DestinationWarehouse = attribute["destination_warehouse"];
+                trans.DestinationLocation = attribute["destination_location"];
+                trans.DestinationSalesman = attribute["destination_salesman"];
+                trans.PriceCategory = attribute["price_category"];
+                trans.PriceType = attribute["price_type"];
+                trans.Reason = attribute["reason_description"];
+                trans.ReasonCode = attribute["reason_code"];
+                trans.Comment = attribute["comment"];
+
+                if (attribute["status"] == "0")
+                {
+                    trans.IsPosted = false;
+                }
+                else
+                {
+                    trans.IsPosted = true;
+                }
+
+                _allTransactions.Add(trans);
+
+            }
+        }
+        #endregion
+
         #region Properties
+
         private int id;
         public int Id
         {
@@ -328,53 +402,6 @@ namespace ESI_ITE.Model
 
         #endregion
 
-        #region Constructors
-        public TransactionModel()
-        {
-
-        }
-
-        public TransactionModel(string transactionNumber)
-        {
-            var records = new List<CloneableDictionary<string, string>>();
-            var trans = new TransactionModel();
-
-            records = db.SelectMultiple("select * from view_transaction_entry where transaction_number = '" + transactionNumber + "' ");
-
-            foreach (var attribute in records)
-            {
-                trans.Id = int.Parse(attribute["id"]);
-                trans.TransactionNumber = attribute["transaction_number"];
-                trans.TransactionType = attribute["transaction_type"];
-                trans.DocumentNumber = attribute["document_number"];
-                trans.TransactionDate = DateTime.Parse(attribute["transaction_date"]);
-                trans.SourceWarehouse = attribute["source_warehouse"];
-                trans.SourceLocation = attribute["source_location"];
-                trans.SourceSalesman = attribute["source_salesman"];
-                trans.DestinationWarehouse = attribute["destination_warehouse"];
-                trans.DestinationLocation = attribute["destination_location"];
-                trans.DestinationSalesman = attribute["destination_salesman"];
-                trans.PriceCategory = attribute["price_category"];
-                trans.PriceType = attribute["price_type"];
-                trans.Reason = attribute["reason_description"];
-                trans.ReasonCode = attribute["reason_code"];
-                trans.Comment = attribute["comment"];
-
-                if (attribute["status"] == "0")
-                {
-                    trans.IsPosted = false;
-                }
-                else
-                {
-                    trans.IsPosted = true;
-                }
-
-                _allTransactions.Add(trans);
-
-            }
-        }
-        #endregion
-
         public List<TransactionModel> FetchAll()
         {
             var records = new List<Dictionary<string, string>>();
@@ -468,6 +495,19 @@ namespace ESI_ITE.Model
 
             insert.Clear();
 
+        }
+
+        public void DeleteTransaction(string transactionNumber)
+        {
+            string transactionId =
+                db.Select("select entry_id from transaction_entry where trans_no = '" + transactionNumber + "'");
+
+            List<string> commands = new List<string>();
+
+            commands.Add("Delete * from inventory_dummy where transaction_link = '" + transactionId + "'");
+            commands.Add("Delete * from transaction_entry where transaction_link = '" + transactionId + "'");
+
+            db.RunMySqlTransaction(commands);
         }
 
 

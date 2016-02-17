@@ -11,6 +11,26 @@ namespace ESI_ITE.Model
 {
     public class InventoryDummyModel : ObjectBase, IDataErrorInfo
     {
+        public InventoryDummyModel()
+        {
+
+        }
+
+        public InventoryDummyModel(InventoryDummyModel source)
+        {
+            Id = source.Id;
+            TransactionCode = source.TransactionCode;
+            Location = source.Location;
+            PriceType = source.PriceType;
+            ItemCode = source.ItemCode;
+            ItemDescription = source.ItemDescription;
+            Cases = source.Cases;
+            Pieces = source.Pieces;
+            Expiration = source.Expiration;
+            PricePerPiece = source.PricePerPiece;
+            LineAmount = source.LineAmount;
+
+        }
         #region Properties
         private int id;
         public int Id

@@ -10,6 +10,19 @@ namespace ESI_ITE.Model
 {
     public class LocationModel : ObjectBase
     {
+        public LocationModel()
+        {
+
+        }
+
+        public LocationModel(LocationModel source)
+        {
+            Id = source.Id;
+            Location = source.Location;
+            Code = source.Code;
+            Status = source.Status;
+        }
+
         DataAccess db = new DataAccess();
         private List<LocationModel> _locations = new List<LocationModel>();
 

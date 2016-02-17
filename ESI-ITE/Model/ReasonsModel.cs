@@ -10,6 +10,19 @@ namespace ESI_ITE.Model
 {
     public class ReasonsModel : ObjectBase, IDataErrorInfo
     {
+        public ReasonsModel()
+        {
+
+        }
+
+        public ReasonsModel(ReasonsModel source)
+        {
+            Id = source.Id;
+            TransactionType = source.TransactionType;
+            ReasonCode = source.ReasonCode;
+            Description = source.Description;
+        }
+
         #region Properties
         DataAccess db = new DataAccess();
         private List<ReasonsModel> _reasons = new List<ReasonsModel>();
