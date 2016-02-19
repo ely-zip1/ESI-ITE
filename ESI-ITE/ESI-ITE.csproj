@@ -84,6 +84,7 @@
     </Reference>
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Printing" />
@@ -130,17 +131,35 @@
       <DependentUpon>PrintingHeaderTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Command\DelegateCommand.cs" />
+    <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="ViewModel\IModule.cs" />
+    <Compile Include="ViewModel\ITEViewModel.cs" />
+    <Compile Include="ViewModel\LineItemPageViewModel.cs" />
     <Compile Include="ViewModel\LineItemViewModel.cs" />
+    <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\TransactionEntryPageViewModel.cs" />
     <Compile Include="ViewModel\TransactionEntryViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="Printing\PrintingItemTemplate.xaml.cs">
       <DependentUpon>PrintingItemTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ITEView.xaml.cs">
+      <DependentUpon>ITEView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LineItemPageView.xaml.cs">
+      <DependentUpon>LineItemPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LineItemView.xaml.cs">
       <DependentUpon>LineItemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Transaction Printing.xaml.cs">
       <DependentUpon>Transaction Printing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TransactionEntryPageView.xaml.cs">
+      <DependentUpon>TransactionEntryPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TransactionEntryView.xaml.cs">
       <DependentUpon>TransactionEntryView.xaml</DependentUpon>
@@ -150,6 +169,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Printing\PrintingHeaderTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ITEView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LineItemPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -179,6 +210,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Transaction Printing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TransactionEntryPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

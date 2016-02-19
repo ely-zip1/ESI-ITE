@@ -1,23 +1,21 @@
-﻿using System;
+﻿using ESI_ITE.Model;
+using ESI_ITE.View;
+using ESI_ITE.ViewModel.Command;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using ESI_ITE.Model;
 using System.ComponentModel;
-using System.Text.RegularExpressions;
-using ESI_ITE.ViewModel.Command;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
-using ESI_ITE.View;
-using System.Windows.Controls;
-using System.ComponentModel.Composition;
 
 namespace ESI_ITE.ViewModel
 {
-    public class TransactionEntryViewModel : ViewModelBase, IDataErrorInfo
+    class TransactionEntryPageViewModel : ViewModelBase, IDataErrorInfo
     {
         #region Constructor
 
-        public TransactionEntryViewModel()
+        public TransactionEntryPageViewModel()
         {
             lineItemCommand = new DelegateCommand(LineItem);
             deleteTransactionCommand = new DelegateCommand(DeleteTransaction);
@@ -490,6 +488,8 @@ namespace ESI_ITE.ViewModel
         }
         #endregion
 
+        #region Methods
+
         private void Load()
         {
             latestTransNo = transactionNumber.Fetch();
@@ -888,6 +888,8 @@ namespace ESI_ITE.ViewModel
             }
         }
 
+        #endregion
+
         #region IDataErrorInfo Members
 
         public string Error
@@ -1154,6 +1156,6 @@ namespace ESI_ITE.ViewModel
         }
 
         #endregion
-        
+
     }
 }

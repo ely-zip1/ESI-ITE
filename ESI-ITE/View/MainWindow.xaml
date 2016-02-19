@@ -6,26 +6,36 @@
         xmlns:local="clr-namespace:ESI_ITE.ViewModel"
         xmlns:myControls="clr-namespace:ESI_ITE.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="786" Width="1226">
-    <Window.Resources>
-        <local:TransactionEntryViewModel x:Key="transEntryVM"/>
-    </Window.Resources>
-    <Grid HorizontalAlignment="Center">
+        Title="ESI System" Height="700" Width="1300" 
+        WindowStartupLocation="CenterScreen" 
+        WindowState="Maximized">
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition MinWidth="191"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="19*"></RowDefinition>
         </Grid.RowDefinitions>
 
+        <ListView Name="lvModulesList" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch"
+                  ItemsSource="{Binding Modules}"
+                  SelectedItem="{Binding SelectedModule, Mode=TwoWay}"
+                  SelectedIndex="{Binding SelectedIndex}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" MinWidth="100" 
+                               TextAlignment="Center" Padding="10"></TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!--<ListView Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch">
+            <TextBlock Text="Inventory Transaction" Padding="10" TextAlignment="Center" 
+                       HorizontalAlignment="Center" ></TextBlock>
+        </ListView>-->
 
-        <!--Region Transaction Entry-->
-        <myControls:TransactionEntryView x:Name="ucTransactionEntry" Grid.Column="0" Grid.Row="1" Margin="10"/>
-        <!--End Region-->
-
-        <myControls:LineItemView x:Name="ucLineItems" Grid.Column="1" Grid.Row="1" Margin="10" VerticalAlignment="Top"/>
-
+        <ContentPresenter Name="contentPresenter" Grid.Row="1" Grid.Column="1"
+                          Content="{Binding UserInterface}"></ContentPresenter>
     </Grid>
 </Window>

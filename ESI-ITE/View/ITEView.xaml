@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="ESI_ITE.View.ITEView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ESI_ITE.View"
+      xmlns:vm="clr-namespace:ESI_ITE.ViewModel"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="700"
+      Background="DarkCyan">
+
+    <UserControl.DataContext>
+        <vm:ITEViewModel x:Name="viewModel"></vm:ITEViewModel>
+    </UserControl.DataContext>
+
+    <Frame Name="frameITE" Content="{Binding SelectedPage}" HorizontalAlignment="Left" Padding="20 "></Frame>
+</UserControl>
