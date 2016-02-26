@@ -155,9 +155,10 @@ G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\ko\System.Windows.Interactivity.resources.d
 G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\ru\System.Windows.Interactivity.resources.dll
 G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
-G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.g.cs
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.g.cs
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.g.cs
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.g.cs
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemPageView.g.cs
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.g.cs
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.g.cs
@@ -170,8 +171,11 @@ G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\App.g.cs
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\GeneratedInternalTypeHelper.g.cs
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.cache
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.lref
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\App.baml
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.baml
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.baml
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.baml
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.baml
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemPageView.baml
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.baml
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.baml
@@ -185,7 +189,6 @@ G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI_ITE.Properties.Resources.resources
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.GenerateResource.Cache
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
-G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.g.cs
-G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.g.cs
-G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.baml
-G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.baml
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.g.cs
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.baml

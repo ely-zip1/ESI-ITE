@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ESI_ITE.View
+namespace ESI_ITE.Printing
 {
     /// <summary>
-    /// Interaction logic for LineItemPageView.xaml
+    /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class LineItemPageView : Page
+    public partial class UserControl1 : UserControl
     {
-        public LineItemPageView()
+        public UserControl1()
         {
             InitializeComponent();
-            MyGlobals.LineItemPage = this;
         }
     }
 }

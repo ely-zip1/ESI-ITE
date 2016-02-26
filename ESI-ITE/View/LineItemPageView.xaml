@@ -4,10 +4,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ESI_ITE.View"
+      xmlns:vm="clr-namespace:ESI_ITE.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="550" d:DesignWidth="770"
       Title="LineItemPageView"
-      Background="White">
+      Background="Transparent">
+
+    <Page.DataContext>
+        <vm:LineItemPageViewModel x:Name="viewModel"/>
+    </Page.DataContext>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"></RowDefinition>
@@ -32,49 +38,67 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Content="Weeks Cover" FontSize="10.667" />
-            <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Content="Transaction Number" FontSize="10.667" />
-            <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Content="Document Number" FontSize="10.667"/>
-            <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Content="Transaction Date" FontSize="10.667"/>
-            <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Content="Transaction Type" FontSize="10.667"/>
-            <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" Content="Reason Code" FontSize="10.667"/>
-            <Label Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" Content="Comment" FontSize="10.667"/>
+            <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" FontSize="10.667" Content="Weeks Cover" />
+            <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" FontSize="10.667" Content="Transaction Number" />
+            <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" FontSize="10.667" Content="Document Number"/>
+            <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" FontSize="10.667" Content="Transaction Date"/>
+            <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" FontSize="10.667" Content="Transaction Type"/>
+            <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" FontSize="10.667" Content="Reason Code"/>
+            <Label Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" FontSize="10.667" Content="Comment"/>
 
-            <Label Content="Stocks On Hand" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667"/>
-            <Label Content="Source Warehouse" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667"/>
-            <Label Content="Location" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667"/>
-            <Label Content="Salesman" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667"/>
-            <Label Content="Destination Warehouse" Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667"/>
-            <Label Content="Location" Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667"/>
-            <Label Content="Salesman" Grid.Column="2" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667"/>
+            <Label Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667" Content="Stocks On Hand"/>
+            <Label Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667" Content="Source Warehouse"/>
+            <Label Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667" Content="Location"/>
+            <Label Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667" Content="Salesman"/>
+            <Label Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667" Content="Destination Warehouse"/>
+            <Label Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667" Content="Location"/>
+            <Label Grid.Column="2" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667" Content="Salesman"/>
 
-            <TextBox Grid.Column="1" Grid.Row="0" Margin="2" Name="txtWeeksCover" IsEnabled="False" Text="{Binding WeeksCover}"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="1" Margin="2" Name="txtTransactionNumber" IsEnabled="False" Text="{Binding TransactionNumber}"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="2" Margin="2" Name="txtDocumentNumber" IsEnabled="False" Text="{Binding DocumentNumber}"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="3" Margin="2" Name="txtTransactionDate" IsEnabled="False" Text="{Binding TransactionDate}"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="4" Margin="2" Name="txtTransactionType" IsEnabled="False" Text="{Binding TransactionType}"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="5" Margin="2" Name="txtReasonCode" IsEnabled="False" Text="{Binding ReasonCode}"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="6" Margin="2" Name="txtComment" IsEnabled="False" Text="{Binding Comment}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="0" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" Name="txtWeeksCover" Text="{Binding WeeksCover}" Width="152" 
+                     HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
+            <TextBox Grid.Column="1" Grid.Row="1" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" Name="txtTransactionNumber" Text="{Binding TransactionNumber}" Width="152" 
+                     HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
+            <TextBox Grid.Column="1" Grid.Row="2" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" Name="txtDocumentNumber" Text="{Binding DocumentNumber}" Width="152" 
+                     HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
+            <TextBox Grid.Column="1" Grid.Row="3" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" Name="txtTransactionDate" Text="{Binding TransactionDate}" Width="152" 
+                     HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
 
-            <TextBox Grid.Column="3" Grid.Row="0" Margin="2" Name="txtStocksOnHand" IsEnabled="False" Text="{Binding StocksOnHand}"></TextBox>
-            <TextBox Grid.Column="3" Grid.Row="1" Margin="2" Name="txtSourceWarehouse" IsEnabled="False" Text="{Binding SourceWarehouse}"></TextBox>
-            <TextBox Grid.Column="3" Grid.Row="2" Margin="2" Name="txtSourceLocation" IsEnabled="False" Text="{Binding SourceLocation}"></TextBox>
-            <TextBox Grid.Column="3" Grid.Row="3" Margin="2" Name="txtSourceSalesman" IsEnabled="False"></TextBox>
-            <TextBox Grid.Column="3" Grid.Row="4" Margin="2" Name="txtDestinationWarehouse" IsEnabled="False" Text="{Binding DestinationWarehouse}"></TextBox>
-            <TextBox Grid.Column="3" Grid.Row="5" Margin="2" Name="txtDestinationLocation" IsEnabled="False" Text="{Binding DestinationLocation}"></TextBox>
-            <TextBox Grid.Column="3" Grid.Row="6" Margin="2" Name="txtDestinationSalesman" IsEnabled="False"></TextBox>
+            <StackPanel Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Orientation="Horizontal">
+                <TextBox Margin="1" IsReadOnly="True" Width="41"
+                         Name="txtTransactionTypeCode" Text="{Binding TransactionTypeCode}" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
+                <TextBox Margin="1" IsReadOnly="True" VerticalContentAlignment="Center"
+                         Name="txtTransactionTypeDescription" Text="{Binding TransactionTypeDescription}" Cursor="Arrow" MinWidth="263" FontSize="10.667" FontWeight="Bold"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" Orientation="Horizontal">
+                <TextBox Margin="1" IsReadOnly="True" Width="41"
+                         Name="txtReasonCode" Text="{Binding ReasonCode}" FontSize="10.667" FontWeight="Bold"/>
+                <TextBox Margin="1" IsReadOnly="True" VerticalContentAlignment="Center"
+                         Name="txtReasonDescription" Text="{Binding ReasonDescription}" Cursor="Arrow" MinWidth="263" FontSize="10.667" FontWeight="Bold"/>
+            </StackPanel>
+
+            <TextBox Grid.Column="1" Grid.Row="6" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" Name="txtComment" Text="{Binding Comment}" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
+
+            <TextBox Grid.Column="3" Grid.Row="0" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" Name="txtStocksOnHand" Text="{Binding StocksOnHand}" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
+            <TextBox Grid.Column="3" Grid.Row="1" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" Name="txtSourceWarehouse" Text="{Binding SourceWarehouse}" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
+            <TextBox Grid.Column="3" Grid.Row="2" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" Name="txtSourceLocation" Text="{Binding SourceLocation}" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
+            <TextBox Grid.Column="3" Grid.Row="3" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" Name="txtSourceSalesman" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
+            <TextBox Grid.Column="3" Grid.Row="4" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" Name="txtDestinationWarehouse" Text="{Binding DestinationWarehouse}" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
+            <TextBox Grid.Column="3" Grid.Row="5" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" Name="txtDestinationLocation" Text="{Binding DestinationLocation}" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
+            <TextBox Grid.Column="3" Grid.Row="6" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" Name="txtDestinationSalesman" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
         </Grid>
 
-        <DataGrid Grid.Row="1" Margin="0,10,0,10">
+        <DataGrid Grid.Row="1" Margin="0,10,0,10" ItemsSource="{Binding Items}" AutoGenerateColumns="False"
+                  AlternatingRowBackground="Gray" SelectedItem="{Binding SelectedItem}" RowBackground="DodgerBlue">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="70"  Header="Item Code"/>
-                <DataGridTextColumn Width="30"  Header="P/T"/>
-                <DataGridTextColumn Width="300" Header="Description"/>
-                <DataGridTextColumn Width="30"  Header="LC"/>
-                <DataGridTextColumn Width="50"  Header="Cases"/>
-                <DataGridTextColumn Width="50"  Header="Pieces"/>
-                <DataGridTextColumn Width="80"  Header="Price/Piece"/>
-                <DataGridTextColumn Width="130" Header="Line Amount"/>
+                <DataGridTextColumn Width="70"  Header="Item Code" Binding="{Binding ItemCode}"/>
+                <DataGridTextColumn Width="30"  Header="P/T" Binding="{Binding PriceType}"/>
+                <DataGridTextColumn Width="300" Header="Description" Binding="{Binding ItemDescription}"/>
+                <DataGridTextColumn Width="30"  Header="LC" Binding="{Binding Location}"/>
+                <DataGridTextColumn Width="50"  Header="Cases" Binding="{Binding Cases}"/>
+                <DataGridTextColumn Width="50"  Header="Pieces" Binding="{Binding Pieces}"/>
+                <DataGridTextColumn Width="80"  Header="Price/Piece" Binding="{Binding PricePerPiece}"/>
+                <DataGridTextColumn Width="130" Header="Line Amount" Binding="{Binding LineAmount}"/>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -90,59 +114,59 @@
 
                 <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
                     <Label Content="Item Code" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
-                    <TextBox Height="22" Width="90" Name="txtItemCode"></TextBox>
+                    <TextBox Height="22" Width="90" Name="txtItemCode" Text="{Binding ItemCode}"></TextBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
                     <Label Content="P/T" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
-                    <ComboBox Width="60" Name="cmbPriceType"></ComboBox>
+                    <ComboBox Width="60" Name="cmbPriceType" Text="{Binding PT}"></ComboBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
                     <Label Content="LC" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
-                    <TextBox Height="22" Width="60" Name="txtLC"></TextBox>
+                    <TextBox Height="22" Width="60" Name="txtLC" Text="{Binding LC}"></TextBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
                     <Label Content="Cases" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
-                    <TextBox Height="22" Width="80" Name="txtCases"></TextBox>
+                    <TextBox Height="22" Width="80" Name="txtCases" Text="{Binding Cases}"></TextBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
                     <Label Content="Pieces" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
-                    <TextBox Height="22" Width="80" Name="txtPieces"></TextBox>
+                    <TextBox Height="22" Width="80" Name="txtPieces" Text="{Binding Pieces}"></TextBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
                     <Label Content="Unit Price" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
-                    <TextBox Height="22" Width="90" Name="txtUnitPrice"></TextBox>
+                    <TextBox Height="22" Width="90" Name="txtUnitPrice" Text="{Binding UnitPrice}"></TextBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
                     <Label Content="Expiry" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
-                    <TextBox Height="22" Width="90" Name="txtExpiry"></TextBox>
+                    <TextBox Height="22" Width="90" Name="txtExpiry" Text="{Binding Expiry}"></TextBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
                     <Label Content="Tax Rate" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
-                    <TextBox Height="22" Width="90" Name="txtTaxRate"></TextBox>
+                    <TextBox Height="22" Width="90" Name="txtTaxRate" Text="{Binding TaxRate}"></TextBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"  Margin="2,0,0,0">
                     <Label Content="Warehouse Code" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
-                    <TextBox Height="22" Width="90" Name="txtWarehouseCode"></TextBox>
+                    <TextBox Height="22" Width="90" Name="txtWarehouseCode" Text="{Binding WarehouseCode}"></TextBox>
                 </StackPanel>
 
             </StackPanel>
 
             <TextBlock Grid.Row="1" Grid.ColumnSpan="9" TextAlignment="Center"
                        IsEnabled="False" VerticalAlignment="Center" Padding="5" 
-                       FontSize="15" FontWeight="DemiBold" Background="AliceBlue"/>
+                       FontSize="15" FontWeight="DemiBold" Background="DodgerBlue" Text="{Binding ItemDescription}"/>
 
             <StackPanel  Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,0"  VerticalAlignment="Center">
                 <Label HorizontalAlignment="Right" Content="Order Amount ₱" FontSize="15" FontWeight="DemiBold"></Label>
-                <TextBlock Width="250" Background="AliceBlue" TextAlignment="Right" Text="0.00"
-                           FontFamily="Consolas" FontSize="22" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Width="250" Background="DodgerBlue" TextAlignment="Right" Text="{Binding OrderAmount}"
+                           FontFamily="Consolas" FontSize="22" VerticalAlignment="Center" ></TextBlock>
             </StackPanel>
 
             <Grid Grid.Row="3">
@@ -154,10 +178,12 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Width="70" Margin="4" Background="White" Content="Add Item" Name="btnAdd"></Button>
                     <Button Width="70" Margin="4" Background="White" Content="Delete Line" Name="btnDelete"></Button>
-                    <Button Width="70" Margin="4" Background="White" Content="Print Entry" Name="btnPrint"></Button>
+                    <Button Width="70" Margin="4" Background="White" Content="Print Entry" Name="btnPrint"
+                            Command="{Binding PrintTransaction}"></Button>
                 </StackPanel>
 
-                <Button Grid.Row="1" Content="Cancel" Margin="4" Width="70" HorizontalAlignment="Right" Background="White" Name="btnCancel"></Button>
+                <Button Grid.Row="1" Content="Cancel" Margin="4" Width="70" HorizontalAlignment="Right" Background="White" Name="btnCancel"
+                        Command="{Binding CancelCommand}"></Button>
             </Grid>
         </Grid>
 

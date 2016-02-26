@@ -119,8 +119,9 @@
     <Compile Include="Model\ReasonsModel.cs" />
     <Compile Include="Model\TransactionNumberModel.cs" />
     <Compile Include="Model\TransactionTypesModel.cs" />
+    <Compile Include="MyGlobals.cs" />
     <Compile Include="Printing\Paginator.cs" />
-    <Compile Include="Printing\Printing.cs" />
+    <Compile Include="Printing\PrintingJob.cs" />
     <Compile Include="Printing\PrintingCanvas.xaml.cs">
       <DependentUpon>PrintingCanvas.xaml</DependentUpon>
     </Compile>
@@ -129,6 +130,9 @@
     </Compile>
     <Compile Include="Printing\PrintingHeaderTemplate.xaml.cs">
       <DependentUpon>PrintingHeaderTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Printing\UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Command\DelegateCommand.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
@@ -169,6 +173,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Printing\PrintingHeaderTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Printing\UserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

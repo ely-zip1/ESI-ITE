@@ -23,6 +23,7 @@ namespace ESI_ITE.View
         public TransactionEntryPageView()
         {
             InitializeComponent();
+            MyGlobals.TransactionEntryPage = this;
         }
     }
 }

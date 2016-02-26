@@ -872,9 +872,6 @@ namespace ESI_ITE.ViewModel
                     transaction.AddTransactionEntry(transaction);
                 }
             }
-
-            var v = new LineItemView();
-            var vm = new LineItemViewModel(this.transaction);
         }
 
         private void DeleteTransaction()

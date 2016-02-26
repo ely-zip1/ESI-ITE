@@ -6,12 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace ESI_ITE.ViewModel
 {
     [Export(typeof(IModule))]
     public class ITEViewModel : ViewModelBase, IModule
     {
+        public ITEViewModel()
+        {
+            MyGlobals.IteViewModel = this;
+        }
+
         public string Name
         {
             get
@@ -29,7 +35,6 @@ namespace ESI_ITE.ViewModel
         }
 
         private Page selectedPage = new TransactionEntryPageView();
-
         public Page SelectedPage
         {
             get { return selectedPage; }
@@ -40,5 +45,20 @@ namespace ESI_ITE.ViewModel
             }
         }
 
+        private bool backNavigationEnabled;
+        public bool BackNavigationEnabled
+        {
+            get { return backNavigationEnabled; }
+            set
+            {
+                backNavigationEnabled = value;
+                BackNavigationExecute();
+            }
+        }
+
+        private void BackNavigationExecute()
+        {
+
+        }
     }
 }

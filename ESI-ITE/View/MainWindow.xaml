@@ -22,7 +22,7 @@
         <ListView Name="lvModulesList" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch"
                   ItemsSource="{Binding Modules}"
                   SelectedItem="{Binding SelectedModule, Mode=TwoWay}"
-                  SelectedIndex="{Binding SelectedIndex}">
+                  SelectedIndex="{Binding SelectedIndex}" BorderBrush="{x:Null}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}" MinWidth="100" 

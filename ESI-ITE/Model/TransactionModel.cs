@@ -42,47 +42,7 @@ namespace ESI_ITE.Model
             IsPosted = source.IsPosted;
 
         }
-
-        public TransactionModel(string transactionNumber)
-        {
-            var records = new List<CloneableDictionary<string, string>>();
-            var trans = new TransactionModel();
-
-            records = db.SelectMultiple("select * from view_transaction_entry where transaction_number = '" + transactionNumber + "' ");
-
-            foreach (var attribute in records)
-            {
-                trans.Id = int.Parse(attribute["id"]);
-                trans.TransactionNumber = attribute["transaction_number"];
-                trans.TransactionType = attribute["transaction_type"];
-                trans.DocumentNumber = attribute["document_number"];
-                trans.TransactionDate = DateTime.Parse(attribute["transaction_date"]);
-                trans.SourceWarehouse = attribute["source_warehouse"];
-                trans.SourceLocation = attribute["source_location"];
-                trans.SourceSalesman = attribute["source_salesman"];
-                trans.DestinationWarehouse = attribute["destination_warehouse"];
-                trans.DestinationLocation = attribute["destination_location"];
-                trans.DestinationSalesman = attribute["destination_salesman"];
-                trans.PriceCategory = attribute["price_category"];
-                trans.PriceType = attribute["price_type"];
-                trans.Reason = attribute["reason_description"];
-                trans.ReasonCode = attribute["reason_code"];
-                trans.Comment = attribute["comment"];
-
-                if (attribute["status"] == "0")
-                {
-                    trans.IsPosted = false;
-                }
-                else
-                {
-                    trans.IsPosted = true;
-                }
-
-                _allTransactions.Add(trans);
-
-            }
-        }
-        #endregion
+ #endregion
 
         #region Properties
 
@@ -131,7 +91,7 @@ namespace ESI_ITE.Model
         private string transactionType;
         public string TransactionType
         {
-            get { return transactionCode; }
+            get { return transactionType; }
             set
             {
                 if (transactionType != value)
@@ -402,6 +362,49 @@ namespace ESI_ITE.Model
 
         #endregion
 
+        public TransactionModel Fetch(string transactionNumber)
+        {
+            var records = new List<CloneableDictionary<string, string>>();
+            var trans = new TransactionModel();
+
+            records = db.SelectMultiple("select * from view_transaction_entry where transaction_number = '" + transactionNumber + "' ");
+
+            foreach (var attribute in records)
+            {
+                trans.Id = int.Parse(attribute["id"]);
+                trans.TransactionNumber = attribute["transaction_number"];
+                trans.transactionCode = attribute["transaction_code"];
+                trans.TransactionType = attribute["transaction_type"];
+                trans.DocumentNumber = attribute["document_number"];
+                trans.TransactionDate = DateTime.Parse(attribute["transaction_date"]);
+                trans.SourceWarehouseCode = attribute["source_warehouse_code"];
+                trans.SourceWarehouse = attribute["source_warehouse"];
+                trans.SourceLocationCode = attribute["source_location_code"];
+                trans.SourceLocation = attribute["source_location"];
+                //trans.SourceSalesman = attribute["source_salesman"];
+                trans.DestinationWarehouseCode = attribute["destination_warehouse_code"];
+                trans.DestinationWarehouse = attribute["destination_warehouse"];
+                trans.DestinationLocationCode = attribute["destination_location_code"];
+                trans.DestinationLocation = attribute["destination_location"];
+                //trans.DestinationSalesman = attribute["destination_salesman"];
+                trans.PriceCategory = attribute["price_category"];
+                trans.PriceType = attribute["price_type"];
+                trans.Reason = attribute["reason_description"];
+                trans.ReasonCode = attribute["reason_code"];
+                trans.Comment = attribute["comment"];
+
+                if (attribute["status"] == "0")
+                {
+                    trans.IsPosted = false;
+                }
+                else
+                {
+                    trans.IsPosted = true;
+                }
+            }
+            return trans;
+        }
+
         public List<TransactionModel> FetchAll()
         {
             var records = new List<Dictionary<string, string>>();
@@ -453,16 +456,22 @@ namespace ESI_ITE.Model
 
             transactionTypeId = db.Select("select id from transaction_type where transaction_code = '"
                 + trans.TransactionCode + "'");
+
             wareHouseIdSource = db.Select("select warehouse_id from warehouse where code = '"
                 + trans.SourceWarehouse + "'");
+
             wareHouseIdDestination = db.Select("select warehouse_id from warehouse where code = '"
                 + trans.DestinationWarehouse + "'");
+
             locationIdSource = db.Select("select location_id from location where code = '"
                 + trans.SourceLocation + "'");
+
             locationIdDestination = db.Select("select location_id from location where code = '"
                 + trans.DestinationLocation + "'");
+
             reasonId = db.Select("select reasoncode_id from reason_code where reason_code = '"
                 + trans.ReasonCode + "'");
+
             if (trans.IsPosted == true)
             {
                 isPosted = 1;

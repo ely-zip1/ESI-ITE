@@ -31,6 +31,7 @@ namespace ESI_ITE.Model
             LineAmount = source.LineAmount;
 
         }
+
         #region Properties
         private int id;
         public int Id
@@ -189,39 +190,44 @@ namespace ESI_ITE.Model
         DataAccess db = new DataAccess();
 
         private StringBuilder insert = new StringBuilder();
+
+        List<InventoryDummyModel> _transactionDetails = new List<InventoryDummyModel>();
         #endregion
 
         #region Methods
         public List<InventoryDummyModel> FetchAll(string transactionNumber)
         {
-            List<CloneableDictionary<string, string>> record = new List<CloneableDictionary<string, string>>();
-            List<InventoryDummyModel> transactionDetails = new List<InventoryDummyModel>();
-            InventoryDummyModel td = new InventoryDummyModel();
+            _transactionDetails.Clear();
 
-            string transactionEntryId = db.Select("select entry_id from transaction_entry " +
-                "where trans_no = '" + transactionNumber + "'");
+            //string transactionEntryId = db.Select("select entry_id from transaction_entry " +
+            //    "where trans_no = '" + transactionNumber + "'");
 
-            record = db.SelectMultiple("select * from view_inventory_dummy " +
-                "where transaction_entry_id = '" + transactionEntryId + "'");
+            var record = db.SelectMultiple("select * from view_inventory_dummy " +
+                 "where transaction_code = '" + transactionNumber + "'");
+
+            IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
             foreach (var row in record)
             {
-                td.Id = Int32.Parse(row["id"]);
-                td.TransactionCode = row["transaction_code"];
-                td.Location = row["location_code"];
-                td.PriceType = row["price_type"];
-                td.ItemCode = row["item_code"];
-                td.ItemDescription = row["item_description"];
-                td.Cases = Int32.Parse(row["cases"]);
-                td.Pieces = Int32.Parse(row["pieces"]);
-                td.Expiration = DateTime.Parse(row["expiration"]);
-                td.PricePerPiece = Decimal.Parse(row["price_per_piece"]);
-                td.LineAmount = Decimal.Parse(row["line_amount"]);
+                var idm = new InventoryDummyModel();
+                var clone = row.Clone();
 
-                transactionDetails.Add(td);
+                idm.Id = Int32.Parse(row["id"]);
+                idm.TransactionCode = row["transaction_code"];
+                idm.Location = row["location_code"];
+                idm.PriceType = row["price_type"];
+                idm.ItemCode = row["item_code"];
+                idm.ItemDescription = row["item_description"];
+                idm.Cases = Int32.Parse(row["cases"]);
+                idm.Pieces = Int32.Parse(row["pieces"]);
+                idm.Expiration = DateTime.Parse(row["expiration"], culture);
+                idm.PricePerPiece = Decimal.Parse(row["price_per_piece"]);
+                idm.LineAmount = Decimal.Parse(row["line_amount"]);
+
+                _transactionDetails.Add(idm);
             }
 
-            return transactionDetails;
+            return _transactionDetails;
         }
 
         public void AddNew(InventoryDummyModel detail)

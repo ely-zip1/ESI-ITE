@@ -30,8 +30,8 @@ namespace ESI_ITE.Model
         public List<TransactionTypesModel> FetchAll()
         {
             
-            List<CloneableDictionary<string, string>> table = db.SelectMultiple("select * from transaction_type");
-            foreach (CloneableDictionary<string, string> row in table)
+            var table = db.SelectMultiple("select * from transaction_type");
+            foreach (var row in table)
             {
                 var temp = new TransactionTypesModel();
                 var clone = row.Clone();

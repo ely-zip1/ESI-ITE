@@ -17,13 +17,7 @@ namespace ESI_ITE.ViewModel
 
         public LineItemViewModel()
         {
-
-        }
-
-        public LineItemViewModel(TransactionModel trans)
-        {
-            transactionModel = trans;
-            Load();
+            transactionModel = MyGlobals.Transaction;
         }
 
         #endregion
