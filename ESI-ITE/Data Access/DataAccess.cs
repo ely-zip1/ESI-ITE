@@ -175,26 +175,31 @@ namespace ESI_ITE.Data_Access
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                while (dataReader.Read())
+                if (dataReader.Read())
                 {
-                    record = dataReader.GetString(i);
-                    sb.Append(record);
+                    int x = dataReader.FieldCount;
 
-                    i++;
-
-                    if (dataReader.NextResult())
+                    while (i < x)
                     {
-                        sb.Append("|");
+
+                        record = dataReader.GetString(i);
+                        sb.Append(record);
+                        i++;
+
+                        if (i < x)
+                        {
+                            sb.Append("|");
+                        }
                     }
                 }
                 dataReader.Close();
                 this.CloseConnection();
 
-                return record;
+                return sb.ToString();
             }
             else
             {
-                return record;
+                return sb.ToString();
             }
         }
 

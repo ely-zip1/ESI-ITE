@@ -11,6 +11,7 @@ using System.Printing;
 using System.Windows.Xps;
 using System.Collections.Generic;
 using ESI_ITE.Printing;
+using System.Data;
 
 namespace ESI_ITE.ViewModel
 {
@@ -18,12 +19,15 @@ namespace ESI_ITE.ViewModel
     {
         TransactionModel transactionModel;
 
+
         #region Constructor
 
         public LineItemPageViewModel()
         {
             cancelCommand = new DelegateCommand(CancelAndGoBack);
             printTransaction = new DelegateCommand(PrintDocument);
+            itemCode_KeyDown = new DelegateCommand(KeyPressed);
+            itemCode_KeyUp = new DelegateCommand(KeyUp);
 
             transactionModel = MyGlobals.Transaction;
             Load();
@@ -39,18 +43,27 @@ namespace ESI_ITE.ViewModel
 
         #region Properties
 
-        private ObservableCollection<InventoryDummyModel> items = new ObservableCollection<InventoryDummyModel>();
-        public ObservableCollection<InventoryDummyModel> Items
+        private ObservableCollection<InventoryDummyModel> dataGridItems = new ObservableCollection<InventoryDummyModel>();
+        public ObservableCollection<InventoryDummyModel> DatagridItems
         {
-            get { return items; }
+            get { return dataGridItems; }
             set
             {
-                items = value;
-                OnPropertyChanged("Items");
+                dataGridItems = value;
+                OnPropertyChanged("DatagridItems");
             }
         }
 
         InventoryDummyModel dummy = new InventoryDummyModel();
+
+        ItemModel itemModel = new ItemModel();
+        DataTable itemTable = new DataTable();
+
+        PriceTypeModel priceTypeModel = new PriceTypeModel();
+        PricingModel pricingModel = new PricingModel();
+        PriceModel price;
+
+        bool isKeyDown = false;
 
         #region Header
 
@@ -212,7 +225,7 @@ namespace ESI_ITE.ViewModel
 
         #region Item entry
 
-        private string itemCode;
+        private string itemCode = "";
         public string ItemCode
         {
             get { return itemCode; }
@@ -220,6 +233,49 @@ namespace ESI_ITE.ViewModel
             {
                 itemCode = value;
                 OnPropertyChanged("ItemCode");
+                ClearForm();
+                if (isKeyDown)
+                {
+                    SuggestItems(value);
+                }
+            }
+        }
+
+        private ItemModel selectedItemCode;
+        public ItemModel SelectedItemCode
+        {
+            get { return selectedItemCode; }
+            set
+            {
+                if (value != null)
+                {
+                    selectedItemCode = value;
+                    MyGlobals.SelectedItem = value;
+                    OnPropertyChanged("SelectedItemCode");
+                    FillForm();
+                }
+            }
+        }
+
+        private ObservableCollection<PriceTypeModel> ptList = new ObservableCollection<PriceTypeModel>();
+        public ObservableCollection<PriceTypeModel> PtList
+        {
+            get { return ptList; }
+            set
+            {
+                ptList = value;
+                OnPropertyChanged("PtList");
+            }
+        }
+
+        private int ptSelectedIndex;
+        public int PtSelectedIndex
+        {
+            get { return ptSelectedIndex; }
+            set
+            {
+                ptSelectedIndex = value;
+                OnPropertyChanged("PtSelectedIndex");
             }
         }
 
@@ -333,20 +389,30 @@ namespace ESI_ITE.ViewModel
             }
         }
 
+        private bool dropDownOpen;
+        public bool DropDownOpen
+        {
+            get { return dropDownOpen; }
+            set
+            {
+                dropDownOpen = value;
+                OnPropertyChanged("DropDownOpen");
+            }
+        }
 
         #endregion
 
-        private InventoryDummyModel selectedItem;
-        public InventoryDummyModel SelectedItem
+        private InventoryDummyModel datagridSelectedItem;
+        public InventoryDummyModel DatagridSelectedItem
         {
-            get { return selectedItem; }
+            get { return datagridSelectedItem; }
             set
             {
-                if (value != null && value != selectedItem)
+                if (value != null && value != datagridSelectedItem)
                 {
-                    selectedItem = value;
-                    SelectedItemChanged();
-                    OnPropertyChanged("SelectedItem");
+                    datagridSelectedItem = value;
+                    SelectedDatagridItemChanged();
+                    OnPropertyChanged("DatagridSelectedItem");
                 }
             }
         }
@@ -361,6 +427,32 @@ namespace ESI_ITE.ViewModel
         public ICommand PrintTransaction
         {
             get { return printTransaction; }
+        }
+
+        private DelegateCommand itemCode_KeyDown;
+        public ICommand ItemCode_KeyDown
+        {
+            get { return itemCode_KeyDown; }
+        }
+
+        private DelegateCommand itemCode_KeyUp;
+        public ICommand ItemCode_KeyUp
+        {
+            get { return itemCode_KeyUp; }
+        }
+
+        private ObservableCollection<ItemModel> itemCodeList = new ObservableCollection<ItemModel>();
+        public ObservableCollection<ItemModel> ItemCodeList
+        {
+            get { return itemCodeList; }
+            set { itemCodeList = value; }
+        }
+
+        private ObservableCollection<ItemModel> suggestedItemCodeList = new ObservableCollection<ItemModel>();
+        public ObservableCollection<ItemModel> SuggestedItemCodeList
+        {
+            get { return suggestedItemCodeList; }
+            set { suggestedItemCodeList = value; }
         }
 
         #endregion
@@ -380,6 +472,18 @@ namespace ESI_ITE.ViewModel
             DestinationWarehouse = transactionModel.DestinationWarehouseCode + " - " + transactionModel.DestinationWarehouse;
             DestinationLocation = transactionModel.DestinationLocationCode + " - " + transactionModel.DestinationLocation;
 
+            PtList.Clear();
+            PtList.Add(new PriceTypeModel());
+            foreach (var pt in priceTypeModel.FetchAll(transactionModel.PriceCategory))
+            {
+                PtList.Add(pt);
+            }
+            if (transactionModel.PriceType == "Purchase Price")
+                PtSelectedIndex = 1;
+
+            LC = transactionModel.SourceLocationCode;
+            WarehouseCode = transactionModel.SourceWarehouseCode;
+
             decimal _orderAmount = 0;
 
             if (!MyGlobals.IsNewTransaction)
@@ -387,23 +491,105 @@ namespace ESI_ITE.ViewModel
                 foreach (var item in dummy.FetchAll(TransactionNumber))
                 {
                     _orderAmount += Convert.ToDecimal(item.LineAmount);
-                    Items.Add(item);
+                    DatagridItems.Add(item);
                 }
-                OrderAmount = _orderAmount.ToString();
+                OrderAmount = _orderAmount.ToString("#,##0.00");
+                // _orderAmount.ToString();
+
             }
 
+            //foreach(DataRow row in itemModel.FetchTable().Rows)
+            //{
+            //    ItemCodeList.Add(row["Code"].ToString());
+            //}
+
+            ItemCodeList.Clear();
+
+            foreach (var item in itemModel.FetchAll())
+            {
+                if (transactionModel.PriceCategory == "Selling Price")
+                {
+                    if (item.SellingPriceLink == 1)
+                    {
+                        ItemCodeList.Add(item);
+                    }
+                }
+                else if (transactionModel.PriceCategory == "Purchase Price")
+                {
+                    if (item.PurchasePriceLink == 1)
+                    {
+                        ItemCodeList.Add(item);
+                    }
+                }
+            }
+
+            //ItemCodeList = itemModel.FetchAll();
         }
 
-        private void SelectedItemChanged()
+        private void SelectedDatagridItemChanged()
         {
-            ItemCode = SelectedItem.ItemCode;
-            PT = SelectedItem.PriceType;
-            LC = SelectedItem.Location;
-            Cases = SelectedItem.Cases.ToString();
-            Pieces = SelectedItem.Pieces.ToString();
-            UnitPrice = SelectedItem.PricePerPiece.ToString();
-            Expiry = SelectedItem.Expiration.ToString("MM/dd/yyyy");
-            ItemDescription = SelectedItem.ItemDescription;
+            ItemCode = DatagridSelectedItem.ItemCode;
+            PT = DatagridSelectedItem.PriceType;
+            LC = DatagridSelectedItem.Location;
+            Cases = DatagridSelectedItem.Cases.ToString();
+            Pieces = DatagridSelectedItem.Pieces.ToString();
+            UnitPrice = DatagridSelectedItem.PricePerPiece.ToString();
+            Expiry = DatagridSelectedItem.Expiration.ToString("MM/dd/yyyy");
+            ItemDescription = DatagridSelectedItem.ItemDescription;
+
+            var item = itemModel.Fetch(DatagridSelectedItem.ItemCode);
+
+            TaxRate = item.TaxRate;
+        }
+
+        private void FillForm()
+        {
+            PriceTypeModel priceType = new PriceTypeModel();
+
+            LC = transactionModel.SourceLocationCode;
+
+            Cases = "0";
+            Pieces = "0";
+
+            price = new PriceModel();
+            price = pricingModel.GetPrice(SelectedItemCode.Code, transactionModel.PriceCategory, transactionModel.PriceType);
+
+            UnitPrice = Math.Round(price.Price, 2).ToString();
+
+            TaxRate = selectedItemCode.TaxRate;
+
+            WarehouseCode = transactionModel.SourceWarehouseCode;
+
+            ItemDescription = SelectedItemCode.Description;
+        }
+
+        private void ClearForm()
+        {
+            if (string.IsNullOrWhiteSpace(ItemCode))
+            {
+                Cases = "0";
+                Pieces = "0";
+                UnitPrice = "";
+                ItemDescription = "";
+            }
+        }
+
+        private void SuggestItems(string value)
+        {
+            int counter = 1;
+            SuggestedItemCodeList.Clear();
+            foreach (var item in ItemCodeList)
+            {
+                if (item.Code.StartsWith(value))
+                {
+                    SuggestedItemCodeList.Add(item);
+                    counter++;
+                }
+                if (counter > 10)
+                {
+                    break;
+                }
+            }
         }
 
         private void CancelAndGoBack()
@@ -416,6 +602,22 @@ namespace ESI_ITE.ViewModel
             MyGlobals.TransactionList.Add(MyGlobals.Transaction);
             PrintingJob printJob = new PrintingJob();
             printJob.StartPrinting();
+        }
+
+        private void KeyPressed()
+        {
+            isKeyDown = true;
+        }
+
+        private void KeyUp()
+        {
+            isKeyDown = false;
+        }
+
+        private void AddItem()
+        {
+            InventoryDummyModel newItem = new InventoryDummyModel();
+
         }
 
         #region IDataErrorInfo Members

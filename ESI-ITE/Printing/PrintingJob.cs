@@ -12,6 +12,8 @@ using System.Windows.Markup;
 using System.Printing;
 using System.Windows.Xps;
 using System.Drawing;
+using System.Windows;
+using System.Windows.Media;
 
 namespace ESI_ITE.Printing
 {
@@ -90,10 +92,22 @@ namespace ESI_ITE.Printing
 
         #endregion
 
+
+        FixedDocument doc = new FixedDocument();
+        InventoryDummyModel dummy = new InventoryDummyModel();
+        FixedPage[] page;
+        PageContent[] pageContent;
+        Canvas[] content;
+
+        int pageNumber = 0;
+
+        decimal totalCases = 0;
+        decimal totalPieces = 0;
+        decimal orderAmount = 0;
+
         int top = 30;
         int left = 30;
 
-        InventoryDummyModel dummy = new InventoryDummyModel();
 
         private bool createNewPage = false;
 
@@ -101,123 +115,15 @@ namespace ESI_ITE.Printing
 
         public void StartPrinting()
         {
-            DummyPrint();
-            //InventoryDummyModel dummy = new InventoryDummyModel();
-
-            //FixedDocumentSequence documentSequence = new FixedDocumentSequence();
-
-            //DocumentReference docReference = new DocumentReference();
-
-            //foreach (var transaction in MyGlobals.TransactionList)
-            //{
-            //    //create a document for each transaction
-            //    FixedDocument printDocument = new FixedDocument();
-
-            //    docReference.SetDocument(printDocument);
-            //    documentSequence.References.Add(docReference);
-
-            //    //load templates
-            //    PrintingHeaderTemplate headerTemplate = new PrintingHeaderTemplate();
-            //    PrintingItemTemplate itemTemplate = new PrintingItemTemplate();
-            //    PrintingFooterTemplate footerTemplate = new PrintingFooterTemplate();
-
-            //    //get linedItems for this transaction
-            //    List<InventoryDummyModel> items = dummy.FetchAll(transaction.TransactionNumber);
-
-            //    //create the page & page content
-            //    FixedPage page = new FixedPage();
-            //    PageContent pageContent = new PageContent();
-            //    Canvas content = new Canvas();
-
-            //    ((IAddChild)pageContent).AddChild(page);
-            //    printDocument.Pages.Add(pageContent);
-
-            //    bool createNewPage = false;
-            //    int left = 96;
-            //    int top = 96;
-            //    int pageNumber = 1;
-
-            //    foreach (var line in items)
-            //    {
-            //        if (createNewPage)
-            //        {
-            //            page = new FixedPage();
-            //            pageContent = new PageContent();
-            //            ((IAddChild)pageContent).AddChild(page);
-            //            printDocument.Pages.Add(pageContent);
-
-            //            content = new Canvas();
-            //            page.Children.Add(content);
-
-            //            headerTemplate = new PrintingHeaderTemplate();
-            //            headerTemplate.txbUser.Text = "ELI";
-            //            headerTemplate.txbPrintDate.Text = DateTime.Now.ToString("MM/dd/yyyy");
-            //            headerTemplate.txbPrintTime.Text = DateTime.Now.ToString("H:mm:ss");
-            //            headerTemplate.txbPrintPageNo.Text = pageNumber.ToString();
-
-            //            headerTemplate.txbTransNo.Text = transaction.TransactionType;
-            //            headerTemplate.txbTransNo.Text = transaction.TransactionNumber;
-            //            headerTemplate.txbTransDate.Text = transaction.TransactionDate.ToString("MM/dd/yyyy");
-            //            headerTemplate.txbDocNo.Text = transaction.DocumentNumber;
-            //            headerTemplate.txbReason.Text = transaction.Reason;
-            //            headerTemplate.txbSourceWH.Text = transaction.SourceWarehouseCode;
-            //            headerTemplate.txbLocation.Text = transaction.SourceLocationCode;
-            //            headerTemplate.txbComment.Text = transaction.Comment;
-
-            //            content.Children.Add(headerTemplate);
-
-            //            top += (int)Math.Round(headerTemplate.Height);
-            //            pageNumber++;
-
-            //            createNewPage = false;
-            //        }
-
-            //        itemTemplate = new PrintingItemTemplate();
-            //        itemTemplate.txbItemCode.Text = line.ItemCode;
-            //        itemTemplate.txbDescription.Text = line.ItemDescription;
-            //        itemTemplate.txbLC.Text = line.Location;
-            //        itemTemplate.txbCases.Text = line.Cases.ToString();
-            //        itemTemplate.txbPieces.Text = line.Pieces.ToString();
-            //        itemTemplate.txbExpiry.Text = line.Expiration.ToString("MM/dd/yyyy");
-            //        itemTemplate.txbUnitPrice.Text = line.PricePerPiece.ToString();
-            //        itemTemplate.txbValue.Text = line.LineAmount.ToString();
-
-            //        Canvas.SetLeft(itemTemplate, left);
-            //        Canvas.SetTop(itemTemplate, top);
-
-            //        top += (int)Math.Round(itemTemplate.Height);
-
-            //        if (top >= page.Height)
-            //        {
-            //            createNewPage = true;
-            //            top = 96;
-            //        }
-            //        content.Children.Add(itemTemplate);
-            //    }
-            //}
-
-            //// Print document
-            //PrintDocumentImageableArea imageArea = null;
-            //XpsDocumentWriter xpsdw = PrintQueue.CreateXpsDocumentWriter(ref imageArea);
-            //if (xpsdw != null)
-            //{
-            //    xpsdw.Write(documentSequence);
-            //}
-        }
-
-        private void DummyPrint()
-        {
             foreach (var transaction in MyGlobals.TransactionList)
             {
-                FixedDocument doc = new FixedDocument();
-
                 List<InventoryDummyModel> items = dummy.FetchAll(transaction.TransactionNumber);
 
-                FixedPage[] page = new FixedPage[items.Count / 20];
-                PageContent[] pageContent = new PageContent[items.Count / 20];
-                Canvas[] content = new Canvas[items.Count / 20];
+                page = new FixedPage[items.Count / 20];
+                pageContent = new PageContent[items.Count / 20];
+                content = new Canvas[items.Count / 20];
 
-                int pageNumber = 0;
+                pageNumber = 0;
 
                 page[pageNumber] = new FixedPage();
                 pageContent[pageNumber] = new PageContent();
@@ -227,31 +133,23 @@ namespace ESI_ITE.Printing
                 content[pageNumber] = new Canvas();
                 page[pageNumber].Children.Add(content[pageNumber]);
 
-                AppendHeader(content[pageNumber], pageNumber + 1, transaction);
+                AppendHeader(content[pageNumber], transaction);
 
                 foreach (var item in items)
                 {
-                    AppendItem(content[pageNumber], item);
-
                     if (createNewPage)
                     {
-                        pageNumber++;
-
-                        page[pageNumber] = new FixedPage();
-                        pageContent[pageNumber] = new PageContent();
-                        ((IAddChild)pageContent[pageNumber]).AddChild(page[pageNumber]);
-                        doc.Pages.Add(pageContent[pageNumber]);
-
-                        content[pageNumber] = new Canvas();
-                        page[pageNumber].Children.Add(content[pageNumber]);
-
-                        top = 30;
-                        
-                        AppendHeader(content[pageNumber], pageNumber + 1, transaction);
-
-                        createNewPage = false;
+                        CreateNewPage(transaction);
                     }
+
+                    totalCases += item.Cases;
+                    totalPieces += item.Pieces;
+                    orderAmount += item.LineAmount;
+
+                    AppendItem(content[pageNumber], item);
+
                 }
+                AppendFooter(content[pageNumber], transaction);
 
                 // Print document
                 PrintDocumentImageableArea imageArea = null;
@@ -263,7 +161,26 @@ namespace ESI_ITE.Printing
             }
         }
 
-        private void AppendHeader(Canvas content, int pageNumber, TransactionModel trans)
+        private void CreateNewPage(TransactionModel transaction)
+        {
+            pageNumber++;
+
+            page[pageNumber] = new FixedPage();
+            pageContent[pageNumber] = new PageContent();
+            ((IAddChild)pageContent[pageNumber]).AddChild(page[pageNumber]);
+            doc.Pages.Add(pageContent[pageNumber]);
+
+            content[pageNumber] = new Canvas();
+            page[pageNumber].Children.Add(content[pageNumber]);
+
+            top = 30;
+
+            AppendHeader(content[pageNumber], transaction);
+
+            createNewPage = false;
+        }
+
+        private void AppendHeader(Canvas content, TransactionModel trans)
         {
             txtUser = new TextBlock();
             txtPrintDate = new TextBlock();
@@ -348,7 +265,7 @@ namespace ESI_ITE.Printing
             content.Children.Add(lblPage);
 
             //Page number
-            txtPageNumber.Text = pageNumber.ToString();
+            txtPageNumber.Text = (pageNumber + 1).ToString();
             txtPageNumber.FontSize = 12;
             txtPageNumber.FontFamily = new System.Windows.Media.FontFamily("consolas");
             txtPageNumber.Width = 50;
@@ -597,6 +514,8 @@ namespace ESI_ITE.Printing
             lblCases.FontSize = 12;
             lblCases.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblCases.Padding = new System.Windows.Thickness(0);
+            lblCases.Width = 50;
+            lblCases.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Right;
             Canvas.SetLeft(lblCases, 430);
             Canvas.SetTop(lblCases, top);
             content.Children.Add(lblCases);
@@ -606,6 +525,8 @@ namespace ESI_ITE.Printing
             lblPieces.FontSize = 12;
             lblPieces.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblPieces.Padding = new System.Windows.Thickness(0);
+            lblPieces.Width = 50;
+            lblPieces.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Right;
             Canvas.SetLeft(lblPieces, 480);
             Canvas.SetTop(lblPieces, top);
             content.Children.Add(lblPieces);
@@ -615,6 +536,8 @@ namespace ESI_ITE.Printing
             lblUnitPrice.FontSize = 12;
             lblUnitPrice.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblUnitPrice.Padding = new System.Windows.Thickness(0);
+            lblUnitPrice.Width = 80;
+            lblUnitPrice.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Right;
             Canvas.SetLeft(lblUnitPrice, 540);
             Canvas.SetTop(lblUnitPrice, top);
             content.Children.Add(lblUnitPrice);
@@ -624,6 +547,8 @@ namespace ESI_ITE.Printing
             lblValue.FontSize = 12;
             lblValue.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblValue.Padding = new System.Windows.Thickness(0);
+            lblValue.Width = 115;
+            lblValue.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Right;
             Canvas.SetLeft(lblValue, 670);
             Canvas.SetTop(lblValue, top);
             content.Children.Add(lblValue);
@@ -663,13 +588,18 @@ namespace ESI_ITE.Printing
         {
             txtItemCode = new TextBlock();
             txtItemDescription = new TextBlock();
+            txtLC = new TextBlock();
+            txtCases = new TextBlock();
+            txtPieces = new TextBlock();
+            txtUnitPrice = new TextBlock();
+            txtValue = new TextBlock();
 
             //Item Code
             txtItemCode.Text = item.ItemCode;
             txtItemCode.FontSize = 12;
             txtItemCode.FontFamily = new System.Windows.Media.FontFamily("consolas");
             txtItemCode.Width = 100;
-            Canvas.SetLeft(txtItemCode, left);
+            Canvas.SetLeft(txtItemCode, 30);
             Canvas.SetTop(txtItemCode, top);
             content.Children.Add(txtItemCode);
 
@@ -683,6 +613,60 @@ namespace ESI_ITE.Printing
             Canvas.SetTop(txtItemDescription, top);
             content.Children.Add(txtItemDescription);
 
+            //LC
+            txtLC.Text = item.Location;
+            txtLC.FontSize = 12;
+            txtLC.FontFamily = new System.Windows.Media.FontFamily("consolas");
+            txtLC.Width = 280;
+            txtLC.TextWrapping = System.Windows.TextWrapping.Wrap;
+            Canvas.SetLeft(txtLC, 400);
+            Canvas.SetTop(txtLC, top);
+            content.Children.Add(txtLC);
+
+            //Cases
+            txtCases.Text = item.Cases.ToString();
+            txtCases.FontSize = 12;
+            txtCases.FontFamily = new System.Windows.Media.FontFamily("consolas");
+            txtCases.Width = 50;
+            txtCases.TextWrapping = System.Windows.TextWrapping.Wrap;
+            txtCases.TextAlignment = System.Windows.TextAlignment.Right;
+            Canvas.SetLeft(txtCases, 430);
+            Canvas.SetTop(txtCases, top);
+            content.Children.Add(txtCases);
+
+            //pieces
+            txtPieces.Text = item.Pieces.ToString();
+            txtPieces.FontSize = 12;
+            txtPieces.FontFamily = new System.Windows.Media.FontFamily("consolas");
+            txtPieces.Width = 50;
+            txtPieces.TextWrapping = System.Windows.TextWrapping.Wrap;
+            txtPieces.TextAlignment = System.Windows.TextAlignment.Right;
+            Canvas.SetLeft(txtPieces, 480);
+            Canvas.SetTop(txtPieces, top);
+            content.Children.Add(txtPieces);
+
+            //Unit price
+            txtUnitPrice.Text = item.PricePerPiece.ToString("#,##0.00");
+            txtUnitPrice.FontSize = 12;
+            txtUnitPrice.FontFamily = new System.Windows.Media.FontFamily("consolas");
+            txtUnitPrice.Width = 80;
+            txtUnitPrice.TextWrapping = System.Windows.TextWrapping.Wrap;
+            txtUnitPrice.TextAlignment = System.Windows.TextAlignment.Right;
+            Canvas.SetLeft(txtUnitPrice, 540);
+            Canvas.SetTop(txtUnitPrice, top);
+            content.Children.Add(txtUnitPrice);
+
+            //Value
+            txtValue.Text = item.LineAmount.ToString("#,##0.00");
+            txtValue.FontSize = 12;
+            txtValue.FontFamily = new System.Windows.Media.FontFamily("consolas");
+            txtValue.Width = 115;
+            txtValue.TextWrapping = System.Windows.TextWrapping.Wrap;
+            txtValue.TextAlignment = System.Windows.TextAlignment.Right;
+            Canvas.SetLeft(txtValue, 670);
+            Canvas.SetTop(txtValue, top);
+            content.Children.Add(txtValue);
+
             if (item.ItemDescription.Length > 42)
             {
                 top += 35;
@@ -694,6 +678,132 @@ namespace ESI_ITE.Printing
 
             if (top > 1030)
                 createNewPage = true;
+        }
+
+        private void AppendFooter(Canvas content, TransactionModel transaction)
+        {
+            if (top > 900)
+                CreateNewPage(transaction);
+
+            txtTotalCases = new TextBlock();
+            txtTotalPieces = new TextBlock();
+            txtOrderAmount = new TextBlock();
+
+            lblPreparedBy = new Label();
+            lblCheckedBy = new Label();
+            lblReceivedBy = new Label();
+
+            #region Borders
+
+            Thickness borderThickness = new Thickness(0, 2, 0, 0);
+            SolidColorBrush borderColor = new SolidColorBrush(Colors.Black);
+
+            Border borderCases = new Border();
+            borderCases.BorderThickness = borderThickness;
+            borderCases.BorderBrush = borderColor;
+
+            Border borderPieces = new Border();
+            borderPieces.BorderThickness = borderThickness;
+            borderPieces.BorderBrush = borderColor;
+
+            Border borderAmount = new Border();
+            borderAmount.BorderThickness = borderThickness;
+            borderAmount.BorderBrush = borderColor;
+
+            Border borderPreparedBy = new Border();
+            borderPreparedBy.BorderThickness = borderThickness;
+            borderPreparedBy.BorderBrush = borderColor;
+
+            Border borderCheckedBy = new Border();
+            borderCheckedBy.BorderThickness = borderThickness;
+            borderCheckedBy.BorderBrush = borderColor;
+
+            Border borderReceivedBy = new Border();
+            borderReceivedBy.BorderThickness = borderThickness;
+            borderReceivedBy.BorderBrush = borderColor;
+            #endregion
+
+            #region Totals
+
+            //Total cases
+            txtTotalCases.Text = totalCases.ToString("#,##0");
+            txtTotalCases.FontSize = 12;
+            txtTotalCases.FontFamily = new System.Windows.Media.FontFamily("consolas");
+            txtTotalCases.Width = 50;
+            txtTotalCases.TextAlignment = System.Windows.TextAlignment.Right;
+            Canvas.SetLeft(borderCases, 430);
+            Canvas.SetTop(borderCases, top);
+            content.Children.Add(borderCases);
+
+            borderCases.Child = txtTotalCases;
+
+            //Total Pieces
+            txtTotalPieces.Text = totalPieces.ToString("#,##0");
+            txtTotalPieces.FontSize = 12;
+            txtTotalPieces.FontFamily = new System.Windows.Media.FontFamily("consolas");
+            txtTotalPieces.Width = 50;
+            txtTotalPieces.TextAlignment = System.Windows.TextAlignment.Right;
+            Canvas.SetLeft(borderPieces, 482);
+            Canvas.SetTop(borderPieces, top);
+            content.Children.Add(borderPieces);
+
+            borderPieces.Child = txtTotalPieces;
+
+            //order amount
+            txtOrderAmount.Text = orderAmount.ToString("#,##0.00");
+            txtOrderAmount.FontSize = 12;
+            txtOrderAmount.FontFamily = new System.Windows.Media.FontFamily("consolas");
+            txtOrderAmount.Width = 115;
+            txtOrderAmount.TextAlignment = System.Windows.TextAlignment.Right;
+            Canvas.SetLeft(borderAmount, 675);
+            Canvas.SetTop(borderAmount, top);
+            content.Children.Add(borderAmount);
+
+            borderAmount.Child = txtOrderAmount;
+
+            #endregion
+
+            top += 100;
+
+            #region Signatures
+
+            //Prepared by
+            lblPreparedBy.Content = "Prepared By";
+            lblPreparedBy.FontSize = 12;
+            lblPreparedBy.FontFamily = new System.Windows.Media.FontFamily("consolas");
+            lblPreparedBy.Width = 100;
+            lblPreparedBy.HorizontalContentAlignment = HorizontalAlignment.Center;
+            Canvas.SetLeft(borderPreparedBy, 160);
+            Canvas.SetTop(borderPreparedBy, top);
+            content.Children.Add(borderPreparedBy);
+
+            borderPreparedBy.Child = lblPreparedBy;
+
+            //Checked by
+            lblCheckedBy.Content = "Checked By";
+            lblCheckedBy.FontSize = 12;
+            lblCheckedBy.FontFamily = new System.Windows.Media.FontFamily("consolas");
+            lblCheckedBy.Width = 100;
+            lblCheckedBy.HorizontalContentAlignment = HorizontalAlignment.Center;
+            Canvas.SetLeft(borderCheckedBy, 370);
+            Canvas.SetTop(borderCheckedBy, top);
+            content.Children.Add(borderCheckedBy);
+
+            borderCheckedBy.Child = lblCheckedBy;
+
+            //Received by
+            lblReceivedBy.Content = "Received By";
+            lblReceivedBy.FontSize = 12;
+            lblReceivedBy.FontFamily = new System.Windows.Media.FontFamily("consolas");
+            lblReceivedBy.Width = 100;
+            lblReceivedBy.HorizontalContentAlignment = HorizontalAlignment.Center;
+            Canvas.SetLeft(borderReceivedBy, 590);
+            Canvas.SetTop(borderReceivedBy, top);
+            content.Children.Add(borderReceivedBy);
+
+            borderReceivedBy.Child = lblReceivedBy;
+
+            #endregion
         }
     }
 }

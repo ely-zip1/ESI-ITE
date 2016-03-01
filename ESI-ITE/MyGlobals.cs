@@ -24,5 +24,7 @@ namespace ESI_ITE
         public static List<InventoryDummyModel> TransactionItemsList;
 
         public static List<TransactionModel> TransactionList = new List<TransactionModel>();
+
+        public static ItemModel SelectedItem = new ItemModel();
     }
 }

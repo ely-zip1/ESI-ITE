@@ -885,6 +885,8 @@ namespace ESI_ITE.ViewModel
             lineableTransaction.SourceWarehouse = SelectedSourceWarehouse.Name;
             lineableTransaction.SourceLocationCode = SelectedSourceLocation.Code;
             lineableTransaction.SourceLocation = SelectedSourceLocation.Location;
+            lineableTransaction.PriceCategory = SelectedPriceCategory;
+            lineableTransaction.PriceType = SelectedPriceType;
             lineableTransaction.DestinationWarehouseCode = SelectedDestinationWarehouse.Code;
             lineableTransaction.DestinationWarehouse = SelectedDestinationWarehouse.Name;
             lineableTransaction.DestinationLocationCode = SelectedDestinationLocation.Code;
