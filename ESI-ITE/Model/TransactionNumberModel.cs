@@ -22,7 +22,19 @@ namespace ESI_ITE.Model
 
         public void Update()
         {
-            db.Update("update transaction_number set transaction_number = (transaction_number + 1 ) where transaction_number = '" + Fetch() + "'");
+            string current = Fetch();
+            int value = Convert.ToInt32(current) + 1;
+            string newValue;
+            string leadingZero = "";
+
+            for (int i = value.ToString().Length; i < 6; i++)
+            {
+                leadingZero = leadingZero + "0";
+            }
+
+            newValue = leadingZero + (Convert.ToInt32(current) + 1);
+
+            db.Update("update transaction_number set transaction_number = '" + newValue + "' where transaction_number = '" + Fetch() + "'");
         }
     }
 }

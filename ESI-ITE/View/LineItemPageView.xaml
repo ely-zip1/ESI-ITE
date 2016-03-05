@@ -8,6 +8,7 @@
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
       xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit" x:Class="ESI_ITE.View.LineItemPageView"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      xmlns:wpfx="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="550" d:DesignWidth="770"
       Title="LineItemPageView"
@@ -26,10 +27,10 @@
 
         <Grid x:Name="grdTransactionHeader" ShowGridLines="false">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -58,41 +59,41 @@
             <Label Grid.Column="2" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667" Content="Salesman"/>
 
             <TextBox Grid.Column="1" Grid.Row="0" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtWeeksCover" Text="{Binding WeeksCover}" Width="152" 
-				HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
+				HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667"/>
             <TextBox Grid.Column="1" Grid.Row="1" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtTransactionNumber" Text="{Binding TransactionNumber}" Width="152" 
-				HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
+				HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667"/>
             <TextBox Grid.Column="1" Grid.Row="2" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtDocumentNumber" Text="{Binding DocumentNumber}" Width="152" 
-				HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
+				HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667"/>
             <TextBox Grid.Column="1" Grid.Row="3" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtTransactionDate" Text="{Binding TransactionDate}" Width="152" 
-				HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
+				HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667"/>
 
             <StackPanel Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Orientation="Horizontal">
                 <TextBox Margin="1" IsReadOnly="True" Width="41"
-					x:Name="txtTransactionTypeCode" Text="{Binding TransactionTypeCode}" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
+					x:Name="txtTransactionTypeCode" Text="{Binding TransactionTypeCode}" Cursor="Arrow" FontSize="10.667"/>
                 <TextBox Margin="1" IsReadOnly="True" VerticalContentAlignment="Center"
-					x:Name="txtTransactionTypeDescription" Text="{Binding TransactionTypeDescription}" Cursor="Arrow" MinWidth="263" FontSize="10.667" FontWeight="Bold"/>
+					x:Name="txtTransactionTypeDescription" Text="{Binding TransactionTypeDescription}" Cursor="Arrow" MinWidth="263" FontSize="10.667"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" Orientation="Horizontal">
                 <TextBox Margin="1" IsReadOnly="True" Width="41"
-					x:Name="txtReasonCode" Text="{Binding ReasonCode}" FontSize="10.667" FontWeight="Bold"/>
+					x:Name="txtReasonCode" Text="{Binding ReasonCode}" FontSize="10.667"/>
                 <TextBox Margin="1" IsReadOnly="True" VerticalContentAlignment="Center"
-					x:Name="txtReasonDescription" Text="{Binding ReasonDescription}" Cursor="Arrow" MinWidth="263" FontSize="10.667" FontWeight="Bold"/>
+					x:Name="txtReasonDescription" Text="{Binding ReasonDescription}" Cursor="Arrow" MinWidth="263" FontSize="10.667"/>
             </StackPanel>
 
-            <TextBox Grid.Column="1" Grid.Row="6" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtComment" Text="{Binding Comment}" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
+            <TextBox Grid.Column="1" Grid.Row="6" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtComment" Text="{Binding Comment}" Cursor="Arrow" FontSize="10.667"/>
 
-            <TextBox Grid.Column="3" Grid.Row="0" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtStocksOnHand" Text="{Binding StocksOnHand}" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
-            <TextBox Grid.Column="3" Grid.Row="1" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtSourceWarehouse" Text="{Binding SourceWarehouse}" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
-            <TextBox Grid.Column="3" Grid.Row="2" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtSourceLocation" Text="{Binding SourceLocation}" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
-            <TextBox Grid.Column="3" Grid.Row="3" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtSourceSalesman" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
-            <TextBox Grid.Column="3" Grid.Row="4" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtDestinationWarehouse" Text="{Binding DestinationWarehouse}" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
-            <TextBox Grid.Column="3" Grid.Row="5" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtDestinationLocation" Text="{Binding DestinationLocation}" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
-            <TextBox Grid.Column="3" Grid.Row="6" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtDestinationSalesman" Cursor="Arrow" FontSize="10.667" FontWeight="Bold"/>
+            <TextBox Grid.Column="3" Grid.Row="0" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtStocksOnHand" Text="{Binding StocksOnHand}" Cursor="Arrow" FontSize="10.667"/>
+            <TextBox Grid.Column="3" Grid.Row="1" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtSourceWarehouse" Text="{Binding SourceWarehouse}" Cursor="Arrow" FontSize="10.667"/>
+            <TextBox Grid.Column="3" Grid.Row="2" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtSourceLocation" Text="{Binding SourceLocation}" Cursor="Arrow" FontSize="10.667"/>
+            <TextBox Grid.Column="3" Grid.Row="3" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtSourceSalesman" Cursor="Arrow" FontSize="10.667"/>
+            <TextBox Grid.Column="3" Grid.Row="4" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtDestinationWarehouse" Text="{Binding DestinationWarehouse}" Cursor="Arrow" FontSize="10.667"/>
+            <TextBox Grid.Column="3" Grid.Row="5" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtDestinationLocation" Text="{Binding DestinationLocation}" Cursor="Arrow" FontSize="10.667"/>
+            <TextBox Grid.Column="3" Grid.Row="6" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtDestinationSalesman" Cursor="Arrow" FontSize="10.667"/>
         </Grid>
 
         <DataGrid Grid.Row="1" Margin="0,10,0,10" ItemsSource="{Binding DatagridItems}" AutoGenerateColumns="False"
-			AlternatingRowBackground="Gray" SelectedItem="{Binding DatagridSelectedItem}" RowBackground="DodgerBlue" FontFamily="Consolas">
+			AlternatingRowBackground="LightGray" SelectedItem="{Binding DatagridSelectedItem}" RowBackground="CadetBlue" FontFamily="Consolas">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="70"  Header="Item Code" Binding="{Binding ItemCode}"/>
                 <DataGridTextColumn Width="30"  Header="P/T" Binding="{Binding PriceType}"/>
@@ -114,7 +115,7 @@
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Width="80"  Header="Price/Piece" Binding="{Binding PricePerPiece, StringFormat=\{0:#\,##0.00\}}">
+                <DataGridTextColumn Width="90"  Header="Price/Piece" Binding="{Binding PricePerPiece, StringFormat=\{0:#\,##0.00\}}">
                     <DataGridTextColumn.CellStyle>
                         <Style>
                             <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
@@ -122,7 +123,7 @@
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Width="130" Header="Line Amount" Binding="{Binding LineAmount, StringFormat=\{0:#\,##0.00\}}">
+                <DataGridTextColumn Width="120" Header="Line Amount" Binding="{Binding LineAmount, StringFormat=\{0:#\,##0.00\}}">
                     <DataGridTextColumn.CellStyle>
                         <Style>
                             <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
@@ -131,6 +132,26 @@
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <!--<ListView Grid.Row="1" Margin="0,10,0,10" Background="White" ItemsSource="{Binding DatagridItems}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="BorderBrush" Value="LightGray" />
+                    <Setter Property="BorderThickness" Value="0,0,0,1" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Item Code" Width="70" DisplayMemberBinding="{Binding ItemCode}"/>
+                    <GridViewColumn Header="P/T" Width="40" DisplayMemberBinding="{Binding PriceType}"/>
+                    <GridViewColumn Header="Description" Width="270" DisplayMemberBinding="{Binding ItemDescription}"/>
+                    <GridViewColumn Header="LC" Width="40" DisplayMemberBinding="{Binding Location}"/>
+                    <GridViewColumn Header="Cases" Width="50" DisplayMemberBinding="{Binding Cases}"/>
+                    <GridViewColumn Header="Pieces" Width="50" DisplayMemberBinding="{Binding Pieces}"/>
+                    <GridViewColumn Header="Price/Piece" Width="70" DisplayMemberBinding="{Binding PricePerPiece, StringFormat=\{0:#\,##0.00\}}"/>
+                    <GridViewColumn Header="Line Amount" Width="140" DisplayMemberBinding="{Binding LineAmount, StringFormat=\{0:#\,##0.00\}}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>-->
 
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
@@ -146,7 +167,8 @@
                     <Label Content="Item Code" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
 
                     <Controls:AutoCompleteBox Name="txtItemCode" Width="90" Height="22" ItemsSource="{Binding SuggestedItemCodeList}" MinimumPrefixLength="1" 
-                                              Text="{Binding ItemCode,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ValueMemberPath="Code" FilterMode="StartsWith"
+                                              Text="{Binding ItemCode,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,ValidatesOnDataErrors=True}"
+                                              ValueMemberPath="Code" FilterMode="StartsWith" ToolTip="{Binding Error}"
                                               SelectedItem="{Binding SelectedItemCode, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Controls:AutoCompleteBox.ItemTemplate>
                             <DataTemplate>
@@ -156,6 +178,7 @@
                                 </StackPanel>
                             </DataTemplate>
                         </Controls:AutoCompleteBox.ItemTemplate>
+
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="KeyDown">
                                 <i:InvokeCommandAction Command="{Binding ItemCode_KeyDown}"/>
@@ -171,60 +194,66 @@
                 <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
                     <Label Content="P/T" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
                     <ComboBox Width="60" x:Name="cmbPriceType" SelectedItem="{Binding PT,Mode=TwoWay}" ItemsSource="{Binding PtList}"
-                              SelectedIndex="{Binding PtSelectedIndex, Mode=TwoWay}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Code}"/>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+                              SelectedIndex="{Binding PtSelectedIndex, Mode=TwoWay}" 
+                              IsHitTestVisible="False" Focusable="False"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
                     <Label Content="LC" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
-                    <TextBox Height="22" Width="60" x:Name="txtLC" Text="{Binding LC}" IsReadOnly="True"/>
+                    <TextBox Height="22" Width="60" x:Name="txtLC" Text="{Binding LC}" IsReadOnly="True"
+                             IsHitTestVisible="False" Focusable="False"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
                     <Label Content="Cases" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
-                    <TextBox Height="22" Width="80" x:Name="txtCases" Text="{Binding Cases}"/>
+                    <TextBox Height="22" Width="80" x:Name="txtCases" Text="{Binding Cases, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="{Binding Error}"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
                     <Label Content="Pieces" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
-                    <TextBox Height="22" Width="80" x:Name="txtPieces" Text="{Binding Pieces}"/>
+                    <TextBox Height="22" Width="80" x:Name="txtPieces" Text="{Binding Pieces,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="{Binding Error}"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
                     <Label Content="Unit Price" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
-                    <TextBox Height="22" Width="90" x:Name="txtUnitPrice" Text="{Binding UnitPrice}" IsReadOnly="True"/>
+                    <TextBox Height="22" Width="90" x:Name="txtUnitPrice" Text="{Binding UnitPrice}" IsReadOnly="True"
+                             IsHitTestVisible="False" Focusable="False"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
                     <Label Content="Expiry" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
-                    <TextBox Height="22" Width="90" x:Name="txtExpiry" Text="{Binding Expiry}"/>
+                    <!--<TextBox Height="22" Width="90" x:Name="txtExpiry" Text="{Binding Expiry}"/>-->
+                    <wpfx:MaskedTextBox Height="22" Width="90" x:Name="txtExpiry" Mask="00/00/0000" 
+                                        Text="{Binding Expiry,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                                        VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
                     <Label Content="Tax Rate" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
-                    <TextBox Height="22" Width="90" x:Name="txtTaxRate" Text="{Binding TaxRate}" IsReadOnly="True"/>
+                    <TextBox Height="22" Width="90" x:Name="txtTaxRate" Text="{Binding TaxRate}" IsReadOnly="True"
+                             IsHitTestVisible="False" Focusable="False"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"  Margin="2,0,0,0">
                     <Label Content="Warehouse Code" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
-                    <TextBox Height="22" Width="90" x:Name="txtWarehouseCode" Text="{Binding WarehouseCode}" IsReadOnly="True"/>
+                    <TextBox Height="22" Width="90" x:Name="txtWarehouseCode" Text="{Binding WarehouseCode}" IsReadOnly="True"
+                             IsHitTestVisible="False" Focusable="False"/>
                 </StackPanel>
 
             </StackPanel>
 
             <TextBlock Grid.Row="1" Grid.ColumnSpan="9" TextAlignment="Center"
 				IsEnabled="False" VerticalAlignment="Center" Padding="5" 
-				FontSize="15" FontWeight="DemiBold" Background="DodgerBlue" Text="{Binding ItemDescription}"/>
+				FontSize="15" FontWeight="DemiBold" Background="DodgerBlue" Text="{Binding ItemDescription}"
+                       IsHitTestVisible="False" Focusable="False"/>
 
             <StackPanel  Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,0"  VerticalAlignment="Center">
                 <Label HorizontalAlignment="Right" Content="Order Amount ₱" FontSize="15" FontWeight="DemiBold"/>
                 <TextBlock Width="250" Background="DodgerBlue" TextAlignment="Right" Text="{Binding OrderAmount}"
-					FontFamily="Consolas" FontSize="22" VerticalAlignment="Center" />
+					FontFamily="Consolas" FontSize="22" VerticalAlignment="Center"
+                           IsHitTestVisible="False" Focusable="False"/>
             </StackPanel>
 
             <Grid Grid.Row="3">
@@ -234,10 +263,11 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Width="70" Margin="4" Background="White" Content="Add Item" x:Name="btnAdd"/>
-                    <Button Width="70" Margin="4" Background="White" Content="Delete Line" x:Name="btnDelete"/>
+                    <Button Width="70" Margin="4" Background="White" Content="Add Item" x:Name="btnAdd" Command="{Binding AddItemCommand}" 
+                            IsEnabled="{Binding CanBeAdded}"/>
+                    <Button Width="70" Margin="4" Background="White" Content="Delete Line" x:Name="btnDelete" Command="{Binding DeleteItemCommand}"/>
                     <Button Width="70" Margin="4" Background="White" Content="Print Entry" x:Name="btnPrint"
-						Command="{Binding PrintTransaction}"/>
+						Command="{Binding PrintTransactionCommand}"/>
                 </StackPanel>
 
                 <Button Grid.Row="1" Content="Cancel" Margin="4" Width="70" HorizontalAlignment="Right" Background="White" x:Name="btnCancel"

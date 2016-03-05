@@ -88,6 +88,10 @@ namespace ESI_ITE.Data_Access
                 cmd.ExecuteNonQuery();
                 this.CloseConnection();
             }
+
+            if (this.OpenConnection() == true)
+                this.CloseConnection();
+
         }
 
         //Update statement
@@ -101,6 +105,9 @@ namespace ESI_ITE.Data_Access
                 cmd.ExecuteNonQuery();
                 this.CloseConnection();
             }
+
+            if (this.OpenConnection() == true)
+                this.CloseConnection();
         }
 
         //Delete statement
@@ -112,6 +119,9 @@ namespace ESI_ITE.Data_Access
                 cmd.ExecuteNonQuery();
                 this.CloseConnection();
             }
+
+            if (this.OpenConnection() == true)
+                this.CloseConnection();
         }
 
         //Select multiple statement
@@ -143,8 +153,12 @@ namespace ESI_ITE.Data_Access
             }
             else
             {
+                if (this.OpenConnection() == true)
+                    this.CloseConnection();
+
                 return lol;
             }
+
 
         }
 
@@ -179,10 +193,9 @@ namespace ESI_ITE.Data_Access
                 {
                     int x = dataReader.FieldCount;
 
-                    while (i < x)
+                    do
                     {
-
-                        record = dataReader.GetString(i);
+                        record = dataReader[i].ToString();
                         sb.Append(record);
                         i++;
 
@@ -190,7 +203,8 @@ namespace ESI_ITE.Data_Access
                         {
                             sb.Append("|");
                         }
-                    }
+
+                    } while (dataReader.Read() && i < x);
                 }
                 dataReader.Close();
                 this.CloseConnection();
@@ -199,6 +213,9 @@ namespace ESI_ITE.Data_Access
             }
             else
             {
+                if (this.OpenConnection() == true)
+                    this.CloseConnection();
+
                 return sb.ToString();
             }
         }
@@ -224,6 +241,9 @@ namespace ESI_ITE.Data_Access
             }
             else
             {
+                if (this.OpenConnection() == true)
+                    this.CloseConnection();
+
                 return Count;
             }
         }
@@ -241,6 +261,7 @@ namespace ESI_ITE.Data_Access
 
                     foreach (var query in transString)
                     {
+                        cmd.Connection = connection;
                         cmd.CommandText = query;
                         cmd.ExecuteNonQuery();
                     }
@@ -254,20 +275,19 @@ namespace ESI_ITE.Data_Access
                     }
                     catch (MySqlException ex1)
                     {
-                        MessageBox.Show("Error: {0}", ex1.Message);
+                        MessageBox.Show("Error: " + ex1.Message);
                     }
-                    MessageBox.Show("Error: {0}", ex.Message);
+                    MessageBox.Show("Error: " + ex.Message);
                 }
                 finally
                 {
-                    if (this.OpenConnection() == true)
-                    {
-                        this.CloseConnection();
-                    }
-
+                    this.CloseConnection();
                 }
 
             }
+
+            if (this.OpenConnection() == true)
+                this.CloseConnection();
         }
     }
 }

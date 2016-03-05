@@ -39,10 +39,10 @@ namespace ESI_ITE.Model
             Reason = source.Reason;
             ReasonCode = source.ReasonCode;
             Comment = source.Comment;
-            IsPosted = source.IsPosted;
+            IsPrinted = source.IsPrinted;
 
         }
- #endregion
+        #endregion
 
         #region Properties
 
@@ -341,7 +341,7 @@ namespace ESI_ITE.Model
         }
 
         private bool isPosted;
-        public bool IsPosted
+        public bool IsPrinted
         {
             get { return isPosted; }
             set
@@ -349,7 +349,7 @@ namespace ESI_ITE.Model
                 if (isPosted != value)
                 {
                     isPosted = value;
-                    OnPropertyChanged("IsPosted");
+                    OnPropertyChanged("IsPrinted");
                 }
             }
         }
@@ -395,11 +395,11 @@ namespace ESI_ITE.Model
 
                 if (attribute["status"] == "0")
                 {
-                    trans.IsPosted = false;
+                    trans.IsPrinted = false;
                 }
                 else
                 {
-                    trans.IsPosted = true;
+                    trans.IsPrinted = true;
                 }
             }
             return trans;
@@ -407,37 +407,43 @@ namespace ESI_ITE.Model
 
         public List<TransactionModel> FetchAll()
         {
+            _allTransactions.Clear();
+
             var records = new List<Dictionary<string, string>>();
-            var trans = new TransactionModel();
 
             //records.AddRange(db.SelectMultiple("select * from view_transaction_entry where status = 0 "));
 
-            foreach (Dictionary<string, string> attribute in (db.SelectMultiple("select * from view_transaction_entry where status = 0 ")))
+            foreach (var row in (db.SelectMultiple("select * from view_transaction_entry where status = 0 ")))
             {
-                trans.Id = int.Parse(attribute["id"]);
-                trans.TransactionNumber = attribute["transaction_number"];
-                trans.TransactionCode = attribute["transaction_code"];
-                trans.TransactionType = attribute["transaction_type"];
-                trans.DocumentNumber = attribute["document_number"];
-                trans.TransactionDate = DateTime.Parse(attribute["transaction_date"]);
-                trans.SourceWarehouse = attribute["source_warehouse"];
-                trans.SourceWarehouseCode = attribute["source_warehouse_code"];
-                trans.SourceLocation = attribute["source_location"];
-                trans.SourceLocationCode = attribute["source_location_code"];
-                //trans.SourceSalesman = attribute["source_salesman"];
-                trans.DestinationWarehouse = attribute["destination_warehouse"];
-                trans.DestinationLocation = attribute["destination_location"];
-                //trans.DestinationSalesman = attribute["destination_salesman"];
-                trans.PriceCategory = attribute["price_category"];
-                trans.PriceType = attribute["price_type"];
-                trans.Reason = attribute["reason_description"];
-                trans.ReasonCode = attribute["reason_code"];
-                trans.Comment = attribute["comment"];
 
-                trans.IsPosted = attribute["status"] != "0";
+                var trans = new TransactionModel();
+                var clone = row.Clone();
+
+                trans.Id = int.Parse(row["id"]);
+                trans.TransactionNumber = row["transaction_number"];
+                trans.TransactionCode = row["transaction_code"];
+                trans.TransactionType = row["transaction_type"];
+                trans.DocumentNumber = row["document_number"];
+                trans.TransactionDate = DateTime.Parse(row["transaction_date"]);
+                trans.SourceWarehouse = row["source_warehouse"];
+                trans.SourceWarehouseCode = row["source_warehouse_code"];
+                trans.SourceLocation = row["source_location"];
+                trans.SourceLocationCode = row["source_location_code"];
+                //trans.SourceSalesman = attribute["source_salesman"];
+                trans.DestinationWarehouse = row["destination_warehouse"];
+                trans.DestinationWarehouseCode = row["destination_warehouse_code"];
+                trans.DestinationLocation = row["destination_location"];
+                trans.DestinationLocationCode = row["destination_location_code"];
+                //trans.DestinationSalesman = attribute["destination_salesman"];
+                trans.PriceCategory = row["price_category"];
+                trans.PriceType = row["price_type"];
+                trans.Reason = row["reason_description"];
+                trans.ReasonCode = row["reason_code"];
+                trans.Comment = row["comment"];
+
+                trans.IsPrinted = (row["status"] == "0") ? false : true;
 
                 _allTransactions.Add(trans);
-
             }
             return _allTransactions;
         }
@@ -445,34 +451,24 @@ namespace ESI_ITE.Model
         public void AddTransactionEntry(TransactionModel trans)
         {
             //foreign key id holders
-            string transactionTypeId = string.Empty;
-            string wareHouseIdSource = string.Empty;
-            string wareHouseIdDestination = string.Empty;
-            string locationIdSource = string.Empty;
-            string locationIdDestination = string.Empty;
-            string reasonId = string.Empty;
+            string transactionTypeId = db.Select("select id from transaction_type where transaction_code = '" + trans.TransactionCode + "'");
+            string wareHouseIdSource = db.Select("select warehouse_id from warehouse where code = '" + trans.SourceWarehouseCode + "'");
+            string locationIdSource = db.Select("select location_id from location where code = '" + trans.SourceLocationCode + "'");
+            string reasonId = db.Select("select reasoncode_id from reason_code where reason_code = '" + trans.ReasonCode + "'");
+
+            string wareHouseIdDestination = string.IsNullOrWhiteSpace(trans.DestinationWarehouseCode)
+                ? "null"
+                : db.Select("select warehouse_id from warehouse where code = '" + trans.DestinationWarehouseCode + "'");
+
+
+            string locationIdDestination = string.IsNullOrWhiteSpace(trans.DestinationLocationCode)
+                ? "null"
+                : db.Select("select location_id from location where code = '" + trans.DestinationLocationCode + "'");
+
 
             int isPosted;
 
-            transactionTypeId = db.Select("select id from transaction_type where transaction_code = '"
-                + trans.TransactionCode + "'");
-
-            wareHouseIdSource = db.Select("select warehouse_id from warehouse where code = '"
-                + trans.SourceWarehouse + "'");
-
-            wareHouseIdDestination = db.Select("select warehouse_id from warehouse where code = '"
-                + trans.DestinationWarehouse + "'");
-
-            locationIdSource = db.Select("select location_id from location where code = '"
-                + trans.SourceLocation + "'");
-
-            locationIdDestination = db.Select("select location_id from location where code = '"
-                + trans.DestinationLocation + "'");
-
-            reasonId = db.Select("select reasoncode_id from reason_code where reason_code = '"
-                + trans.ReasonCode + "'");
-
-            if (trans.IsPosted == true)
+            if (trans.IsPrinted == true)
             {
                 isPosted = 1;
             }
@@ -486,12 +482,12 @@ namespace ESI_ITE.Model
             insert.Append("'" + trans.TransactionNumber + "',");
             insert.Append("'" + transactionTypeId + "',");
             insert.Append("'" + trans.DocumentNumber + "',");
-            insert.Append("'" + trans.TransactionDate.ToString("MM/dd/yyyy") + "',");
+            insert.Append("'" + trans.TransactionDate.ToString("yyyy-MM-dd") + "',");
             insert.Append("'" + wareHouseIdSource + "',");
             insert.Append("'" + locationIdSource + "',");
             insert.Append("null,");
-            insert.Append("'" + wareHouseIdDestination + "',");
-            insert.Append("'" + locationIdDestination + "',");
+            insert.Append("" + wareHouseIdDestination + ",");
+            insert.Append("" + locationIdDestination + ",");
             insert.Append("null,");
             insert.Append("'" + trans.PriceCategory + "',");
             insert.Append("'" + trans.PriceType + "',");
@@ -513,8 +509,8 @@ namespace ESI_ITE.Model
 
             List<string> commands = new List<string>();
 
-            commands.Add("Delete * from inventory_dummy where transaction_link = '" + transactionId + "'");
-            commands.Add("Delete * from transaction_entry where transaction_link = '" + transactionId + "'");
+            commands.Add("Delete from inventory_dummy where transaction_link = " + transactionId + "");
+            commands.Add("Delete from transaction_entry where trans_no = '" + transactionNumber + "'");
 
             db.RunMySqlTransaction(commands);
         }

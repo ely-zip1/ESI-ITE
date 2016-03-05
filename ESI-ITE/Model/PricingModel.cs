@@ -93,7 +93,7 @@ namespace ESI_ITE.Model
 
             if (date != "") // if date contains a value
             {
-                date = DateTime.Parse(date).ToString("MM/dd/yyyy");
+                date = DateTime.Parse(date).ToString("%M/%d/yyyy");
 
                 priceType = db.Select("SELECT price_type FROM price_selling " +
                     "WHERE code = '" + itemCode + "' AND effective_from = '" + date + "'");
@@ -101,7 +101,7 @@ namespace ESI_ITE.Model
                 price = Decimal.Parse(db.Select("select selling_price from price_selling " +
                     "where code = '" + itemCode + "' and effective_from = '" + date + "' and price_type = '" + priceType + "'"));
 
-                priceInformation.Price = price;
+                priceInformation.Price = price / Convert.ToDecimal(MyGlobals.SelectedItem.PiecePerUnit);
                 priceInformation.PriceType = priceType;
             }
             else
@@ -115,17 +115,24 @@ namespace ESI_ITE.Model
             string priceType;
             decimal price;
             string date;
+            string query;
 
-            date = DateTime.Parse(db.Select("SELECT max(STR_TO_DATE(effective_from, '%m/%d/%Y')) AS date FROM price_selling " +
-                "WHERE code = '" + itemCode + "'")).ToString("MM/dd/yyyy");
+            query = ("SELECT max(STR_TO_DATE(effective_from, '%m/%d/%Y')) AS date FROM price_selling " +
+                "WHERE code = '" + itemCode + "'");
 
-            price = Decimal.Parse(db.Select("SELECT selling_price FROM price_selling " +
-                "WHERE code = '" + itemCode + "' and effective_from = '" + date + "'"));
+            date = DateTime.Parse(db.Select(query)).ToString("%M/%d/yyyy");
 
-            priceType = db.Select("SELECT price_type from price_selling " +
-                "WHERE code = '" + itemCode + "' and effective_from = '" + date + "'");
+            query = "SELECT selling_price FROM price_selling " +
+                "WHERE code = '" + itemCode + "' and effective_from = '" + date + "'";
 
-            priceInformation.Price = price;
+            price = Decimal.Parse(db.Select(query));
+
+            query = "SELECT price_type from price_selling " +
+                "WHERE code = '" + itemCode + "' and effective_from = '" + date + "'";
+
+            priceType = db.Select(query);
+
+            priceInformation.Price = price / Convert.ToDecimal(MyGlobals.SelectedItem.PiecePerUnit);
             priceInformation.PriceType = priceType;
         }
 
@@ -165,12 +172,12 @@ namespace ESI_ITE.Model
 
             if (date != "")
             {
-                date = DateTime.Parse(date).ToString("MM/dd/yyyy");
+                date = DateTime.Parse(date).ToString("%M/%d/yyyy");
 
                 price = Decimal.Parse(db.Select("select purchase_price from price_purchase " +
                     "where pcode = '" + itemCode + "' and effective_date = '" + date + "'"));
 
-                priceInformation.Price = price;
+                priceInformation.Price = price / Convert.ToDecimal(MyGlobals.SelectedItem.PiecePerUnit);
                 priceInformation.PriceType = priceType;
             }
         }

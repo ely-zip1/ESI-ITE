@@ -237,6 +237,7 @@ namespace ESI_ITE.Model
             int locationId;
             int transactionId;
 
+
             itemId = Int32.Parse(db.Select("select item_id from item_master where item_code = '" + detail.ItemCode + "'"));
             locationId = Int32.Parse(db.Select("select location_id from location where code = '" + detail.Location + "'"));
             transactionId = Int32.Parse(db.Select("select entry_id from transaction_entry where trans_no = '" + detail.TransactionCode + "'"));
@@ -251,7 +252,7 @@ namespace ESI_ITE.Model
             insert.Append("" + itemId + ",");
             insert.Append("" + detail.Cases + ",");
             insert.Append("" + detail.Pieces + ",");
-            insert.Append("'" + detail.Expiration.ToString("MM/dd/yyyy") + "',");
+            insert.Append("'" + detail.Expiration.ToString("%M/%d/yyyy") + "',");
             insert.Append("'" + detail.PricePerPiece + "',");
             insert.Append("'" + detail.LineAmount + "'");
             insert.Append(")");

@@ -488,19 +488,25 @@ namespace ESI_ITE.ViewModel
         {
             get { return deleteTransactionCommand; }
         }
+
+        private bool canEdit;
+        public bool CanEdit
+        {
+            get { return canEdit; }
+            set
+            {
+                canEdit = value;
+                OnPropertyChanged("CanEdit");
+            }
+        }
+
         #endregion
 
         #region Methods
 
         private void Load()
         {
-            latestTransNo = transactionNumber.Fetch();
-
-            foreach (var obj in (transaction.FetchAll()))
-            {
-                CmbTransactionNumbers.Add(obj.TransactionNumber);
-            }
-            CmbTransactionNumbers.Add(latestTransNo);
+            UpdateTransactionNumbers();
 
             CmbTransactionType.Add(new TransactionTypesModel());
             foreach (var type in transactionType.FetchAll())
@@ -536,6 +542,18 @@ namespace ESI_ITE.ViewModel
             EnableDestination = false;
         }
 
+        private void UpdateTransactionNumbers()
+        {
+            latestTransNo = transactionNumber.Fetch();
+
+            foreach (var obj in (transaction.FetchAll()))
+            {
+                CmbTransactionNumbers.Add(obj.TransactionNumber);
+            }
+            CmbTransactionNumbers.Add(latestTransNo);
+
+        }
+
         private void fillForm()
         {
             foreach (var trans in transaction.FetchAll())
@@ -561,15 +579,10 @@ namespace ESI_ITE.ViewModel
                         if (wh.Code == trans.SourceWarehouseCode)
                         {
                             IndexSourceWarehouse = wh.Id;
-                            //strSourceWarehouse[0] = wh.Code;
-                            //strSourceWarehouse[1] = wh.Name;
-                            //SelectedSourceWarehouse.Code = strSourceWarehouse[0];
-                            //SelectedSourceWarehouse.Name = strSourceWarehouse[1];
                             selectedSourceWarehouse = wh;
                             break;
                         }
                     }
-
 
                     foreach (var wh2 in warehouse.FetchAll())
                     {
@@ -577,8 +590,8 @@ namespace ESI_ITE.ViewModel
                         {
                             IndexDestinationWarehouse = wh2.Id;
                             SelectedDestinationWarehouse = wh2; //new WareHouseModel(wh2);
+                            break;
                         }
-                        break;
                     }
 
                     //location
@@ -588,8 +601,9 @@ namespace ESI_ITE.ViewModel
                         {
                             IndexSourceLocation = loc.Id;
                             SelectedSourceLocation = loc; //new LocationModel(loc);
+
+                            break;
                         }
-                        break;
                     }
 
                     foreach (var loc2 in location.FetchAll())
@@ -598,8 +612,9 @@ namespace ESI_ITE.ViewModel
                         {
                             IndexDestinationLocation = loc2.Id;
                             SelectedDestinationLocation = loc2; //new LocationModel(loc2);
+
+                            break;
                         }
-                        break;
                     }
 
                     //price category
@@ -668,24 +683,18 @@ namespace ESI_ITE.ViewModel
                         IsFirstLoad = true;
                         updateTransNo = true;
 
+                        CanEdit = true;
+
                         //clear the form
-                        IndexTransactionType = 0;
-                        DocumentNumber = "";
-                        TransactionDate = DateTime.Now.ToString("MM/dd/yyyy");
-                        IndexSourceWarehouse = 0;
-                        IndexSourceLocation = 0;
-                        IndexPriceCategory = 0;
-                        IndexPriceType = 0;
-                        IndexDestinationWarehouse = 0;
-                        IndexDestinationLocation = 0;
-                        IndexReason = 0;
-                        Comment = "";
+                        ClearForm();
                     }
                     else
                     {
                         IsFirstLoad = false;
                         updateTransNo = false;
                         fillForm();
+
+                        CanEdit = false;
                     }
 
                     if (string.IsNullOrEmpty(selectedTransactionNumber))
@@ -834,6 +843,21 @@ namespace ESI_ITE.ViewModel
             isValid();
         }
 
+        private void ClearForm()
+        {
+            IndexTransactionType = 0;
+            DocumentNumber = "";
+            TransactionDate = DateTime.Now.ToString("MM/dd/yyyy");
+            IndexSourceWarehouse = 0;
+            IndexSourceLocation = 0;
+            IndexPriceCategory = 0;
+            IndexPriceType = 0;
+            IndexDestinationWarehouse = 0;
+            IndexDestinationLocation = 0;
+            IndexReason = 0;
+            Comment = "";
+        }
+
         public void IsDestinationEnabled(string transactionType)
         {
             switch (transactionType)
@@ -895,16 +919,16 @@ namespace ESI_ITE.ViewModel
             lineableTransaction.Reason = SelectedReason.Description;
             lineableTransaction.Comment = Comment;
 
-            //Add new entry to database
-            //if (SelectedTransactionNumber == latestTransNo)
-            //{
-            //    if (IsLineable)
-            //    {
-            //        transaction.AddTransactionEntry(transaction);
-            //    }
-            //}
             if (SelectedTransactionNumber == latestTransNo)
             {
+                tm.AddTransactionEntry(lineableTransaction);
+
+                if (updateTransNo)
+                {
+                    transactionNumber.Update();
+                    UpdateTransactionNumbers();
+                }
+
                 MyGlobals.IsNewTransaction = true;
                 MyGlobals.Transaction = lineableTransaction;
             }
@@ -923,6 +947,17 @@ namespace ESI_ITE.ViewModel
                 if (IsLineable)
                 {
                     transaction.DeleteTransaction(SelectedTransactionNumber);
+                    foreach (var transactionNumber in CmbTransactionNumbers)
+                    {
+                        if (transactionNumber == SelectedTransactionNumber)
+                        {
+                            CmbTransactionNumbers.RemoveAt(CmbTransactionNumbers.IndexOf(transactionNumber));
+                            break;
+                        }
+                    }
+                    IndexTransactionNumber = 0;
+                    IsFirstLoad = true;
+                    ClearForm();
                 }
             }
         }

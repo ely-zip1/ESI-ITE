@@ -132,33 +132,40 @@ namespace ESI_ITE.Model
             return itemsList;
         }
 
-        public ItemModel Fetch(string itemCode)
+        public List<ItemModel> Fetch(string itemCode)
         {
-            ItemModel item = new ItemModel();
+            var itemsList = new List<ItemModel>();
+            var itemTable = db.SelectMultiple("Select * from item_master where item_code = '" + itemCode + "' limit 1");
 
-            string[] result = db.Select("select * from item_master where item_code = '" + itemCode + "'").Split('|');
+            foreach (var row in itemTable)
+            {
+                var itemModel = new ItemModel();
+                var clone = row.Clone();
 
-            item.Id = result[0];
-            item.Code = result[1];
-            item.Description = result[2];
-            item.SmallestUnitMeasure = result[3];
-            item.StockUnitMeasure = result[4];
-            item.PiecePerUnit = result[5];
-            item.WeightPerUnit = result[6];
-            item.TaxRate = result[7];
-            item.TargetWeek = result[8];
-            item.Supplier = result[9];
-            item.Source = result[10];
-            item.Brand = result[11];
-            item.Category = result[12];
-            item.PiecesPerBO = result[13];
-            item.OPG = result[14];
-            item.Active = result[15];
-            item.LotControl = result[16];
-            item.PurchasePriceLink = Convert.ToInt32(result[17]);
-            item.SellingPriceLink = Convert.ToInt32(result[18]);
+                itemModel.Id = row["item_id"];
+                itemModel.Code = row["item_code"];
+                itemModel.Description = row["item_description"];
+                itemModel.SmallestUnitMeasure = row["smallest_unit_measure"];
+                itemModel.StockUnitMeasure = row["stock_unit_measure"];
+                itemModel.PiecePerUnit = row["pieces_per_unit"];
+                itemModel.WeightPerUnit = row["weight_per_stock_unit"];
+                itemModel.TaxRate = row["tax_rate"];
+                itemModel.TargetWeek = row["target_week"];
+                itemModel.Supplier = row["supplier"];
+                itemModel.Source = row["source"];
+                itemModel.Brand = row["brand"];
+                itemModel.Category = row["category"];
+                itemModel.PiecesPerBO = row["pieces_per_bo"];
+                itemModel.OPG = row["opg"];
+                itemModel.Active = row["active"];
+                itemModel.LotControl = row["lot_controll"];
+                itemModel.PurchasePriceLink = Convert.ToInt32(row["purchase_price_link"]);
+                itemModel.SellingPriceLink = Convert.ToInt32(row["selling_price_link"]);
 
-            return item;
+                itemsList.Add(itemModel);
+            }
+
+            return itemsList;
 
         }
     }
