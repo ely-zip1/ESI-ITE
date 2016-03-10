@@ -74,15 +74,15 @@ namespace ESI_ITE.Model
             }
         }
 
-        private string transactionCode;
+        private string transactionTypeCode;
         public string TransactionCode
         {
-            get { return transactionCode; }
+            get { return transactionTypeCode; }
             set
             {
-                if (transactionCode != value)
+                if (transactionTypeCode != value)
                 {
-                    transactionCode = value;
+                    transactionTypeCode = value;
                     OnPropertyChanged("TransactionCode");
                 }
             }
@@ -373,7 +373,7 @@ namespace ESI_ITE.Model
             {
                 trans.Id = int.Parse(attribute["id"]);
                 trans.TransactionNumber = attribute["transaction_number"];
-                trans.transactionCode = attribute["transaction_code"];
+                trans.transactionTypeCode = attribute["transaction_code"];
                 trans.TransactionType = attribute["transaction_type"];
                 trans.DocumentNumber = attribute["document_number"];
                 trans.TransactionDate = DateTime.Parse(attribute["transaction_date"]);

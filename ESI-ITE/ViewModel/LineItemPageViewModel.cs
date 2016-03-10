@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using ESI_ITE.Printing;
 using System.Data;
 using System.Diagnostics;
+using System.Globalization;
+using System.Windows;
 
 namespace ESI_ITE.ViewModel {
     class LineItemPageViewModel: ViewModelBase, IDataErrorInfo {
@@ -27,6 +29,7 @@ namespace ESI_ITE.ViewModel {
             printTransactionCommand = new DelegateCommand(PrintDocument);
             itemCode_KeyDown = new DelegateCommand(KeyPressed);
             itemCode_KeyUp = new DelegateCommand(KeyUp);
+            addItemCommand = new DelegateCommand(AddItem);
 
             transactionModel = MyGlobals.Transaction;
             Load();
@@ -213,7 +216,6 @@ namespace ESI_ITE.ViewModel {
                 itemCode = value;
                 OnPropertyChanged("ItemCode");
                 ContentChanged("ItemCode");
-                ClearForm();
                 if ( isKeyDown ) {
                     SuggestItems(value);
                 }
@@ -390,12 +392,33 @@ namespace ESI_ITE.ViewModel {
             get { return itemCode_KeyUp; }
         }
 
+        private DelegateCommand addItemCommand;
+        public ICommand AddItemCommand {
+            get { return addItemCommand; }
+        }
+
         #endregion
+
+        private bool canBeAdded;
+        public bool CanBeAdded {
+            get { return canBeAdded; }
+            set {
+                canBeAdded = value;
+                OnPropertyChanged("CanBeAdded");
+            }
+        }
 
         private bool IsFirstLoad = true;
-        private bool CanBeAdded = true;
+        private bool IsClearForm;
+
+        private int piecePerUnit;
 
         #endregion
+
+        /// <summary>
+        /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// </summary>
 
         #region Methods
 
@@ -418,10 +441,10 @@ namespace ESI_ITE.ViewModel {
 
             PtList.Clear();
             PtList.Add(new PriceTypeModel());
-            foreach ( var pt in priceTypeModel.FetchAll(transactionModel.PriceCategory) ) {
-                PtList.Add(pt);
+            foreach ( var priceType in priceTypeModel.FetchAll(transactionModel.PriceCategory) ) {
+                PtList.Add(priceType);
             }
-            if ( transactionModel.PriceType == "Purchase Price" )
+            if ( transactionModel.PriceCategory == "Purchase Price" )
                 PtSelectedIndex = 1;
 
             LC = transactionModel.SourceLocationCode;
@@ -492,7 +515,8 @@ namespace ESI_ITE.ViewModel {
 
         private void FillForm()
         {
-            PriceTypeModel priceType = new PriceTypeModel();
+            IsClearForm = true;
+            IsFirstLoad = true;
 
             LC = transactionModel.SourceLocationCode;
 
@@ -502,6 +526,12 @@ namespace ESI_ITE.ViewModel {
             price = new PriceModel();
             price = pricingModel.GetPrice(SelectedItemCode.Code, transactionModel.PriceCategory, transactionModel.PriceType);
 
+            foreach ( var p in PtList ) {
+                if ( p.Code == price.PriceType ) {
+                    PtSelectedIndex = PtList.IndexOf(p);
+                }
+            }
+
             UnitPrice = Math.Round(price.Price, 2).ToString();
 
             TaxRate = selectedItemCode.TaxRate;
@@ -509,20 +539,26 @@ namespace ESI_ITE.ViewModel {
             WarehouseCode = transactionModel.SourceWarehouseCode;
 
             ItemDescription = SelectedItemCode.Description;
+
+            piecePerUnit = int.Parse(selectedItemCode.PiecePerUnit);
+
+            IsClearForm = false;
         }
 
         private void ClearForm()
         {
-            if ( string.IsNullOrWhiteSpace(ItemCode) ) {
-                IsFirstLoad = true;
+            IsFirstLoad = true;
+            IsClearForm = true;
 
-                Cases = null;
-                Pieces = null;
-                UnitPrice = null;
-                ItemDescription = null;
+            ItemCode = null;
+            Cases = null;
+            Pieces = null;
+            UnitPrice = null;
+            ItemDescription = null;
+            Expiry = null;
 
-                IsFirstLoad = false;
-            }
+            IsFirstLoad = false;
+            IsClearForm = false;
         }
 
         private void SuggestItems(string value)
@@ -544,11 +580,19 @@ namespace ESI_ITE.ViewModel {
         {
             switch ( propertyName ) {
                 case "ItemCode":
-                    IsFirstLoad = false;
+
+                    if ( IsClearForm == false ) {
+                        IsFirstLoad = false;
+
+                        if ( string.IsNullOrWhiteSpace(ItemCode) )
+                            ClearForm();
+                    }
+
                     break;
 
                 case "Cases":
-                    IsFirstLoad = false;
+                    if ( IsClearForm == false )
+                        IsFirstLoad = false;
 
                     if ( !string.IsNullOrWhiteSpace(Cases) && string.IsNullOrWhiteSpace(Pieces) ) {
                         OnPropertyChanged("Pieces");
@@ -567,11 +611,12 @@ namespace ESI_ITE.ViewModel {
                         OnPropertyChanged("Pieces");
                         validProperties[1] = "Error";
                     }
-
                     break;
 
                 case "Pieces":
-                    IsFirstLoad = false;
+                    if ( IsClearForm == false )
+                        IsFirstLoad = false;
+
                     if ( !string.IsNullOrWhiteSpace(Pieces) && string.IsNullOrWhiteSpace(Cases) ) {
                         OnPropertyChanged("Cases");
                         validProperties[1] = null;
@@ -588,11 +633,11 @@ namespace ESI_ITE.ViewModel {
                         OnPropertyChanged("Cases");
                         validProperties[1] = "Error";
                     }
-
                     break;
 
                 case "Expiry":
-                    IsFirstLoad = false;
+                    if ( IsClearForm == false )
+                        IsFirstLoad = false;
                     break;
             }
         }
@@ -621,12 +666,81 @@ namespace ESI_ITE.ViewModel {
 
         private void AddItem()
         {
+            bool hasDuplicate = CheckDuplicate();
             InventoryDummyModel newItem = new InventoryDummyModel();
+            int[] qtty = new int[2];
 
+            if ( string.IsNullOrWhiteSpace(Cases) )
+                qtty = RefactorQuantity(int.Parse("0"), int.Parse(Pieces));
+            else if ( string.IsNullOrWhiteSpace(Pieces) )
+                qtty = RefactorQuantity(int.Parse(Cases), int.Parse("0"));
+            else
+                qtty = RefactorQuantity(int.Parse(Cases), int.Parse(Pieces));
+
+            newItem.TransactionCode = transactionModel.TransactionNumber;
+            newItem.Location = LC;
+            newItem.PriceType = PT.Code;
+            newItem.ItemCode = ItemCode;
+            newItem.ItemDescription = ItemDescription;
+            newItem.Cases = qtty[0];
+            newItem.Pieces = qtty[1];
+            newItem.Expiration = DateTime.Parse(Expiry, CultureInfo.CreateSpecificCulture("en-US"));
+            newItem.PricePerPiece = decimal.Parse(UnitPrice);
+            newItem.LineAmount = CalculateLineAmount(qtty[0], qtty[1]);
+
+            try {
+                dummy.AddNew(newItem);
+
+                dataGridItems.Add(newItem);
+                ClearForm();
+            }
+            catch ( Exception e ) {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+        private bool CheckDuplicate()
+        {
+            bool hasDuplicate = false;
+
+
+
+            return hasDuplicate;
+        }
+
+        private decimal CalculateLineAmount(int cases, int pieces)
+        {
+            decimal total = 0;
+            int qtty = 0;
+
+            qtty = (cases * piecePerUnit) + pieces;
+            total = qtty * decimal.Parse(UnitPrice);
+
+            return total;
+        }
+
+        private int[] RefactorQuantity(int cases, int pieces)
+        {
+            int[] newQuantities = new int[2];
+            int newPieces = 0;
+
+            if ( pieces >= piecePerUnit ) {
+                newPieces = pieces % piecePerUnit;
+                cases += pieces/piecePerUnit;
+            }
+            newQuantities[0] = cases;
+            newQuantities[1] = newPieces;
+
+            return newQuantities;
         }
 
         #endregion
 
+        /// <summary>
+        /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// </summary>
+        /// 
         #region IDataErrorInfo Members
 
         public string Error {
@@ -683,7 +797,7 @@ namespace ESI_ITE.ViewModel {
 
             switch ( propertyName ) {
                 case "ItemCode":
-                    error = ValidateNullOrEmpty("ItemCode", ItemCode);
+                    error = ValidateItemCode();
 
                     if ( error == null )
                         validProperties[0] = null;
@@ -710,6 +824,28 @@ namespace ESI_ITE.ViewModel {
                         validProperties[2] = "Error";
                     break;
             }
+            isValid();
+            return error;
+        }
+
+        private string ValidateItemCode()
+        {
+            string error = null;
+
+            if ( string.IsNullOrWhiteSpace(ItemCode) ) {
+                error = "Field cannot be empty!";
+            }
+            else {
+                foreach ( var item in ItemCodeList ) {
+                    if ( item.Code == ItemCode ) {
+                        error = null;
+                        break;
+                    }
+                    else {
+                        error ="Item code does not exist!";
+                    }
+                }
+            }
 
             return error;
         }
@@ -717,6 +853,23 @@ namespace ESI_ITE.ViewModel {
         private string ValidateExpiry()
         {
             string error = null;
+            DateTime date;
+
+            if ( string.IsNullOrWhiteSpace(Expiry) ) {
+                error = "Field cannot be empty!";
+            }
+            else {
+                try {
+                    date = DateTime.Parse(Expiry, CultureInfo.CreateSpecificCulture("en-US"));
+
+                    if ( date <= DateTime.Now ) {
+                        error = "Expiry must be later than today!";
+                    }
+                }
+                catch ( Exception e ) {
+                    error = "Invalid date!";
+                }
+            }
 
             return error;
         }
@@ -731,15 +884,11 @@ namespace ESI_ITE.ViewModel {
                     qtty = int.Parse(Cases);
 
                     if ( Cases == "0" ) {
-                        validProperties[1] = null;
                         error = "Fields cannot be empty!";
                     }
-                    else
-                        validProperties[1] = null;
                 }
                 catch ( Exception e ) {
                     error = "Invalid Input!";
-                    validProperties[1] = e.Message;
                 }
             }
             else if ( string.IsNullOrWhiteSpace(Cases) && !string.IsNullOrWhiteSpace(Pieces) ) {
@@ -747,15 +896,11 @@ namespace ESI_ITE.ViewModel {
                     qtty = int.Parse(Pieces);
 
                     if ( Pieces == "0" ) {
-                        validProperties[1] = null;
                         error = "Fields cannot be empty!";
                     }
-                    else
-                        validProperties[1] = null;
                 }
                 catch ( Exception e ) {
                     error = "Invalid Input!";
-                    validProperties[1] = e.Message;
                 }
             }
             else if ( !string.IsNullOrWhiteSpace(Cases) && !string.IsNullOrWhiteSpace(Pieces) ) {
@@ -764,31 +909,15 @@ namespace ESI_ITE.ViewModel {
                     qtty = int.Parse(Pieces);
 
                     if ( Cases == "0" && Pieces == "0" ) {
-                        validProperties[1] = null;
                         error = "Fields cannot be empty!";
                     }
-                    else
-                        validProperties[1] = null;
                 }
                 catch ( Exception e ) {
                     error = "Invalid Input!";
-                    validProperties[1] = e.Message;
                 }
             }
             else if ( string.IsNullOrWhiteSpace(Cases) && string.IsNullOrWhiteSpace(Pieces) ) {
                 error = "Fields cannot be empty!";
-                validProperties[1] = "Error";
-            }
-
-            return error;
-        }
-
-        private string ValidateNullOrEmpty(string propertyName, string value)
-        {
-            string error = null;
-
-            if ( string.IsNullOrWhiteSpace(value) ) {
-                error = propertyName + " Cannot be empty!";
             }
 
             return error;
