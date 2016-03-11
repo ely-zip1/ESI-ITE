@@ -265,12 +265,13 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Width="70" Margin="4" Background="White" Content="Add Item" x:Name="btnAdd" Command="{Binding AddItemCommand}" 
                             IsEnabled="{Binding CanBeAdded}"/>
-                    <Button Width="70" Margin="4" Background="White" Content="Delete Line" x:Name="btnDelete" Command="{Binding DeleteItemCommand}"/>
+                    <Button Width="70" Margin="4" Background="White" Content="Delete Line" x:Name="btnDelete" Command="{Binding DeleteItemCommand}"
+                            IsEnabled="{Binding CanBeDeleted}"/>
                     <Button Width="70" Margin="4" Background="White" Content="Print Entry" x:Name="btnPrint"
 						Command="{Binding PrintTransactionCommand}"/>
                 </StackPanel>
 
-                <Button Grid.Row="1" Content="Cancel" Margin="4" Width="70" HorizontalAlignment="Right" Background="White" x:Name="btnCancel"
+                <Button Grid.Row="1" Content="Close" Margin="4" Width="70" HorizontalAlignment="Right" Background="White" x:Name="btnCancel"
 					Command="{Binding CancelCommand}"/>
             </Grid>
         </Grid>

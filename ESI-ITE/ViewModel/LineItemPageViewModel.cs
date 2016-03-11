@@ -15,6 +15,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
+using MySql.Data.MySqlClient;
 
 namespace ESI_ITE.ViewModel {
     class LineItemPageViewModel: ViewModelBase, IDataErrorInfo {
@@ -23,19 +24,20 @@ namespace ESI_ITE.ViewModel {
 
         #region Constructor
 
-        public LineItemPageViewModel()
+        public LineItemPageViewModel( )
         {
             cancelCommand = new DelegateCommand(CancelAndGoBack);
             printTransactionCommand = new DelegateCommand(PrintDocument);
             itemCode_KeyDown = new DelegateCommand(KeyPressed);
             itemCode_KeyUp = new DelegateCommand(KeyUp);
             addItemCommand = new DelegateCommand(AddItem);
+            deleteItemCommand = new DelegateCommand(DeleteItem);
 
             transactionModel = MyGlobals.Transaction;
             Load();
         }
 
-        public LineItemPageViewModel(TransactionModel trans)
+        public LineItemPageViewModel( TransactionModel trans )
         {
             transactionModel = trans;
             Load();
@@ -217,7 +219,8 @@ namespace ESI_ITE.ViewModel {
                 OnPropertyChanged("ItemCode");
                 ContentChanged("ItemCode");
                 if ( isKeyDown ) {
-                    SuggestItems(value);
+                    if ( IsClearForm == false )
+                        SuggestItems(value);
                 }
             }
         }
@@ -397,7 +400,14 @@ namespace ESI_ITE.ViewModel {
             get { return addItemCommand; }
         }
 
+        private DelegateCommand deleteItemCommand;
+        public ICommand DeleteItemCommand {
+            get { return deleteItemCommand; }
+        }
+
         #endregion
+
+        #region Flags
 
         private bool canBeAdded;
         public bool CanBeAdded {
@@ -408,8 +418,19 @@ namespace ESI_ITE.ViewModel {
             }
         }
 
+        private bool canBeDeleted;
+        public bool CanBeDeleted {
+            get { return canBeDeleted; }
+            set {
+                canBeDeleted = value;
+                OnPropertyChanged("CanBeDeleted");
+            }
+        }
+
         private bool IsFirstLoad = true;
         private bool IsClearForm;
+
+        #endregion
 
         private int piecePerUnit;
 
@@ -422,7 +443,7 @@ namespace ESI_ITE.ViewModel {
 
         #region Methods
 
-        private void Load()
+        private void Load( )
         {
             IsFirstLoad = true;
 
@@ -485,7 +506,7 @@ namespace ESI_ITE.ViewModel {
             //ItemCodeList = itemModel.FetchAll();
         }
 
-        private void SelectedDatagridItemChanged()
+        private void SelectedDatagridItemChanged( )
         {
             ItemCode = DatagridSelectedItem.ItemCode;
 
@@ -510,10 +531,17 @@ namespace ESI_ITE.ViewModel {
             ItemDescription = DatagridSelectedItem.ItemDescription;
 
             var item = itemModel.Fetch(DatagridSelectedItem.ItemCode);
-
+            foreach ( var i in item ) {
+                if ( i.Code == DatagridSelectedItem.ItemCode ) {
+                    TaxRate = i.TaxRate;
+                    break;
+                }
+            }
+            CanBeDeleted = true;
+            CanBeAdded = false;
         }
 
-        private void FillForm()
+        private void FillForm( )
         {
             IsClearForm = true;
             IsFirstLoad = true;
@@ -545,23 +573,26 @@ namespace ESI_ITE.ViewModel {
             IsClearForm = false;
         }
 
-        private void ClearForm()
+        private void ClearForm( )
         {
             IsFirstLoad = true;
             IsClearForm = true;
 
-            ItemCode = null;
-            Cases = null;
-            Pieces = null;
-            UnitPrice = null;
-            ItemDescription = null;
-            Expiry = null;
+            ItemCode = "";
+            Cases = "";
+            Pieces = "";
+            UnitPrice = "";
+            ItemDescription = "";
+            Expiry = "";
+            TaxRate = "";
+
+            resetValidProperties();
 
             IsFirstLoad = false;
             IsClearForm = false;
         }
 
-        private void SuggestItems(string value)
+        private void SuggestItems( string value )
         {
             int counter = 1;
             SuggestedItemCodeList.Clear();
@@ -576,7 +607,7 @@ namespace ESI_ITE.ViewModel {
             }
         }
 
-        private void ContentChanged(string propertyName)
+        private void ContentChanged( string propertyName )
         {
             switch ( propertyName ) {
                 case "ItemCode":
@@ -640,33 +671,83 @@ namespace ESI_ITE.ViewModel {
                         IsFirstLoad = false;
                     break;
             }
+            isValid();
+            isValidForDeletion();
         }
 
-        private void CancelAndGoBack()
+        private void isValidForDeletion( )
+        {
+            int cases = 0;
+            int pieces = 0;
+
+
+
+            if ( DatagridSelectedItem != null && CanBeAdded ) {
+                if ( string.IsNullOrWhiteSpace(Cases) ) {
+                    cases = 0;
+                }
+                else {
+                    cases = int.Parse(Cases);
+                }
+                if ( string.IsNullOrWhiteSpace(Pieces) ) {
+                    pieces = 0;
+                }
+                else {
+                    pieces = int.Parse(Pieces);
+                }
+
+                if ( DatagridSelectedItem.ItemCode == ItemCode ) {
+                    if ( DatagridSelectedItem.ItemDescription == ItemDescription ) {
+                        if ( DatagridSelectedItem.Cases == cases ) {
+                            if ( DatagridSelectedItem.Pieces == pieces ) {
+                                if ( DatagridSelectedItem.PriceType == PT.Code ) {
+
+                                    CanBeDeleted = true;
+                                }
+                                else
+                                    CanBeDeleted = false;
+                            }
+                            else
+                                CanBeDeleted = false;
+                        }
+                        else
+                            CanBeDeleted = false;
+                    }
+                    else
+                        CanBeDeleted = false;
+                }
+                else
+                    CanBeDeleted = false;
+            }
+            else
+                CanBeDeleted = false;
+
+        }
+
+        private void CancelAndGoBack( )
         {
             MyGlobals.IteViewModel.SelectedPage = MyGlobals.TransactionEntryPage;
         }
 
-        private void PrintDocument()
+        private void PrintDocument( )
         {
             MyGlobals.TransactionList.Add(MyGlobals.Transaction);
             PrintingJob printJob = new PrintingJob();
             printJob.StartPrinting();
         }
 
-        private void KeyPressed()
+        private void KeyPressed( )
         {
             isKeyDown = true;
         }
 
-        private void KeyUp()
+        private void KeyUp( )
         {
             isKeyDown = false;
         }
 
-        private void AddItem()
+        private void AddItem( )
         {
-            bool hasDuplicate = CheckDuplicate();
             InventoryDummyModel newItem = new InventoryDummyModel();
             int[] qtty = new int[2];
 
@@ -688,27 +769,68 @@ namespace ESI_ITE.ViewModel {
             newItem.PricePerPiece = decimal.Parse(UnitPrice);
             newItem.LineAmount = CalculateLineAmount(qtty[0], qtty[1]);
 
-            try {
-                dummy.AddNew(newItem);
+            bool hasDuplicate = CheckDuplicate();
 
-                dataGridItems.Add(newItem);
-                ClearForm();
+            if ( hasDuplicate ) {
+                string messageBoxText = "Item already exists. \n Do you want to update it?";
+                string caption = "Duplicate Record";
+                MessageBoxButton button = MessageBoxButton.YesNo;
+                MessageBoxImage icon = MessageBoxImage.Question;
+
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                if ( result == MessageBoxResult.Yes ) {
+                    UpdateItem(newItem);
+                }
             }
-            catch ( Exception e ) {
-                MessageBox.Show(e.Message);
+            else {
+                try {
+                    dummy.AddNew(newItem);
+
+                    dataGridItems.Add(newItem);
+                    ClearForm();
+                }
+                catch ( MySqlException e ) {
+                    MessageBox.Show("Error adding item \n" + e.Message);
+                }
             }
         }
 
-        private bool CheckDuplicate()
+        private void UpdateItem( InventoryDummyModel newItem )
+        {
+            try {
+                dummy.UpdateItem(newItem);
+
+                foreach ( var i in DatagridItems ) {
+                    if ( i.ItemCode == newItem.ItemCode ) {
+                        DatagridItems.Remove(i);
+                        break;
+                    }
+                }
+
+                DatagridItems.Add(newItem);
+                ClearForm();
+            }
+            catch ( MySqlException e ) {
+                MessageBox.Show("Error updating item! \n" + e.Message);
+            }
+        }
+
+        private bool CheckDuplicate( )
         {
             bool hasDuplicate = false;
 
-
+            foreach ( var item in dataGridItems ) {
+                if ( item.ItemCode == ItemCode ) {
+                    hasDuplicate = true;
+                    break;
+                }
+            }
 
             return hasDuplicate;
         }
 
-        private decimal CalculateLineAmount(int cases, int pieces)
+        private decimal CalculateLineAmount( int cases, int pieces )
         {
             decimal total = 0;
             int qtty = 0;
@@ -719,19 +841,48 @@ namespace ESI_ITE.ViewModel {
             return total;
         }
 
-        private int[] RefactorQuantity(int cases, int pieces)
+        private int[] RefactorQuantity( int cases, int pieces )
         {
             int[] newQuantities = new int[2];
             int newPieces = 0;
 
             if ( pieces >= piecePerUnit ) {
                 newPieces = pieces % piecePerUnit;
-                cases += pieces/piecePerUnit;
+                cases += pieces / piecePerUnit;
             }
             newQuantities[0] = cases;
             newQuantities[1] = newPieces;
 
             return newQuantities;
+        }
+
+        private void DeleteItem( )
+        {
+            string message = "Do you want to delete this item?";
+            string caption = "Delete Item";
+            MessageBoxImage icon = MessageBoxImage.Warning;
+            MessageBoxButton button = MessageBoxButton.YesNo;
+
+            MessageBoxResult result = MessageBox.Show(message, caption, button, icon, MessageBoxResult.No);
+
+            if ( result == MessageBoxResult.Yes ) {
+                try {
+                    dummy.DeleteItem(ItemCode, TransactionNumber);
+
+                    foreach ( var i in DatagridItems ) {
+                        if ( i.ItemCode == ItemCode ) {
+                            DatagridItems.Remove(i);
+                            break;
+                        }
+                    }
+
+                    ClearForm();
+                }
+                catch ( Exception e ) {
+                    MessageBox.Show(e.Message);
+                }
+            }
+
         }
 
         #endregion
@@ -763,7 +914,7 @@ namespace ESI_ITE.ViewModel {
 
         string[] validProperties = { "Error", "Error", "Error" };
 
-        private void resetValidProperties()
+        private void resetValidProperties( )
         {
             int x = validProperties.Length;
             for ( int i = 0;i < x;i++ ) {
@@ -772,7 +923,7 @@ namespace ESI_ITE.ViewModel {
         }
 
 
-        private void isValid()
+        private void isValid( )
         {
             Debug.WriteLine("ISVALID");
             int counter = 0;
@@ -791,7 +942,7 @@ namespace ESI_ITE.ViewModel {
                 CanBeAdded = true;
         }
 
-        private string GetValidationError(string propertyName)
+        private string GetValidationError( string propertyName )
         {
             string error = null;
 
@@ -825,10 +976,11 @@ namespace ESI_ITE.ViewModel {
                     break;
             }
             isValid();
+            isValidForDeletion();
             return error;
         }
 
-        private string ValidateItemCode()
+        private string ValidateItemCode( )
         {
             string error = null;
 
@@ -842,7 +994,7 @@ namespace ESI_ITE.ViewModel {
                         break;
                     }
                     else {
-                        error ="Item code does not exist!";
+                        error = "Item code does not exist!";
                     }
                 }
             }
@@ -850,7 +1002,7 @@ namespace ESI_ITE.ViewModel {
             return error;
         }
 
-        private string ValidateExpiry()
+        private string ValidateExpiry( )
         {
             string error = null;
             DateTime date;
@@ -874,7 +1026,7 @@ namespace ESI_ITE.ViewModel {
             return error;
         }
 
-        private string ValidateQuantity()
+        private string ValidateQuantity( )
         {
             string error = null;
             int qtty;
