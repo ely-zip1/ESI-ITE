@@ -170,12 +170,14 @@
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Command\DelegateCommand.cs" />
+    <Compile Include="ViewModel\Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\IModule.cs" />
     <Compile Include="ViewModel\ITEViewModel.cs" />
     <Compile Include="ViewModel\LineItemPageViewModel.cs" />
     <Compile Include="ViewModel\LineItemViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\PrintPreviewPageViewModel.cs" />
     <Compile Include="ViewModel\TransactionEntryPageViewModel.cs" />
     <Compile Include="ViewModel\TransactionEntryViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
@@ -193,6 +195,9 @@
     </Compile>
     <Compile Include="View\LineItemView.xaml.cs">
       <DependentUpon>LineItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PrintPreviewPageView.xaml.cs">
+      <DependentUpon>PrintPreviewPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Transaction Printing.xaml.cs">
       <DependentUpon>Transaction Printing.xaml</DependentUpon>
@@ -249,6 +254,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Printing\PrintingItemTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PrintPreviewPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

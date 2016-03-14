@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\App.xaml
-131162783062
+14781645233
 
-49473173256
+52976172535
 941838718402
-Printing\PrintingFooterTemplate.xaml;Printing\PrintingHeaderTemplate.xaml;Printing\UserControl1.xaml;View\HomeView.xaml;View\ITEView.xaml;View\LineItemPageView.xaml;View\LineItemView.xaml;View\MainWindow.xaml;Printing\PrintingCanvas.xaml;Printing\PrintingItemTemplate.xaml;View\Transaction Printing.xaml;View\TransactionEntryPageView.xaml;View\TransactionEntryView.xaml;
+Printing\PrintingFooterTemplate.xaml;Printing\PrintingHeaderTemplate.xaml;Printing\UserControl1.xaml;View\HomeView.xaml;View\ITEView.xaml;View\LineItemPageView.xaml;View\LineItemView.xaml;View\MainWindow.xaml;Printing\PrintingCanvas.xaml;Printing\PrintingItemTemplate.xaml;View\PrintPreviewPageView.xaml;View\Transaction Printing.xaml;View\TransactionEntryPageView.xaml;View\TransactionEntryView.xaml;
 
-False
+True
 

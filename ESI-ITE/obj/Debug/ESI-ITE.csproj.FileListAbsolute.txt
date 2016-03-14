@@ -317,3 +317,5 @@ C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryV
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.g.resources
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI_ITE.Properties.Resources.resources
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.GenerateResource.Cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintPreviewPageView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintPreviewPageView.baml

@@ -16,6 +16,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
 using MySql.Data.MySqlClient;
+using ESI_ITE.View;
 
 namespace ESI_ITE.ViewModel {
     class LineItemPageViewModel: ViewModelBase, IDataErrorInfo {
@@ -32,8 +33,9 @@ namespace ESI_ITE.ViewModel {
             itemCode_KeyUp = new DelegateCommand(KeyUp);
             addItemCommand = new DelegateCommand(AddItem);
             deleteItemCommand = new DelegateCommand(DeleteItem);
-
+;
             transactionModel = MyGlobals.Transaction;
+
             Load();
         }
 
@@ -731,9 +733,8 @@ namespace ESI_ITE.ViewModel {
 
         private void PrintDocument( )
         {
-            MyGlobals.TransactionList.Add(MyGlobals.Transaction);
-            PrintingJob printJob = new PrintingJob();
-            printJob.StartPrinting();
+            MyGlobals.PrintingParent = MyGlobals.LineItemPage;
+            MyGlobals.IteViewModel.SelectedPage = new PrintPreviewPageView();
         }
 
         private void KeyPressed( )

@@ -1,22 +1,31 @@
-﻿using System;
+﻿using ESI_ITE.Model;
+using ESI_ITE.ViewModel.Command;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
-using ESI_ITE.Model;
-using ESI_ITE.View;
-using System.Windows.Documents;
-using System.Windows.Controls;
-using ESI_ITE.Printing;
-using System.Windows.Markup;
-using System.Printing;
-using System.Windows.Xps;
-using System.Drawing;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Xps;
 
-namespace ESI_ITE.Printing {
-    public class PrintingJob {
+namespace ESI_ITE.ViewModel {
+    public class PrintPreviewPageViewModel: ViewModelBase {
+
+        public PrintPreviewPageViewModel( )
+        {
+            printPreviewCommand = new DelegateCommand(PrintPreview);
+            cancelCommand = new DelegateCommand(CancelPrinting);
+
+            Load();
+        }
+
         #region Properties
 
         #region Header
@@ -90,7 +99,59 @@ namespace ESI_ITE.Printing {
 
         #endregion
 
-        FixedDocumentSequence docSequence = new FixedDocumentSequence();
+        private FixedDocumentSequence docSequence = new FixedDocumentSequence();
+        public FixedDocumentSequence DocSequence {
+            get { return docSequence; }
+            set {
+                docSequence = value;
+                OnPropertyChanged("DocSequence");
+            }
+        }
+
+        private ObservableCollection<TransactionModel> printableTransactions = new ObservableCollection<TransactionModel>();
+        public ObservableCollection<TransactionModel> PrintableTransactions {
+            get { return printableTransactions; }
+            set { printableTransactions = value; }
+        }
+
+        private ObservableCollection<CheckedItem> checkBoxCollection = new ObservableCollection<CheckedItem>();
+        public ObservableCollection<CheckedItem> CheckBoxCollection {
+            get { return checkBoxCollection; }
+            set {
+                checkBoxCollection = value;
+            }
+        }
+
+        private bool selectAll;
+        public bool SelectAll {
+            get { return selectAll; }
+            set {
+                selectAll = value;
+                OnPropertyChanged("SelectAll");
+                SelectAllChanged();
+            }
+        }
+
+        private bool isViewerVisible = false;
+        public bool IsViewerVisible {
+            get { return isViewerVisible; }
+            set {
+                isViewerVisible = value;
+                OnPropertyChanged("IsViewerVisible");
+            }
+        }
+
+        private DelegateCommand printPreviewCommand;
+        public ICommand PrintPreviewCommand {
+            get { return printPreviewCommand; }
+        }
+
+        private DelegateCommand cancelCommand;
+        public ICommand CancelCommand {
+            get { return cancelCommand; }
+        }
+
+        DocumentReference docRef = new DocumentReference();
         FixedDocument doc = new FixedDocument();
         InventoryDummyModel dummy = new InventoryDummyModel();
         FixedPage[] page;
@@ -106,15 +167,107 @@ namespace ESI_ITE.Printing {
         int top = 30;
         int left = 30;
 
-
         private bool createNewPage = false;
+
+        private bool isSelectAll = false;
+        private bool isItemUnchecked = false;
+        private bool isItemChecked = false;
+        private bool uncheckAll = false;
 
         #endregion
 
-        public void StartPrinting( )
+        private void Load( )
         {
-            foreach ( var transaction in MyGlobals.TransactionList ) {
+            foreach ( var trans in MyGlobals.TransactionList ) {
+                PrintableTransactions.Add(trans);
+                CheckBoxCollection.Add(new CheckedItem { IsChecked = false, Transaction = new TransactionModel(trans) });
+            }
+        }
+
+        private void SelectAllChanged( )
+        {
+            if ( SelectAll ) {
+                isSelectAll = true;
+                foreach ( var item in CheckBoxCollection ) {
+                    item.IsChecked = true;
+                }
+                isSelectAll = false;
+            }
+            else {
+                if ( isItemUnchecked == false ) {
+                    if ( isItemChecked == false ) {
+                        uncheckAll = true;
+
+                        foreach ( var item in CheckBoxCollection ) {
+                            item.IsChecked = false;
+                        }
+
+                        uncheckAll = false;
+                    }
+                }
+            }
+        }
+
+        public void ItemUnchecked( )
+        {
+            if ( uncheckAll == false ) {
+                isItemUnchecked = true;
+
+                SelectAll = false;
+
+                isItemUnchecked = false;
+            }
+        }
+
+        public void ItemChecked( )
+        {
+            if ( isSelectAll == false ) {
+                isItemChecked = true;
+                int itemCount = CheckBoxCollection.Count;
+                int checkedItemsCounter = 0;
+
+                foreach ( var i in CheckBoxCollection ) {
+                    if ( i.IsChecked )
+                        checkedItemsCounter++;
+                }
+
+                if ( checkedItemsCounter == itemCount )
+                    SelectAll = true;
+                else
+                    SelectAll = false;
+
+                isItemChecked = false;
+            }
+        }
+
+        private void PrintPreview( )
+        {
+            PrintableTransactions.Clear();
+            DocSequence = null;
+            DocSequence = new FixedDocumentSequence();
+
+            foreach ( var chkdItems in CheckBoxCollection ) {
+                if ( chkdItems.IsChecked ) {
+                    PrintableTransactions.Add(chkdItems.Transaction);
+                }
+            }
+
+            IsViewerVisible = true;
+
+            StartPrinting();
+        }
+
+        private void CancelPrinting( )
+        {
+            MyGlobals.IteViewModel.SelectedPage = MyGlobals.PrintingParent;
+        }
+
+        private void StartPrinting( )
+        {
+            foreach ( var transaction in PrintableTransactions ) {
                 List<InventoryDummyModel> items = dummy.FetchAll(transaction.TransactionNumber);
+
+                doc = new FixedDocument();
 
                 double x = (double)items.Count / 20.0;
                 int numberOfPages = x > 1 ? (int)(x + 1) : 1;
@@ -156,17 +309,9 @@ namespace ESI_ITE.Printing {
                 }
                 AppendFooter(content[pageNumber], transaction);
 
-                DocumentReference docRef = new DocumentReference();
+                docRef = new DocumentReference();
                 docRef.SetDocument(doc);
-                docSequence.References.Add(docRef);
-
-            }
-
-            // Print document
-            PrintDocumentImageableArea imageArea = null;
-            XpsDocumentWriter xpsdw = PrintQueue.CreateXpsDocumentWriter(ref imageArea);
-            if ( xpsdw != null ) {
-                xpsdw.Write(docSequence);
+                DocSequence.References.Add(docRef);
             }
         }
 
@@ -820,6 +965,27 @@ namespace ESI_ITE.Printing {
             borderReceivedBy.Child = lblReceivedBy;
 
             #endregion
+        }
+    }
+
+    public class CheckedItem: ViewModelBase {
+
+        private bool isChecked;
+        public bool IsChecked {
+            get { return isChecked; }
+            set {
+                isChecked = value;
+                OnPropertyChanged("IsChecked");
+            }
+        }
+
+        private TransactionModel transaction;
+        public TransactionModel Transaction {
+            get { return transaction; }
+            set {
+                transaction = value;
+                OnPropertyChanged("Transaction");
+            }
         }
     }
 }

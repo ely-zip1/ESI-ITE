@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ESI_ITE.ViewModel;
 using ESI_ITE.Model;
 using ESI_ITE.View;
+using System.Windows.Controls;
 
 namespace ESI_ITE
 {
@@ -20,6 +21,8 @@ namespace ESI_ITE
         public static TransactionEntryPageView TransactionEntryPage;
 
         public static LineItemPageView LineItemPage;
+
+        public static Page PrintingParent;
 
         public static List<InventoryDummyModel> TransactionItemsList;
 
