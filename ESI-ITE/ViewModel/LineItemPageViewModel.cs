@@ -33,7 +33,7 @@ namespace ESI_ITE.ViewModel {
             itemCode_KeyUp = new DelegateCommand(KeyUp);
             addItemCommand = new DelegateCommand(AddItem);
             deleteItemCommand = new DelegateCommand(DeleteItem);
-;
+            ;
             transactionModel = MyGlobals.Transaction;
 
             Load();
@@ -476,7 +476,7 @@ namespace ESI_ITE.ViewModel {
             decimal _orderAmount = 0;
 
             if ( !MyGlobals.IsNewTransaction ) {
-                foreach ( var item in dummy.FetchAll(TransactionNumber) ) {
+                foreach ( var item in dummy.Fetch(TransactionNumber) ) {
                     _orderAmount += Convert.ToDecimal(item.LineAmount);
                     DatagridItems.Add(item);
                 }
@@ -681,21 +681,34 @@ namespace ESI_ITE.ViewModel {
         {
             int cases = 0;
             int pieces = 0;
-
-
-
+            
             if ( DatagridSelectedItem != null && CanBeAdded ) {
                 if ( string.IsNullOrWhiteSpace(Cases) ) {
                     cases = 0;
                 }
                 else {
-                    cases = int.Parse(Cases);
+                    try {
+                        int.Parse(Cases);
+
+                        cases = int.Parse(Cases);
+                    }
+                    catch ( Exception e ) {
+
+                    }
                 }
+
                 if ( string.IsNullOrWhiteSpace(Pieces) ) {
                     pieces = 0;
                 }
                 else {
-                    pieces = int.Parse(Pieces);
+                    try {
+                        int.Parse(Pieces);
+
+                        pieces = int.Parse(Pieces);
+                    }
+                    catch ( Exception e ) {
+
+                    }
                 }
 
                 if ( DatagridSelectedItem.ItemCode == ItemCode ) {

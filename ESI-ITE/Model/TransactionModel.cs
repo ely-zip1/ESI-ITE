@@ -9,16 +9,16 @@ using System.Text.RegularExpressions;
 
 namespace ESI_ITE.Model
 {
-    public class TransactionModel : ObjectBase, IDataErrorInfo
+    public class TransactionModel: ObjectBase, IDataErrorInfo
     {
 
         #region Constructors
-        public TransactionModel()
+        public TransactionModel( )
         {
 
         }
 
-        public TransactionModel(TransactionModel source)
+        public TransactionModel( TransactionModel source )
         {
             Id = source.Id;
             TransactionNumber = source.TransactionNumber;
@@ -52,7 +52,7 @@ namespace ESI_ITE.Model
             get { return id; }
             set
             {
-                if (id != value)
+                if ( id != value )
                 {
                     id = value;
                     OnPropertyChanged("Id");
@@ -66,7 +66,7 @@ namespace ESI_ITE.Model
             get { return transactionNumber; }
             set
             {
-                if (transactionNumber != value)
+                if ( transactionNumber != value )
                 {
                     transactionNumber = value;
                     OnPropertyChanged("TransactioNumber");
@@ -80,7 +80,7 @@ namespace ESI_ITE.Model
             get { return transactionTypeCode; }
             set
             {
-                if (transactionTypeCode != value)
+                if ( transactionTypeCode != value )
                 {
                     transactionTypeCode = value;
                     OnPropertyChanged("TransactionCode");
@@ -94,7 +94,7 @@ namespace ESI_ITE.Model
             get { return transactionType; }
             set
             {
-                if (transactionType != value)
+                if ( transactionType != value )
                 {
                     transactionType = value;
                     OnPropertyChanged("TransactionType");
@@ -108,7 +108,7 @@ namespace ESI_ITE.Model
             get { return documentNumber; }
             set
             {
-                if (documentNumber != value)
+                if ( documentNumber != value )
                 {
                     documentNumber = value;
                     OnPropertyChanged("DocumentNumber");
@@ -122,7 +122,7 @@ namespace ESI_ITE.Model
             get { return transactionDate; }
             set
             {
-                if (transactionDate != value)
+                if ( transactionDate != value )
                 {
                     transactionDate = value;
                     OnPropertyChanged("TransactionDate");
@@ -136,7 +136,7 @@ namespace ESI_ITE.Model
             get { return sourceWarehouse; }
             set
             {
-                if (sourceWarehouse != value)
+                if ( sourceWarehouse != value )
                 {
                     sourceWarehouse = value;
                     OnPropertyChanged("SourceWarehouse");
@@ -150,7 +150,7 @@ namespace ESI_ITE.Model
             get { return sourceWarehouseCode; }
             set
             {
-                if (sourceWarehouseCode != value)
+                if ( sourceWarehouseCode != value )
                 {
                     sourceWarehouseCode = value;
                     OnPropertyChanged("SourceWarehouseCode");
@@ -164,7 +164,7 @@ namespace ESI_ITE.Model
             get { return destinationWarehouse; }
             set
             {
-                if (destinationWarehouse != value)
+                if ( destinationWarehouse != value )
                 {
                     destinationWarehouse = value;
                     OnPropertyChanged("DestinationWarehouse");
@@ -178,7 +178,7 @@ namespace ESI_ITE.Model
             get { return destinationWarehouseCode; }
             set
             {
-                if (destinationWarehouseCode != value)
+                if ( destinationWarehouseCode != value )
                 {
                     destinationWarehouseCode = value;
                     OnPropertyChanged("DestinationWarehouseCode");
@@ -192,7 +192,7 @@ namespace ESI_ITE.Model
             get { return sourceLocation; }
             set
             {
-                if (sourceLocation != value)
+                if ( sourceLocation != value )
                 {
                     sourceLocation = value;
                     OnPropertyChanged("SourceLocation");
@@ -206,7 +206,7 @@ namespace ESI_ITE.Model
             get { return sourceLocationCode; }
             set
             {
-                if (sourceLocationCode != value)
+                if ( sourceLocationCode != value )
                 {
                     sourceLocationCode = value;
                     OnPropertyChanged("SourceLocationCode");
@@ -220,7 +220,7 @@ namespace ESI_ITE.Model
             get { return destinationLocation; }
             set
             {
-                if (destinationLocation != value)
+                if ( destinationLocation != value )
                 {
                     destinationLocation = value;
                     OnPropertyChanged("DestinationLocation");
@@ -234,7 +234,7 @@ namespace ESI_ITE.Model
             get { return destinationLocationCode; }
             set
             {
-                if (destinationLocationCode != value)
+                if ( destinationLocationCode != value )
                 {
                     destinationLocationCode = value;
                     OnPropertyChanged("DestinationLocationCode");
@@ -248,7 +248,7 @@ namespace ESI_ITE.Model
             get { return sourceSalesman; }
             set
             {
-                if (sourceSalesman != value)
+                if ( sourceSalesman != value )
                 {
                     sourceSalesman = value;
                     OnPropertyChanged("SourceSalesman");
@@ -262,7 +262,7 @@ namespace ESI_ITE.Model
             get { return destinationSalesman; }
             set
             {
-                if (destinationSalesman != value)
+                if ( destinationSalesman != value )
                 {
                     destinationSalesman = value;
                     OnPropertyChanged("DestinationSalesman");
@@ -276,7 +276,7 @@ namespace ESI_ITE.Model
             get { return priceCategory; }
             set
             {
-                if (priceCategory != value)
+                if ( priceCategory != value )
                 {
                     priceCategory = value;
                     OnPropertyChanged("PriceCategory");
@@ -290,7 +290,7 @@ namespace ESI_ITE.Model
             get { return priceType; }
             set
             {
-                if (priceType != value)
+                if ( priceType != value )
                 {
                     priceType = value;
                     OnPropertyChanged("PriceType");
@@ -304,7 +304,7 @@ namespace ESI_ITE.Model
             get { return reason; }
             set
             {
-                if (reason != value)
+                if ( reason != value )
                 {
                     reason = value;
                     OnPropertyChanged("Reason");
@@ -318,7 +318,7 @@ namespace ESI_ITE.Model
             get { return reasonCode; }
             set
             {
-                if (reasonCode != value)
+                if ( reasonCode != value )
                 {
                     reasonCode = value;
                     OnPropertyChanged("ReasonCode");
@@ -332,7 +332,7 @@ namespace ESI_ITE.Model
             get { return comment; }
             set
             {
-                if (comment != value)
+                if ( comment != value )
                 {
                     comment = value;
                     OnPropertyChanged("Comment");
@@ -346,7 +346,7 @@ namespace ESI_ITE.Model
             get { return isPosted; }
             set
             {
-                if (isPosted != value)
+                if ( isPosted != value )
                 {
                     isPosted = value;
                     OnPropertyChanged("IsPrinted");
@@ -362,14 +362,14 @@ namespace ESI_ITE.Model
 
         #endregion
 
-        public TransactionModel Fetch(string transactionNumber)
+        public TransactionModel Fetch( string transactionNumber )
         {
             var records = new List<CloneableDictionary<string, string>>();
             var trans = new TransactionModel();
 
             records = db.SelectMultiple("select * from view_transaction_entry where transaction_number = '" + transactionNumber + "' ");
 
-            foreach (var attribute in records)
+            foreach ( var attribute in records )
             {
                 trans.Id = int.Parse(attribute["id"]);
                 trans.TransactionNumber = attribute["transaction_number"];
@@ -393,7 +393,7 @@ namespace ESI_ITE.Model
                 trans.ReasonCode = attribute["reason_code"];
                 trans.Comment = attribute["comment"];
 
-                if (attribute["status"] == "0")
+                if ( attribute["status"] == "0" )
                 {
                     trans.IsPrinted = false;
                 }
@@ -405,7 +405,7 @@ namespace ESI_ITE.Model
             return trans;
         }
 
-        public List<TransactionModel> FetchAll()
+        public List<TransactionModel> FetchAll( )
         {
             _allTransactions.Clear();
 
@@ -413,7 +413,7 @@ namespace ESI_ITE.Model
 
             //records.AddRange(db.SelectMultiple("select * from view_transaction_entry where status = 0 "));
 
-            foreach (var row in (db.SelectMultiple("select * from view_transaction_entry where status = 0 ")))
+            foreach ( var row in (db.SelectMultiple("select * from view_transaction_entry ")) )
             {
 
                 var trans = new TransactionModel();
@@ -448,7 +448,7 @@ namespace ESI_ITE.Model
             return _allTransactions;
         }
 
-        public void AddTransactionEntry(TransactionModel trans)
+        public void AddTransactionEntry( TransactionModel trans )
         {
             //foreign key id holders
             string transactionTypeId = db.Select("select id from transaction_type where transaction_code = '" + trans.TransactionCode + "'");
@@ -468,7 +468,7 @@ namespace ESI_ITE.Model
 
             int isPosted;
 
-            if (trans.IsPrinted == true)
+            if ( trans.IsPrinted == true )
             {
                 isPosted = 1;
             }
@@ -502,7 +502,7 @@ namespace ESI_ITE.Model
 
         }
 
-        public void DeleteTransaction(string transactionNumber)
+        public void DeleteTransaction( string transactionNumber )
         {
             string transactionId =
                 db.Select("select entry_id from transaction_entry where trans_no = '" + transactionNumber + "'");
@@ -513,6 +513,17 @@ namespace ESI_ITE.Model
             commands.Add("Delete from transaction_entry where trans_no = '" + transactionNumber + "'");
 
             db.RunMySqlTransaction(commands);
+        }
+
+        public void SetPrintedTransactions( List<string> transactionList )
+        {
+            foreach ( var trans in transactionList )
+            {
+                var entryID = db.Select("select entry_id from transaction_entry where trans_no = '" + trans + "' limit 1");
+                var query = "update transaction_entry set status = 1 where entry_id = " + entryID;
+
+                db.Update(query);
+            }
         }
 
 
@@ -562,24 +573,24 @@ namespace ESI_ITE.Model
             get
             {
                 int i = 0;
-                foreach (var property in ValidatedProperties)
+                foreach ( var property in ValidatedProperties )
                 {
-                    if (GetValidationError(property) != null)
+                    if ( GetValidationError(property) != null )
                         i++;
                 }
 
-                if (i > 0)
+                if ( i > 0 )
                     return false;
                 else
                     return true;
             }
         }
 
-        private string GetValidationError(string propertyName)
+        private string GetValidationError( string propertyName )
         {
             string error = null;
 
-            switch (propertyName)
+            switch ( propertyName )
             {
                 case "TransactionNumber":
                     error = ValidateNullOrEmpty(propertyName, this.TransactionNumber.ToString());
@@ -622,14 +633,14 @@ namespace ESI_ITE.Model
             return error;
         }
 
-        private string ValidateDocumentNumber()
+        private string ValidateDocumentNumber( )
         {
             Regex regex = new Regex("^[A-Za-z]*$");
-            if (string.IsNullOrWhiteSpace(DocumentNumber))
+            if ( string.IsNullOrWhiteSpace(DocumentNumber) )
             {
                 return "Document Number cannot be empty!";
             }
-            else if (regex.IsMatch(DocumentNumber))
+            else if ( regex.IsMatch(DocumentNumber) )
             {
                 return "Document Number cannot accept non-numeric values!";
             }
@@ -637,9 +648,9 @@ namespace ESI_ITE.Model
             return null;
         }
 
-        private string ValidateNullOrEmpty(string propertyName, string value)
+        private string ValidateNullOrEmpty( string propertyName, string value )
         {
-            if (string.IsNullOrWhiteSpace(value))
+            if ( string.IsNullOrWhiteSpace(value) )
                 return propertyName + " cannot be empty!";
             else
                 return null;

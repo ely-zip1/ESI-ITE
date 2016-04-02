@@ -10,17 +10,22 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Documents.Serialization;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Xps;
 
-namespace ESI_ITE.ViewModel {
-    public class PrintPreviewPageViewModel: ViewModelBase {
+namespace ESI_ITE.ViewModel
+{
+    public class PrintPreviewPageViewModel: ViewModelBase
+    {
 
         public PrintPreviewPageViewModel( )
         {
             printPreviewCommand = new DelegateCommand(PrintPreview);
+            printCommand = new DelegateCommand(StartPrinting);
+            cancelPrintCommand = new DelegateCommand(ClosePreview);
             cancelCommand = new DelegateCommand(CancelPrinting);
 
             Load();
@@ -99,33 +104,42 @@ namespace ESI_ITE.ViewModel {
 
         #endregion
 
+        private PrintServer printServer = new PrintServer();
+
         private FixedDocumentSequence docSequence = new FixedDocumentSequence();
-        public FixedDocumentSequence DocSequence {
+        public FixedDocumentSequence DocSequence
+        {
             get { return docSequence; }
-            set {
+            set
+            {
                 docSequence = value;
                 OnPropertyChanged("DocSequence");
             }
         }
 
         private ObservableCollection<TransactionModel> printableTransactions = new ObservableCollection<TransactionModel>();
-        public ObservableCollection<TransactionModel> PrintableTransactions {
+        public ObservableCollection<TransactionModel> PrintableTransactions
+        {
             get { return printableTransactions; }
             set { printableTransactions = value; }
         }
 
         private ObservableCollection<CheckedItem> checkBoxCollection = new ObservableCollection<CheckedItem>();
-        public ObservableCollection<CheckedItem> CheckBoxCollection {
+        public ObservableCollection<CheckedItem> CheckBoxCollection
+        {
             get { return checkBoxCollection; }
-            set {
+            set
+            {
                 checkBoxCollection = value;
             }
         }
 
         private bool selectAll;
-        public bool SelectAll {
+        public bool SelectAll
+        {
             get { return selectAll; }
-            set {
+            set
+            {
                 selectAll = value;
                 OnPropertyChanged("SelectAll");
                 SelectAllChanged();
@@ -133,21 +147,37 @@ namespace ESI_ITE.ViewModel {
         }
 
         private bool isViewerVisible = false;
-        public bool IsViewerVisible {
+        public bool IsViewerVisible
+        {
             get { return isViewerVisible; }
-            set {
+            set
+            {
                 isViewerVisible = value;
                 OnPropertyChanged("IsViewerVisible");
             }
         }
 
         private DelegateCommand printPreviewCommand;
-        public ICommand PrintPreviewCommand {
+        public ICommand PrintPreviewCommand
+        {
             get { return printPreviewCommand; }
         }
 
+        private DelegateCommand printCommand;
+        public ICommand PrintCommand
+        {
+            get { return printCommand; }
+        }
+
+        private DelegateCommand cancelPrintCommand;
+        public ICommand CancelPrintCommand
+        {
+            get { return cancelPrintCommand; }
+        }
+
         private DelegateCommand cancelCommand;
-        public ICommand CancelCommand {
+        public ICommand CancelCommand
+        {
             get { return cancelCommand; }
         }
 
@@ -171,14 +201,87 @@ namespace ESI_ITE.ViewModel {
 
         private bool isSelectAll = false;
         private bool isItemUnchecked = false;
-        private bool isItemChecked = false;
+        public bool isItemChecked = false;
         private bool uncheckAll = false;
+
+        private bool isPreviewEnabled;
+        public bool IsPreviewEnabled
+        {
+            get { return isPreviewEnabled; }
+            set
+            {
+                isPreviewEnabled = value;
+                OnPropertyChanged("IsPreviewEnabled");
+            }
+        }
+
+        private bool isPreviewControlVisible = true;
+        public bool IsPreviewControlVisible
+        {
+            get { return isPreviewControlVisible; }
+            set
+            {
+                isPreviewControlVisible = value;
+                OnPropertyChanged("IsPreviewControlVisible");
+            }
+        }
+
+        private List<string> selectedTransactions = new List<string>();
+
+        //Keep a reference to the xps document writer we use.
+        private XpsDocumentWriter xpsDocumentWriter;
+
+        private int pbMax;
+        public int PbMax
+        {
+            get { return pbMax; }
+            set
+            {
+                pbMax = value;
+                OnPropertyChanged("PbMax");
+            }
+        }
+
+        private int pbMin;
+        public int PbMin
+        {
+            get { return pbMin; }
+            set
+            {
+                pbMin = value;
+                OnPropertyChanged("PbMin");
+            }
+        }
+
+        private int pbValue;
+        public int PbValue
+        {
+            get { return pbValue; }
+            set
+            {
+                pbValue = value;
+                OnPropertyChanged("PbValue");
+            }
+        }
+
+        private bool isPbVisible = false;
+        public bool IsPbVisible
+        {
+            get { return isPbVisible; }
+            set
+            {
+                isPbVisible = value;
+                OnPropertyChanged("IsPbVisible");
+            }
+        }
+
 
         #endregion
 
         private void Load( )
         {
-            foreach ( var trans in MyGlobals.TransactionList ) {
+            foreach ( var trans in MyGlobals.TransactionList )
+            {
                 PrintableTransactions.Add(trans);
                 CheckBoxCollection.Add(new CheckedItem { IsChecked = false, Transaction = new TransactionModel(trans) });
             }
@@ -186,34 +289,56 @@ namespace ESI_ITE.ViewModel {
 
         private void SelectAllChanged( )
         {
-            if ( SelectAll ) {
+            if ( SelectAll )
+            {
                 isSelectAll = true;
-                foreach ( var item in CheckBoxCollection ) {
+                foreach ( var item in CheckBoxCollection )
+                {
                     item.IsChecked = true;
                 }
                 isSelectAll = false;
+                IsPreviewEnabled = true;
             }
-            else {
-                if ( isItemUnchecked == false ) {
-                    if ( isItemChecked == false ) {
+            else
+            {
+                if ( isItemUnchecked == false )
+                {
+                    if ( isItemChecked == false )
+                    {
                         uncheckAll = true;
 
-                        foreach ( var item in CheckBoxCollection ) {
+                        foreach ( var item in CheckBoxCollection )
+                        {
                             item.IsChecked = false;
                         }
 
                         uncheckAll = false;
                     }
                 }
+                IsPreviewEnabled = false;
             }
         }
 
         public void ItemUnchecked( )
         {
-            if ( uncheckAll == false ) {
+            if ( uncheckAll == false )
+            {
                 isItemUnchecked = true;
 
                 SelectAll = false;
+
+                var i = 0;
+                foreach ( var item in CheckBoxCollection )
+                {
+                    if ( item.IsChecked )
+                    {
+                        i++;
+                    }
+                }
+                if ( i > 0 )
+                    IsPreviewEnabled = true;
+                else
+                    IsPreviewEnabled = false;
 
                 isItemUnchecked = false;
             }
@@ -221,12 +346,14 @@ namespace ESI_ITE.ViewModel {
 
         public void ItemChecked( )
         {
-            if ( isSelectAll == false ) {
+            if ( isSelectAll == false )
+            {
                 isItemChecked = true;
                 int itemCount = CheckBoxCollection.Count;
                 int checkedItemsCounter = 0;
 
-                foreach ( var i in CheckBoxCollection ) {
+                foreach ( var i in CheckBoxCollection )
+                {
                     if ( i.IsChecked )
                         checkedItemsCounter++;
                 }
@@ -238,46 +365,156 @@ namespace ESI_ITE.ViewModel {
 
                 isItemChecked = false;
             }
+
+            IsPreviewEnabled = true;
         }
 
         private void PrintPreview( )
         {
+            selectedTransactions.Clear();
+
             PrintableTransactions.Clear();
             DocSequence = null;
             DocSequence = new FixedDocumentSequence();
 
-            foreach ( var chkdItems in CheckBoxCollection ) {
-                if ( chkdItems.IsChecked ) {
+            foreach ( var chkdItems in CheckBoxCollection )
+            {
+                if ( chkdItems.IsChecked )
+                {
                     PrintableTransactions.Add(chkdItems.Transaction);
+                    selectedTransactions.Add(chkdItems.Transaction.TransactionNumber);
                 }
             }
 
             IsViewerVisible = true;
+            IsPreviewControlVisible = false;
 
-            StartPrinting();
+            CreateDocument();
         }
+
+        private void StartPrinting( )
+        {
+            PrintDocumentAsync(DocSequence);
+        }
+
+        #region Asynchronous Printing Members
+
+        public void PrintDocumentAsync( FixedDocumentSequence fixedSequence )
+        {
+            PrintQueue printQueue = GetPrintQueue();
+
+            xpsDocumentWriter = PrintQueue.CreateXpsDocumentWriter(printQueue);
+
+            PbMin = 0;
+            PbMax = fixedSequence.DocumentPaginator.PageCount;
+            PbValue = 0;
+
+            xpsDocumentWriter.WritingProgressChanged += PrintAsync_WritingProgressChanged;
+
+            xpsDocumentWriter.WritingCompleted += PrintAsync_Completed;
+
+            StartLongPrintingOperation(fixedSequence.DocumentPaginator.PageCount);
+
+            xpsDocumentWriter.WriteAsync(fixedSequence);
+        }
+
+        private void StartLongPrintingOperation( int pageCount )
+        {
+            PbValue = 0;
+            PbMax = pageCount;
+
+            IsPbVisible = true;
+        }
+
+        private void StopLongPrintingOperation( )
+        {
+            TransactionModel transaction = new TransactionModel();
+            transaction.SetPrintedTransactions(selectedTransactions);
+
+            IsPbVisible = false;
+        }
+
+        private void PrintAsync_Completed( object sender, WritingCompletedEventArgs e )
+        {
+            string message;
+            MessageBoxImage messageBoxImage;
+
+            //Check to see if there was a problem with the printing.
+            if ( e.Error != null )
+            {
+                messageBoxImage = MessageBoxImage.Error;
+                message =
+                    string.Format("An error occurred whilst printing.\n\n{0}",
+                                  e.Error.Message);
+            }
+            else if ( e.Cancelled )
+            {
+                messageBoxImage = MessageBoxImage.Stop;
+                message = "Printing was cancelled by the user.";
+            }
+            else
+            {
+                messageBoxImage = MessageBoxImage.Information;
+                message = "Printing completed successfully.";
+            }
+
+            MessageBox.Show(message, "Printing", MessageBoxButton.OK, messageBoxImage);
+
+            StopLongPrintingOperation();
+        }
+
+        private void PrintAsync_WritingProgressChanged( object sender, WritingProgressChangedEventArgs e )
+        {
+            //Another page of the document has been printed. Update the UI.
+            PbValue = e.Number;
+        }
+
+        private PrintQueue GetPrintQueue( )
+        {
+            PrintDialog printDialog = new PrintDialog();
+
+            bool? result = printDialog.ShowDialog();
+
+            if ( result.HasValue && result.Value )
+            {
+                return printDialog.PrintQueue;
+            }
+
+            return null;
+        }
+
+        #endregion
 
         private void CancelPrinting( )
         {
             MyGlobals.IteViewModel.SelectedPage = MyGlobals.PrintingParent;
         }
 
-        private void StartPrinting( )
+        private void ClosePreview( )
         {
-            foreach ( var transaction in PrintableTransactions ) {
-                List<InventoryDummyModel> items = dummy.FetchAll(transaction.TransactionNumber);
+            IsViewerVisible = false;
+            IsPreviewControlVisible = true;
+        }
+
+        private void CreateDocument( )
+        {
+            foreach ( var transaction in PrintableTransactions )
+            {
+                List<InventoryDummyModel> items = dummy.Fetch(transaction.TransactionNumber);
 
                 doc = new FixedDocument();
 
                 double x = (double)items.Count / 20.0;
                 int numberOfPages = x > 1 ? (int)(x + 1) : 1;
 
-                if ( numberOfPages >= 1 ) {
+                if ( numberOfPages >= 1 )
+                {
                     page = new FixedPage[numberOfPages];
                     pageContent = new PageContent[numberOfPages];
                     content = new Canvas[numberOfPages];
                 }
-                else {
+                else
+                {
                     page = new FixedPage[1];
                     pageContent = new PageContent[1];
                     content = new Canvas[1];
@@ -295,8 +532,10 @@ namespace ESI_ITE.ViewModel {
 
                 AppendHeader(content[pageNumber], transaction);
 
-                foreach ( var item in items ) {
-                    if ( createNewPage ) {
+                foreach ( var item in items )
+                {
+                    if ( createNewPage )
+                    {
                         CreateNewPage(transaction);
                     }
 
@@ -830,10 +1069,12 @@ namespace ESI_ITE.ViewModel {
             Canvas.SetTop(txtValue, top);
             content.Children.Add(txtValue);
 
-            if ( item.ItemDescription.Length > 42 ) {
+            if ( item.ItemDescription.Length > 42 )
+            {
                 top += 35;
             }
-            else {
+            else
+            {
                 top += 20;
             }
 
@@ -968,21 +1209,26 @@ namespace ESI_ITE.ViewModel {
         }
     }
 
-    public class CheckedItem: ViewModelBase {
+    public class CheckedItem: ViewModelBase
+    {
 
         private bool isChecked;
-        public bool IsChecked {
+        public bool IsChecked
+        {
             get { return isChecked; }
-            set {
+            set
+            {
                 isChecked = value;
                 OnPropertyChanged("IsChecked");
             }
         }
 
         private TransactionModel transaction;
-        public TransactionModel Transaction {
+        public TransactionModel Transaction
+        {
             get { return transaction; }
-            set {
+            set
+            {
                 transaction = value;
                 OnPropertyChanged("Transaction");
             }

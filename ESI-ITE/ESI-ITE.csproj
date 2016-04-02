@@ -177,6 +177,10 @@
     <Compile Include="ViewModel\LineItemPageViewModel.cs" />
     <Compile Include="ViewModel\LineItemViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="View\PostingPageView.xaml.cs">
+      <DependentUpon>PostingPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\PostingPageViewModel.cs" />
     <Compile Include="ViewModel\PrintPreviewPageViewModel.cs" />
     <Compile Include="ViewModel\TransactionEntryPageViewModel.cs" />
     <Compile Include="ViewModel\TransactionEntryViewModel.cs" />
@@ -217,6 +221,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Printing\UserControl1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PostingPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

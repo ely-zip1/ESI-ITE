@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using ESI_ITE.Data_Access;
 using System.ComponentModel;
 
-namespace ESI_ITE.Model {
-    public class InventoryDummyModel: ObjectBase, IDataErrorInfo {
+namespace ESI_ITE.Model
+{
+    public class InventoryDummyModel: ObjectBase, IDataErrorInfo
+    {
         public InventoryDummyModel( )
         {
 
@@ -32,10 +34,13 @@ namespace ESI_ITE.Model {
 
         #region Properties
         private int id;
-        public int Id {
+        public int Id
+        {
             get { return id; }
-            set {
-                if ( id != value ) {
+            set
+            {
+                if ( id != value )
+                {
                     id = value;
                     OnPropertyChanged("Id");
                 }
@@ -43,10 +48,13 @@ namespace ESI_ITE.Model {
         }
 
         private string transactionCode;
-        public string TransactionCode {
+        public string TransactionCode
+        {
             get { return transactionCode; }
-            set {
-                if ( transactionCode != value ) {
+            set
+            {
+                if ( transactionCode != value )
+                {
                     transactionCode = value;
                     OnPropertyChanged("TransactionCode");
                 }
@@ -54,10 +62,13 @@ namespace ESI_ITE.Model {
         }
 
         private string location;
-        public string Location {
+        public string Location
+        {
             get { return location; }
-            set {
-                if ( location != value ) {
+            set
+            {
+                if ( location != value )
+                {
                     location = value;
                     OnPropertyChanged("Location");
                 }
@@ -65,10 +76,13 @@ namespace ESI_ITE.Model {
         }
 
         private string priceType;
-        public string PriceType {
+        public string PriceType
+        {
             get { return priceType; }
-            set {
-                if ( priceType != value ) {
+            set
+            {
+                if ( priceType != value )
+                {
                     priceType = value;
                     OnPropertyChanged("PriceType");
                 }
@@ -76,10 +90,13 @@ namespace ESI_ITE.Model {
         }
 
         private string itemCode;
-        public string ItemCode {
+        public string ItemCode
+        {
             get { return itemCode; }
-            set {
-                if ( itemCode != value ) {
+            set
+            {
+                if ( itemCode != value )
+                {
                     itemCode = value;
                     OnPropertyChanged("ItemCode");
                 }
@@ -87,10 +104,13 @@ namespace ESI_ITE.Model {
         }
 
         private string itemDescription;
-        public string ItemDescription {
+        public string ItemDescription
+        {
             get { return itemDescription; }
-            set {
-                if ( itemDescription != value ) {
+            set
+            {
+                if ( itemDescription != value )
+                {
                     itemDescription = value;
                     OnPropertyChanged("ItemDescription");
                 }
@@ -98,10 +118,13 @@ namespace ESI_ITE.Model {
         }
 
         private int cases;
-        public int Cases {
+        public int Cases
+        {
             get { return cases; }
-            set {
-                if ( cases != value ) {
+            set
+            {
+                if ( cases != value )
+                {
                     cases = value;
                     OnPropertyChanged("Cases");
                 }
@@ -109,10 +132,13 @@ namespace ESI_ITE.Model {
         }
 
         private int pieces;
-        public int Pieces {
+        public int Pieces
+        {
             get { return pieces; }
-            set {
-                if ( pieces != value ) {
+            set
+            {
+                if ( pieces != value )
+                {
                     pieces = value;
                     OnPropertyChanged("Pieces");
                 }
@@ -120,10 +146,13 @@ namespace ESI_ITE.Model {
         }
 
         private DateTime expiration;
-        public DateTime Expiration {
+        public DateTime Expiration
+        {
             get { return expiration; }
-            set {
-                if ( expiration != value ) {
+            set
+            {
+                if ( expiration != value )
+                {
                     expiration = value;
                     OnPropertyChanged("Expiration");
                 }
@@ -131,10 +160,13 @@ namespace ESI_ITE.Model {
         }
 
         private decimal pricePerPiece;
-        public decimal PricePerPiece {
+        public decimal PricePerPiece
+        {
             get { return pricePerPiece; }
-            set {
-                if ( pricePerPiece != value ) {
+            set
+            {
+                if ( pricePerPiece != value )
+                {
                     pricePerPiece = value;
                     OnPropertyChanged("PricePerPiece");
                 }
@@ -142,10 +174,13 @@ namespace ESI_ITE.Model {
         }
 
         private decimal lineAmount;
-        public decimal LineAmount {
+        public decimal LineAmount
+        {
             get { return lineAmount; }
-            set {
-                if ( lineAmount != value ) {
+            set
+            {
+                if ( lineAmount != value )
+                {
                     lineAmount = value;
                     OnPropertyChanged("LineAmount");
                 }
@@ -159,7 +194,43 @@ namespace ESI_ITE.Model {
         #endregion
 
         #region Methods
-        public List<InventoryDummyModel> FetchAll( string transactionNumber )
+
+        public List<InventoryDummyModel> FetchAll( )
+        {
+
+            _transactionDetails.Clear();
+
+            //string transactionEntryId = db.Select("select entry_id from transaction_entry " +
+            //    "where trans_no = '" + transactionNumber + "'");
+
+            var record = db.SelectMultiple("select * from view_inventory_dummy");
+
+            IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
+
+            foreach ( var row in record )
+            {
+                var idm = new InventoryDummyModel();
+                var clone = row.Clone();
+
+                idm.Id = Int32.Parse(row["id"]);
+                idm.TransactionCode = row["transaction_code"];
+                idm.Location = row["location_code"];
+                idm.PriceType = row["price_type"];
+                idm.ItemCode = row["item_code"];
+                idm.ItemDescription = row["item_description"];
+                idm.Cases = Int32.Parse(row["cases"]);
+                idm.Pieces = Int32.Parse(row["pieces"]);
+                idm.Expiration = DateTime.Parse(row["expiration"], culture);
+                idm.PricePerPiece = Decimal.Parse(row["price_per_piece"]);
+                idm.LineAmount = Decimal.Parse(row["line_amount"]);
+
+                _transactionDetails.Add(idm);
+            }
+
+            return _transactionDetails;
+        }
+
+        public List<InventoryDummyModel> Fetch( string transactionNumber )
         {
             _transactionDetails.Clear();
 
@@ -171,7 +242,8 @@ namespace ESI_ITE.Model {
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
-            foreach ( var row in record ) {
+            foreach ( var row in record )
+            {
                 var idm = new InventoryDummyModel();
                 var clone = row.Clone();
 
@@ -263,17 +335,39 @@ namespace ESI_ITE.Model {
             db.Delete(query);
         }
 
+        public int CountByTransaction( string transactionNumber )
+        {
+            int itemCount = int.MinValue;
+
+            itemCount = db.Count("select count(*) from view_inventory_dummy where transaction");
+
+            return itemCount;
+        }
+
+        public int CountAll( )
+        {
+            int itemCount = int.MinValue;
+
+            itemCount = db.Count("select count(*) from view_inventory_dummy");
+
+            return itemCount;
+        }
+
         #endregion
 
         #region IDataErrorInfo Members
-        string IDataErrorInfo.Error {
-            get {
+        string IDataErrorInfo.Error
+        {
+            get
+            {
                 return null;
             }
         }
 
-        string IDataErrorInfo.this[string propertyName] {
-            get {
+        string IDataErrorInfo.this[string propertyName]
+        {
+            get
+            {
                 return GetValidationError(propertyName);
             }
         }
@@ -291,10 +385,13 @@ namespace ESI_ITE.Model {
             "LineAmount"
         };
 
-        public bool Isvalid {
-            get {
+        public bool Isvalid
+        {
+            get
+            {
                 int i = 0;
-                foreach ( var property in ValidatedProperties ) {
+                foreach ( var property in ValidatedProperties )
+                {
                     if ( GetValidationError(property) != null )
                         i++;
                 }
@@ -309,7 +406,8 @@ namespace ESI_ITE.Model {
         private string GetValidationError( string propertyName )
         {
             string error = null;
-            switch ( propertyName ) {
+            switch ( propertyName )
+            {
                 case "TransactionCode":
                     error = ValidateNullOrEmpty(propertyName, this.TransactionCode.ToString());
                     break;
@@ -344,16 +442,20 @@ namespace ESI_ITE.Model {
         private string ValidateDate( string propertyName, string value )
         {
             DateTime i;
-            if ( ValidateNullOrEmpty(propertyName, value) != null ) {
+            if ( ValidateNullOrEmpty(propertyName, value) != null )
+            {
                 return propertyName + " cannot be empty!";
             }
 
-            if ( DateTime.TryParse(value, out i) ) {
-                if ( DateTime.Now.Date >= i ) {
+            if ( DateTime.TryParse(value, out i) )
+            {
+                if ( DateTime.Now.Date >= i )
+                {
                     return "Invalid date! Value must be later than today.";
                 }
             }
-            else {
+            else
+            {
                 return "Invalid date!";
             }
             return null;
@@ -361,7 +463,8 @@ namespace ESI_ITE.Model {
 
         private string ValidateNullOrEmpty( string propertyName, string value )
         {
-            if ( string.IsNullOrWhiteSpace(value) ) {
+            if ( string.IsNullOrWhiteSpace(value) )
+            {
                 return propertyName + " cannot be empty!";
             }
             return null;
@@ -370,10 +473,12 @@ namespace ESI_ITE.Model {
         private string ValidateCasesPieces( string propertyName, string value )
         {
             int i;
-            if ( ValidateNullOrEmpty(propertyName, value) != null ) {
+            if ( ValidateNullOrEmpty(propertyName, value) != null )
+            {
                 return propertyName + " cannot be empty!";
             }
-            else if ( !int.TryParse(value, out i) ) {
+            else if ( !int.TryParse(value, out i) )
+            {
                 return "Field only accepts numbers!";
             }
             return null;

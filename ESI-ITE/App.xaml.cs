@@ -14,10 +14,14 @@ namespace ESI_ITE
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App: Application
     {
-        private void Application_Startup(object sender, StartupEventArgs e)
+        private void Application_Startup( object sender, StartupEventArgs e )
         {
+            MyGlobals.ProgressCurrentStep = 0;
+            MyGlobals.ProgressTotalStep = 0;
+            MyGlobals.ProgressPercentComplete = 0;
+
             var home = new MainWindow();
 
             var catalog = new AssemblyCatalog(this.GetType().Assembly);

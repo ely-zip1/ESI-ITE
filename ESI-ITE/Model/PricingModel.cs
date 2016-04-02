@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using ESI_ITE.Data_Access;
+using System.Globalization;
 
 namespace ESI_ITE.Model
 {
@@ -13,204 +14,153 @@ namespace ESI_ITE.Model
 
         private DataAccess db = new DataAccess();
 
-        public PriceModel GetPrice(string itemCode, string priceCategory, string priceDate)
+        public PriceModel GetPrice( string itemCode, string priceCategory, string priceDate )
         {
-
-            if (priceCategory == "Purchase Price")
+            if ( priceCategory == "Current Price" )
             {
-                switch (priceDate)
-                {
-                    case "Current":
-                        currentPurchasePrice(itemCode);
-                        break;
-                    case "3 Months Ago":
-                        previousPurchasePrice("3 Months Ago", itemCode);
-                        break;
-                    case "6 Months Ago":
-                        previousPurchasePrice("6 Months Ago", itemCode);
-                        break;
-                    default:
-                        break;
-                }
-
-                return priceInformation;
-            }
-            else if (priceCategory == "Selling Price")
-            {
-                switch (priceDate)
-                {
-                    case "Current":
-                        currentSellingPrice(itemCode);
-                        break;
-                    case "3 Months Ago":
-                        previousSellingPrice("3 Months Ago", itemCode);
-                        break;
-                    case "6 Months Ago":
-                        previousSellingPrice("6 Months Ago", itemCode);
-                        break;
-                    default:
-                        break;
-                }
-                return priceInformation;
+                CurrentPrice(itemCode, priceCategory);
             }
             else
             {
-                return priceInformation;
+                PreviousPrice(priceCategory, itemCode, priceDate);
             }
+
+            return priceInformation;
         }
 
-        #region Selling Price
-        private void previousSellingPrice(string category, string itemCode)
+        private void PreviousPrice( string priceCategory, string itemCode, string priceDate )
         {
-            string priceType;
-            decimal price;
-            string date;
-
-            query.Clear();
-            query.Append("SELECT ");
-            query.Append("max(STR_TO_DATE(effective_from, '%m/%d/%Y')) as date ");   //select the latest date
-            query.Append("FROM ");
-            query.Append("price_selling WHERE code = '" + itemCode + "' ");         // from price_selling table for the current item
-            query.Append("AND ");
-            query.Append("STR_TO_DATE(effective_from, '%m/%d/%Y') ");                // where the effective date
-            query.Append("BETWEEN ");
-            if (category == "3 Months Ago")
-            {                                                                       // is between the date 3 months ago and
-                query.Append("(SELECT date_sub(max(STR_TO_DATE(effective_from, '%m/%d/%Y')), INTERVAL 3 MONTH) FROM price_selling WHERE code = '" + itemCode + "') ");
-                query.Append("AND ");                                                // the latest date 
-                query.Append("(SELECT max(STR_TO_DATE(effective_from, '%m/%d/%Y')) FROM price_selling WHERE code = '" + itemCode + "') ");
-            }
-            else if (category == "6 Months Ago")
-            {                                                                       // or is between the date 6 months ago and
-                query.Append("(SELECT date_sub(max(STR_TO_DATE(effective_from, '%m/%d/%Y')), INTERVAL 6 MONTH) FROM price_selling WHERE code = '" + itemCode + "') ");
-                query.Append("AND ");                                                // the date 3 months ago 
-                query.Append("(SELECT date_sub(max(STR_TO_DATE(effective_from, '%m/%d/%Y')), INTERVAL 3 MONTH) FROM price_selling WHERE code = '" + itemCode + "') ");
-            }
-
-            date = db.Select(query.ToString());
-
-            query.Clear();
-
-            if (date != "") // if date contains a value
-            {
-                date = DateTime.Parse(date).ToString("%M/%d/yyyy");
-
-                priceType = db.Select("SELECT price_type FROM price_selling " +
-                    "WHERE code = '" + itemCode + "' AND effective_from = '" + date + "'");
-
-                price = Decimal.Parse(db.Select("select selling_price from price_selling " +
-                    "where code = '" + itemCode + "' and effective_from = '" + date + "' and price_type = '" + priceType + "'"));
-
-                priceInformation.Price = price / Convert.ToDecimal(MyGlobals.SelectedItem.PiecePerUnit);
-                priceInformation.PriceType = priceType;
-            }
-            else
-            {
-                currentSellingPrice(itemCode);
-            }
-        }
-
-        private void currentSellingPrice(string itemCode)
-        {
-            string priceType;
-            decimal price;
-            string date;
-            string query;
-
-            query = ("SELECT max(STR_TO_DATE(effective_from, '%m/%d/%Y')) AS date FROM price_selling " +
-                "WHERE code = '" + itemCode + "'");
-
-            date = DateTime.Parse(db.Select(query)).ToString("%M/%d/yyyy");
-
-            query = "SELECT selling_price FROM price_selling " +
-                "WHERE code = '" + itemCode + "' and effective_from = '" + date + "'";
-
-            price = Decimal.Parse(db.Select(query));
-
-            query = "SELECT price_type from price_selling " +
-                "WHERE code = '" + itemCode + "' and effective_from = '" + date + "'";
-
-            priceType = db.Select(query);
-
-            priceInformation.Price = price / Convert.ToDecimal(MyGlobals.SelectedItem.PiecePerUnit);
-            priceInformation.PriceType = priceType;
-        }
-
-        #endregion
-
-        #region Purchase Price
-        private void previousPurchasePrice(string category, string itemCode)
-        {
-            string priceType = "PL1";
-            decimal price;
-            string date;
-
-            query.Clear();
-            query.Append("SELECT ");
-            query.Append("max(STR_TO_DATE(effective_date, '%m/%d/%Y')) as date ");   //select the latest date
-            query.Append("FROM ");
-            query.Append("price_purchase WHERE pcode = '" + itemCode + "' ");         // from price_purchase table for the current item
-            query.Append("AND ");
-            query.Append("STR_TO_DATE(effective_date, '%m/%d/%Y') ");                // where the effective date
-            query.Append("BETWEEN ");
-            if (category == "3 Months Ago")
-            {                                                                       // is between the date 3 months ago and
-                query.Append("(SELECT DATE_SUB(max(STR_TO_DATE(effective_date, '%m/%d/%Y')), INTERVAL 3 MONTH) FROM price_purchase WHERE pcode = '" + itemCode + "') ");
-                query.Append("AND ");                                                // the latest date 
-                query.Append("(SELECT max(STR_TO_DATE(effective_date, '%m/%d/%Y')) FROM price_purchase WHERE pcode = '" + itemCode + "') ");
-            }
-            else if (category == "6 Months Ago")
-            {                                                                       // or is between the date 6 months ago and
-                query.Append("(SELECT DATE_SUB(max(STR_TO_DATE(effective_date, '%m/%d/%Y')), INTERVAL 6 MONTH) FROM price_purchase WHERE pcode = '" + itemCode + "') ");
-                query.Append("AND ");                                                // the date 3 months ago 
-                query.Append("(SELECT DATE_SUB(max(STR_TO_DATE(effective_date, '%m/%d/%Y')), INTERVAL 3 MONTH) FROM price_purchase WHERE pcode = '" + itemCode + "') ");
-            }
-
-            date = db.Select(query.ToString());
-
-            query.Clear();
-
-            if (date != "")
-            {
-                date = DateTime.Parse(date).ToString("%M/%d/yyyy");
-
-                price = Decimal.Parse(db.Select("select purchase_price from price_purchase " +
-                    "where pcode = '" + itemCode + "' and effective_date = '" + date + "'"));
-
-                priceInformation.Price = price / Convert.ToDecimal(MyGlobals.SelectedItem.PiecePerUnit);
-                priceInformation.PriceType = priceType;
-            }
-        }
-
-        private void currentPurchasePrice(string itemCode)
-        {
+            string query = "";
+            string itemCodeColumn = "";
+            string priceColumn = "";
+            string priceType = "";
             decimal price = 0;
-            string priceType = "PL1";
-            string date;
+            DateTime latestDate = new DateTime();
+            DateTime _3MonthsAgo = new DateTime();
+            DateTime _6MonthsAgo = new DateTime();
+            string[,] priceList;
 
-            string qry;
-            string result;
-
-            qry = "SELECT max(STR_TO_DATE(effective_date, '%m/%d/%Y')) FROM price_purchase WHERE pcode = '" + itemCode + "'";
-
-            date = DateTime.Parse(db.Select(qry)).ToString("%M/%d/yyyy");
-            if (date.StartsWith("0"))
-                date = date.TrimStart('0');
-
-            qry = "select purchase_price from price_purchase where pcode = '" + itemCode + "' and effective_date = '" + date + "'";
-
-            result = db.Select(qry);
-
-            if (!string.IsNullOrEmpty(result))
+            if ( priceCategory == "Selling Price" )
             {
-                price = Convert.ToDecimal(result);
-                price = price / Convert.ToDecimal(MyGlobals.SelectedItem.PiecePerUnit);
+                query = "SELECT code, Selling_Price, str_to_date(Effective_From, ('%m/%d/%Y')) as xdate, price_type FROM esidb2.price_selling where code = '434355' ORDER BY xdate desc";
+                itemCodeColumn = "code";
+                priceColumn = "selling_price";
+
+            }
+            else
+            {
+                query = "SELECT pcode, Purchase_Price, str_to_date(Effective_Date,'%m/%d/%Y') as xdate FROM esidb2.price_purchase where pcode='434355' order by xdate desc";
+                itemCodeColumn = "pcode";
+                priceColumn = "purchase_price";
             }
 
-            priceInformation.Price = price;
-            priceInformation.PriceType = priceType;
+            var result = db.SelectMultiple(query);
+
+            priceList = new string[result.Count, 4];
+
+            int index = 0;
+            foreach ( var row in result )
+            {
+                var clone = row.Clone();
+                priceList[index, 0] = row[itemCodeColumn];
+                priceList[index, 1] = row[priceColumn];
+                priceList[index, 2] = row["xdate"];
+                if ( priceCategory == "Selling Price" )
+                {
+                    priceList[index, 3] = row["price_type"];
+                }
+                else
+                {
+                    priceList[index, 3] = "PL1";
+                }
+                index++;
+            }
+            latestDate = DateTime.Parse(priceList[0, 2], CultureInfo.CreateSpecificCulture("en-US"));
+            _3MonthsAgo = latestDate.AddMonths(-3);
+            _6MonthsAgo = latestDate.AddMonths(-6);
+
+            for ( int i = 0;i < (priceList.Length / 4);i++ )
+            {
+                var tempDate = DateTime.Parse(priceList[i, 2], CultureInfo.CreateSpecificCulture("en-US"));
+                if ( priceDate == "3 Months Ago" )
+                {
+                    if ( Between(tempDate, _3MonthsAgo, latestDate) )
+                    {
+                        price = decimal.Parse(priceList[i, 1]);
+                        priceType = priceList[i, 3];
+                        break;
+                    }
+                }
+                else
+                {
+                    if ( Between(tempDate, _6MonthsAgo, _3MonthsAgo) )
+                    {
+                        price = decimal.Parse(priceList[i, 1]);
+                        priceType = priceList[i, 3];
+                        break;
+                    }
+                }
+            }
+
+            if ( price != 0 && !string.IsNullOrWhiteSpace(priceType) )
+            {
+                priceInformation.Price = price / Convert.ToDecimal(MyGlobals.SelectedItem.PiecePerUnit);
+                priceInformation.PriceType = priceType;
+            }
+            else
+            {
+                CurrentPrice(itemCode, priceCategory);
+            }
+
         }
 
-        #endregion
+        private void CurrentPrice( string itemCode, string priceCategory )
+        {
+            string query = "";
+            string dateQuery = "";
+            string priceColumn = "";
+            string priceType = "";
+            decimal price = 0;
+
+            switch ( priceCategory )
+            {
+                case "Selling Price":
+                    dateQuery = "SELECT max(STR_TO_DATE(effective_from, '%m/%d/%Y')) as date FROM price_selling WHERE code = '" + itemCode + "'";
+                    query = "select * from price_selling where code ='" + itemCode + "' and STR_TO_DATE(effective_from, '%m/%d/%Y') = (" + dateQuery + ") limit 1";
+                    priceColumn = "selling_price";
+                    break;
+                case "Purchase Price":
+                    dateQuery = "SELECT max(STR_TO_DATE(effective_from, '%m/%d/%Y')) as date FROM price_purchase WHERE pcode = '" + itemCode + "'";
+                    query = "select * from price_purchase where pcode = '" + itemCode + "' and STR_TO_DATE(effective_date, '%m/%d/%Y') = (" + dateQuery + ") limit 1";
+                    priceColumn = "purchase_price";
+                    break;
+            }
+
+            var result = db.SelectMultiple(query);
+            foreach ( var row in result )
+            {
+                var clone = row.Clone();
+
+                price = decimal.Parse(row[priceColumn]);
+
+                if ( priceCategory == "Selling Price" )
+                {
+                    priceType = row["price_type"];
+                }
+                else
+                {
+                    priceType = "PL1";
+                }
+
+                priceInformation.Price = price / Convert.ToDecimal(MyGlobals.SelectedItem.PiecePerUnit);
+                priceInformation.PriceType = priceType;
+            }
+        }
+
+        private static bool Between( DateTime input, DateTime date1, DateTime date2 )
+        {
+            return (input >= date1 && input < date2);
+        }
+
     }
 }

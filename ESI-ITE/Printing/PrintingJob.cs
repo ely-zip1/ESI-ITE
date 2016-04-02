@@ -114,7 +114,7 @@ namespace ESI_ITE.Printing {
         public void StartPrinting( )
         {
             foreach ( var transaction in MyGlobals.TransactionList ) {
-                List<InventoryDummyModel> items = dummy.FetchAll(transaction.TransactionNumber);
+                List<InventoryDummyModel> items = dummy.Fetch(transaction.TransactionNumber);
 
                 double x = (double)items.Count / 20.0;
                 int numberOfPages = x > 1 ? (int)(x + 1) : 1;

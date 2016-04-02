@@ -10,6 +10,8 @@ namespace ESI_ITE.Model
 
     public class PostingModel
     {
+        public event EventHandler ItemChecked;
+
         private int warehouseId;
         private int transactionId;
         private List<CloneableDictionary<string, string>> inventory_dummy = new List<CloneableDictionary<string, string>>();
@@ -19,14 +21,13 @@ namespace ESI_ITE.Model
         private DataAccess db = new DataAccess();
         private StringBuilder sb = new StringBuilder();
 
-
-        public string Post(string transactionNumber)
+        public string Post( string transactionNumber )
         {
-            if (isPrinted(transactionNumber))
+            if ( isPrinted(transactionNumber) )
             {
                 fetchItems(transactionNumber);
 
-                if (calculateAndPost())
+                if ( calculateAndPost() )
                 {
                     return "Posting Successful";
                 }
@@ -34,7 +35,6 @@ namespace ESI_ITE.Model
                 {
                     return "Posting Failed";
                 }
-
             }
             else
             {
@@ -42,7 +42,7 @@ namespace ESI_ITE.Model
             }
         }
 
-        private bool calculateAndPost()
+        private bool calculateAndPost( )
         {
             List<string> commands = new List<string>();
 
@@ -55,7 +55,7 @@ namespace ESI_ITE.Model
             int tempCases, tempPieces;
             List<int> casesPiecesList = new List<int>();
 
-            foreach (Dictionary<string, string> row in inventory_dummy)
+            foreach ( Dictionary<string, string> row in inventory_dummy )
             {
                 result = db.Select("select i_id, i_cases, i_pieces from inventory_master where " +
                     "warehouse_code = '" + warehouseId + "' and " +
@@ -64,18 +64,21 @@ namespace ESI_ITE.Model
                     "expiration_date = '" + row["expiration_date"] + "'" +
                     "").Split('|');
 
-                inventoryMaster[index, 0] = result[0];
-                inventoryMaster[index, 1] = result[1];
-                inventoryMaster[index, 2] = result[2];
+                if ( result.Length == 3 )
+                {
 
+                    inventoryMaster[index, 0] = result[0];
+                    inventoryMaster[index, 1] = result[1];
+                    inventoryMaster[index, 2] = result[2];
+                }
                 index++;
             }
 
             index = 0;
 
-            foreach (Dictionary<string, string> row in inventory_dummy)
+            foreach ( Dictionary<string, string> row in inventory_dummy )
             {
-                if (string.IsNullOrEmpty(inventoryMaster[index, 1]))
+                if ( string.IsNullOrEmpty(inventoryMaster[index, 1]) )
                 {
                     //casesPiecesList.Add(Int32.Parse(row["cases"]));
                     //casesPiecesList.Add(Int32.Parse(row["pieces"]));
@@ -131,7 +134,7 @@ namespace ESI_ITE.Model
             return true;
         }
 
-        private void fetchItems(string transactionNumber)
+        private void fetchItems( string transactionNumber )
         {
             string piecePerUnit;
 
@@ -144,21 +147,22 @@ namespace ESI_ITE.Model
             warehouseId = Int32.Parse(db.Select("select source_wh_link from transaction_entry " +
                 "where trans_no = '" + transactionNumber + "'"));
 
-            foreach (Dictionary<string, string> row in inventory_dummy)
+            foreach ( Dictionary<string, string> row in inventory_dummy )
             {
+                _piecePerUnit.Clear();
                 piecePerUnit = db.Select("select pieces_per_unit from item_master where item_id = '" + row["item_link"] + "'");
                 _piecePerUnit.Add(row["item_link"], piecePerUnit);
             }
         }
 
-        private bool isPrinted(string transactionNumber)
+        private bool isPrinted( string transactionNumber )
         {
             string status;
 
             status = db.Select("select status from transaction_entry " +
                 "where trans_no = '" + transactionNumber + "'");
 
-            if (status == "1")
+            if ( status == "1" )
             {
                 return true;
             }
@@ -166,6 +170,12 @@ namespace ESI_ITE.Model
             {
                 return false;
             }
+        }
+
+        protected virtual void OnItemChecked( )
+        {
+            if ( ItemChecked != null )
+                ItemChecked(this, EventArgs.Empty);
         }
     }
 }

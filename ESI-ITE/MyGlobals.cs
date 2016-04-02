@@ -24,10 +24,17 @@ namespace ESI_ITE
 
         public static Page PrintingParent;
 
+        public static Page PostingParent;
+
         public static List<InventoryDummyModel> TransactionItemsList;
 
         public static List<TransactionModel> TransactionList = new List<TransactionModel>();
 
         public static ItemModel SelectedItem = new ItemModel();
+
+        //Progress Monitors
+        public static int ProgressTotalStep;
+        public static int ProgressCurrentStep;
+        public static int ProgressPercentComplete;
     }
 }
