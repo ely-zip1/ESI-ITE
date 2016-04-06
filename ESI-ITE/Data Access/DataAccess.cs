@@ -265,14 +265,15 @@ namespace ESI_ITE.Data_Access
                     {
                         cmd.Connection = connection;
                         cmd.CommandText = query;
-                        cmd.ExecuteNonQuery();
-                        MessageBox.Show("POSTING COMMAND" + query);
+                        MessageBox.Show("" + cmd.ExecuteNonQuery());
+                        //MessageBox.Show("POSTING COMMAND" + query);
                         OnItemPosted();
                     }
                     myTransaction.Commit();
                 }
                 catch ( MySqlException ex )
                 {
+                    MessageBox.Show("COMMIT ERROR : " + ex.Message);
                     try
                     {
                         myTransaction.Rollback();
@@ -281,7 +282,6 @@ namespace ESI_ITE.Data_Access
                     {
                         MessageBox.Show("ROLLBACK ERROR : " + ex1.Message);
                     }
-                    MessageBox.Show("COMMIT ERROR : " + ex.Message);
                 }
                 finally
                 {

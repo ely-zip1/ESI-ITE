@@ -130,7 +130,7 @@ namespace ESI_ITE.Model
                     priceColumn = "selling_price";
                     break;
                 case "Purchase Price":
-                    dateQuery = "SELECT max(STR_TO_DATE(effective_from, '%m/%d/%Y')) as date FROM price_purchase WHERE pcode = '" + itemCode + "'";
+                    dateQuery = "SELECT max(STR_TO_DATE(effective_date, '%m/%d/%Y')) as date FROM price_purchase WHERE pcode = '" + itemCode + "'";
                     query = "select * from price_purchase where pcode = '" + itemCode + "' and STR_TO_DATE(effective_date, '%m/%d/%Y') = (" + dateQuery + ") limit 1";
                     priceColumn = "purchase_price";
                     break;

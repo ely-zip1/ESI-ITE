@@ -107,9 +107,9 @@ namespace ESI_ITE.ViewModel
                 {
                     if ( HaveItems(trans.TransactionNumber) )
                     {
-                        postingModel.Post(trans.TransactionNumber);
                         postingModel.ItemChecked += progressReport.OnItemChecked;
                         db.ItemPosted += progressReport.OnItemPosted;
+                        postingModel.Post(trans.TransactionNumber);
                         progress.Report(progressReport);
                     }
                 }
@@ -131,7 +131,7 @@ namespace ESI_ITE.ViewModel
 
         private void CancelPosting( )
         {
-            throw new NotImplementedException();
+            MyGlobals.IteViewModel.SelectedPage = MyGlobals.PostingParent;
         }
 
         #endregion

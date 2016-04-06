@@ -78,13 +78,14 @@ namespace ESI_ITE.Model
 
             foreach ( Dictionary<string, string> row in inventory_dummy )
             {
-                if ( string.IsNullOrEmpty(inventoryMaster[index, 1]) )
+                if ( string.IsNullOrEmpty(inventoryMaster[index, 0]) )
                 {
                     //casesPiecesList.Add(Int32.Parse(row["cases"]));
                     //casesPiecesList.Add(Int32.Parse(row["pieces"]));
 
                     //itemTotal.Add(row["item_link"], casesPiecesList);
 
+                    sb.Clear();
                     sb.Append("insert into inventory_master values(");
                     sb.Append("null,");
                     sb.Append("'" + warehouseId + "',");
@@ -127,7 +128,7 @@ namespace ESI_ITE.Model
                 }
             }
 
-            commands.Add("delete * from inventory_dummy where transaction_link = '" + transactionId + "'");
+            commands.Add("delete from inventory_dummy where transaction_link = '" + transactionId + "'");
 
             db.RunMySqlTransaction(commands);
 
@@ -160,7 +161,7 @@ namespace ESI_ITE.Model
             string status;
 
             status = db.Select("select status from transaction_entry " +
-                "where trans_no = '" + transactionNumber + "'");
+                "where trans_no = '" + transactionNumber + "' limit 1");
 
             if ( status == "1" )
             {
