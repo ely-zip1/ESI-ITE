@@ -4,27 +4,16 @@
              xmlns:local="clr-namespace:ESI_ITE"
              Startup="Application_Startup">
     <Application.Resources>
-        <UserControl x:Key="ItemTemplate">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="72*"/>
-                    <ColumnDefinition Width="306*"/>
-                    <ColumnDefinition Width="28*"/>
-                    <ColumnDefinition Width="52*"/>
-                    <ColumnDefinition Width="52*"/>
-                    <ColumnDefinition Width="95*"/>
-                    <ColumnDefinition Width="109*"/>
-                    <ColumnDefinition Width="136*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock VerticalAlignment="Top" FontFamily="Courier New" Grid.Column="0"  Margin="5,2,0,0" Name="txbItemCode">121026</TextBlock>
-                <TextBlock VerticalAlignment="Top" FontFamily="Courier New" Grid.Column="1"  Margin="5,2,0,0" Name="txbDescription" TextWrapping="Wrap">PFIZER CHC-ADVIL LIQ-GEL 100'S 10PADSX10TABSX200MG</TextBlock>
-                <TextBlock VerticalAlignment="Top" FontFamily="Courier New" Grid.Column="2"  Margin="5,2,0,0" Name="txbLC">GD</TextBlock>
-                <TextBlock VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="Courier New" Grid.Column="3"  Margin="5,2,10,0" Name="txbCases">1</TextBlock>
-                <TextBlock VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="Courier New" Grid.Column="4"  Margin="5,2,10,0" Name="txbPieces">0</TextBlock>
-                <TextBlock VerticalAlignment="Top" FontFamily="Courier New" Grid.Column="5"  Margin="5,2,0,0" Name="txbExpiry">01/01/2001</TextBlock>
-                <TextBlock VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="Courier New" Grid.Column="6"  Margin="5,2,0,0" Name="txbUnitPrice">690.91</TextBlock>
-                <TextBlock VerticalAlignment="Top" HorizontalAlignment="Right" FontFamily="Courier New" Grid.Column="7"  Margin="5,2,10,0" Name="txbValue">690.91</TextBlock>
-            </Grid>
-        </UserControl>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <!-- Accent and AppTheme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

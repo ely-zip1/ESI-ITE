@@ -50,6 +50,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MahApps.Metro, Version=1.2.4.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.Prism.Composition, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Composition.5.0.0\lib\NET45\Microsoft.Practices.Prism.Composition.dll</HintPath>
@@ -96,7 +100,7 @@
     <Reference Include="System.Windows.Controls.Layout.Toolkit.Design, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Controls.Layout.Toolkit.VisualStudio.Design, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.1.2.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
@@ -154,6 +158,7 @@
     <Compile Include="Model\ReasonsModel.cs" />
     <Compile Include="Model\TransactionNumberModel.cs" />
     <Compile Include="Model\TransactionTypesModel.cs" />
+    <Compile Include="Model\UserModel.cs" />
     <Compile Include="MyGlobals.cs" />
     <Compile Include="Printing\Paginator.cs" />
     <Compile Include="Printing\PrintingJob.cs" />
@@ -177,6 +182,8 @@
     <Compile Include="ViewModel\LineItemPageViewModel.cs" />
     <Compile Include="ViewModel\LineItemViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\SOViewModel.cs" />
+    <Compile Include="ViewModel\UserPageViewModel.cs" />
     <Compile Include="View\PostingPageView.xaml.cs">
       <DependentUpon>PostingPageView.xaml</DependentUpon>
     </Compile>
@@ -203,6 +210,12 @@
     <Compile Include="View\PrintPreviewPageView.xaml.cs">
       <DependentUpon>PrintPreviewPageView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SalesOrderEntryView.xaml.cs">
+      <DependentUpon>SalesOrderEntryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SOView.xaml.cs">
+      <DependentUpon>SOView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Transaction Printing.xaml.cs">
       <DependentUpon>Transaction Printing.xaml</DependentUpon>
     </Compile>
@@ -211,6 +224,9 @@
     </Compile>
     <Compile Include="View\TransactionEntryView.xaml.cs">
       <DependentUpon>TransactionEntryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserPageView.xaml.cs">
+      <DependentUpon>UserPageView.xaml</DependentUpon>
     </Compile>
     <Page Include="Printing\PrintingFooterTemplate.xaml">
       <SubType>Designer</SubType>
@@ -269,6 +285,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\SalesOrderEntryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SOView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Transaction Printing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -278,6 +302,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TransactionEntryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

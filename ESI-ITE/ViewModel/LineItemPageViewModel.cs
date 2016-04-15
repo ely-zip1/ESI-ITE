@@ -4,13 +4,6 @@ using ESI_ITE.Model;
 using System.Collections.ObjectModel;
 using ESI_ITE.ViewModel.Command;
 using System.Windows.Input;
-using System.Windows.Documents;
-using System.Windows.Markup;
-using System.Windows.Controls;
-using System.Printing;
-using System.Windows.Xps;
-using System.Collections.Generic;
-using ESI_ITE.Printing;
 using System.Data;
 using System.Diagnostics;
 using System.Globalization;
@@ -346,9 +339,12 @@ namespace ESI_ITE.ViewModel
             get { return cases; }
             set
             {
-                cases = value;
-                OnPropertyChanged("Cases");
-                ContentChanged("Cases");
+                if ( cases != value )
+                {
+                    cases = value;
+                    OnPropertyChanged("Cases");
+                    ContentChanged("Cases");
+                }
             }
         }
 
@@ -510,6 +506,7 @@ namespace ESI_ITE.ViewModel
 
         private bool IsFirstLoad = true;
         private bool IsClearForm;
+        private bool IsDatagridItemSelected = false;
 
         #endregion
 
@@ -597,6 +594,7 @@ namespace ESI_ITE.ViewModel
 
         private void SelectedDatagridItemChanged( )
         {
+            IsDatagridItemSelected = true;
             ItemCode = DatagridSelectedItem.ItemCode;
 
             foreach ( var pricetype in PtList )
@@ -712,6 +710,11 @@ namespace ESI_ITE.ViewModel
             switch ( propertyName )
             {
                 case "ItemCode":
+                    if ( IsDatagridItemSelected )
+                    {
+                        validProperties[0] = null;
+                        IsDatagridItemSelected = false;
+                    }
 
                     if ( IsClearForm == false )
                     {
@@ -726,6 +729,9 @@ namespace ESI_ITE.ViewModel
                 case "Cases":
                     if ( IsClearForm == false )
                         IsFirstLoad = false;
+
+                    if ( CanBeDeleted )
+                        CanBeAdded = true;
 
                     if ( !string.IsNullOrWhiteSpace(Cases) && string.IsNullOrWhiteSpace(Pieces) )
                     {
@@ -744,7 +750,6 @@ namespace ESI_ITE.ViewModel
                     }
                     else if ( string.IsNullOrWhiteSpace(Cases) && string.IsNullOrWhiteSpace(Pieces) )
                     {
-
                         OnPropertyChanged("Pieces");
                         validProperties[1] = "Error";
                     }
@@ -753,6 +758,9 @@ namespace ESI_ITE.ViewModel
                 case "Pieces":
                     if ( IsClearForm == false )
                         IsFirstLoad = false;
+
+                    if ( CanBeDeleted )
+                        CanBeAdded = true;
 
                     if ( !string.IsNullOrWhiteSpace(Pieces) && string.IsNullOrWhiteSpace(Cases) )
                     {
@@ -779,6 +787,9 @@ namespace ESI_ITE.ViewModel
                 case "Expiry":
                     if ( IsClearForm == false )
                         IsFirstLoad = false;
+
+                    if ( CanBeDeleted )
+                        CanBeAdded = true;
                     break;
             }
             isValid();
@@ -858,7 +869,6 @@ namespace ESI_ITE.ViewModel
             }
             else
                 CanBeDeleted = false;
-
         }
 
         private void CancelAndGoBack( )

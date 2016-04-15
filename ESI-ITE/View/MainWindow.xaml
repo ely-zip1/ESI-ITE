@@ -1,14 +1,19 @@
-﻿<Window x:Class="ESI_ITE.View.MainWindow"
+﻿<Controls:MetroWindow x:Class="ESI_ITE.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ESI_ITE.ViewModel"
         xmlns:myControls="clr-namespace:ESI_ITE.View"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         Title="ESI System" Height="700" Width="1300" 
         WindowStartupLocation="CenterScreen" 
-        WindowState="Maximized">
+        WindowState="Maximized"
+                      
+        GlowBrush="{DynamicResource AccentColorBrush}" MinHeight="720"
+        >
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth="191"></ColumnDefinition>
@@ -18,6 +23,7 @@
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="19*"></RowDefinition>
         </Grid.RowDefinitions>
+        <Grid Grid.ColumnSpan="2" Background="#FF212121"></Grid>
 
         <ListView Name="lvModulesList" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch"
                   ItemsSource="{Binding Modules}"
@@ -35,7 +41,7 @@
                        HorizontalAlignment="Center" ></TextBlock>
         </ListView>-->
 
-        <ContentPresenter Name="contentPresenter" Grid.Row="1" Grid.Column="1"
-                          Content="{Binding UserInterface}"></ContentPresenter>
+        <ContentPresenter Name="contentPresenter" Grid.Row="1" Grid.Column="1" 
+                          Content="{Binding UserInterface}" OpacityMask="#FF252525"/>
     </Grid>
-</Window>
+</Controls:MetroWindow>

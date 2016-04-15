@@ -11,9 +11,9 @@ using System.Windows.Navigation;
 namespace ESI_ITE.ViewModel
 {
     [Export(typeof(IModule))]
-    public class ITEViewModel : ViewModelBase, IModule
+    public class ITEViewModel: ViewModelBase, IModule
     {
-        public ITEViewModel()
+        public ITEViewModel( )
         {
             MyGlobals.IteViewModel = this;
         }
@@ -56,7 +56,7 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private void BackNavigationExecute()
+        private void BackNavigationExecute( )
         {
 
         }

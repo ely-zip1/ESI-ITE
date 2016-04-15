@@ -38,3 +38,7 @@ C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.Properties.Resources
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.GenerateResource.Cache
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.exe
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.pdb
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.pdb
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.xml

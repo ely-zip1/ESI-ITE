@@ -6,13 +6,7 @@
       xmlns:local="clr-namespace:ESI_ITE.View"
       xmlns:vm="clr-namespace:ESI_ITE.ViewModel"
       mc:Ignorable="d" 
-      d:DesignHeight="700" d:DesignWidth="700">
-    <UserControl.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="White" Offset="0"/>
-            <GradientStop Color="#FF91DCFF" Offset="1"/>
-        </LinearGradientBrush>
-    </UserControl.Background>
+      d:DesignHeight="700" d:DesignWidth="700" Background="#FF181814">
 
     <UserControl.DataContext>
         <vm:ITEViewModel x:Name="viewModel"></vm:ITEViewModel>

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\App.xaml
-15200503980
+18339357097
 
-50-490597521
-94341824621
-Printing\PrintingFooterTemplate.xaml;Printing\PrintingHeaderTemplate.xaml;Printing\UserControl1.xaml;View\PostingPageView.xaml;View\HomeView.xaml;View\ITEView.xaml;View\LineItemPageView.xaml;View\LineItemView.xaml;View\MainWindow.xaml;Printing\PrintingCanvas.xaml;Printing\PrintingItemTemplate.xaml;View\PrintPreviewPageView.xaml;View\Transaction Printing.xaml;View\TransactionEntryPageView.xaml;View\TransactionEntryView.xaml;
+56-564117726
+95-307559961
+Printing\PrintingFooterTemplate.xaml;Printing\PrintingHeaderTemplate.xaml;Printing\UserControl1.xaml;View\PostingPageView.xaml;View\HomeView.xaml;View\ITEView.xaml;View\LineItemPageView.xaml;View\LineItemView.xaml;View\MainWindow.xaml;Printing\PrintingCanvas.xaml;Printing\PrintingItemTemplate.xaml;View\PrintPreviewPageView.xaml;View\SalesOrderEntryView.xaml;View\SOView.xaml;View\Transaction Printing.xaml;View\TransactionEntryPageView.xaml;View\TransactionEntryView.xaml;View\UserPageView.xaml;
 
 False
 

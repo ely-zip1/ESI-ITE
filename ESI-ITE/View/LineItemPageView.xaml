@@ -10,7 +10,7 @@
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:wpfx="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
-      d:DesignHeight="550" d:DesignWidth="770"
+      d:DesignHeight="885" d:DesignWidth="970"
       Title="LineItemPageView"
       Background="Transparent">
 
@@ -20,9 +20,9 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="250"/>
+            <RowDefinition MinHeight="250"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid x:Name="grdTransactionHeader" ShowGridLines="false">
@@ -33,13 +33,13 @@
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
             </Grid.RowDefinitions>
 
             <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" FontSize="10.667" Content="Weeks Cover" />
@@ -59,47 +59,47 @@
             <Label Grid.Column="2" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="10.667" Content="Salesman"/>
 
             <TextBox Grid.Column="1" Grid.Row="0" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtWeeksCover" Text="{Binding WeeksCover}" Width="152" 
-				HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667"/>
+				HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667" Height="20"/>
             <TextBox Grid.Column="1" Grid.Row="1" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtTransactionNumber" Text="{Binding TransactionNumber}" Width="152" 
-				HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667"/>
+				HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667" Height="20"/>
             <TextBox Grid.Column="1" Grid.Row="2" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtDocumentNumber" Text="{Binding DocumentNumber}" Width="152" 
-				HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667"/>
+				HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667" Height="20"/>
             <TextBox Grid.Column="1" Grid.Row="3" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtTransactionDate" Text="{Binding TransactionDate}" Width="152" 
-				HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667"/>
+				HorizontalAlignment="Left" Cursor="Arrow" FontSize="10.667" Height="20"/>
 
-            <StackPanel Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Orientation="Horizontal">
-                <TextBox Margin="1" IsReadOnly="True" Width="41"
-					x:Name="txtTransactionTypeCode" Text="{Binding TransactionTypeCode}" Cursor="Arrow" FontSize="10.667"/>
+            <DockPanel Grid.Column="1" Grid.Row="4">
+                <TextBox Margin="0,0,7,0" IsReadOnly="True" Width="41"
+					x:Name="txtTransactionTypeCode" Text="{Binding TransactionTypeCode}" Cursor="Arrow" FontSize="10.667" Height="20"/>
                 <TextBox Margin="1" IsReadOnly="True" VerticalContentAlignment="Center"
-					x:Name="txtTransactionTypeDescription" Text="{Binding TransactionTypeDescription}" Cursor="Arrow" MinWidth="263" FontSize="10.667"/>
-            </StackPanel>
+					x:Name="txtTransactionTypeDescription" Text="{Binding TransactionTypeDescription}" Cursor="Arrow" MinWidth="263" FontSize="10.667" Height="20"/>
+            </DockPanel>
 
-            <StackPanel Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" Orientation="Horizontal">
-                <TextBox Margin="1" IsReadOnly="True" Width="41"
-					x:Name="txtReasonCode" Text="{Binding ReasonCode}" FontSize="10.667"/>
+            <DockPanel Grid.Column="1" Grid.Row="5">
+                <TextBox Margin="0,0,7,0" IsReadOnly="True" Width="41"
+					x:Name="txtReasonCode" Text="{Binding ReasonCode}" FontSize="10.667" Height="20"/>
                 <TextBox Margin="1" IsReadOnly="True" VerticalContentAlignment="Center"
-					x:Name="txtReasonDescription" Text="{Binding ReasonDescription}" Cursor="Arrow" MinWidth="263" FontSize="10.667"/>
-            </StackPanel>
+					x:Name="txtReasonDescription" Text="{Binding ReasonDescription}" Cursor="Arrow" FontSize="10.667" Height="20" HorizontalContentAlignment="Stretch"/>
+            </DockPanel>
 
-            <TextBox Grid.Column="1" Grid.Row="6" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtComment" Text="{Binding Comment}" Cursor="Arrow" FontSize="10.667"/>
+            <TextBox Grid.Column="1" Grid.Row="6" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtComment" Text="{Binding Comment}" Cursor="Arrow" FontSize="10.667" Height="20"/>
 
-            <TextBox Grid.Column="3" Grid.Row="0" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtStocksOnHand" Text="{Binding StocksOnHand}" Cursor="Arrow" FontSize="10.667"/>
-            <TextBox Grid.Column="3" Grid.Row="1" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtSourceWarehouse" Text="{Binding SourceWarehouse}" Cursor="Arrow" FontSize="10.667"/>
-            <TextBox Grid.Column="3" Grid.Row="2" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtSourceLocation" Text="{Binding SourceLocation}" Cursor="Arrow" FontSize="10.667"/>
-            <TextBox Grid.Column="3" Grid.Row="3" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtSourceSalesman" Cursor="Arrow" FontSize="10.667"/>
-            <TextBox Grid.Column="3" Grid.Row="4" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtDestinationWarehouse" Text="{Binding DestinationWarehouse}" Cursor="Arrow" FontSize="10.667"/>
-            <TextBox Grid.Column="3" Grid.Row="5" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtDestinationLocation" Text="{Binding DestinationLocation}" Cursor="Arrow" FontSize="10.667"/>
-            <TextBox Grid.Column="3" Grid.Row="6" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtDestinationSalesman" Cursor="Arrow" FontSize="10.667"/>
+            <TextBox Grid.Column="3" Grid.Row="0" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtStocksOnHand" Text="{Binding StocksOnHand}" Cursor="Arrow" FontSize="10.667" Height="20"/>
+            <TextBox Grid.Column="3" Grid.Row="1" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtSourceWarehouse" Text="{Binding SourceWarehouse}" Cursor="Arrow" FontSize="10.667" Height="20"/>
+            <TextBox Grid.Column="3" Grid.Row="2" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtSourceLocation" Text="{Binding SourceLocation}" Cursor="Arrow" FontSize="10.667" Height="20"/>
+            <TextBox Grid.Column="3" Grid.Row="3" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtSourceSalesman" Cursor="Arrow" FontSize="10.667" Height="20"/>
+            <TextBox Grid.Column="3" Grid.Row="4" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtDestinationWarehouse" Text="{Binding DestinationWarehouse}" Cursor="Arrow" FontSize="10.667" Height="20"/>
+            <TextBox Grid.Column="3" Grid.Row="5" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtDestinationLocation" Text="{Binding DestinationLocation}" Cursor="Arrow" FontSize="10.667" Height="20"/>
+            <TextBox Grid.Column="3" Grid.Row="6" Margin="1" IsReadOnly="True" VerticalContentAlignment="Center" x:Name="txtDestinationSalesman" Cursor="Arrow" FontSize="10.667" Height="20"/>
         </Grid>
 
-        <DataGrid Grid.Row="1" Margin="0,10,0,10" ItemsSource="{Binding DatagridItems}" AutoGenerateColumns="False"
-			AlternatingRowBackground="LightGray" SelectedItem="{Binding DatagridSelectedItem}" RowBackground="CadetBlue" FontFamily="Consolas">
+        <DataGrid Grid.Row="1" Margin="0,10,0,10" ItemsSource="{Binding DatagridItems}" AutoGenerateColumns="False" AlternatingRowBackground="#FF171717"
+                  SelectedItem="{Binding DatagridSelectedItem}" FontFamily="Consolas" IsReadOnly="True" Foreground="#FFBBBBBB" BorderThickness="1" BorderBrush="#FF3F3F46" CanUserReorderColumns="False" HeadersVisibility="Column" HorizontalContentAlignment="Stretch" HorizontalGridLinesBrush="#FF060606" GridLinesVisibility="Vertical" >
             <DataGrid.Columns>
-                <DataGridTextColumn Width="70"  Header="Item Code" Binding="{Binding ItemCode}"/>
-                <DataGridTextColumn Width="30"  Header="P/T" Binding="{Binding PriceType}"/>
-                <DataGridTextColumn Width="300" Header="Description" Binding="{Binding ItemDescription}"/>
-                <DataGridTextColumn Width="30"  Header="LC" Binding="{Binding Location}"/>
-                <DataGridTextColumn Width="50"  Header="Cases" Binding="{Binding Cases}">
+                <DataGridTextColumn Width="80"  Header="Item Code" Binding="{Binding ItemCode}"/>
+                <DataGridTextColumn Width="45"  Header="P/T" Binding="{Binding PriceType}"/>
+                <DataGridTextColumn MinWidth="300" Header="Description" Binding="{Binding ItemDescription}"/>
+                <DataGridTextColumn Width="40"  Header="LC" Binding="{Binding Location}"/>
+                <DataGridTextColumn Width="60"  Header="Cases" Binding="{Binding Cases}">
                     <DataGridTextColumn.CellStyle>
                         <Style>
                             <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
@@ -107,7 +107,7 @@
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Width="50"  Header="Pieces" Binding="{Binding Pieces}">
+                <DataGridTextColumn Width="65"  Header="Pieces" Binding="{Binding Pieces}">
                     <DataGridTextColumn.CellStyle>
                         <Style>
                             <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
@@ -115,7 +115,7 @@
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Width="90"  Header="Price/Piece" Binding="{Binding PricePerPiece, StringFormat=\{0:#\,##0.00\}}">
+                <DataGridTextColumn Width="100"  Header="Price/Piece" Binding="{Binding PricePerPiece, StringFormat=\{0:#\,##0.00\}}">
                     <DataGridTextColumn.CellStyle>
                         <Style>
                             <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
@@ -123,7 +123,7 @@
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Width="120" Header="Line Amount" Binding="{Binding LineAmount, StringFormat=\{0:#\,##0.00\}}">
+                <DataGridTextColumn Width="130" Header="Line Amount" Binding="{Binding LineAmount, StringFormat=\{0:#\,##0.00\}}">
                     <DataGridTextColumn.CellStyle>
                         <Style>
                             <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
@@ -155,10 +155,10 @@
 
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition MinHeight="50"/>
+                <RowDefinition MinHeight="30"/>
+                <RowDefinition MinHeight="30"/>
+                <RowDefinition Height="80"/>
             </Grid.RowDefinitions>
 
             <StackPanel Orientation="Horizontal">
@@ -166,15 +166,16 @@
                 <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
                     <Label Content="Item Code" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
 
-                    <Controls:AutoCompleteBox Name="txtItemCode" Width="90" Height="22" ItemsSource="{Binding SuggestedItemCodeList}" MinimumPrefixLength="1" 
+                    <Controls:AutoCompleteBox Name="txtItemCode" Width="90" Height="26" ItemsSource="{Binding SuggestedItemCodeList}" MinimumPrefixLength="1" 
+                                              Foreground="White" Background="#FF252525"
                                               Text="{Binding ItemCode,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,ValidatesOnDataErrors=True}"
                                               ValueMemberPath="Code" FilterMode="StartsWith" ToolTip="{Binding Error}"
                                               SelectedItem="{Binding SelectedItemCode, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Controls:AutoCompleteBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Code}" Width="80" FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding Description}" Foreground="Gray"/>
+                                    <TextBlock Text="{Binding Code}" Width="80" FontWeight="Bold" Background="#FF252525"/>
+                                    <TextBlock Text="{Binding Description}" Foreground="Gray" Background="#FF252525"/>
                                 </StackPanel>
                             </DataTemplate>
                         </Controls:AutoCompleteBox.ItemTemplate>
@@ -225,7 +226,7 @@
                 <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
                     <Label Content="Expiry" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
                     <!--<TextBox Height="22" Width="90" x:Name="txtExpiry" Text="{Binding Expiry}"/>-->
-                    <wpfx:MaskedTextBox Height="22" Width="90" x:Name="txtExpiry" Mask="00/00/0000" 
+                    <wpfx:MaskedTextBox Height="26" Width="90" x:Name="txtExpiry" Mask="00/00/0000" 
                                         Text="{Binding Expiry,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
                                         VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                 </StackPanel>
@@ -263,16 +264,16 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Width="70" Margin="4" Background="White" Content="Add Item" x:Name="btnAdd" Command="{Binding AddItemCommand}" 
-                            IsEnabled="{Binding CanBeAdded}"/>
-                    <Button Width="70" Margin="4" Background="White" Content="Delete Line" x:Name="btnDelete" Command="{Binding DeleteItemCommand}"
-                            IsEnabled="{Binding CanBeDeleted}"/>
-                    <Button Width="70" Margin="4" Background="White" Content="Print Entry" x:Name="btnPrint"
-						Command="{Binding PrintTransactionCommand}"/>
+                    <Button Width="70" Margin="4" Content="Add Item" x:Name="btnAdd" Command="{Binding AddItemCommand}" 
+                            IsEnabled="{Binding CanBeAdded}" Height="25" Grid.IsSharedSizeScope="True"/>
+                    <Button Width="70" Margin="4" Content="Delete Line" x:Name="btnDelete" Command="{Binding DeleteItemCommand}"
+                            IsEnabled="{Binding CanBeDeleted}" Height="25" Grid.IsSharedSizeScope="True"/>
+                    <Button Width="80" Margin="4" Content="Print Entry" x:Name="btnPrint"
+						Command="{Binding PrintTransactionCommand}" Height="25" Grid.IsSharedSizeScope="True"/>
                 </StackPanel>
 
-                <Button Grid.Row="1" Content="Close" Margin="4" Width="70" HorizontalAlignment="Right" Background="White" x:Name="btnCancel"
-					Command="{Binding CancelCommand}"/>
+                <Button Grid.Row="1" Content="Close" Margin="4" Width="70" HorizontalAlignment="Right" x:Name="btnCancel"
+					Command="{Binding CancelCommand}" Height="25" Grid.IsSharedSizeScope="True"/>
             </Grid>
         </Grid>
 
