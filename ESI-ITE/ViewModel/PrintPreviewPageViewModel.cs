@@ -34,73 +34,73 @@ namespace ESI_ITE.ViewModel
         #region Properties
 
         #region Header
-        TextBlock txtUser = new TextBlock();
-        TextBlock txtPrintDate = new TextBlock();
-        TextBlock txtPrintTime = new TextBlock();
-        Label lblCompanyName = new Label();
-        Label lblModuleName = new Label();
-        Label lblPage = new Label();
-        TextBlock txtPageNumber = new TextBlock();
+        TextBlock txtUser;
+        TextBlock txtPrintDate;
+        TextBlock txtPrintTime;
+        TextBlock lblCompanyName;
+        TextBlock lblModuleName;
+        TextBlock lblPage;
+        TextBlock txtPageNumber;
 
-        Label lblTransactionType = new Label();
-        Label lblTransactionNumber = new Label();
-        Label lblTransactionDate = new Label();
-        Label lblDocumentNumber = new Label();
-        Label lblReason = new Label();
-        Label lblWarehouse = new Label();
-        Label lblLocation = new Label();
-        Label lblSalesman = new Label();
-        Label lblComment = new Label();
+        TextBlock lblTransactionType;
+        TextBlock lblTransactionNumber;
+        TextBlock lblTransactionDate;
+        TextBlock lblDocumentNumber;
+        TextBlock lblReason;
+        TextBlock lblWarehouse;
+        TextBlock lblLocation;
+        TextBlock lblSalesman;
+        TextBlock lblComment;
 
-        TextBlock txtTransactionType = new TextBlock();
-        TextBlock txtTransactionNumber = new TextBlock();
-        TextBlock txtTransactionDate = new TextBlock();
-        TextBlock txtDocumentNumber = new TextBlock();
-        TextBlock txtReason = new TextBlock();
-        TextBlock txtWarehouse = new TextBlock();
-        TextBlock txtLocation = new TextBlock();
-        TextBlock txtSalesman = new TextBlock();
-        TextBlock txtComment = new TextBlock();
+        TextBlock txtTransactionType;
+        TextBlock txtTransactionNumber;
+        TextBlock txtTransactionDate;
+        TextBlock txtDocumentNumber;
+        TextBlock txtReason;
+        TextBlock txtWarehouse;
+        TextBlock txtLocation;
+        TextBlock txtSalesman;
+        TextBlock txtComment;
 
         #endregion
 
         #region Item Column Headers
 
-        Label lblHorizontalLine_1 = new Label();
-        Label lblHorizontalLine_2 = new Label();
-        Label lblItemCode = new Label();
-        Label lblItemDescription = new Label();
-        Label lblLC = new Label();
-        Label lblCases = new Label();
-        Label lblPieces = new Label();
-        Label lblExpiry = new Label();
-        Label lblUnitPrice = new Label();
-        Label lblValue = new Label();
+        TextBlock lblHorizontalLine_1;
+        TextBlock lblHorizontalLine_2;
+        TextBlock lblItemCode;
+        TextBlock lblItemDescription;
+        TextBlock lblLC;
+        TextBlock lblCases;
+        TextBlock lblPieces;
+        TextBlock lblExpiry;
+        TextBlock lblUnitPrice;
+        TextBlock lblValue;
 
         #endregion
 
         #region Item
 
-        TextBlock txtItemCode = new TextBlock();
-        TextBlock txtItemDescription = new TextBlock();
-        TextBlock txtLC = new TextBlock();
-        TextBlock txtCases = new TextBlock();
-        TextBlock txtPieces = new TextBlock();
-        TextBlock txtExpiry = new TextBlock();
-        TextBlock txtUnitPrice = new TextBlock();
-        TextBlock txtValue = new TextBlock();
+        TextBlock txtItemCode;
+        TextBlock txtItemDescription;
+        TextBlock txtLC;
+        TextBlock txtCases;
+        TextBlock txtPieces;
+        TextBlock txtExpiry;
+        TextBlock txtUnitPrice;
+        TextBlock txtValue;
 
         #endregion
 
         #region Footer
 
-        TextBlock txtTotalCases = new TextBlock();
-        TextBlock txtTotalPieces = new TextBlock();
-        TextBlock txtOrderAmount = new TextBlock();
+        TextBlock txtTotalCases;
+        TextBlock txtTotalPieces;
+        TextBlock txtOrderAmount;
 
-        Label lblPreparedBy = new Label();
-        Label lblCheckedBy = new Label();
-        Label lblReceivedBy = new Label();
+        TextBlock lblPreparedBy;
+        TextBlock lblCheckedBy;
+        TextBlock lblReceivedBy;
 
         #endregion
 
@@ -546,6 +546,10 @@ namespace ESI_ITE.ViewModel
                     AppendItem(content[pageNumber], item);
 
                 }
+
+                if ( top > 900 )
+                    CreateNewPage(transaction);
+
                 AppendFooter(content[pageNumber], transaction);
 
                 docRef = new DocumentReference();
@@ -587,20 +591,20 @@ namespace ESI_ITE.ViewModel
             txtUser = new TextBlock();
             txtPrintDate = new TextBlock();
             txtPrintTime = new TextBlock();
-            lblCompanyName = new Label();
-            lblModuleName = new Label();
-            lblPage = new Label();
+            lblCompanyName = new TextBlock();
+            lblModuleName = new TextBlock();
+            lblPage = new TextBlock();
             txtPageNumber = new TextBlock();
 
-            lblTransactionType = new Label();
-            lblTransactionNumber = new Label();
-            lblTransactionDate = new Label();
-            lblDocumentNumber = new Label();
-            lblReason = new Label();
-            lblWarehouse = new Label();
-            lblLocation = new Label();
-            lblSalesman = new Label();
-            lblComment = new Label();
+            lblTransactionType = new TextBlock();
+            lblTransactionNumber = new TextBlock();
+            lblTransactionDate = new TextBlock();
+            lblDocumentNumber = new TextBlock();
+            lblReason = new TextBlock();
+            lblWarehouse = new TextBlock();
+            lblLocation = new TextBlock();
+            lblSalesman = new TextBlock();
+            lblComment = new TextBlock();
 
             txtTransactionType = new TextBlock();
             txtTransactionNumber = new TextBlock();
@@ -612,16 +616,16 @@ namespace ESI_ITE.ViewModel
             txtSalesman = new TextBlock();
             txtComment = new TextBlock();
 
-            lblHorizontalLine_1 = new Label();
-            lblHorizontalLine_2 = new Label();
-            lblItemCode = new Label();
-            lblItemDescription = new Label();
-            lblLC = new Label();
-            lblCases = new Label();
-            lblPieces = new Label();
-            lblExpiry = new Label();
-            lblUnitPrice = new Label();
-            lblValue = new Label();
+            lblHorizontalLine_1 = new TextBlock();
+            lblHorizontalLine_2 = new TextBlock();
+            lblItemCode = new TextBlock();
+            lblItemDescription = new TextBlock();
+            lblLC = new TextBlock();
+            lblCases = new TextBlock();
+            lblPieces = new TextBlock();
+            lblExpiry = new TextBlock();
+            lblUnitPrice = new TextBlock();
+            lblValue = new TextBlock();
 
             #region line 1 : USER
             //User
@@ -646,7 +650,7 @@ namespace ESI_ITE.ViewModel
 
 
             //Company name
-            lblCompanyName.Content = "Extract Sales, Inc.";
+            lblCompanyName.Text = "Extract Sales, Inc.";
             lblCompanyName.FontSize = 12;
             lblCompanyName.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblCompanyName.Width = 200;
@@ -655,13 +659,12 @@ namespace ESI_ITE.ViewModel
             Canvas.SetTop(lblCompanyName, top);
             content.Children.Add(lblCompanyName);
 
-            //Page label
-            lblPage.Content = "Page";
+            //Page TextBlock
+            lblPage.Text = "Page";
             lblPage.FontSize = 12;
             lblPage.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblPage.Width = 45;
             lblPage.Padding = new System.Windows.Thickness(0);
-            lblPage.BorderThickness = new System.Windows.Thickness(1);
             Canvas.SetLeft(lblPage, 700);
             Canvas.SetTop(lblPage, top);
             content.Children.Add(lblPage);
@@ -690,7 +693,7 @@ namespace ESI_ITE.ViewModel
 
 
             //Module name
-            lblModuleName.Content = "Inventory Transaction";
+            lblModuleName.Text = "Inventory Transaction";
             lblModuleName.FontSize = 12;
             lblModuleName.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblModuleName.Padding = new System.Windows.Thickness(0);
@@ -703,7 +706,7 @@ namespace ESI_ITE.ViewModel
             #region line 4 : TRANSACTION TYPE, WAREHOUSE
 
             //transaction type
-            lblTransactionType.Content = "Transaction Type : ";
+            lblTransactionType.Text = "Transaction Type : ";
             lblTransactionType.FontSize = 12;
             lblTransactionType.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblTransactionType.Padding = new System.Windows.Thickness(0);
@@ -720,7 +723,7 @@ namespace ESI_ITE.ViewModel
             content.Children.Add(txtTransactionType);
 
             //warehouse
-            lblWarehouse.Content = "Source Warehouse : ";
+            lblWarehouse.Text = "Source Warehouse : ";
             lblWarehouse.FontSize = 12;
             lblWarehouse.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblWarehouse.Padding = new System.Windows.Thickness(0);
@@ -741,7 +744,7 @@ namespace ESI_ITE.ViewModel
             #region line 5 : TRANSACTION NUMBER, LOCATION
 
             //transaction number
-            lblTransactionNumber.Content = "Transaction No. : ";
+            lblTransactionNumber.Text = "Transaction No. : ";
             lblTransactionNumber.FontSize = 12;
             lblTransactionNumber.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblTransactionNumber.Padding = new System.Windows.Thickness(0);
@@ -758,7 +761,7 @@ namespace ESI_ITE.ViewModel
             content.Children.Add(txtTransactionNumber);
 
             //location
-            lblLocation.Content = "Source Location : ";
+            lblLocation.Text = "Source Location : ";
             lblLocation.FontSize = 12;
             lblLocation.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblLocation.Padding = new System.Windows.Thickness(0);
@@ -779,7 +782,7 @@ namespace ESI_ITE.ViewModel
             #region line 6 : TRANSACTION DATE, SALESMAN
 
             //transaction date
-            lblTransactionDate.Content = "Transaction Date : ";
+            lblTransactionDate.Text = "Transaction Date : ";
             lblTransactionDate.FontSize = 12;
             lblTransactionDate.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblTransactionDate.Padding = new System.Windows.Thickness(0);
@@ -796,7 +799,7 @@ namespace ESI_ITE.ViewModel
             content.Children.Add(txtTransactionDate);
 
             //salesman
-            lblSalesman.Content = "Salesman : ";
+            lblSalesman.Text = "Salesman : ";
             lblSalesman.FontSize = 12;
             lblSalesman.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblSalesman.Padding = new System.Windows.Thickness(0);
@@ -808,7 +811,7 @@ namespace ESI_ITE.ViewModel
             #region line 7 : DOCUMENT NUMBER, COMMENT
 
             //document number
-            lblDocumentNumber.Content = "Document No. : ";
+            lblDocumentNumber.Text = "Document No. : ";
             lblDocumentNumber.FontSize = 12;
             lblDocumentNumber.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblDocumentNumber.Padding = new System.Windows.Thickness(0);
@@ -825,7 +828,7 @@ namespace ESI_ITE.ViewModel
             content.Children.Add(txtDocumentNumber);
 
             //comment
-            lblComment.Content = "Comment : ";
+            lblComment.Text = "Comment : ";
             lblComment.FontSize = 12;
             lblComment.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblComment.Padding = new System.Windows.Thickness(0);
@@ -846,7 +849,7 @@ namespace ESI_ITE.ViewModel
             #region line 8 : REASON
 
             //document number
-            lblReason.Content = "Reason : ";
+            lblReason.Text = "Reason : ";
             lblReason.FontSize = 12;
             lblReason.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblReason.Padding = new System.Windows.Thickness(0);
@@ -872,7 +875,7 @@ namespace ESI_ITE.ViewModel
             for ( int i = 0;i < 115;i++ )
                 line = line + "-";
 
-            lblHorizontalLine_1.Content = line;
+            lblHorizontalLine_1.Text = line;
             lblHorizontalLine_1.FontSize = 12;
             lblHorizontalLine_1.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblHorizontalLine_1.Padding = new System.Windows.Thickness(0);
@@ -885,7 +888,7 @@ namespace ESI_ITE.ViewModel
             #region item columns
 
             //item code
-            lblItemCode.Content = "Item Code";
+            lblItemCode.Text = "Item Code";
             lblItemCode.FontSize = 12;
             lblItemCode.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblItemCode.Padding = new System.Windows.Thickness(0);
@@ -894,7 +897,7 @@ namespace ESI_ITE.ViewModel
             content.Children.Add(lblItemCode);
 
             //item description
-            lblItemDescription.Content = "Item Description";
+            lblItemDescription.Text = "Item Description";
             lblItemDescription.FontSize = 12;
             lblItemDescription.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblItemDescription.Padding = new System.Windows.Thickness(0);
@@ -903,7 +906,7 @@ namespace ESI_ITE.ViewModel
             content.Children.Add(lblItemDescription);
 
             //LC
-            lblLC.Content = "LC";
+            lblLC.Text = "LC";
             lblLC.FontSize = 12;
             lblLC.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblLC.Padding = new System.Windows.Thickness(0);
@@ -912,45 +915,45 @@ namespace ESI_ITE.ViewModel
             content.Children.Add(lblLC);
 
             //cases
-            lblCases.Content = "Cases";
+            lblCases.Text = "Cases";
             lblCases.FontSize = 12;
             lblCases.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblCases.Padding = new System.Windows.Thickness(0);
             lblCases.Width = 50;
-            lblCases.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Right;
+            lblCases.FlowDirection = FlowDirection.RightToLeft;
             Canvas.SetLeft(lblCases, 430);
             Canvas.SetTop(lblCases, top);
             content.Children.Add(lblCases);
 
             //pieces
-            lblPieces.Content = "Pieces";
+            lblPieces.Text = "Pieces";
             lblPieces.FontSize = 12;
             lblPieces.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblPieces.Padding = new System.Windows.Thickness(0);
             lblPieces.Width = 50;
-            lblPieces.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Right;
+            lblPieces.FlowDirection = FlowDirection.RightToLeft;
             Canvas.SetLeft(lblPieces, 480);
             Canvas.SetTop(lblPieces, top);
             content.Children.Add(lblPieces);
 
             //unit price
-            lblUnitPrice.Content = "Unit Price";
+            lblUnitPrice.Text = "Unit Price";
             lblUnitPrice.FontSize = 12;
             lblUnitPrice.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblUnitPrice.Padding = new System.Windows.Thickness(0);
             lblUnitPrice.Width = 80;
-            lblUnitPrice.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Right;
+            lblUnitPrice.FlowDirection = FlowDirection.RightToLeft;
             Canvas.SetLeft(lblUnitPrice, 540);
             Canvas.SetTop(lblUnitPrice, top);
             content.Children.Add(lblUnitPrice);
 
             //value
-            lblValue.Content = "Value";
+            lblValue.Text = "Value";
             lblValue.FontSize = 12;
             lblValue.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblValue.Padding = new System.Windows.Thickness(0);
             lblValue.Width = 115;
-            lblValue.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Right;
+            lblValue.FlowDirection = FlowDirection.RightToLeft;
             Canvas.SetLeft(lblValue, 670);
             Canvas.SetTop(lblValue, top);
             content.Children.Add(lblValue);
@@ -959,7 +962,7 @@ namespace ESI_ITE.ViewModel
             top += 20;
             #region DIVIDER 2
             //divider
-            lblHorizontalLine_2.Content = line;
+            lblHorizontalLine_2.Text = line;
             lblHorizontalLine_2.FontSize = 12;
             lblHorizontalLine_2.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblHorizontalLine_2.Padding = new System.Windows.Thickness(0);
@@ -972,9 +975,9 @@ namespace ESI_ITE.ViewModel
             //{
             //    if (x % 50 == 0)
             //    {
-            //        lblHorizontalLine_2 = new Label();
+            //        lblHorizontalLine_2 = new TextBlock();
 
-            //        lblHorizontalLine_2.Content = x.ToString();
+            //        lblHorizontalLine_2.Text = x.ToString();
             //        lblHorizontalLine_2.FontSize = 12;
             //        lblHorizontalLine_2.FontFamily = new System.Windows.Media.FontFamily("consolas");
             //        lblHorizontalLine_2.Padding = new System.Windows.Thickness(0);
@@ -1084,16 +1087,14 @@ namespace ESI_ITE.ViewModel
 
         private void AppendFooter( Canvas content, TransactionModel transaction )
         {
-            if ( top > 900 )
-                CreateNewPage(transaction);
 
             txtTotalCases = new TextBlock();
             txtTotalPieces = new TextBlock();
             txtOrderAmount = new TextBlock();
 
-            lblPreparedBy = new Label();
-            lblCheckedBy = new Label();
-            lblReceivedBy = new Label();
+            lblPreparedBy = new TextBlock();
+            lblCheckedBy = new TextBlock();
+            lblReceivedBy = new TextBlock();
 
             #region Borders
 
@@ -1170,11 +1171,10 @@ namespace ESI_ITE.ViewModel
             #region Signatures
 
             //Prepared by
-            lblPreparedBy.Content = "Prepared By";
+            lblPreparedBy.Text = "Prepared By";
             lblPreparedBy.FontSize = 12;
             lblPreparedBy.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblPreparedBy.Width = 100;
-            lblPreparedBy.HorizontalContentAlignment = HorizontalAlignment.Center;
             Canvas.SetLeft(borderPreparedBy, 160);
             Canvas.SetTop(borderPreparedBy, top);
             content.Children.Add(borderPreparedBy);
@@ -1182,11 +1182,10 @@ namespace ESI_ITE.ViewModel
             borderPreparedBy.Child = lblPreparedBy;
 
             //Checked by
-            lblCheckedBy.Content = "Checked By";
+            lblCheckedBy.Text = "Checked By";
             lblCheckedBy.FontSize = 12;
             lblCheckedBy.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblCheckedBy.Width = 100;
-            lblCheckedBy.HorizontalContentAlignment = HorizontalAlignment.Center;
             Canvas.SetLeft(borderCheckedBy, 370);
             Canvas.SetTop(borderCheckedBy, top);
             content.Children.Add(borderCheckedBy);
@@ -1194,11 +1193,10 @@ namespace ESI_ITE.ViewModel
             borderCheckedBy.Child = lblCheckedBy;
 
             //Received by
-            lblReceivedBy.Content = "Received By";
+            lblReceivedBy.Text = "Received By";
             lblReceivedBy.FontSize = 12;
             lblReceivedBy.FontFamily = new System.Windows.Media.FontFamily("consolas");
             lblReceivedBy.Width = 100;
-            lblReceivedBy.HorizontalContentAlignment = HorizontalAlignment.Center;
             Canvas.SetLeft(borderReceivedBy, 590);
             Canvas.SetTop(borderReceivedBy, top);
             content.Children.Add(borderReceivedBy);

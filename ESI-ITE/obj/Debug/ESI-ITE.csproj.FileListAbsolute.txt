@@ -370,7 +370,6 @@ C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ro\Xceed.Wpf.AvalonDock.
 C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
-C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache
 C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.g.cs
 C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.g.cs
 C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.g.cs
@@ -418,3 +417,9 @@ C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOView.baml
 C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.dll
 C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.pdb
 C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.xml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOLineItemsView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOLineItemsView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.pdb
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.xml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache

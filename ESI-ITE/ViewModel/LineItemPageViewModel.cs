@@ -621,6 +621,16 @@ namespace ESI_ITE.ViewModel
             Expiry = DatagridSelectedItem.Expiration.ToString("MM/dd/yyyy");
             ItemDescription = DatagridSelectedItem.ItemDescription;
 
+            //Fetches DatagridSelectedItem's piecePerUnit
+            foreach ( var i in ItemCodeList )
+            {
+                if ( i.Code == DatagridSelectedItem.ItemCode )
+                {
+                    piecePerUnit = int.Parse(i.PiecePerUnit);
+                    break;
+                }
+            }
+
             var item = itemModel.Fetch(DatagridSelectedItem.ItemCode);
             foreach ( var i in item )
             {
@@ -898,9 +908,9 @@ namespace ESI_ITE.ViewModel
             int[] qtty = new int[2];
 
             if ( string.IsNullOrWhiteSpace(Cases) )
-                qtty = RefactorQuantity(int.Parse("0"), int.Parse(Pieces));
+                qtty = RefactorQuantity(0, int.Parse(Pieces));
             else if ( string.IsNullOrWhiteSpace(Pieces) )
-                qtty = RefactorQuantity(int.Parse(Cases), int.Parse("0"));
+                qtty = RefactorQuantity(int.Parse(Cases), 0);
             else
                 qtty = RefactorQuantity(int.Parse(Cases), int.Parse(Pieces));
 
@@ -1011,9 +1021,15 @@ namespace ESI_ITE.ViewModel
             {
                 newPieces = pieces % piecePerUnit;
                 cases += pieces / piecePerUnit;
+
+                newQuantities[0] = cases;
+                newQuantities[1] = newPieces;
             }
-            newQuantities[0] = cases;
-            newQuantities[1] = newPieces;
+            else
+            {
+                newQuantities[0] = cases;
+                newQuantities[1] = pieces;
+            }
 
             return newQuantities;
         }
@@ -1062,7 +1078,7 @@ namespace ESI_ITE.ViewModel
 
             _tempOrderAmount += amount;
 
-            OrderAmount = _tempOrderAmount.ToString();
+            OrderAmount = _tempOrderAmount.ToString("#,##0.00");
         }
 
         #endregion

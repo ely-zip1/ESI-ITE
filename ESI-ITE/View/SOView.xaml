@@ -6,13 +6,13 @@
              xmlns:local="clr-namespace:ESI_ITE.View"
              xmlns:vm="clr-namespace:ESI_ITE.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" Background="#FF181814">
+             d:DesignHeight="885" d:DesignWidth="1340" Background="#FF181814">
 
     <UserControl.DataContext>
         <vm:SOViewModel />
     </UserControl.DataContext>
 
-    <Frame Content="{Binding SelectedPage}" Padding="20 " NavigationUIVisibility="Hidden" Margin="5"
-           HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+    <Frame Name="frameSO" Content="{Binding SelectedPage}" Padding="20 " NavigationUIVisibility="Hidden" Margin="5"
+           HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Stretch"/>
 
 </UserControl>

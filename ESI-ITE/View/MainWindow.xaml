@@ -28,7 +28,7 @@
         <ListView Name="lvModulesList" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch"
                   ItemsSource="{Binding Modules}"
                   SelectedItem="{Binding SelectedModule, Mode=TwoWay}"
-                  SelectedIndex="{Binding SelectedIndex}" BorderBrush="{x:Null}">
+                  SelectedIndex="{Binding SelectedIndex}" BorderBrush="#FF3F3F46" BorderThickness="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}" MinWidth="100" 
@@ -41,7 +41,7 @@
                        HorizontalAlignment="Center" ></TextBlock>
         </ListView>-->
 
-        <ContentPresenter Name="contentPresenter" Grid.Row="1" Grid.Column="1" 
-                          Content="{Binding UserInterface}" OpacityMask="#FF252525"/>
+        <Controls:TransitioningContentControl Name="contentPresenter" Grid.Row="1" Grid.Column="1" 
+                          Content="{Binding UserInterface}" OpacityMask="#FF252525" Transition="LeftReplace"/>
     </Grid>
 </Controls:MetroWindow>

@@ -158,6 +158,7 @@ namespace ESI_ITE.ViewModel
                 if ( selectedTransactionType != value && value != null )
                 {
                     selectedTransactionType = value;
+                    validateReason = false;
                     OnPropertyChanged("SelectedTransactionType");
                     SelectionChanged("SelectedTransactionType");
                     IsDestinationEnabled(selectedTransactionType.Code);
@@ -478,6 +479,8 @@ namespace ESI_ITE.ViewModel
 
         public bool IsFirstLoad;
 
+        public bool validateReason = true;
+
         private bool updateTransNo = false;
 
         private string latestTransNo;
@@ -561,15 +564,27 @@ namespace ESI_ITE.ViewModel
 
         private void UpdateTransactionNumbers( )
         {
+            List<string> sortable = new List<string>();
+
             latestTransNo = transactionNumber.Fetch();
             MyGlobals.TransactionList.Clear();
 
             foreach ( var obj in (transaction.FetchAll()) )
             {
                 MyGlobals.TransactionList.Add(obj);
-                CmbTransactionNumbers.Add(obj.TransactionNumber);
+                sortable.Add(obj.TransactionNumber);
             }
-            CmbTransactionNumbers.Add(latestTransNo);
+            sortable.Add(latestTransNo);
+
+            sortable.Sort();
+
+            CmbTransactionNumbers.Clear();
+            foreach ( var i in sortable )
+            {
+                CmbTransactionNumbers.Add(i);
+            }
+
+
 
         }
 
@@ -1071,7 +1086,7 @@ namespace ESI_ITE.ViewModel
             switch ( propertyName )
             {
                 case "SelectedTransactionNumber":
-                    error = ValidateNullOrEmpty(propertyName, selectedTransactionNumber);
+                    error = ValidateNullOrEmpty("Transaction Number", selectedTransactionNumber);
                     if ( string.IsNullOrEmpty(error) )
                         validProperties[0] = null;
                     else
@@ -1080,7 +1095,7 @@ namespace ESI_ITE.ViewModel
                 case "SelectedTransactionType":
                     if ( SelectedTransactionType != null )
                     {
-                        error = ValidateNullOrEmpty(propertyName, Convert.ToString(SelectedTransactionType.Code));
+                        error = ValidateNullOrEmpty("Transaction Type", Convert.ToString(SelectedTransactionType.Code));
                         if ( string.IsNullOrEmpty(error) )
                             validProperties[1] = null;
                         else
@@ -1099,7 +1114,7 @@ namespace ESI_ITE.ViewModel
                         validProperties[2] = error;
                     break;
                 case "TransactionDate":
-                    error = ValidateNullOrEmpty(propertyName, Convert.ToString(TransactionDate));
+                    error = ValidateNullOrEmpty("Transaction Date", Convert.ToString(TransactionDate));
                     //if (error == null)
                     //{
                     //    error = CheckDate(Convert.ToString(TransactionDate));
@@ -1112,7 +1127,7 @@ namespace ESI_ITE.ViewModel
                 case "SelectedSourceWarehouse":
                     if ( SelectedSourceWarehouse != null )
                     {
-                        error = ValidateNullOrEmpty(propertyName, Convert.ToString(SelectedSourceWarehouse.Code));
+                        error = ValidateNullOrEmpty("Source Warehouse", Convert.ToString(SelectedSourceWarehouse.Code));
                         if ( string.IsNullOrEmpty(error) )
                             validProperties[4] = null;
                         else
@@ -1126,7 +1141,7 @@ namespace ESI_ITE.ViewModel
                 case "SelectedSourceLocation":
                     if ( SelectedSourceLocation != null )
                     {
-                        error = ValidateNullOrEmpty(propertyName, Convert.ToString(SelectedSourceLocation.Code));
+                        error = ValidateNullOrEmpty("Source Location", Convert.ToString(SelectedSourceLocation.Code));
                         if ( string.IsNullOrEmpty(error) )
                             validProperties[5] = null;
                         else
@@ -1138,14 +1153,14 @@ namespace ESI_ITE.ViewModel
                     }
                     break;
                 case "SelectedPriceCategory":
-                    error = ValidateNullOrEmpty(propertyName, SelectedPriceCategory);
+                    error = ValidateNullOrEmpty("Price Category", SelectedPriceCategory);
                     if ( string.IsNullOrEmpty(error) )
                         validProperties[6] = null;
                     else
                         validProperties[6] = error;
                     break;
                 case "SelectedPriceType":
-                    error = ValidateNullOrEmpty(propertyName, SelectedPriceType);
+                    error = ValidateNullOrEmpty("Price Type", SelectedPriceType);
                     if ( string.IsNullOrEmpty(error) )
                         validProperties[7] = null;
                     else
@@ -1155,7 +1170,7 @@ namespace ESI_ITE.ViewModel
                     if ( EnableDestination )
                         if ( SelectedDestinationWarehouse != null )
                         {
-                            error = ValidateNullOrEmpty(propertyName, Convert.ToString(SelectedDestinationWarehouse.Code));
+                            error = ValidateNullOrEmpty("Destination Warehouse", Convert.ToString(SelectedDestinationWarehouse.Code));
                             if ( string.IsNullOrEmpty(error) )
                                 validProperties[8] = null;
                             else
@@ -1170,7 +1185,7 @@ namespace ESI_ITE.ViewModel
                     if ( EnableDestination )
                         if ( SelectedDestinationLocation != null )
                         {
-                            error = ValidateNullOrEmpty(propertyName, Convert.ToString(SelectedDestinationLocation.Code));
+                            error = ValidateNullOrEmpty("Destination Location", Convert.ToString(SelectedDestinationLocation.Code));
                             if ( string.IsNullOrEmpty(error) )
                                 validProperties[9] = null;
                             else
@@ -1184,7 +1199,7 @@ namespace ESI_ITE.ViewModel
                 case "SelectedReason":
                     if ( SelectedReason != null )
                     {
-                        error = ValidateNullOrEmpty(propertyName, Convert.ToString(SelectedReason.Description));
+                        error = ValidateNullOrEmpty("Reason", Convert.ToString(SelectedReason.Description));
                         if ( string.IsNullOrEmpty(error) )
                             validProperties[10] = null;
                         else
@@ -1194,9 +1209,6 @@ namespace ESI_ITE.ViewModel
                     {
                         error = "Reason cannot be empty!";
                     }
-                    break;
-                case "Comment":
-                    error = ValidateNullOrEmpty(propertyName, Comment);
                     break;
             }
             isValid();

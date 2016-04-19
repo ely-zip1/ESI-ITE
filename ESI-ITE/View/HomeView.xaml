@@ -4,10 +4,38 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ESI_ITE.View"
+      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300" Background="#FF181814">
+      d:DesignHeight="815" d:DesignWidth="1370" Background="#FF181814">
 
-    <Grid>
-        <TextBlock Text="Home" FontSize="96"/>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Home" FontSize="20"/> 
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="330"></ColumnDefinition>
+                <ColumnDefinition Width="330"></ColumnDefinition>
+                <ColumnDefinition Width="330"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <WrapPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Top">
+                <controls:Tile 
+            		TiltFactor="1" Width="210" Height="100" Count="1"
+            		Margin="5" VerticalAlignment="Top" Background="#FF119EDA"/>
+
+                <controls:Tile 
+            		TiltFactor="1" Width="100" Height="100" Count="2"
+            		Margin="5" VerticalAlignment="Top" Background="#FFEC2020"/>
+
+                <controls:Tile 
+            		TiltFactor="1" Width="100" Height="100" Count="2"
+            		Margin="5" VerticalAlignment="Top" Background="#FFEC2020"/>
+            </WrapPanel>
+        </Grid>
     </Grid>
 </UserControl>
