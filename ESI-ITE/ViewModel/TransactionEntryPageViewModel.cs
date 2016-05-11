@@ -526,22 +526,27 @@ namespace ESI_ITE.ViewModel
 
         private void Load( )
         {
+            //Sorts and Loads Transaction Numbers
             UpdateTransactionNumbers();
 
+            //Loads Transaction Types
             CmbTransactionType.Add(new TransactionTypesModel());
             foreach ( var type in transactionType.FetchAll() )
             {
                 CmbTransactionType.Add(type);
             }
 
+            //Sets the current date as default date for new transaction
             transactionDate = currentDate.ToString("MM/dd/yyyy");
 
+            //Loads SourceWarehouse
             CmbWarehouse.Add(new WareHouseModel());
             foreach ( var wh in warehouse.FetchAll() )
             {
                 CmbWarehouse.Add(wh);
             }
 
+            //Loads source Location
             CmbLocation.Add(new LocationModel());
             foreach ( var loc in location.FetchAll() )
             {
@@ -557,6 +562,7 @@ namespace ESI_ITE.ViewModel
             priceTypeList.Add("3 Months Ago");
             priceTypeList.Add("6 Months Ago");
 
+            //Loads all transaction reasons
             ReasonList = reason.FetchAll();
 
             EnableDestination = false;
@@ -583,9 +589,6 @@ namespace ESI_ITE.ViewModel
             {
                 CmbTransactionNumbers.Add(i);
             }
-
-
-
         }
 
         private void fillForm( )
@@ -742,9 +745,6 @@ namespace ESI_ITE.ViewModel
 
                 case "SelectedTransactionType":
                     IsDestinationEnabled(SelectedTransactionType.Code);
-
-                    ReasonList.Clear();
-                    ReasonList = reason.FetchAll();
 
                     CmbReason.Clear();
                     CmbReason.Add(new ReasonsModel());

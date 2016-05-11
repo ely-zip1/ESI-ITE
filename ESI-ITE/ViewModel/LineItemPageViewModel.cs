@@ -1123,10 +1123,8 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-
         private void isValid( )
         {
-            Debug.WriteLine("ISVALID");
             int counter = 0;
             int x = 0;
             foreach ( var i in validProperties )
@@ -1134,7 +1132,6 @@ namespace ESI_ITE.ViewModel
                 if ( i != null )
                 {
                     counter++;
-                    Debug.WriteLine("validProperties[" + x + "] = " + i);
                 }
                 x++;
             }

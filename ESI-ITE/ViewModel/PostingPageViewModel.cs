@@ -114,7 +114,6 @@ namespace ESI_ITE.ViewModel
                     }
                 }
             });
-
         }
 
         private bool HaveItems( string transactionNumber )

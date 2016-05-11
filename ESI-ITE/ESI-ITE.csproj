@@ -153,6 +153,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CloneableDictionary.cs" />
+    <Compile Include="Model\CustomerModel.cs" />
+    <Compile Include="Model\DistrictModel.cs" />
+    <Compile Include="Model\Item2Model.cs" />
     <Compile Include="Model\LocationModel.cs" />
     <Compile Include="Model\ObjectBase.cs" />
     <Compile Include="Model\PostingModel.cs" />
@@ -160,6 +163,11 @@
     <Compile Include="Model\PriceTypeModel.cs" />
     <Compile Include="Model\PricingModel.cs" />
     <Compile Include="Model\ReasonsModel.cs" />
+    <Compile Include="Model\RouteModel.cs" />
+    <Compile Include="Model\SalesmanModel.cs" />
+    <Compile Include="Model\SupplierModel.cs" />
+    <Compile Include="Model\TermModel.cs" />
+    <Compile Include="Model\TradeClassModel.cs" />
     <Compile Include="Model\TransactionNumberModel.cs" />
     <Compile Include="Model\TransactionTypesModel.cs" />
     <Compile Include="Model\UserModel.cs" />
@@ -186,6 +194,7 @@
     <Compile Include="ViewModel\LineItemPageViewModel.cs" />
     <Compile Include="ViewModel\LineItemViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\SalesOrderEntryViewModel.cs" />
     <Compile Include="ViewModel\SOViewModel.cs" />
     <Compile Include="ViewModel\UserPageViewModel.cs" />
     <Compile Include="View\PostingPageView.xaml.cs">
