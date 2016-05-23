@@ -187,6 +187,14 @@ namespace ESI_ITE.Model
             }
         }
 
+        private string lotNumber;
+        public string LotNumber
+        {
+            get { return lotNumber; }
+            set { lotNumber = value; }
+        }
+
+
         DataAccess db = new DataAccess();
 
 
@@ -223,6 +231,7 @@ namespace ESI_ITE.Model
                 idm.Expiration = DateTime.Parse(row["expiration"], culture);
                 idm.PricePerPiece = Decimal.Parse(row["price_per_piece"]);
                 idm.LineAmount = Decimal.Parse(row["line_amount"]);
+                idm.LotNumber = row["lot_number"];
 
                 _transactionDetails.Add(idm);
             }
@@ -258,6 +267,7 @@ namespace ESI_ITE.Model
                 idm.Expiration = DateTime.Parse(row["expiration"], culture);
                 idm.PricePerPiece = Decimal.Parse(row["price_per_piece"]);
                 idm.LineAmount = Decimal.Parse(row["line_amount"]);
+                idm.LotNumber = row["lot_number"];
 
                 _transactionDetails.Add(idm);
             }
@@ -290,7 +300,8 @@ namespace ESI_ITE.Model
             insert.Append("" + detail.Pieces + ",");
             insert.Append("'" + detail.Expiration.ToString("%M/%d/yyyy") + "',");
             insert.Append("'" + detail.PricePerPiece + "',");
-            insert.Append("'" + detail.LineAmount + "'");
+            insert.Append("'" + detail.LineAmount + "',");
+            insert.Append("'" + detail.LotNumber + "'");
             insert.Append(")");
 
             db.Insert(insert.ToString());
@@ -318,7 +329,8 @@ namespace ESI_ITE.Model
             update.Append("cases = '" + detail.Cases + "', ");
             update.Append("pieces = '" + detail.Pieces + "', ");
             update.Append("expiration_date = '" + detail.Expiration.ToString("%M/%d/yyyy") + "', ");
-            update.Append("lineValue = '" + detail.LineAmount + "' ");
+            update.Append("lineValue = '" + detail.LineAmount + "', ");
+            update.Append("lot_number = '" + detail.LotNumber + "' ");
             update.Append("where item_link = '" + itemId + "' and transaction_link = '" + transactionId + "'");
 
             db.Update(update.ToString());
@@ -382,7 +394,8 @@ namespace ESI_ITE.Model
             "Pieces",
             "Expiration",
             "PricePerPiece",
-            "LineAmount"
+            "LineAmount",
+            "LotNumber"
         };
 
         public bool Isvalid
@@ -434,6 +447,9 @@ namespace ESI_ITE.Model
                     break;
                 case "LineAmount":
                     error = ValidateNullOrEmpty(propertyName, this.LineAmount.ToString());
+                    break;
+                case "LotNumber":
+                    error = ValidateNullOrEmpty(propertyName, this.LotNumber.ToString());
                     break;
             }
             return error;

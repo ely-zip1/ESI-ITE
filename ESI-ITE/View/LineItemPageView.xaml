@@ -237,9 +237,15 @@
                              IsHitTestVisible="False" Focusable="False"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Vertical"  Margin="2,0,0,0">
+                <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
                     <Label Content="Warehouse Code" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
                     <TextBox Height="22" Width="90" x:Name="txtWarehouseCode" Text="{Binding WarehouseCode}" IsReadOnly="True"
+                             IsHitTestVisible="False" Focusable="False"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical"  Margin="2,0,0,0">
+                    <Label Content="Lot number" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
+                    <TextBox Height="22" Width="90" x:Name="txtLotNumber" Text="{Binding WarehouseCode}" IsReadOnly="True"
                              IsHitTestVisible="False" Focusable="False"/>
                 </StackPanel>
 

@@ -155,6 +155,7 @@
     <Compile Include="CloneableDictionary.cs" />
     <Compile Include="Model\CustomerModel.cs" />
     <Compile Include="Model\DistrictModel.cs" />
+    <Compile Include="Model\IModelTemplate.cs" />
     <Compile Include="Model\Item2Model.cs" />
     <Compile Include="Model\LocationModel.cs" />
     <Compile Include="Model\ObjectBase.cs" />
@@ -165,6 +166,8 @@
     <Compile Include="Model\ReasonsModel.cs" />
     <Compile Include="Model\RouteModel.cs" />
     <Compile Include="Model\SalesmanModel.cs" />
+    <Compile Include="Model\SalesOrderModel.cs" />
+    <Compile Include="Model\SalesOrderPriceTypeModel.cs" />
     <Compile Include="Model\SupplierModel.cs" />
     <Compile Include="Model\TermModel.cs" />
     <Compile Include="Model\TradeClassModel.cs" />

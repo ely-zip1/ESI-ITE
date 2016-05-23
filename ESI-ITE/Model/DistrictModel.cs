@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ESI_ITE.Data_Access;
 
 namespace ESI_ITE.Model
 {
-    class DistrictModel
+    class DistrictModel: IModelTemplate
     {
         #region Properties
+
+        DataAccess db = new DataAccess();
 
         private int districtId;
 
@@ -58,7 +61,73 @@ namespace ESI_ITE.Model
             set { warehouse = value; }
         }
 
-
         #endregion
+
+
+        public List<object> FetchAll( )
+        {
+            List<object> list = new List<object>();
+
+            var record = db.SelectMultiple("select * from districts");
+
+            IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
+
+            foreach ( var row in record )
+            {
+                list.Clear();
+                var district = new DistrictModel();
+                var clone = row.Clone();
+
+                district.DistrictId = int.Parse(row["district_id"]);
+                district.DistrictNumber = row["district_number"].ToString();
+                district.Area = row["area"].ToString();
+                district.Salesman = int.Parse(row["salesman"]);
+                district.Target = decimal.Parse(row["target"]);
+                district.Warehouse = int.Parse(row["warehouse"]);
+
+                list.Add(district);
+            }
+
+            return list;
+        }
+
+        public object Fetch( string qry )
+        {
+            DistrictModel district = new DistrictModel();
+
+            var record = db.SelectMultiple("select * from districts where district_number = '" + qry + "'");
+
+            IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
+
+            foreach ( var row in record )
+            {
+                var clone = row.Clone();
+
+                district.DistrictId = int.Parse(row["district_id"]);
+                district.DistrictNumber = row["district_number"].ToString();
+                district.Area = row["area"].ToString();
+                district.Salesman = int.Parse(row["salesman"]);
+                district.Target = decimal.Parse(row["target"]);
+                district.Warehouse = int.Parse(row["warehouse"]);
+
+            }
+
+            return district;
+        }
+
+        public void AddNew( object item )
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateItem( string qry )
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteItem( string qry )
+        {
+            throw new NotImplementedException();
+        }
     }
 }

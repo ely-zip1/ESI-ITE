@@ -61,7 +61,8 @@ namespace ESI_ITE.Model
                     "warehouse_code = '" + warehouseId + "' and " +
                     "item_id_link = '" + row["item_link"] + "' and " +
                     "location_link = '" + row["location_link"] + "' and " +
-                    "expiration_date = '" + row["expiration_date"] + "'" +
+                    "expiration_date = '" + row["expiration_date"] + "' and " +
+                    "lot_number = '" + row["lot_number"] + "' " +
                     "").Split('|');
 
                 if ( result.Length == 3 )
@@ -93,7 +94,8 @@ namespace ESI_ITE.Model
                     sb.Append("'" + row["location_link"] + "',");
                     sb.Append("'" + Int32.Parse(row["cases"]) + "',");
                     sb.Append("'" + Int32.Parse(row["pieces"]) + "',");
-                    sb.Append("'" + row["expiration_date"] + "'");
+                    sb.Append("'" + row["expiration_date"] + "', ");
+                    sb.Append("'" + row["lot_number"] + "'");
                     sb.AppendLine(");");
 
                     commands.Add(sb.ToString());

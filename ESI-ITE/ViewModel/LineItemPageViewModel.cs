@@ -405,6 +405,17 @@ namespace ESI_ITE.ViewModel
             }
         }
 
+        private string lotNumber;
+        public string LotNumber
+        {
+            get { return lotNumber; }
+            set
+            {
+                lotNumber = value;
+                OnPropertyChanged("LotNumber");
+            }
+        }
+
         private string itemDescription;
         public string ItemDescription
         {
