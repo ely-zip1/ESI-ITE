@@ -12,6 +12,11 @@ namespace ESI_ITE.ViewModel
     [Export(typeof(IModule))]
     public class SOViewModel: ViewModelBase, IModule
     {
+        public SOViewModel( )
+        {
+            MyGlobals.SoViewModel = this;
+        }
+
         public string Name
         {
             get

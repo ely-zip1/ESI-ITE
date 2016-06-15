@@ -12,6 +12,7 @@ namespace ESI_ITE
 {
     public static class MyGlobals
     {
+        #region Transaction Entry 
         public static ITEViewModel IteViewModel;
 
         public static TransactionModel Transaction;
@@ -31,6 +32,17 @@ namespace ESI_ITE
         public static List<TransactionModel> TransactionList = new List<TransactionModel>();
 
         public static ItemModel SelectedItem = new ItemModel();
+        #endregion
+
+
+        #region Sales Order
+        public static SOViewModel SoViewModel;
+
+        public static SalesOrderModel SalesOrder;
+
+        public static SalesOrderEntryView SalesOrderEntryPage;
+        #endregion
+
 
         //Progress Monitors
         public static int ProgressTotalStep;

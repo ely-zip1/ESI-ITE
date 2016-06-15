@@ -8,7 +8,7 @@ using ESI_ITE.Data_Access;
 
 namespace ESI_ITE.Model
 {
-    class TermModel: IModelTemplate
+    public class TermModel: IModelTemplate
     {
         #region Properties
 
@@ -81,9 +81,10 @@ namespace ESI_ITE.Model
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
+            list.Clear();
+
             foreach ( var row in record )
             {
-                list.Clear();
                 var term = new TermModel();
                 var clone = row.Clone();
 
@@ -101,11 +102,16 @@ namespace ESI_ITE.Model
             return list;
         }
 
-        public object Fetch( string qry )
+        public object Fetch( string id, string type )
         {
             var term = new TermModel();
 
-            var record = db.SelectMultiple("select * from terms where term_code = '" + qry + "'");
+            var record = new List<CloneableDictionary<string, string>>();
+
+            if ( type == "code" )
+                record = db.SelectMultiple("select * from terms where term_code = '" + id + "'");
+            else if ( type == "id" )
+                record = db.SelectMultiple("select * from terms where term_id = '" + id + "'");
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 

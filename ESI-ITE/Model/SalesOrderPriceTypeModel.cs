@@ -7,7 +7,7 @@ using ESI_ITE.Data_Access;
 
 namespace ESI_ITE.Model
 {
-    class SalesOrderPriceTypeModel: IModelTemplate
+    public class SalesOrderPriceTypeModel: IModelTemplate
     {
         #region Properties
 
@@ -58,11 +58,19 @@ namespace ESI_ITE.Model
             throw new NotImplementedException();
         }
 
-        public object Fetch( string qry )
+        public object Fetch( string id, string type )
         {
             var pricetype = new SalesOrderPriceTypeModel();
 
-            var record = db.SelectMultiple("select * from so_pricetype where code = '" + qry + "'");
+            var record = new List<CloneableDictionary<string, string>>();
+            if ( type == "code" )
+            {
+                record = db.SelectMultiple("select * from so_pricetype where code = '" + id + "'");
+            }
+            else if ( type == "id" )
+            {
+                record = db.SelectMultiple("select * from so_pricetype where pricetype_id = '" + id + "'");
+            }
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
@@ -73,7 +81,7 @@ namespace ESI_ITE.Model
                 pricetype.PriceTypeId = int.Parse(row["pricetype_id"]);
                 pricetype.Code = row["code"].ToString();
                 pricetype.Description = row["description"].ToString();
-                pricetype.Modify = int.Parse(row["modify"]) == 1 ? true : false;
+                pricetype.Modify = bool.Parse(row["modify"]);
             }
 
             return pricetype;
@@ -87,16 +95,17 @@ namespace ESI_ITE.Model
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
+            list.Clear();
+
             foreach ( var row in record )
             {
-                list.Clear();
                 var pricetype = new SalesOrderPriceTypeModel();
                 var clone = row.Clone();
 
                 pricetype.PriceTypeId = int.Parse(row["pricetype_id"]);
                 pricetype.Code = row["code"].ToString();
                 pricetype.Description = row["description"].ToString();
-                pricetype.Modify = int.Parse(row["modify"]) == 1 ? true : false;
+                pricetype.Modify = bool.Parse(row["modify"]);
 
                 list.Add(pricetype);
             }

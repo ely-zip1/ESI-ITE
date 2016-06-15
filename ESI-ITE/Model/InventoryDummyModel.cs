@@ -231,7 +231,7 @@ namespace ESI_ITE.Model
                 idm.Expiration = DateTime.Parse(row["expiration"], culture);
                 idm.PricePerPiece = Decimal.Parse(row["price_per_piece"]);
                 idm.LineAmount = Decimal.Parse(row["line_amount"]);
-                idm.LotNumber = row["lot_number"];
+                idm.LotNumber = string.IsNullOrWhiteSpace(row["lot_number"]) ? "" : row["lot_number"];
 
                 _transactionDetails.Add(idm);
             }
@@ -267,7 +267,7 @@ namespace ESI_ITE.Model
                 idm.Expiration = DateTime.Parse(row["expiration"], culture);
                 idm.PricePerPiece = Decimal.Parse(row["price_per_piece"]);
                 idm.LineAmount = Decimal.Parse(row["line_amount"]);
-                idm.LotNumber = row["lot_number"];
+                idm.LotNumber = string.IsNullOrWhiteSpace(row["lot_number"]) ? "" : row["lot_number"];
 
                 _transactionDetails.Add(idm);
             }

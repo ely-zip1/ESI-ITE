@@ -28,7 +28,7 @@ namespace ESI_ITE.ViewModel
             itemCode_KeyUp = new DelegateCommand(KeyUp);
             addItemCommand = new DelegateCommand(AddItem);
             deleteItemCommand = new DelegateCommand(DeleteItem);
-            ;
+
             transactionModel = MyGlobals.Transaction;
 
             Load();

@@ -9,7 +9,7 @@ namespace ESI_ITE.Model
     interface IModelTemplate
     {
         List<Object> FetchAll( );
-        object Fetch( string qry );
+        object Fetch( string id, string type );
         void AddNew( object item );
         void UpdateItem( string qry );
         void DeleteItem( string qry );

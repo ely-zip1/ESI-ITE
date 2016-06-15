@@ -7,7 +7,7 @@ using ESI_ITE.Data_Access;
 
 namespace ESI_ITE.Model
 {
-    class CustomerModel: IModelTemplate
+    public class CustomerModel: IModelTemplate
     {
         #region Properties
 
@@ -152,10 +152,10 @@ namespace ESI_ITE.Model
             var record = db.SelectMultiple("select * from customers");
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
+            list.Clear();
 
             foreach ( var row in record )
             {
-                list.Clear();
                 var customer = new CustomerModel();
                 var clone = row.Clone();
 
@@ -171,9 +171,9 @@ namespace ESI_ITE.Model
                 customer.CreditLimit = decimal.Parse(row["credit_limit"]);
                 customer.NetSales = decimal.Parse(row["net_sales"]);
                 customer.TinNumber = row["tin_number"].ToString();
-                customer.EntryDate = DateTime.Parse(row["entry_date"], culture);
-                customer.Isbad = Int32.Parse(row["is_bad"]) == 1 ? true : false;
-                customer.Badsince = DateTime.Parse(row["bad_since"], culture);
+                customer.EntryDate = DateTime.Parse(row["entry_date"]);
+                customer.Isbad = bool.Parse(row["is_bad"]);
+                customer.Badsince = DateTime.Parse(row["bad_since"]);
                 customer.TradeClass = Int32.Parse(row["trade_class_id"]);
 
                 list.Add(customer);
@@ -182,11 +182,20 @@ namespace ESI_ITE.Model
             return list;
         }
 
-        public object Fetch( string qry )
+        public object Fetch( string id, string type )
         {
             CustomerModel customer = new CustomerModel();
 
-            var record = db.SelectMultiple("select * from customers where customer_number = '" + qry + "'");
+            var record = new List<CloneableDictionary<string, string>>();
+
+            if ( type == "code" )
+            {
+                record = db.SelectMultiple("select * from customers where customer_number = '" + id + "'");
+            }
+            else if ( type == "id" )
+            {
+                record = db.SelectMultiple("select * from customers where customer_id = '" + id + "'");
+            }
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
@@ -206,9 +215,9 @@ namespace ESI_ITE.Model
                 customer.CreditLimit = decimal.Parse(row["credit_limit"]);
                 customer.NetSales = decimal.Parse(row["net_sales"]);
                 customer.TinNumber = row["tin_number"].ToString();
-                customer.EntryDate = DateTime.Parse(row["entry_date"], culture);
-                customer.Isbad = Int32.Parse(row["is_bad"]) == 1 ? true : false;
-                customer.Badsince = DateTime.Parse(row["bad_since"], culture);
+                customer.EntryDate = DateTime.Parse(row["entry_date"]);
+                customer.Isbad = bool.Parse(row["is_bad"]);
+                customer.Badsince = DateTime.Parse(row["bad_since"]);
                 customer.TradeClass = Int32.Parse(row["trade_class_id"]);
 
             }

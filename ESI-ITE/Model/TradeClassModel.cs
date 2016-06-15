@@ -7,7 +7,7 @@ using ESI_ITE.Data_Access;
 
 namespace ESI_ITE.Model
 {
-    class TradeClassModel: IModelTemplate
+    public class TradeClassModel: IModelTemplate
     {
         #region Properties
 
@@ -63,11 +63,17 @@ namespace ESI_ITE.Model
             return list;
         }
 
-        public object Fetch( string qry )
+        public object Fetch( string id, string type )
         {
             var trade = new TradeClassModel();
 
-            var record = db.SelectMultiple("select * from trade_class where code = '" + qry + "'");
+            var record = new List<CloneableDictionary<string, string>>();
+
+            if ( type == "code" )
+                record = db.SelectMultiple("select * from trade_class where code = '" + id + "'");
+            else if ( type == "id" )
+                record = db.SelectMultiple("select * from trade_class where trade_class_id = '" + id + "'");
+
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 

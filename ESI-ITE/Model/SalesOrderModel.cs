@@ -7,13 +7,12 @@ using ESI_ITE.Data_Access;
 
 namespace ESI_ITE.Model
 {
-    class SalesOrderModel: IModelTemplate
+    public class SalesOrderModel: IModelTemplate
     {
         #region Properties
         DataAccess db = new DataAccess();
 
         private int orderId;
-
         public int OrderId
         {
             get { return orderId; }
@@ -21,7 +20,6 @@ namespace ESI_ITE.Model
         }
 
         private string orderNumber;
-
         public string OrderNumber
         {
             get { return orderNumber; }
@@ -29,7 +27,6 @@ namespace ESI_ITE.Model
         }
 
         private DateTime orderDate;
-
         public DateTime OrderDate
         {
             get { return orderDate; }
@@ -37,7 +34,6 @@ namespace ESI_ITE.Model
         }
 
         private DateTime requiredShipDate;
-
         public DateTime RequiredShipDate
         {
             get { return requiredShipDate; }
@@ -45,7 +41,6 @@ namespace ESI_ITE.Model
         }
 
         private string poNumber;
-
         public string PONumber
         {
             get { return poNumber; }
@@ -53,7 +48,6 @@ namespace ESI_ITE.Model
         }
 
         private string orderNote;
-
         public string OrderNote
         {
             get { return orderNote; }
@@ -61,7 +55,6 @@ namespace ESI_ITE.Model
         }
 
         private decimal orderAmount;
-
         public decimal OrderAmount
         {
             get { return orderAmount; }
@@ -69,7 +62,6 @@ namespace ESI_ITE.Model
         }
 
         private int cases;
-
         public int Cases
         {
             get { return cases; }
@@ -77,7 +69,6 @@ namespace ESI_ITE.Model
         }
 
         private int pieces;
-
         public int Pieces
         {
             get { return pieces; }
@@ -85,7 +76,6 @@ namespace ESI_ITE.Model
         }
 
         private bool isServed;
-
         public bool IsServed
         {
             get { return isServed; }
@@ -93,7 +83,6 @@ namespace ESI_ITE.Model
         }
 
         private bool isPicked;
-
         public bool IsPicked
         {
             get { return isPicked; }
@@ -101,23 +90,20 @@ namespace ESI_ITE.Model
         }
 
         private bool isPrinted;
-
         public bool IsPrinted
         {
             get { return isPrinted; }
             set { isPrinted = value; }
         }
 
-        private int salesmanId;
-
-        public int SalesmanId
+        private int districtId;
+        public int DistrictId
         {
-            get { return salesmanId; }
-            set { salesmanId = value; }
+            get { return districtId; }
+            set { districtId = value; }
         }
 
         private int customerId;
-
         public int CustomerID
         {
             get { return customerId; }
@@ -125,7 +111,6 @@ namespace ESI_ITE.Model
         }
 
         private int routeId;
-
         public int RouteId
         {
             get { return routeId; }
@@ -133,7 +118,6 @@ namespace ESI_ITE.Model
         }
 
         private int termId;
-
         public int TermId
         {
             get { return termId; }
@@ -141,18 +125,48 @@ namespace ESI_ITE.Model
         }
 
         private int priceId;
-
         public int PriceId
         {
             get { return priceId; }
             set { priceId = value; }
         }
 
+        private int warehouseId;
+        public int WarehouseId
+        {
+            get { return warehouseId; }
+            set { warehouseId = value; }
+        }
+
+
         #endregion
 
         public void AddNew( object item )
         {
-            throw new NotImplementedException();
+            var order = item as SalesOrderModel;
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("insert into orders values (null,");
+            sb.Append("'" + order.OrderNumber + "',");
+            sb.Append("str_to_date('" + order.OrderDate.Date.ToString("MM/dd/yyyy") + "', '%m/%d/%Y'),");
+            sb.Append("str_to_date('" + order.RequiredShipDate.Date.ToString("MM/dd/yyyy") + "', '%m/%d/%Y'),");
+            sb.Append("'" + order.PONumber + "',");
+            sb.Append("'" + order.OrderNote + "',");
+            sb.Append("'" + order.OrderAmount + "',");
+            sb.Append("'" + order.Cases + "',");
+            sb.Append("'" + order.Pieces + "',");
+            sb.Append("'" + 0 + "',");
+            sb.Append("'" + 0 + "',");
+            sb.Append("'" + 0 + "',");
+            sb.Append("'" + order.CustomerID + "',");
+            sb.Append("'" + order.RouteId + "',");
+            sb.Append("'" + order.TermId + "',");
+            sb.Append("'" + order.PriceId + "',");
+            sb.Append("'" + order.DistrictId + "',");
+            sb.Append("'" + order.WarehouseId + "'");
+            sb.Append(")");
+
+            db.Insert(sb.ToString());
         }
 
         public void DeleteItem( string qry )
@@ -160,12 +174,26 @@ namespace ESI_ITE.Model
             throw new NotImplementedException();
         }
 
-        public object Fetch( string qry )
+        public void DeleteOrders( DateTime date )
+        {
+            var cutOffDate = date.ToString("MM/dd/yyyy");
+            db.Delete("delete from orders where order_date <= str_to_date('" + cutOffDate + "','%m/%d/%Y')");
+        }
+
+        public object Fetch( string id, string type )
         {
             SalesOrderModel orderModel = new SalesOrderModel();
 
-            var record = db.SelectMultiple("select * from orders where order_number = '" + qry + "'");
+            var record = new List<CloneableDictionary<string, string>>();
 
+            if ( type == "code" )
+            {
+                record = db.SelectMultiple("select * from orders where order_number = '" + id + "'");
+            }
+            else if ( type == "id" )
+            {
+                record = db.SelectMultiple("select * from orders where order_id = '" + id + "'");
+            }
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
             foreach ( var row in record )
@@ -174,21 +202,22 @@ namespace ESI_ITE.Model
 
                 orderModel.OrderId = Int32.Parse(row["order_id"]);
                 orderModel.OrderNumber = row["order_number"].ToString();
-                orderModel.OrderDate = DateTime.Parse(row["order_date"], culture);
-                orderModel.RequiredShipDate = DateTime.Parse(row["required_ship_date"], culture);
+                orderModel.OrderDate = DateTime.Parse(row["order_date"]);
+                orderModel.RequiredShipDate = DateTime.Parse(row["required_ship_date"]);
                 orderModel.PONumber = row["po_number"].ToString();
                 orderModel.OrderNote = row["order_note"].ToString();
                 orderModel.OrderAmount = Decimal.Parse(row["order_amount"]);
                 orderModel.Cases = Int32.Parse(row["cases"]);
                 orderModel.Pieces = Int32.Parse(row["pieces"]);
-                orderModel.IsServed = Int32.Parse(row["served"]) == 1 ? true : false;
-                orderModel.IsPicked = Int32.Parse(row["picked"]) == 1 ? true : false;
-                orderModel.IsPrinted = Int32.Parse(row["printed"]) == 1 ? true : false;
-                orderModel.SalesmanId = Int32.Parse(row["salesman_id"]);
+                orderModel.IsServed = bool.Parse(row["served"]);
+                orderModel.IsPicked = bool.Parse(row["picked"]);
+                orderModel.IsPrinted = bool.Parse(row["printed"]);
+                orderModel.DistrictId = Int32.Parse(row["district_id"]);
                 orderModel.CustomerID = Int32.Parse(row["customer_id"]);
                 orderModel.RouteId = Int32.Parse(row["route_id"]);
                 orderModel.TermId = Int32.Parse(row["term_id"]);
                 orderModel.PriceId = Int32.Parse(row["price_id"]);
+                orderModel.WarehouseId = Int32.Parse(row["warehouse_id"]);
 
             }
 
@@ -199,33 +228,34 @@ namespace ESI_ITE.Model
         {
             List<object> list = new List<object>();
 
-            var record = db.SelectMultiple("select * from view_inventory_dummy");
+            var record = db.SelectMultiple("select * from orders order by order_number desc");
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
+            list.Clear();
             foreach ( var row in record )
             {
-                list.Clear();
                 var order = new SalesOrderModel();
                 var clone = row.Clone();
 
                 order.OrderId = Int32.Parse(row["order_id"]);
                 order.OrderNumber = row["order_number"].ToString();
-                order.OrderDate = DateTime.Parse(row["order_date"], culture);
-                order.RequiredShipDate = DateTime.Parse(row["required_ship_date"], culture);
+                order.OrderDate = DateTime.Parse(row["order_date"]);
+                order.RequiredShipDate = DateTime.Parse(row["required_ship_date"]);
                 order.PONumber = row["po_number"].ToString();
                 order.OrderNote = row["order_note"].ToString();
                 order.OrderAmount = Decimal.Parse(row["order_amount"]);
                 order.Cases = Int32.Parse(row["cases"]);
                 order.Pieces = Int32.Parse(row["pieces"]);
-                order.IsServed = Int32.Parse(row["served"]) == 1 ? true : false;
-                order.IsPicked = Int32.Parse(row["picked"]) == 1 ? true : false;
-                order.IsPrinted = Int32.Parse(row["printed"]) == 1 ? true : false;
-                order.SalesmanId = Int32.Parse(row["salesman_id"]);
+                order.IsServed = bool.Parse(row["served"]);
+                order.IsPicked = bool.Parse(row["picked"]);
+                order.IsPrinted = bool.Parse(row["printed"]);
+                order.DistrictId = Int32.Parse(row["district_id"]);
                 order.CustomerID = Int32.Parse(row["customer_id"]);
                 order.RouteId = Int32.Parse(row["route_id"]);
                 order.TermId = Int32.Parse(row["term_id"]);
                 order.PriceId = Int32.Parse(row["price_id"]);
+                order.WarehouseId = Int32.Parse(row["warehouse_id"]);
 
                 list.Add(order);
             }

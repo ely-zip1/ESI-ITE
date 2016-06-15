@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ESI_ITE.Model
 {
-    class Item2Model
+    public class Item2Model
     {
 
         private int itemId;

@@ -156,9 +156,11 @@
     <Compile Include="Model\CustomerModel.cs" />
     <Compile Include="Model\DistrictModel.cs" />
     <Compile Include="Model\IModelTemplate.cs" />
+    <Compile Include="Model\InventoryDummy2Model.cs" />
     <Compile Include="Model\Item2Model.cs" />
     <Compile Include="Model\LocationModel.cs" />
     <Compile Include="Model\ObjectBase.cs" />
+    <Compile Include="Model\OrderNumberModel.cs" />
     <Compile Include="Model\PostingModel.cs" />
     <Compile Include="Model\PriceModel.cs" />
     <Compile Include="Model\PriceTypeModel.cs" />
@@ -198,6 +200,7 @@
     <Compile Include="ViewModel\LineItemViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\SalesOrderEntryViewModel.cs" />
+    <Compile Include="ViewModel\SOLineItemViewModel.cs" />
     <Compile Include="ViewModel\SOViewModel.cs" />
     <Compile Include="ViewModel\UserPageViewModel.cs" />
     <Compile Include="View\PostingPageView.xaml.cs">

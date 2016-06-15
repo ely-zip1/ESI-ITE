@@ -7,7 +7,7 @@ using ESI_ITE.Data_Access;
 
 namespace ESI_ITE.Model
 {
-    class SupplierModel: IModelTemplate
+    public class SupplierModel: IModelTemplate
     {
         #region Properties
 
@@ -99,11 +99,16 @@ namespace ESI_ITE.Model
             return list;
         }
 
-        public object Fetch( string qry )
+        public object Fetch( string id, string type )
         {
             var supplier = new SupplierModel();
 
-            var record = db.SelectMultiple("select * from supplier where supplier_code = '" + qry + "'");
+            var record = new List<CloneableDictionary<string, string>>();
+
+            if ( type == "code" )
+                record = db.SelectMultiple("select * from supplier where supplier_code = '" + id + "'");
+            else if ( type == "id" )
+                record = db.SelectMultiple("select * from supplier where supplier_id = '" + id + "'");
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 

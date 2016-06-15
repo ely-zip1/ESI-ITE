@@ -7,14 +7,13 @@ using ESI_ITE.Data_Access;
 
 namespace ESI_ITE.Model
 {
-    class RouteModel: IModelTemplate
+    public class RouteModel: IModelTemplate
     {
         #region Properties
 
         DataAccess db = new DataAccess();
 
         private int routeId;
-
         public int RouteId
         {
             get { return routeId; }
@@ -22,7 +21,6 @@ namespace ESI_ITE.Model
         }
 
         private string routeCode;
-
         public string RouteCode
         {
             get { return routeCode; }
@@ -30,7 +28,6 @@ namespace ESI_ITE.Model
         }
 
         private string routeDescription;
-
         public string RouteDescription
         {
             get { return routeDescription; }
@@ -48,9 +45,10 @@ namespace ESI_ITE.Model
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
+            list.Clear();
+
             foreach ( var row in record )
             {
-                list.Clear();
                 var route = new RouteModel();
                 var clone = row.Clone();
 
@@ -64,11 +62,16 @@ namespace ESI_ITE.Model
             return list;
         }
 
-        public object Fetch( string qry )
+        public object Fetch( string id, string type )
         {
             RouteModel route = new RouteModel();
 
-            var record = db.SelectMultiple("select * from routes where code = '" + qry + "'");
+            var record = new List<CloneableDictionary<string, string>>();
+
+            if ( type == "code" )
+                record = db.SelectMultiple("select * from routes where code = '" + id + "'");
+            else if ( type == "id" )
+                record = db.SelectMultiple("select * from routes where route_id = '" + id + "'");
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 

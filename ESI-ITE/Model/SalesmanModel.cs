@@ -7,14 +7,13 @@ using ESI_ITE.Data_Access;
 
 namespace ESI_ITE.Model
 {
-    class SalesmanModel: IModelTemplate
+    public class SalesmanModel: IModelTemplate
     {
         #region Properties
 
         DataAccess db = new DataAccess();
 
         private int salesmanId;
-
         public int SalesmanId
         {
             get { return salesmanId; }
@@ -22,7 +21,6 @@ namespace ESI_ITE.Model
         }
 
         private string salesmanNumber;
-
         public string SalesmanNumber
         {
             get { return salesmanNumber; }
@@ -30,7 +28,6 @@ namespace ESI_ITE.Model
         }
 
         private string salesmanName;
-
         public string SalesmanName
         {
             get { return salesmanName; }
@@ -47,9 +44,10 @@ namespace ESI_ITE.Model
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
+            list.Clear();
+
             foreach ( var row in record )
             {
-                list.Clear();
                 var salesman = new SalesmanModel();
                 var clone = row.Clone();
 
@@ -63,11 +61,16 @@ namespace ESI_ITE.Model
             return list;
         }
 
-        public object Fetch( string qry )
+        public object Fetch( string id, string type )
         {
             SalesmanModel salesman = new SalesmanModel();
 
-            var record = db.SelectMultiple("select * from salesman where salesman_number = '" + qry + "'");
+            var record = new List<CloneableDictionary<string, string>>();
+
+            if ( type == "code" )
+                record = db.SelectMultiple("select * from salesman where salesman_number = '" + id + "'");
+            else if ( type == "id" )
+                record = db.SelectMultiple("select * from salesman where salesman_id = '" + id + "'");
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 

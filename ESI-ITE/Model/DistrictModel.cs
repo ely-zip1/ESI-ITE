@@ -7,7 +7,7 @@ using ESI_ITE.Data_Access;
 
 namespace ESI_ITE.Model
 {
-    class DistrictModel: IModelTemplate
+    public class DistrictModel: IModelTemplate
     {
         #region Properties
 
@@ -72,9 +72,10 @@ namespace ESI_ITE.Model
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
+            list.Clear();
+
             foreach ( var row in record )
             {
-                list.Clear();
                 var district = new DistrictModel();
                 var clone = row.Clone();
 
@@ -91,11 +92,16 @@ namespace ESI_ITE.Model
             return list;
         }
 
-        public object Fetch( string qry )
+        public object Fetch( string id, string type )
         {
             DistrictModel district = new DistrictModel();
 
-            var record = db.SelectMultiple("select * from districts where district_number = '" + qry + "'");
+            var record = new List<CloneableDictionary<string, string>>();
+
+            if ( type == "code" )
+                record = db.SelectMultiple("select * from districts where district_number = '" + id + "'");
+            else if ( type == "id" )
+                record = db.SelectMultiple("select * from districts where district_id = '" + id + "'");
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
