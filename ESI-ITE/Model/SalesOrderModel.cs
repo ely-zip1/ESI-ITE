@@ -171,12 +171,36 @@ namespace ESI_ITE.Model
 
         public void DeleteItem( string qry )
         {
-            throw new NotImplementedException();
+            db.Delete(qry);
+        }
+
+        public void UpdateInventoryDummy( string type, string value )
+        {
+            if ( type == "cutOffDate" )
+            {
+                var orderIdList = db.SelectMultiple("select order_id from orders where order_date <= str_to_date('" + value + "','%m/%d/%Y')");
+
+                foreach ( var row in orderIdList )
+                {
+                    var clone = row.Clone();
+                    var dummy = new InventoryDummy2Model();
+
+                    dummy.DeleteItem("delete from inventory_dummy_2 where order_id = '" + row + "'");
+                }
+            }
+            else if ( type == "orderNumber" )
+            {
+                var orderId = db.Select("select order_id from orders where order_number = '" + value + "'");
+
+                var dummy = new InventoryDummy2Model();
+                dummy.DeleteItem("delete from inventory_dummy_2 where order_id = '" + orderId + "'");
+            }
         }
 
         public void DeleteOrders( DateTime date )
         {
             var cutOffDate = date.ToString("MM/dd/yyyy");
+
             db.Delete("delete from orders where order_date <= str_to_date('" + cutOffDate + "','%m/%d/%Y')");
         }
 
@@ -265,7 +289,7 @@ namespace ESI_ITE.Model
 
         public void UpdateItem( string qry )
         {
-            throw new NotImplementedException();
+            db.Update(qry);
         }
     }
 }

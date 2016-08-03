@@ -41,6 +41,8 @@ namespace ESI_ITE
         public static SalesOrderModel SalesOrder;
 
         public static SalesOrderEntryView SalesOrderEntryPage;
+
+        public static SalesOrderEntryViewModel SoEntryViewModel;
         #endregion
 
 

@@ -13,18 +13,21 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using MySql;
 using System.Globalization;
+using System.Windows;
 
 namespace ESI_ITE.ViewModel
 {
-    class SalesOrderEntryViewModel: ViewModelBase, IDataErrorInfo
+    public class SalesOrderEntryViewModel: ViewModelBase, IDataErrorInfo
     {
         public SalesOrderEntryViewModel( )
         {
+            MyGlobals.SoEntryViewModel = this;
             lineItemCommand = new DelegateCommand(lineItem);
             searchCommand = new DelegateCommand(toggleSearchVisibility);
             loadCustomerCommand = new DelegateCommand(loadCustomer);
             deleteEntryCommand = new DelegateCommand(deleteEntry);
-            deleteOrdersCommand = new DelegateCommand(toggleDeleteVisibility);
+            toggleDeleteVisibilityCommand = new DelegateCommand(toggleDeleteVisibility);
+            deleteOrdersCommand = new DelegateCommand(deleteOrders);
 
             isFirstLoad = true;
             Load();
@@ -457,7 +460,7 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private string txtCutOffDate = "MM/DD/YYYY";
+        private string txtCutOffDate;
         public string TxtCutOffDate
         {
             get { return txtCutOffDate; }
@@ -465,7 +468,7 @@ namespace ESI_ITE.ViewModel
             {
                 txtCutOffDate = value;
                 OnPropertyChanged("TxtCutOffDate");
-                cutOffDateChanged();
+                isDeletionFirstLoad = false;
             }
         }
 
@@ -528,6 +531,15 @@ namespace ESI_ITE.ViewModel
             }
         }
 
+        private DelegateCommand toggleDeleteVisibilityCommand;
+        public ICommand ToggleDeleteVisibilityCommand
+        {
+            get
+            {
+                return toggleDeleteVisibilityCommand;
+            }
+        }
+
         private DelegateCommand deleteOrdersCommand;
         public ICommand DeleteOrdersCommand
         {
@@ -536,7 +548,6 @@ namespace ESI_ITE.ViewModel
                 return deleteOrdersCommand;
             }
         }
-
 
         #endregion
 
@@ -622,6 +633,7 @@ namespace ESI_ITE.ViewModel
             }
         }
 
+        private bool isDeletionFirstLoad = true;
 
         #endregion
 
@@ -634,7 +646,7 @@ namespace ESI_ITE.ViewModel
         {
             isFirstLoad = true;
 
-            //ORDERS LIST 
+            //ORDERS LIST               
             var so = new SalesOrderModel();
             var list = new List<object>();
             list = so.FetchAll();
@@ -691,11 +703,16 @@ namespace ESI_ITE.ViewModel
             list = pricetype.FetchAll();
 
             PriceTypeList.Add(pricetype);
-
+            var ctr = 0;
             foreach ( var row in list )
             {
+                ctr++;
+
                 pricetype = (SalesOrderPriceTypeModel)row;
                 PriceTypeList.Add(pricetype);
+
+                //if ( ctr == 2 )
+                //    break;
             }
             PriceTypeList.OrderBy(o => o.Code);
 
@@ -825,13 +842,10 @@ namespace ESI_ITE.ViewModel
         private void FillForm( )
         {
             var order = new SalesOrderModel();
-            var temp = new object();
 
-            temp = order.Fetch(SelectedSalesOrder[0], "code");
-            order = (SalesOrderModel)temp;
+            order = (SalesOrderModel)order.Fetch(SelectedSalesOrder[0], "code");
 
-            temp = Customer.Fetch(order.CustomerID.ToString(), "id");
-            Customer = (CustomerModel)temp;
+            Customer = (CustomerModel)Customer.Fetch(order.CustomerID.ToString(), "id");
 
             CustomerNumber = Customer.CustomerNumber;
             CustomerName = Customer.CustomerName;
@@ -1047,6 +1061,48 @@ namespace ESI_ITE.ViewModel
             {
                 ClearForm();
             }
+            else
+            {
+                var dialogMessage = "Do you want to delete this entry?";
+                var dialogTitle = "Sales Order Deletion";
+                var dialogButton = MessageBoxButton.YesNo;
+
+                var result = MessageBox.Show(dialogMessage, dialogTitle, dialogButton);
+                switch ( result )
+                {
+                    case MessageBoxResult.Yes:
+                        if ( IsDateValid )
+                        {
+                            try
+                            {
+                                var order = new SalesOrderModel();
+                                order.UpdateInventoryDummy("orderNumber", SelectedSalesOrder[0]);
+                                order.DeleteItem("delete from orders where order_number = '" + SelectedSalesOrder[0] + "'");
+
+                                var index = 0;
+                                foreach ( var orderEntry in OrderCollection )
+                                {
+                                    if ( orderEntry.OrderNumber == SelectedSalesOrder[0] )
+                                    {
+                                        OrderCollection.RemoveAt(index);
+                                        CmbOrders.RemoveAt(index + 1);
+                                        break;
+                                    }
+                                    index++;
+                                }
+
+                                SelectedIndexSalesOrder = 0;
+                            }
+                            catch ( Exception e )
+                            {
+                                MessageBox.Show("Deletion Error: " + e.Message);
+                            }
+                        }
+                        ClearForm();
+
+                        break;
+                }
+            }
         }
 
         private void toggleDeleteVisibility( )
@@ -1054,30 +1110,49 @@ namespace ESI_ITE.ViewModel
             if ( IsDeletionVisible )
             {
                 IsDeletionVisible = false;
-                IsEnabled = true;
+                IsEnabled = false;
+                isFirstLoad = true;
             }
             else
             {
                 IsEnabled = false;
                 IsDeletionVisible = true;
                 isFirstLoad = false;
-                TxtCutOffDate = "MM/DD/YYYY";
+                TxtCutOffDate = "";
                 oldestSalesOrderDate = DateTime.Parse(db.Select("select order_date from orders order by order_date asc limit 1"));
+                isDeletionFirstLoad = true;
             }
         }
 
         private void deleteOrders( )
         {
-            if ( IsDateValid )
+            try
             {
                 var order = new SalesOrderModel();
-                order.DeleteOrders(DateTime.Parse(TxtCutOffDate));
-            }
-        }
+                var cutOffDate = DateTime.Parse(TxtCutOffDate, new CultureInfo("en-US"));
+                order.UpdateInventoryDummy("cutOffDate", TxtCutOffDate);
+                order.DeleteOrders(cutOffDate);
 
-        private void cutOffDateChanged( )
-        {
-            var text = TxtCutOffDate;
+                var index = 0;
+                foreach ( var orderEntry in OrderCollection )
+                {
+                    if ( orderEntry.OrderDate <= cutOffDate )
+                    {
+                        OrderCollection.RemoveAt(index);
+                        CmbOrders.RemoveAt(index + 1);
+                    }
+                    index++;
+                }
+
+                SelectedIndexSalesOrder = 0;
+                ClearForm();
+
+                MessageBox.Show("Deletion Successful!");
+            }
+            catch ( Exception e )
+            {
+                MessageBox.Show("SO Deletion Error:" + e.Message);
+            }
         }
 
         #region IDataErrorInfo Members
@@ -1220,19 +1295,24 @@ namespace ESI_ITE.ViewModel
                         validProperties[8] = error;
                     break;
                 case "TxtCutOffDate":
-                    error = ValidateNullOrEmpty("Cut-off Date", TxtCutOffDate);
+                    if ( isDeletionFirstLoad == false )
+                    {
+                        error = ValidateNullOrEmpty("Cut-off Date", TxtCutOffDate);
 
-                    if ( string.IsNullOrWhiteSpace(error) )
-                        if ( TxtCutOffDate.Length < 10 )
-                            error = "Invalid date!";
+                        if ( string.IsNullOrWhiteSpace(error) )
+                            if ( TxtCutOffDate.Length < 10 )
+                                error = "Invalid date!";
 
-                    if ( string.IsNullOrWhiteSpace(error) )
-                        error = CheckDate(TxtCutOffDate);
+                        if ( string.IsNullOrWhiteSpace(error) )
+                            error = CheckDate(TxtCutOffDate);
 
-                    if ( string.IsNullOrWhiteSpace(error) )
-                        IsDateValid = true;
-                    else
-                        IsDateValid = false;
+                        if ( string.IsNullOrWhiteSpace(error) )
+                            IsDateValid = true;
+                        else
+                            IsDateValid = false;
+
+                        isDeletionFirstLoad = true;
+                    }
                     break;
                     #region
                     //case "OrderNote":

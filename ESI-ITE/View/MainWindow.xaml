@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:ESI_ITE.ViewModel"
         xmlns:myControls="clr-namespace:ESI_ITE.View"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:conv="clr-namespace:ESI_ITE.ViewModel.Converter"
         mc:Ignorable="d"
         Title="ESI System" Height="700" Width="1300" 
         WindowStartupLocation="CenterScreen" 
@@ -13,35 +14,72 @@
                       
         GlowBrush="{DynamicResource AccentColorBrush}" MinHeight="720"
         >
+    <Controls:MetroWindow.Resources>
+        <conv:BoolToVisibilityConverter x:Key="boolToVisConverter"/>
+    </Controls:MetroWindow.Resources>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition MinWidth="191"></ColumnDefinition>
-            <ColumnDefinition Width="5*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="19*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid Grid.ColumnSpan="2" Background="#FF212121"></Grid>
+    <Grid UseLayoutRounding="True"
+        RenderOptions.BitmapScalingMode="NearestNeighbor"
+        SnapsToDevicePixels="True"
+        RenderOptions.ClearTypeHint="Enabled">
 
-        <ListView Name="lvModulesList" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch"
+        <!--<Grid Panel.ZIndex="100" Visibility="{Binding lkj, Converter={StaticResource boolToVisConverter}}">-->
+        <Grid Panel.ZIndex="100" Visibility="Hidden">
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity=".6"/>
+            </Grid.Background>
+
+            <Grid Height="400" Background="DodgerBlue">
+                <Grid Width="500">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                               Text="Do you want this program to make changes to this computer?"/>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button Content="Yes" Width="100" Margin="10"/>
+                        <Button Content="No" Width="100" Margin="10"/>
+                    </StackPanel>
+
+                </Grid>
+            </Grid>
+
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="191"></ColumnDefinition>
+                <ColumnDefinition Width="5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="19*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.ColumnSpan="2" Background="#FF212121"></Grid>
+
+            <ListView Name="lvModulesList" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch"
                   ItemsSource="{Binding Modules}"
                   SelectedItem="{Binding SelectedModule, Mode=TwoWay}"
                   SelectedIndex="{Binding SelectedIndex}" BorderBrush="#FF3F3F46" BorderThickness="1">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}" MinWidth="100" 
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" MinWidth="100" 
                                TextAlignment="Center" Padding="10"></TextBlock>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <!--<ListView Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch">
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <!--<ListView Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch">
             <TextBlock Text="Inventory Transaction" Padding="10" TextAlignment="Center" 
                        HorizontalAlignment="Center" ></TextBlock>
         </ListView>-->
 
-        <Controls:TransitioningContentControl Name="contentPresenter" Grid.Row="1" Grid.Column="1" IsTabStop="False" Focusable="False"
+            <Controls:TransitioningContentControl Name="contentPresenter" Grid.Row="1" Grid.Column="1" IsTabStop="False" Focusable="False"
                           Content="{Binding UserInterface}" OpacityMask="#FF252525" Transition="LeftReplace"/>
+        </Grid>
     </Grid>
 </Controls:MetroWindow>

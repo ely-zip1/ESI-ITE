@@ -25,8 +25,12 @@ C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.exe
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MySql.Data.dll
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\System.Windows.Controls.Input.Toolkit.dll
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.dll
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\WPFToolkit.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\System.Windows.Interactivity.dll
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.pdb
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.pdb
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.xml
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\MainWindow.g.cs
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\App.g.cs
@@ -38,7 +42,3 @@ C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.Properties.Resources
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.GenerateResource.Cache
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.exe
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.pdb
-C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.dll
-C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\System.Windows.Interactivity.dll
-C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.pdb
-C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.xml

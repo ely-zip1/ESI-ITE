@@ -1094,11 +1094,7 @@ namespace ESI_ITE.ViewModel
 
         #endregion
 
-        /// <summary>
-        /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// </summary>
-        /// 
+
         #region IDataErrorInfo Members
 
         public string Error
@@ -1123,7 +1119,7 @@ namespace ESI_ITE.ViewModel
 
         #region Validation Members
 
-        string[] validProperties = { "Error", "Error", "Error" };
+        string[] validProperties = { "Error", "Error" };
 
         private void resetValidProperties( )
         {

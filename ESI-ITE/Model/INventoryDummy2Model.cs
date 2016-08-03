@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ESI_ITE.Data_Access;
+using System.Windows;
 
 namespace ESI_ITE.Model
 {
@@ -20,11 +21,11 @@ namespace ESI_ITE.Model
             set { id = value; }
         }
 
-        private string order;
-        public string Order
+        private string orderNumber;
+        public string OrderNumber
         {
-            get { return order; }
-            set { order = value; }
+            get { return orderNumber; }
+            set { orderNumber = value; }
         }
 
         private string priceType;
@@ -95,12 +96,34 @@ namespace ESI_ITE.Model
 
         public void AddNew( object item )
         {
-            throw new NotImplementedException();
+            var inventoryDummyItem = (InventoryDummy2Model)item;
+
+            var orderId = db.Select("select order_id from orders where order_number = '" + inventoryDummyItem.OrderNumber + "'");
+            var itemId = db.Select("select item_master2_id from item_master2 where item_code = '" + inventoryDummyItem.ItemCode + "'");
+            var priceTypeId = db.Select("select pricetype_id from so_pricetype where code = '" + inventoryDummyItem.PriceType + "'");
+            var locationId = db.Select("select location_id from location where code = '" + inventoryDummyItem.Location + "'");
+
+            var sb = new StringBuilder();
+
+            sb.Append("insert into inventory_dummy_2 values (");
+            sb.Append("null,");
+            sb.Append("'" + orderId + "',");
+            sb.Append("'" + priceTypeId + "',");
+            sb.Append("'" + locationId + "',");
+            sb.Append("'" + itemId + "',");
+            sb.Append("'" + inventoryDummyItem.Cases + "',");
+            sb.Append("'" + inventoryDummyItem.Pieces + "',");
+            sb.Append("'" + inventoryDummyItem.PricePerPiece + "',");
+            sb.Append("'" + inventoryDummyItem.LineAmount + "',");
+            sb.Append("'" + inventoryDummyItem.LotNumber + "'");
+            sb.Append(")");
+
+            db.Insert(sb.ToString());
         }
 
         public void DeleteItem( string qry )
         {
-            throw new NotImplementedException();
+            db.Delete(qry);
         }
 
         public object Fetch( string id, string type )
@@ -115,7 +138,7 @@ namespace ESI_ITE.Model
                 var clone = row.Clone();
 
                 dummy.Id = int.Parse(row["id"]);
-                dummy.Order = row["order"];
+                dummy.OrderNumber = row["order_number"];
                 dummy.PriceType = row["price_type"];
                 dummy.Location = row["location"];
                 dummy.ItemCode = row["item_code"];
@@ -130,11 +153,11 @@ namespace ESI_ITE.Model
             return dummy;
         }
 
-        public List<InventoryDummy2Model> FetchPerOrder( string orderId )
+        public List<InventoryDummy2Model> FetchPerOrder( string orderNumber )
         {
             var items = new List<InventoryDummy2Model>();
 
-            var record = db.SelectMultiple("select * from view_inventory_dummy_2 where order = '" + orderId + "'");
+            var record = db.SelectMultiple("select * from view_inventory_dummy_2 where order_number = '" + orderNumber + "'");
 
             foreach ( var row in record )
             {
@@ -142,7 +165,7 @@ namespace ESI_ITE.Model
                 var clone = row.Clone();
 
                 dummy.Id = int.Parse(row["id"]);
-                dummy.Order = row["order"];
+                dummy.OrderNumber = row["order_number"];
                 dummy.PriceType = row["price_type"];
                 dummy.Location = row["location"];
                 dummy.ItemCode = row["item_code"];
@@ -171,7 +194,7 @@ namespace ESI_ITE.Model
                 var clone = row.Clone();
 
                 dummy.Id = int.Parse(row["id"]);
-                dummy.Order = row["order"];
+                dummy.OrderNumber = row["order_number"];
                 dummy.PriceType = row["price_type"];
                 dummy.Location = row["location"];
                 dummy.ItemCode = row["item_code"];
@@ -190,7 +213,7 @@ namespace ESI_ITE.Model
 
         public void UpdateItem( string qry )
         {
-            throw new NotImplementedException();
+            db.Update(qry);
         }
     }
 }

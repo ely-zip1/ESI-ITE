@@ -35,7 +35,7 @@
                 <SolidColorBrush Color="Black" Opacity=".6"/>
             </Grid.Background>
 
-            <Border Width="500" Height="500" BorderThickness="1" CornerRadius="10" Background="#FF252526" BorderBrush="DodgerBlue" Focusable="True">
+            <Border Width="500" Height="500" BorderThickness="1" CornerRadius="10" Background="#FF252526" BorderBrush="#FF4BB5FF" Focusable="True">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="0"
                           Color="#FF4BB5FF"
@@ -66,7 +66,7 @@
                     </StackPanel>
 
                     <DataGrid Grid.Row="2" Name="customerSearchGrid" AutoGenerateColumns="False" Margin="10,5,10,5" 
-                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"  ItemsSource="{Binding CustomerList}" 
+                              HorizontalScrollBarVisibility="Disabled"  ItemsSource="{Binding CustomerList}" 
                               SelectedIndex="{Binding SelectedIndexSearchedCustomer,Mode=TwoWay}" 
                               SelectedItem="{Binding SelectedSearchedCustomer, Mode=TwoWay}"
                               IsTextSearchEnabled="True" IsTextSearchCaseSensitive="False" TextSearch.TextPath="[1]"
@@ -86,8 +86,11 @@
                     </DataGrid>
 
                     <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+
                         <Button Height="30" Width="100" Content="Select" Margin="10" Command="{Binding  LoadCustomerCommand}"/>
+
                         <Button Height="30" Width="100" Content="Close" Margin="10" Command="{Binding SearchCommand}"/>
+
                     </StackPanel>
                 </Grid>
             </Border>
@@ -117,15 +120,16 @@
 
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Cut-Off Date: "/>
-                        <TextBox Width="150" Text="{Binding TxtCutOffDate,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Custom:TextBoxHelper.Watermark="mm/dd/yyyy"/>
+                        <!--<TextBox Width="150" Text="{Binding TxtCutOffDate,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Custom:TextBoxHelper.Watermark="mm/dd/yyyy"/>-->
+                        <wpfx:MaskedTextBox Mask="00/00/0000" Width="150" Text="{Binding TxtCutOffDate,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="2" Orientation="Horizontal"  HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Button Content="Delete" Width="100" Margin="5"
-                                IsEnabled="{Binding IsDateValid}"/>
+                                IsEnabled="{Binding IsDateValid}" Command="{Binding DeleteOrdersCommand}"/>
 
                         <Button Content="Cancel" Width="100" Margin="5"
-                                Command="{Binding DeleteOrdersCommand}"/>
+                                Command="{Binding ToggleDeleteVisibilityCommand}"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -295,7 +299,7 @@
 				Text="{Binding TaxRate, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" IsHitTestVisible="False"/>
 
             <!--Order Note-->
-            <TextBox Grid.Row="14" Grid.Column="1" Grid.ColumnSpan="4" Margin="2" Height="20" MinWidth="600" MaxWidth="800" HorizontalAlignment="Left"
+            <TextBox Grid.Row="14" Grid.Column="1" Grid.ColumnSpan="4" Margin="2" Height="20" MinWidth="596" MaxWidth="800" HorizontalAlignment="Left"
 				Text="{Binding OrderNote, ValidatesOnDataErrors=True}" IsHitTestVisible="{Binding IsEnabled}"/>
 
 
@@ -353,7 +357,7 @@
                 <Button Name="btnCustomerList" Grid.Row="16" Grid.Column="3" Margin="5,2,5,2" Content="Customer List" Width="110"/>
 
                 <Button Grid.Row="16" Grid.Column="4" Margin="5,2,5,2" Content="SO Deletion" Width="110"
-                        Command="{Binding DeleteOrdersCommand}"/>
+                        Command="{Binding ToggleDeleteVisibilityCommand}"/>
             </StackPanel>
         </Grid>
     </Grid>

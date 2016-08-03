@@ -24,5 +24,11 @@ namespace ESI_ITE.View
         {
             InitializeComponent();
         }
+
+        private void itemSearchGrid_SelectionChanged( object sender, SelectionChangedEventArgs e )
+        {
+            if ( itemSearchGrid.SelectedItem != null )
+                itemSearchGrid.ScrollIntoView(itemSearchGrid.SelectedItem);
+        }
     }
 }
