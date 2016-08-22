@@ -189,7 +189,7 @@ namespace ESI_ITE.ViewModel
             {
                 selectedSearchedCustomer = value;
                 OnPropertyChanged("SelectedSearchedCustomer");
-                searchedCustomerChanged();
+                //searchedCustomerChanged();
             }
         }
 
@@ -1050,6 +1050,7 @@ namespace ESI_ITE.ViewModel
         {
             if ( SelectedSearchedCustomer != null )
             {
+                searchedCustomerChanged();
                 CustomerNumber = Customer.CustomerNumber;
                 toggleSearchVisibility();
             }
@@ -1071,33 +1072,31 @@ namespace ESI_ITE.ViewModel
                 switch ( result )
                 {
                     case MessageBoxResult.Yes:
-                        if ( IsDateValid )
+                        try
                         {
-                            try
-                            {
-                                var order = new SalesOrderModel();
-                                order.UpdateInventoryDummy("orderNumber", SelectedSalesOrder[0]);
-                                order.DeleteItem("delete from orders where order_number = '" + SelectedSalesOrder[0] + "'");
+                            var order = new SalesOrderModel();
+                            order.UpdateInventoryDummy("orderNumber", SelectedSalesOrder[0]);
+                            order.DeleteItem("delete from orders where order_number = '" + SelectedSalesOrder[0] + "'");
 
-                                var index = 0;
-                                foreach ( var orderEntry in OrderCollection )
+                            var index = 0;
+                            foreach ( var orderEntry in OrderCollection )
+                            {
+                                if ( orderEntry.OrderNumber == SelectedSalesOrder[0] )
                                 {
-                                    if ( orderEntry.OrderNumber == SelectedSalesOrder[0] )
-                                    {
-                                        OrderCollection.RemoveAt(index);
-                                        CmbOrders.RemoveAt(index + 1);
-                                        break;
-                                    }
-                                    index++;
+                                    OrderCollection.RemoveAt(index);
+                                    CmbOrders.RemoveAt(index + 1);
+                                    break;
                                 }
+                                index++;
+                            }
 
-                                SelectedIndexSalesOrder = 0;
-                            }
-                            catch ( Exception e )
-                            {
-                                MessageBox.Show("Deletion Error: " + e.Message);
-                            }
+                            SelectedIndexSalesOrder = 0;
                         }
+                        catch ( Exception e )
+                        {
+                            MessageBox.Show("Deletion Error: " + e.Message);
+                        }
+
                         ClearForm();
 
                         break;
@@ -1126,8 +1125,8 @@ namespace ESI_ITE.ViewModel
 
         private void deleteOrders( )
         {
-            try
-            {
+            //try
+            //{
                 var order = new SalesOrderModel();
                 var cutOffDate = DateTime.Parse(TxtCutOffDate, new CultureInfo("en-US"));
                 order.UpdateInventoryDummy("cutOffDate", TxtCutOffDate);
@@ -1148,11 +1147,11 @@ namespace ESI_ITE.ViewModel
                 ClearForm();
 
                 MessageBox.Show("Deletion Successful!");
-            }
-            catch ( Exception e )
-            {
-                MessageBox.Show("SO Deletion Error:" + e.Message);
-            }
+            //}
+            //catch ( Exception e )
+            //{
+            //    MessageBox.Show("SO Deletion Error:" + e.Message);
+            //}
         }
 
         #region IDataErrorInfo Members

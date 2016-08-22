@@ -210,11 +210,11 @@
 
             <!--Required Ship Date-->
             <TextBox Grid.Row="5" Grid.Column="1" Margin="2" Height="20"
-				Text="{Binding RequiredShipDate, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" IsHitTestVisible="False" />
+				Text="{Binding RequiredShipDate, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"/>
 
             <!--Districts-->
             <ComboBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Margin="2" Height="20"
-				ItemsSource="{Binding DistrictList}" SelectedItem="{Binding SelectedDistrict, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedIndexDistrict}" IsHitTestVisible="{Binding IsEnabled}">
+				ItemsSource="{Binding DistrictList}" SelectedItem="{Binding SelectedDistrict, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedIndexDistrict}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -227,7 +227,7 @@
 
             <!--Price Type-->
             <ComboBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="2" Height="20"
-				ItemsSource="{Binding PriceTypeList}" SelectedItem="{Binding SelectedPriceType, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedIndexPriceType}" IsHitTestVisible="{Binding IsEnabled}">
+				ItemsSource="{Binding PriceTypeList}" SelectedItem="{Binding SelectedPriceType, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedIndexPriceType}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>
@@ -240,7 +240,7 @@
 
             <!--Term Code-->
             <ComboBox Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Margin="2" Height="20"
-				ItemsSource="{Binding TermList}" SelectedItem="{Binding SelectedTerm, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedIndexTerm}" IsHitTestVisible="{Binding IsEnabled}">
+				ItemsSource="{Binding TermList}" SelectedItem="{Binding SelectedTerm, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedIndexTerm}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>
@@ -253,7 +253,7 @@
 
             <!--Salesman-->
             <ComboBox Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Margin="2" Height="20"
-				ItemsSource="{Binding SalesmanCollection}" SelectedItem="{Binding SelectedSalesman, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedIndexSalesman}" IsHitTestVisible="{Binding IsEnabled}">
+				ItemsSource="{Binding SalesmanCollection}" SelectedItem="{Binding SelectedSalesman, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedIndexSalesman}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>
@@ -279,7 +279,7 @@
 
             <!--Warehouse-->
             <ComboBox Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2" Margin="2" Height="20"
-				ItemsSource="{Binding WarehouseList}" SelectedItem="{Binding SelectedWarehouse, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedIndexWarehouse}" IsHitTestVisible="{Binding IsEnabled}">
+				ItemsSource="{Binding WarehouseList}" SelectedItem="{Binding SelectedWarehouse, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedIndexWarehouse}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>
@@ -354,7 +354,7 @@
                 <Button Grid.Row="16" Grid.Column="2" Margin="5,2,5,2" Content="Delete Entry" Width="110"
                         IsEnabled="{Binding IsDeleteable}" Command="{Binding DeleteEntryCommand}"/>
 
-                <Button Name="btnCustomerList" Grid.Row="16" Grid.Column="3" Margin="5,2,5,2" Content="Customer List" Width="110"/>
+                <Button Name="btnCustomerList" Grid.Row="16" Grid.Column="3" Margin="5,2,5,2" Content="Customer List" Width="110" Command="{Binding SearchCommand}" IsHitTestVisible="{Binding IsEnabled}"/>
 
                 <Button Grid.Row="16" Grid.Column="4" Margin="5,2,5,2" Content="SO Deletion" Width="110"
                         Command="{Binding ToggleDeleteVisibilityCommand}"/>

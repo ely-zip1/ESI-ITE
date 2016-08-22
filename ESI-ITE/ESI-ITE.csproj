@@ -195,6 +195,13 @@
     <Compile Include="ViewModel\Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\IModule.cs" />
+    <Compile Include="ViewModel\InvoicingAllocationMaintenanceViewModel.cs" />
+    <Compile Include="ViewModel\InvoicingAssignmentViewModel.cs" />
+    <Compile Include="ViewModel\InvoicingDispatchViewModel.cs" />
+    <Compile Include="ViewModel\InvoicingGatepassViewModel.cs" />
+    <Compile Include="ViewModel\InvoicingMainPageViewModel.cs" />
+    <Compile Include="ViewModel\InvoicingPickListViewModel.cs" />
+    <Compile Include="ViewModel\InvoicingViewModel.cs" />
     <Compile Include="ViewModel\ITEViewModel.cs" />
     <Compile Include="ViewModel\LineItemPageViewModel.cs" />
     <Compile Include="ViewModel\LineItemViewModel.cs" />
@@ -203,6 +210,27 @@
     <Compile Include="ViewModel\SOLineItemViewModel.cs" />
     <Compile Include="ViewModel\SOViewModel.cs" />
     <Compile Include="ViewModel\UserPageViewModel.cs" />
+    <Compile Include="View\InvoicingAllocationMaintenanceView.xaml.cs">
+      <DependentUpon>InvoicingAllocationMaintenanceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\InvoicingAssignmentView.xaml.cs">
+      <DependentUpon>InvoicingAssignmentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\InvoicingDispatchView.xaml.cs">
+      <DependentUpon>InvoicingDispatchView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\InvoicingGatepassView.xaml.cs">
+      <DependentUpon>InvoicingGatepassView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\InvoicingMainPageView.xaml.cs">
+      <DependentUpon>InvoicingMainPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\InvoicingPickListView.xaml.cs">
+      <DependentUpon>InvoicingPickListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\InvoicingView.xaml.cs">
+      <DependentUpon>InvoicingView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PostingPageView.xaml.cs">
       <DependentUpon>PostingPageView.xaml</DependentUpon>
     </Compile>
@@ -259,6 +287,34 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Printing\UserControl1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InvoicingAllocationMaintenanceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InvoicingAssignmentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InvoicingDispatchView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InvoicingGatepassView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InvoicingMainPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InvoicingPickListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InvoicingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

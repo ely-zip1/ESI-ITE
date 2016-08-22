@@ -1119,7 +1119,7 @@ namespace ESI_ITE.ViewModel
 
         #region Validation Members
 
-        string[] validProperties = { "Error", "Error" };
+        string[] validProperties = { "Error", "Error", "Error" };
 
         private void resetValidProperties( )
         {

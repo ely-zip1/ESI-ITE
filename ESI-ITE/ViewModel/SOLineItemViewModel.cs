@@ -47,7 +47,7 @@ namespace ESI_ITE.ViewModel
             set
             {
                 datagridItems = value;
-                OnPropertyChanged("DatagridItems");
+                OnPropertyChanged();
             }
         }
 
@@ -74,16 +74,16 @@ namespace ESI_ITE.ViewModel
 
 
         //Selected Item
-        private InventoryDummy2Model selectedLineItem = new InventoryDummy2Model();
-        public InventoryDummy2Model SelectedLineItem
+        private InventoryDummy2Model selectedDatagridItem = new InventoryDummy2Model();
+        public InventoryDummy2Model SelectedDatagridItem
         {
-            get { return selectedLineItem; }
+            get { return selectedDatagridItem; }
             set
             {
                 if ( value != null )
                 {
-                    selectedLineItem = value;
-                    OnPropertyChanged("SelectedLineItem");
+                    selectedDatagridItem = value;
+                    OnPropertyChanged("SelectedDatagridItem");
                     SelectedItemChanged();
                 }
             }
@@ -259,7 +259,7 @@ namespace ESI_ITE.ViewModel
             {
                 txtItemCode = value;
                 ItemCodeChanged();
-                OnPropertyChanged("TxtItemCode");
+                OnPropertyChanged();
             }
         }
 
@@ -270,7 +270,7 @@ namespace ESI_ITE.ViewModel
             set
             {
                 txtItemDescription = value;
-                OnPropertyChanged("TxtItemDescription");
+                OnPropertyChanged();
             }
         }
 
@@ -281,7 +281,7 @@ namespace ESI_ITE.ViewModel
             set
             {
                 txtPT = value;
-                OnPropertyChanged("TxtPT");
+                OnPropertyChanged();
             }
         }
 
@@ -292,7 +292,7 @@ namespace ESI_ITE.ViewModel
         //    set
         //    {
         //        txtLC = value;
-        //        OnPropertyChanged("TxtLC");
+        //        OnPropertyChanged();
         //    }
         //}
 
@@ -303,7 +303,7 @@ namespace ESI_ITE.ViewModel
             set
             {
                 txtCases = value;
-                OnPropertyChanged("TxtCases");
+                OnPropertyChanged();
                 quantityChanged("Cases");
             }
         }
@@ -315,7 +315,7 @@ namespace ESI_ITE.ViewModel
             set
             {
                 txtPieces = value;
-                OnPropertyChanged("TxtPieces");
+                OnPropertyChanged();
                 quantityChanged("Pieces");
             }
         }
@@ -327,7 +327,7 @@ namespace ESI_ITE.ViewModel
             set
             {
                 txtUnitPrice = value;
-                OnPropertyChanged("TxtUnitPrice");
+                OnPropertyChanged();
             }
         }
 
@@ -338,7 +338,7 @@ namespace ESI_ITE.ViewModel
             set
             {
                 txtTaxRate = value;
-                OnPropertyChanged("TxtTaxRate");
+                OnPropertyChanged();
             }
         }
 
@@ -353,14 +353,14 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private string txbItemName;
-        public string TxbItemName
+        private string txtLotNumber;
+        public string TxtLotNumber
         {
-            get { return txbItemName; }
+            get { return txtLotNumber; }
             set
             {
-                txbItemName = value;
-                OnPropertyChanged("TxbItemName");
+                txtLotNumber = value;
+                OnPropertyChanged("TxtLotNumber");
             }
         }
 
@@ -567,20 +567,21 @@ namespace ESI_ITE.ViewModel
         private void SelectedItemChanged( )
         {
             var item = new Item2Model();
-            setCurrentItem((Item2Model)item.Fetch(SelectedLineItem.ItemCode, "code"));
+            setCurrentItem((Item2Model)item.Fetch(SelectedDatagridItem.ItemCode, "code"));
 
-            TxtCases = SelectedLineItem.Cases.ToString();
-            TxtPieces = SelectedLineItem.Pieces.ToString();
+            TxtCases = SelectedDatagridItem.Cases.ToString();
+            TxtPieces = SelectedDatagridItem.Pieces.ToString();
+            TxtLotNumber = SelectedDatagridItem .LotNumber;
 
             var counter = 0;
             foreach ( var loc in LocationList )
             {
-                if ( loc.Code == SelectedLineItem.Location )
+                if ( loc.Code == SelectedDatagridItem.Location )
                 {
                     SelectedIndexLocation = counter;
                     break;
                 }
-            }
+            }  
         }
 
         private void SelectedSearchedItemChanged( )
@@ -621,6 +622,7 @@ namespace ESI_ITE.ViewModel
             TxtCases = "0";
             TxtPieces = "0";
             TxtUnitPrice = "";
+            TxtLotNumber = "";
 
             SelectedIndexLocation = -1;
         }
@@ -649,6 +651,7 @@ namespace ESI_ITE.ViewModel
             TxtItemCode = currentItem.Code;
             TxtItemDescription = currentItem.Description;
             TxtTaxRate = currentItem.Taxrate.ToString();
+
 
             setUnitPrice();
         }
@@ -793,7 +796,7 @@ namespace ESI_ITE.ViewModel
 
                             inventoryDummyItem.UpdateItem(sb.ToString());
 
-                            DatagridItems.Remove(SelectedLineItem);
+                            DatagridItems.Remove(SelectedDatagridItem);
                             DatagridItems.Add(inventoryDummyItem);
 
                             ClearForm();
@@ -825,22 +828,43 @@ namespace ESI_ITE.ViewModel
             }
 
             computeTotalOrderAmount();
+
         }
 
         private void computeTotalOrderAmount( )
         {
             decimal totalOrderAmount = 0;
+            var totalPieces = 0;
+            var totalCases = 0;
+
             foreach ( var datagridItem in DatagridItems )
             {
                 totalOrderAmount += datagridItem.LineAmount;
+                totalPieces += datagridItem.Pieces;
+                totalCases += datagridItem.Cases;
             }
 
             TxtOrderAmount = totalOrderAmount.ToString("#,##0.00");
+            TxtTotalCases = totalCases.ToString();
+            TxtTotalPieces = totalPieces.ToString();
 
-            salesOrder.UpdateItem("update orders set order_amount = '" + decimal.Parse(TxtOrderAmount) + "' where order_id = '" + salesOrder.OrderId + "'");
+            var updateQry = new StringBuilder();
+
+            updateQry.Append("update orders set ");
+            updateQry.Append("order_amount = '" + decimal.Parse(TxtOrderAmount) + "', ");
+            updateQry.Append("cases = '" + totalCases + "', ");
+            updateQry.Append("pieces = '" + totalPieces + "' ");
+            updateQry.Append("where order_id = '" + salesOrder.OrderId + "'");
+
+            salesOrder.UpdateItem(updateQry.ToString());
 
             MyGlobals.SalesOrder.OrderAmount = decimal.Parse(TxtOrderAmount);
+            MyGlobals.SalesOrder.Pieces = totalPieces;
+            MyGlobals.SalesOrder.Cases = totalCases;
+
             MyGlobals.SoEntryViewModel.OrderAmount = TxtOrderAmount;
+            MyGlobals.SoEntryViewModel.TotalPieces = totalPieces.ToString();
+            MyGlobals.SoEntryViewModel.TotalCases = totalCases.ToString();
         }
 
         private bool checkForDuplicates( )

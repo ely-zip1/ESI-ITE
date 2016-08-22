@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\App.xaml
-191263947366
+261555887284
 
-72-1935704449
+861390019402
 962020648861
-Printing\PrintingFooterTemplate.xaml;Printing\PrintingHeaderTemplate.xaml;Printing\UserControl1.xaml;View\PostingPageView.xaml;View\HomeView.xaml;View\ITEView.xaml;View\LineItemPageView.xaml;View\LineItemView.xaml;View\MainWindow.xaml;Printing\PrintingCanvas.xaml;Printing\PrintingItemTemplate.xaml;View\PrintPreviewPageView.xaml;View\SalesOrderEntryView.xaml;View\SOLineItemsView.xaml;View\SOView.xaml;View\Transaction Printing.xaml;View\TransactionEntryPageView.xaml;View\TransactionEntryView.xaml;View\UserPageView.xaml;
+Printing\PrintingFooterTemplate.xaml;Printing\PrintingHeaderTemplate.xaml;Printing\UserControl1.xaml;View\InvoicingAllocationMaintenanceView.xaml;View\InvoicingAssignmentView.xaml;View\InvoicingDispatchView.xaml;View\InvoicingGatepassView.xaml;View\InvoicingMainPageView.xaml;View\InvoicingPickListView.xaml;View\InvoicingView.xaml;View\PostingPageView.xaml;View\HomeView.xaml;View\ITEView.xaml;View\LineItemPageView.xaml;View\LineItemView.xaml;View\MainWindow.xaml;Printing\PrintingCanvas.xaml;Printing\PrintingItemTemplate.xaml;View\PrintPreviewPageView.xaml;View\SalesOrderEntryView.xaml;View\SOLineItemsView.xaml;View\SOView.xaml;View\Transaction Printing.xaml;View\TransactionEntryPageView.xaml;View\TransactionEntryView.xaml;View\UserPageView.xaml;
 
 False
 

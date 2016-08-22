@@ -1,0 +1,130 @@
+﻿<Page x:Class="ESI_ITE.View.InvoicingPickListView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ESI_ITE.View"
+      xmlns:vm="clr-namespace:ESI_ITE.ViewModel"
+      mc:Ignorable="d" 
+      d:DesignHeight="515" d:DesignWidth="1550"
+      Title="InvoicingPickListView">
+
+    <Page.DataContext>
+        <vm:InvoicingPickListViewModel x:Name="viewModel"/>
+    </Page.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Content="Sales Orders" FontSize="15" FontWeight="Bold"/>
+
+            <DataGrid Grid.Row="1" AutoGenerateColumns="False" BorderThickness="1">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Width="25">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTextColumn Header="SO Number" Width="100">
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Customer Name" Width="200">
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Order Amount" Width="150">
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="SO Date" Width="100">
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Status" Width="150">
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Term" Width="100">
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Address" Width="200">
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="District" Width="100">
+                    </DataGridTextColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <!--FILTERS ============================= -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="1" Content="Filters" FontSize="15" FontWeight="Bold"/>
+
+            <Grid Grid.Row="2">
+                <StackPanel  Margin="10,0,0,0">
+                    <Label Content="S.O. per District/Salesman"/>
+
+                    <ComboBox Margin="10,0,0,0">
+
+                    </ComboBox>
+
+                    <Label Content="S.O. Date" Margin="0,5,0,0"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                        <StackPanel Margin="0,0,20,0">
+                            <Label Content="From"/>
+                            <DatePickerTextBox></DatePickerTextBox>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <Label Content="To"/>
+                            <DatePickerTextBox></DatePickerTextBox>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Apply Filter" Width="100" Margin="0,10,20,10"/>
+                        <Button Content="Show All" Width="100" Margin="0,10,20,10"/>
+                    </StackPanel>
+
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Grid.Row="3" Margin="5">
+                <StackPanel>
+                    <CheckBox Content="Select All" Margin="0,10" FontSize="15" FontWeight="Bold"/>
+                    <Button  Content="Allocate Stocks"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,10">
+                    <Label Content="Select PickList Number" FontSize="15" FontWeight="Bold"/>
+
+                    <ComboBox></ComboBox>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Content="Deallocate Stocks" Margin="0,10,5,10" Height="25" Width="130"/>
+                        <Button Content="Print Picklist" Margin="5,10,0,10" Height="25" Width="130"/>
+                    </StackPanel>
+
+                </StackPanel>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</Page>

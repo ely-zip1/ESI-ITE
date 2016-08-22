@@ -46,6 +46,13 @@ namespace ESI_ITE
         #endregion
 
 
+        #region Invoicing
+
+        public static InvoicingViewModel InvoicingVM;
+        
+        #endregion
+
+
         //Progress Monitors
         public static int ProgressTotalStep;
         public static int ProgressCurrentStep;

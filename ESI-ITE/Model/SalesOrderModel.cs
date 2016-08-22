@@ -185,7 +185,7 @@ namespace ESI_ITE.Model
                     var clone = row.Clone();
                     var dummy = new InventoryDummy2Model();
 
-                    dummy.DeleteItem("delete from inventory_dummy_2 where order_id = '" + row + "'");
+                    dummy.DeleteItem("delete from inventory_dummy_2 where order_id = '" + row["order_id"] + "'");
                 }
             }
             else if ( type == "orderNumber" )
