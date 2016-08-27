@@ -18,10 +18,6 @@ C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.Properties.Resourc
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.GenerateResource.Cache
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.exe
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.pdb
-C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\MainWindow.g.cs
-C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\App.g.cs
-C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests_MarkupCompile.cache
-C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests_MarkupCompile.lref
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Tests.exe.config
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Tests.exe
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Tests.pdb
@@ -36,6 +32,10 @@ C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.pdb
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.pdb
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.xml
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\MainWindow.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\App.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests_MarkupCompile.cache
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests_MarkupCompile.lref
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\MainWindow.baml
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.g.resources
 C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.Properties.Resources.resources

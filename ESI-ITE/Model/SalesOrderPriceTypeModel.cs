@@ -14,7 +14,6 @@ namespace ESI_ITE.Model
         DataAccess db = new DataAccess();
 
         private int priceTypeId;
-
         public int PriceTypeId
         {
             get { return priceTypeId; }
@@ -22,7 +21,6 @@ namespace ESI_ITE.Model
         }
 
         private string code;
-
         public string Code
         {
             get { return code; }
@@ -30,7 +28,6 @@ namespace ESI_ITE.Model
         }
 
         private string description;
-
         public string Description
         {
             get { return description; }
@@ -38,7 +35,6 @@ namespace ESI_ITE.Model
         }
 
         private bool modify;
-
         public bool Modify
         {
             get { return modify; }

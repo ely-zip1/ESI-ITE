@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
+using System.Threading;
 
 namespace ESI_ITE.ViewModel
 {
@@ -241,7 +242,7 @@ namespace ESI_ITE.ViewModel
         private string txtTotalPieces;
         public string TxtTotalPieces
         {
-            get { return txtTotalCases; }
+            get { return txtTotalPieces; }
             set
             {
                 txtTotalPieces = value;
@@ -422,6 +423,18 @@ namespace ESI_ITE.ViewModel
             }
         }
 
+        private string loadingMessage;
+        public string LoadingMessage
+        {
+            get { return loadingMessage; }
+            set
+            {
+                loadingMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
+
 
         #region Commands
 
@@ -493,30 +506,29 @@ namespace ESI_ITE.ViewModel
             }
         }
 
+        private bool isItemsGridVisible = true;
+        public bool IsItemsGridVisible
+        {
+            get { return isItemsGridVisible; }
+            set
+            {
+                isItemsGridVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         #endregion
 
         private Item2Model currentItem = new Item2Model();
 
         #endregion
 
-
         private void Load( )
         {
             salesOrder = MyGlobals.SalesOrder;
 
             IsItemSearchVisible = false;
-            //DATAGRID ITEMS
-            var dummy = new InventoryDummy2Model();
-            var dummyList = dummy.FetchPerOrder(salesOrder.OrderNumber);
-
-            DatagridItems.Clear();
-            foreach ( var row in dummyList )
-            {
-                DatagridItems.Add(row);
-            }
-
-            computeTotalOrderAmount();
-
 
             //ITEMS
             var item = new Item2Model();
@@ -562,6 +574,76 @@ namespace ESI_ITE.ViewModel
 
             TxtTaxRate = customer.TaxRate.ToString();
             TxtWarehouse = warehouse.Code;
+
+            CallItemLoad();
+            IsItemsGridVisible = true;
+            LoadingMessage = "Loading Items...";
+        }
+
+        private async void CallItemLoad( )
+        {
+            List<InventoryDummy2Model> result = await LoadUpdateItemsAsync();
+
+            DatagridItems.Clear();
+            foreach ( var row in result )
+            {
+                DatagridItems.Add(row);
+            }
+
+            computeTotalOrderAmount();
+
+            IsItemsGridVisible = false;
+        }
+
+        private Task<List<InventoryDummy2Model>> LoadUpdateItemsAsync( )
+        {
+            return Task.Factory.StartNew(( ) => LoadUpdateItems());
+        }
+
+        private List<InventoryDummy2Model> LoadUpdateItems( )
+        {
+            Thread.Sleep(5000);
+            //DATAGRID ITEMS
+            var dummy = new InventoryDummy2Model();
+            var dummyList = dummy.FetchPerOrder(salesOrder.OrderNumber);
+
+            priceType = (SalesOrderPriceTypeModel)priceType.Fetch(salesOrder.PriceId.ToString(), "id");
+
+            foreach ( var dummyItem in dummyList )
+            {
+                if ( dummyItem.PriceType == priceType.Code )
+                    break;
+                else
+                {
+                    var _item = new Item2Model();
+                    _item = (Item2Model)_item.Fetch(dummyItem.ItemCode, "code");
+
+                    var price = decimal.Parse(db.Select("select selling_price from so_price_selling where item_id = '" + _item.ItemId + "' and pricetype_id = '" + priceType.PriceTypeId + "'"));
+
+                    var piecePerCase = _item.PackSize * _item.PackSizeBO;
+                    var pricePerPiece = price / piecePerCase;
+                    var totalPieces = (dummyItem.Cases * piecePerCase) + dummyItem.Pieces;
+                    var lineAmount = totalPieces * pricePerPiece;
+
+                    dummy.Id = dummyItem.Id;
+                    dummy.OrderNumber = salesOrder.OrderNumber;
+                    dummy.PriceType = priceType.Code;
+                    dummy.Location = dummyItem.Location;
+                    dummy.ItemCode = dummyItem.ItemCode;
+                    dummy.ItemDescription = dummyItem.ItemDescription;
+                    dummy.Cases = dummyItem.Cases;
+                    dummy.Pieces = dummyItem.Pieces;
+                    dummy.PricePerPiece = pricePerPiece;
+                    dummy.LineAmount = lineAmount;
+                    dummy.LotNumber = dummyItem.LotNumber;
+
+                    dummy.UpdateItem(dummy);
+
+                }
+            }
+            dummyList = dummy.FetchPerOrder(salesOrder.OrderNumber);
+
+            return dummyList;
         }
 
         private void SelectedItemChanged( )
@@ -571,7 +653,7 @@ namespace ESI_ITE.ViewModel
 
             TxtCases = SelectedDatagridItem.Cases.ToString();
             TxtPieces = SelectedDatagridItem.Pieces.ToString();
-            TxtLotNumber = SelectedDatagridItem .LotNumber;
+            TxtLotNumber = SelectedDatagridItem.LotNumber;
 
             var counter = 0;
             foreach ( var loc in LocationList )
@@ -581,7 +663,7 @@ namespace ESI_ITE.ViewModel
                     SelectedIndexLocation = counter;
                     break;
                 }
-            }  
+            }
         }
 
         private void SelectedSearchedItemChanged( )
@@ -848,15 +930,11 @@ namespace ESI_ITE.ViewModel
             TxtTotalCases = totalCases.ToString();
             TxtTotalPieces = totalPieces.ToString();
 
-            var updateQry = new StringBuilder();
+            salesOrder.OrderAmount = decimal.Parse(TxtOrderAmount);
+            salesOrder.Cases = totalCases;
+            salesOrder.Pieces = totalPieces;
 
-            updateQry.Append("update orders set ");
-            updateQry.Append("order_amount = '" + decimal.Parse(TxtOrderAmount) + "', ");
-            updateQry.Append("cases = '" + totalCases + "', ");
-            updateQry.Append("pieces = '" + totalPieces + "' ");
-            updateQry.Append("where order_id = '" + salesOrder.OrderId + "'");
-
-            salesOrder.UpdateItem(updateQry.ToString());
+            salesOrder.UpdateItem(salesOrder);
 
             MyGlobals.SalesOrder.OrderAmount = decimal.Parse(TxtOrderAmount);
             MyGlobals.SalesOrder.Pieces = totalPieces;

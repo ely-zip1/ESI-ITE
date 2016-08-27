@@ -279,7 +279,7 @@
 
             <!--Warehouse-->
             <ComboBox Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2" Margin="2" Height="20"
-				ItemsSource="{Binding WarehouseList}" SelectedItem="{Binding SelectedWarehouse, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedIndexWarehouse}">
+				ItemsSource="{Binding WarehouseList}" SelectedItem="{Binding SelectedWarehouse, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedIndexWarehouse}" IsHitTestVisible="False">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>

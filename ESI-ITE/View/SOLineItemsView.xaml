@@ -148,6 +148,13 @@
 
             </Grid>
 
+            <Grid Grid.Row="1" Visibility="{Binding IsItemsGridVisible, Converter={StaticResource boolToVisConverter}}" Panel.ZIndex="100"  Margin="0,10,0,10">
+                <Grid.Background>
+                    <SolidColorBrush Color="Black" Opacity=".6"/>
+                </Grid.Background>
+                <TextBlock Text="{Binding LoadingMessage}" FontSize="20" Width="200" Height="50" Foreground="DodgerBlue"/>
+            </Grid>
+
             <DataGrid Grid.Row="1" Margin="0,10,0,10" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1" BorderBrush="#FF3F3F46" ItemsSource="{Binding DatagridItems}" SelectedItem="{Binding SelectedDatagridItem}" CanUserReorderColumns="False" CanUserResizeRows="False" SelectionUnit="FullRow">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="90"  Header="Item Code" Binding="{Binding ItemCode}" >

@@ -14,7 +14,6 @@ namespace ESI_ITE.Model
         DataAccess db = new DataAccess();
 
         private int customedId;
-
         public int CustomerId
         {
             get { return customedId; }
@@ -22,7 +21,6 @@ namespace ESI_ITE.Model
         }
 
         private string customerNumber;
-
         public string CustomerNumber
         {
             get { return customerNumber; }
@@ -30,7 +28,6 @@ namespace ESI_ITE.Model
         }
 
         private string customerName;
-
         public string CustomerName
         {
             get { return customerName; }
@@ -38,7 +35,6 @@ namespace ESI_ITE.Model
         }
 
         private string addressMain;
-
         public string AddressMain
         {
             get { return addressMain; }
@@ -46,7 +42,6 @@ namespace ESI_ITE.Model
         }
 
         private string addressCity;
-
         public string AddressCity
         {
             get { return addressCity; }
@@ -54,7 +49,6 @@ namespace ESI_ITE.Model
         }
 
         private string addressProvince;
-
         public string AddressProvince
         {
             get { return addressProvince; }
@@ -62,7 +56,6 @@ namespace ESI_ITE.Model
         }
 
         private string addressZipcode;
-
         public string AddressZipcode
         {
             get { return addressZipcode; }
@@ -70,7 +63,6 @@ namespace ESI_ITE.Model
         }
 
         private string telephone;
-
         public string Telephone
         {
             get { return telephone; }
@@ -78,7 +70,6 @@ namespace ESI_ITE.Model
         }
 
         private decimal taxRate;
-
         public decimal TaxRate
         {
             get { return taxRate; }
@@ -86,7 +77,6 @@ namespace ESI_ITE.Model
         }
 
         private decimal creditLimit;
-
         public decimal CreditLimit
         {
             get { return creditLimit; }
@@ -94,7 +84,6 @@ namespace ESI_ITE.Model
         }
 
         private decimal netSales;
-
         public decimal NetSales
         {
             get { return netSales; }
@@ -102,7 +91,6 @@ namespace ESI_ITE.Model
         }
 
         private string tinNumber;
-
         public string TinNumber
         {
             get { return tinNumber; }
@@ -110,7 +98,6 @@ namespace ESI_ITE.Model
         }
 
         private DateTime entryDate;
-
         public DateTime EntryDate
         {
             get { return entryDate; }
@@ -118,7 +105,6 @@ namespace ESI_ITE.Model
         }
 
         private bool isBad;
-
         public bool Isbad
         {
             get { return isBad; }
@@ -126,7 +112,6 @@ namespace ESI_ITE.Model
         }
 
         private DateTime badSince;
-
         public DateTime Badsince
         {
             get { return badSince; }
@@ -135,11 +120,52 @@ namespace ESI_ITE.Model
 
 
         private int tradeClass;
-
         public int TradeClass
         {
             get { return tradeClass; }
             set { tradeClass = value; }
+        }
+
+        private int districtId;
+        public int DistrictId
+        {
+            get { return districtId; }
+            set { districtId = value; }
+        }
+
+        private int termId;
+        public int TermId
+        {
+            get { return termId; }
+            set { termId = value; }
+        }
+
+        private int routeId;
+        public int RouteId
+        {
+            get { return routeId; }
+            set { routeId = value; }
+        }
+
+        private int pricetypeId;
+        public int PricetypeId
+        {
+            get { return pricetypeId; }
+            set { pricetypeId = value; }
+        }
+
+        private string contactPerson;
+        public string ContactPerson
+        {
+            get { return contactPerson; }
+            set { contactPerson = value; }
+        }
+
+        private bool isExtracted;
+        public bool IsExtracted
+        {
+            get { return isExtracted; }
+            set { isExtracted = value; }
         }
 
         #endregion
@@ -175,6 +201,12 @@ namespace ESI_ITE.Model
                 customer.Isbad = bool.Parse(row["is_bad"]);
                 customer.Badsince = DateTime.Parse(row["bad_since"]);
                 customer.TradeClass = Int32.Parse(row["trade_class_id"]);
+                customer.DistrictId = Int32.Parse(row["district_id"]);
+                customer.TermId = Int32.Parse(row["term_id"]);
+                customer.RouteId = Int32.Parse(row["route_id"]);
+                customer.PricetypeId = Int32.Parse(row["pricetype_id"]);
+                customer.ContactPerson = row["contact_person"].ToString();
+                customer.IsExtracted = bool.Parse(row["extracted"]);
 
                 list.Add(customer);
             }
@@ -219,6 +251,12 @@ namespace ESI_ITE.Model
                 customer.Isbad = bool.Parse(row["is_bad"]);
                 customer.Badsince = DateTime.Parse(row["bad_since"]);
                 customer.TradeClass = Int32.Parse(row["trade_class_id"]);
+                customer.DistrictId = Int32.Parse(row["district_id"]);
+                customer.TermId = Int32.Parse(row["term_id"]);
+                customer.RouteId = Int32.Parse(row["route_id"]);
+                customer.PricetypeId = Int32.Parse(row["pricetype_id"]);
+                customer.ContactPerson = row["contact_person"].ToString();
+                customer.IsExtracted = bool.Parse(row["extracted"]);
 
             }
 

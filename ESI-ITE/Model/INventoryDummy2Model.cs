@@ -215,5 +215,27 @@ namespace ESI_ITE.Model
         {
             db.Update(qry);
         }
+
+        public void UpdateItem( InventoryDummy2Model dummy )
+        {
+            StringBuilder sb = new StringBuilder();
+
+            var orderId = db.Select("select order_id from orders where order_number = '" + dummy.OrderNumber + "'");
+            var itemId = db.Select("select item_master2_id from item_master2 where item_code = '" + dummy.ItemCode + "'");
+            var priceTypeId = db.Select("select pricetype_id from so_pricetype where code = '" + dummy.PriceType + "'");
+            var locationId = db.Select("select location_id from location where code = '" + dummy.Location + "'");
+
+            sb.Append("update inventory_dummy_2 set ");
+            sb.Append("price_type = '" + priceTypeId + "', ");
+            sb.Append("location = '" + locationId + "', ");
+            sb.Append("cases = '" + dummy.Cases + "', ");
+            sb.Append("pieces = '" + dummy.Pieces + "', ");
+            sb.Append("price_per_piece = '" + dummy.PricePerPiece + "', ");
+            sb.Append("line_amount = '" + dummy.LineAmount + "' ");
+            sb.Append("where order_id = '" + orderId + "' ");
+            sb.Append("and item = '" + itemId + "'");
+
+            db.Update(sb.ToString());
+        }
     }
 }

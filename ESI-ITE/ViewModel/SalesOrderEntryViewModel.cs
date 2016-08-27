@@ -14,6 +14,7 @@ using System.Windows.Input;
 using MySql;
 using System.Globalization;
 using System.Windows;
+using System.Reflection;
 
 namespace ESI_ITE.ViewModel
 {
@@ -122,7 +123,6 @@ namespace ESI_ITE.ViewModel
             {
                 selectedDistrict = value;
                 OnPropertyChanged("SelectedDistrict");
-                selectedDistrictChanged();
             }
         }
 
@@ -911,6 +911,63 @@ namespace ESI_ITE.ViewModel
                 CustomerName = Customer.CustomerName;
                 CustomerAddress = Customer.AddressMain + ", " + Customer.AddressCity + ", " + customer.AddressProvince;
 
+                var index = 0;
+                foreach ( var district in DistrictList )
+                {
+                    if ( district.DistrictId == Customer.DistrictId )
+                    {
+                        SelectedIndexDistrict = index;
+                        break;
+                    }
+                    index++;
+                }
+
+                index = 0;
+                foreach ( var price in PriceTypeList )
+                {
+                    if ( price.PriceTypeId == Customer.PricetypeId )
+                    {
+                        SelectedIndexPriceType = index;
+                        break;
+                    }
+                    index++;
+                }
+
+                index = 0;
+                foreach ( var term in TermList )
+                {
+                    if ( term.TermId == Customer.TermId )
+                    {
+                        SelectedIndexTerm = index;
+                        break;
+                    }
+                    index++;
+                }
+
+                index = 0;
+                foreach ( var salesman in SalesmanCollection )
+                {
+                    if ( salesman.SalesmanId == SelectedDistrict.Salesman )
+                    {
+                        SelectedIndexSalesman = index;
+                        break;
+                    }
+                    index++;
+                }
+
+                index = 0;
+                foreach ( var route in RouteList )
+                {
+                    if ( route.RouteId == Customer.RouteId )
+                    {
+                        SelectedIndexRoute = index;
+                        break;
+                    }
+                    index++;
+                }
+
+                SelectedIndexWarehouse = 1;
+
                 TaxRate = Customer.TaxRate.ToString("0.##");
                 CreditLimit = customer.CreditLimit.ToString("0.##");
             }
@@ -944,26 +1001,34 @@ namespace ESI_ITE.ViewModel
             }
         }
 
+        private SalesOrderModel FillSalesOrder( )
+        {
+            var order = new SalesOrderModel();
+
+            order.OrderId = int.Parse(db.Select("select order_id from orders where order_number = '" + SelectedSalesOrder[0] + "'"));
+            order.OrderNumber = SelectedSalesOrder[0];
+            order.OrderDate = DateTime.Parse(OrderDate);
+            order.RequiredShipDate = DateTime.Parse(RequiredShipDate);
+            order.PONumber = CustomerPONumber;
+            order.OrderNote = OrderNote;
+            order.OrderAmount = decimal.Parse(OrderAmount);
+            order.Cases = int.Parse(TotalCases);
+            order.Pieces = int.Parse(TotalPieces);
+            order.DistrictId = SelectedDistrict.DistrictId;
+            order.CustomerID = Customer.CustomerId;
+            order.RouteId = SelectedRoute.RouteId;
+            order.TermId = SelectedTerm.TermId;
+            order.PriceId = SelectedPriceType.PriceTypeId;
+            order.WarehouseId = SelectedWarehouse.Id;
+
+            return order;
+        }
+
         private void lineItem( )
         {
             if ( latestOrderNumber == SelectedSalesOrder[0] )
             {
-                var order = new SalesOrderModel();
-
-                order.OrderNumber = SelectedSalesOrder[0];
-                order.OrderDate = DateTime.Parse(OrderDate);
-                order.RequiredShipDate = DateTime.Parse(RequiredShipDate);
-                order.PONumber = CustomerPONumber;
-                order.OrderNote = OrderNote;
-                order.OrderAmount = decimal.Parse(OrderAmount);
-                order.Cases = int.Parse(TotalCases);
-                order.Pieces = int.Parse(TotalPieces);
-                order.DistrictId = SelectedDistrict.DistrictId;
-                order.CustomerID = Customer.CustomerId;
-                order.RouteId = SelectedRoute.RouteId;
-                order.TermId = SelectedTerm.TermId;
-                order.PriceId = SelectedPriceType.PriceTypeId;
-                order.WarehouseId = SelectedWarehouse.Id;
+                var order = FillSalesOrder();
 
                 var orderNumber = new OrderNumberModel();
                 orderNumber.UpdateItem("");
@@ -980,16 +1045,41 @@ namespace ESI_ITE.ViewModel
             }
             else
             {
+                var secondOrder = FillSalesOrder();
+
                 foreach ( var order in OrderCollection )
                 {
                     if ( order.OrderNumber == SelectedSalesOrder[0] )
                     {
-                        MyGlobals.SalesOrder = order;
+                        if ( !CompareSalesOrders(order, secondOrder) )
+                        {
+                            order.UpdateItem(secondOrder);
+                        }
+
+                        MyGlobals.SalesOrder = secondOrder;
                         MyGlobals.SoViewModel.SelectedPage = new SOLineItemsView();
                         break;
                     }
                 }
             }
+        }
+
+        private bool CompareSalesOrders( object firstOrder, object secondOrder )
+        {
+            Type firstType = firstOrder.GetType();
+            foreach ( PropertyInfo propertyInfo in firstType.GetProperties() )
+            {
+                if ( propertyInfo.CanRead )
+                {
+                    var firstValue = propertyInfo.GetValue(firstOrder, null);
+                    var secondValue = propertyInfo.GetValue(secondOrder, null);
+                    if ( !object.Equals(firstValue, secondValue) )
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
         private void updateOrdersList( SalesOrderModel so )
@@ -1127,26 +1217,26 @@ namespace ESI_ITE.ViewModel
         {
             //try
             //{
-                var order = new SalesOrderModel();
-                var cutOffDate = DateTime.Parse(TxtCutOffDate, new CultureInfo("en-US"));
-                order.UpdateInventoryDummy("cutOffDate", TxtCutOffDate);
-                order.DeleteOrders(cutOffDate);
+            var order = new SalesOrderModel();
+            var cutOffDate = DateTime.Parse(TxtCutOffDate, new CultureInfo("en-US"));
+            order.UpdateInventoryDummy("cutOffDate", TxtCutOffDate);
+            order.DeleteOrders(cutOffDate);
 
-                var index = 0;
-                foreach ( var orderEntry in OrderCollection )
+            var index = 0;
+            foreach ( var orderEntry in OrderCollection )
+            {
+                if ( orderEntry.OrderDate <= cutOffDate )
                 {
-                    if ( orderEntry.OrderDate <= cutOffDate )
-                    {
-                        OrderCollection.RemoveAt(index);
-                        CmbOrders.RemoveAt(index + 1);
-                    }
-                    index++;
+                    OrderCollection.RemoveAt(index);
+                    CmbOrders.RemoveAt(index + 1);
                 }
+                index++;
+            }
 
-                SelectedIndexSalesOrder = 0;
-                ClearForm();
+            SelectedIndexSalesOrder = 0;
+            ClearForm();
 
-                MessageBox.Show("Deletion Successful!");
+            MessageBox.Show("Deletion Successful!");
             //}
             //catch ( Exception e )
             //{
@@ -1179,7 +1269,7 @@ namespace ESI_ITE.ViewModel
 
         #region Validation Members
 
-        string[] validProperties = { "Error", "Error", "Error", "Error", "Error", "Error", "Error", "Error", "Error" };
+        string[] validProperties = { "Error", "Error", "Error", "Error", "Error", "Error", "Error", "Error", "Error", "Error" };
 
         private void resetValidProperties( )
         {
@@ -1306,48 +1396,55 @@ namespace ESI_ITE.ViewModel
                             error = CheckDate(TxtCutOffDate);
 
                         if ( string.IsNullOrWhiteSpace(error) )
-                            IsDateValid = true;
-                        else
-                            IsDateValid = false;
+                            if ( string.IsNullOrWhiteSpace(ValidateSoDate()) )
+                                IsDateValid = true;
+                            else
+                                IsDateValid = false;
 
                         isDeletionFirstLoad = true;
                     }
                     break;
-                    #region
-                    //case "OrderNote":
-                    //    error = ValidateNullOrEmpty("Order Note", OrderNote);
-                    //    if ( string.IsNullOrWhiteSpace(error) )
-                    //        validProperties[12] = null;
-                    //    else
-                    //        validProperties[12] = error;
-                    //    break;
-                    //case "CustomerPONumber":
-                    //    error = ValidateNullOrEmpty("Customer P.O. Number", CustomerPONumber);
-                    //    if ( string.IsNullOrWhiteSpace(error) )
-                    //        validProperties[10] = null;
-                    //    else
-                    //        validProperties[10] = error;
-                    //    break;
-                    //case "OrderDate":
-                    //    error = ValidateNullOrEmpty("Order Date", OrderDate.ToString());
-                    //    if ( string.IsNullOrWhiteSpace(error) )
-                    //        validProperties[2] = null;
-                    //    else
-                    //        validProperties[2] = error;
-                    //    break;
-                    //case "RequiredShipDate":
-                    //    error = ValidateNullOrEmpty("Required Ship Date", RequiredShipDate.ToString());
-                    //    if ( string.IsNullOrWhiteSpace(error) )
-                    //        validProperties[3] = null;
-                    //    else
-                    //        validProperties[3] = error;
-                    //    break;
-                    #endregion
+                case "RequiredShipDate":
+                    error = ValidateNullOrEmpty("Ship Date", RequiredShipDate);
+                    if ( string.IsNullOrWhiteSpace(error) )
+                    {
+                        error = CheckDate(RequiredShipDate);
+                        if ( string.IsNullOrWhiteSpace(error) )
+                            error = ValidateShipDate();
+
+                        if ( string.IsNullOrWhiteSpace(error) )
+                            validProperties[9] = null;
+                        else
+                            validProperties[9] = error;
+
+                    }
+                    break;
             }
 
             IsValid();
 
             return error;
+        }
+
+        private string ValidateSoDate( )
+        {
+            var date = DateTime.Parse(TxtCutOffDate);
+
+            if ( date < oldestSalesOrderDate )
+                return "Invalid Date!";
+            else
+                return null;
+        }
+
+        private string ValidateShipDate( )
+        {
+            var _orderDate = DateTime.Parse(OrderDate);
+            var _shipDate = DateTime.Parse(RequiredShipDate);
+
+            if ( _shipDate <= _orderDate )
+                return "Invalid Date";
+            else
+                return null;
         }
 
         private string ValidateNullOrEmpty( string propertyName, string value )
@@ -1365,10 +1462,7 @@ namespace ESI_ITE.ViewModel
 
             try
             {
-                date = DateTime.Parse(inputDate, CultureInfo.CreateSpecificCulture("en-US"));
-
-                if ( date < oldestSalesOrderDate )
-                    error = "Invalid date!";
+                date = DateTime.Parse(inputDate);
             }
             catch ( Exception e )
             {

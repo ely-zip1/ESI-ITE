@@ -287,9 +287,37 @@ namespace ESI_ITE.Model
             return list;
         }
 
+        public void UpdateItem( SalesOrderModel order )
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("update orders set ");
+            sb.Append("required_ship_date = str_to_date('" + order.RequiredShipDate.Date.ToString("MM/dd/yyyy") + "', '%m/%d/%Y'), ");
+            sb.Append("po_number = '" + order.PONumber + "', ");
+            sb.Append("order_note = '" + order.OrderNote + "', ");
+            sb.Append("order_amount = '" + order.OrderAmount + "', ");
+            sb.Append("cases = '" + order.Cases + "', ");
+            sb.Append("pieces = '" + order.Pieces + "', ");
+            sb.Append("served = ");
+            sb.Append("" + order.IsServed == bool.TrueString ? "1" : "0" + ", ");
+            sb.Append("picked = ");
+            sb.Append("" + order.IsPicked == bool.TrueString ? "1" : "0" + ", ");
+            sb.Append("printed = ");
+            sb.Append("" + order.IsPrinted == bool.TrueString ? "1" : "0" + ", ");
+            sb.Append("district_id = '" + order.DistrictId + "', ");
+            sb.Append("customer_id = '" + order.CustomerID + "', ");
+            sb.Append("route_id = '" + order.RouteId + "', ");
+            sb.Append("term_id = '" + order.TermId + "', ");
+            sb.Append("price_id = '" + order.PriceId + "',");
+            sb.Append("warehouse_id = '" + order.WarehouseId + "' ");
+            sb.Append("where order_id = '" + order.OrderId + "'");
+
+            db.Update(sb.ToString());
+        }
+
         public void UpdateItem( string qry )
         {
-            db.Update(qry);
+            throw new NotImplementedException();
         }
     }
 }
