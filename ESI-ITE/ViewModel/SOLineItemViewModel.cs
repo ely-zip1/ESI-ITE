@@ -66,6 +66,21 @@ namespace ESI_ITE.ViewModel
             set { searchedItemCollection = value; }
         }
 
+        private ObservableCollection<SalesOrderPriceTypeModel> pricetypeCollection = new ObservableCollection<SalesOrderPriceTypeModel>();
+        public ObservableCollection<SalesOrderPriceTypeModel> PricetypeCollection
+        {
+            get { return pricetypeCollection; }
+            set { pricetypeCollection = value; }
+        }
+
+
+        private List<SalesOrderPriceTypeModel> pricetypeList = new List<SalesOrderPriceTypeModel>();
+        public List<SalesOrderPriceTypeModel> PricetypeList
+        {
+            get { return pricetypeList; }
+            set { pricetypeList = value; }
+        }
+
         private List<LocationModel> locationList = new List<LocationModel>();
         public List<LocationModel> LocationList
         {
@@ -102,6 +117,17 @@ namespace ESI_ITE.ViewModel
             }
         }
 
+        private SalesOrderPriceTypeModel selectedPricetype;
+        public SalesOrderPriceTypeModel SelectedPricetype
+        {
+            get { return selectedPricetype; }
+            set
+            {
+                selectedPricetype = value;
+                OnPropertyChanged();
+            }
+        }
+
         private LocationModel selectedLocation = new LocationModel();
         public LocationModel SelectedLocation
         {
@@ -135,6 +161,17 @@ namespace ESI_ITE.ViewModel
             {
                 selectedIndexSearchedItem = value;
                 OnPropertyChanged("SelectedIndexSearchedItem");
+            }
+        }
+
+        private int selectedIndexPricetype = -1;
+        public int SelectedIndexPricetype
+        {
+            get { return selectedIndexPricetype; }
+            set
+            {
+                selectedIndexPricetype = value;
+                OnPropertyChanged();
             }
         }
 
@@ -468,6 +505,16 @@ namespace ESI_ITE.ViewModel
             get { return deleteItemCommand; }
         }
 
+        private int blurIntensity = 0;
+        public int BlurIntensity
+        {
+            get { return blurIntensity; }
+            set
+            {
+                blurIntensity = value;
+                OnPropertyChanged();
+            }
+        }
 
         #endregion
 
@@ -570,7 +617,14 @@ namespace ESI_ITE.ViewModel
             TxtTotalCases = salesOrder.Cases.ToString();
             TxtTotalPieces = salesOrder.Pieces.ToString();
 
-            TxtPT = priceType.Code;
+            //PRICE TYPE
+            //TxtPT = priceType.Code;
+            var _pricetypeList = priceType.FetchAll();
+            foreach ( var row in _pricetypeList )
+            {
+                var pt = (SalesOrderPriceTypeModel)row;
+                PricetypeList.Add(pt);
+            }
 
             TxtTaxRate = customer.TaxRate.ToString();
             TxtWarehouse = warehouse.Code;
@@ -602,7 +656,7 @@ namespace ESI_ITE.ViewModel
 
         private List<InventoryDummy2Model> LoadUpdateItems( )
         {
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
             //DATAGRID ITEMS
             var dummy = new InventoryDummy2Model();
             var dummyList = dummy.FetchPerOrder(salesOrder.OrderNumber);
@@ -719,16 +773,30 @@ namespace ESI_ITE.ViewModel
             if ( IsItemSearchVisible )
             {
                 IsItemSearchVisible = false;
+                BlurIntensity = 0;
             }
             else
             {
                 IsItemSearchVisible = true;
+                BlurIntensity = 10;
             }
         }
 
         private void setCurrentItem( Item2Model item )
         {
             currentItem = item;
+
+            var _pricetypeList = priceType.FetchPerItem(currentItem.ItemId.ToString());
+
+            PricetypeCollection.Clear();
+            var x = 0;
+            foreach ( var row in _pricetypeList )
+            {
+                PricetypeCollection.Add(row);
+                if ( row.Code == priceType.Code )
+                    SelectedIndexPricetype = x;
+                x++;
+            }
 
             TxtItemCode = currentItem.Code;
             TxtItemDescription = currentItem.Description;
@@ -740,7 +808,7 @@ namespace ESI_ITE.ViewModel
 
         private void setUnitPrice( )
         {
-            TxtUnitPrice = db.Select("select selling_price from so_price_selling where item_id = '" + currentItem.ItemId + "' and pricetype_id = '" + priceType.PriceTypeId + "'");
+            TxtUnitPrice = db.Select("select selling_price from so_price_selling where item_id = '" + currentItem.ItemId + "' and pricetype_id = '" + SelectedPricetype.PriceTypeId + "'");
         }
 
         private void selectItem( )
@@ -840,7 +908,7 @@ namespace ESI_ITE.ViewModel
             inventoryDummyItem.OrderNumber = salesOrder.OrderNumber;
             inventoryDummyItem.ItemCode = TxtItemCode;
             inventoryDummyItem.ItemDescription = TxtItemDescription;
-            inventoryDummyItem.PriceType = priceType.Code;
+            inventoryDummyItem.PriceType = SelectedPricetype.Code;
             inventoryDummyItem.Location = SelectedLocation.Code;
 
             var totalQuantity = refactorQuantity(currentItem.PackSize * currentItem.PackSizeBO);

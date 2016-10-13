@@ -12,6 +12,12 @@ namespace ESI_ITE
 {
     public static class MyGlobals
     {
+        public static MainWindowViewModel MainWindow;
+
+        public static LoginView loginView;
+
+        public static UserModel LoggedUser;
+
         #region Transaction Entry 
         public static ITEViewModel IteViewModel;
 

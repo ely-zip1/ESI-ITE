@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ESI_ITE.View"
              xmlns:vm="clr-namespace:ESI_ITE.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="355" d:DesignWidth="905"
+             d:DesignHeight="720" d:DesignWidth="1540"
              Background="#FF181814">
 
     <UserControl.DataContext>

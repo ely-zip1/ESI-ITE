@@ -29,6 +29,7 @@ namespace ESI_ITE
             var modules = container.GetExportedValues<IModule>();
 
             home.DataContext = new MainWindowViewModel() { Modules = modules.ToList() };
+
             home.Show();
         }
     }

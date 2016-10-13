@@ -92,275 +92,291 @@
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition MaxHeight="100"></RowDefinition>
-                <RowDefinition MinHeight="300"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="73*"/>
+                <RowDefinition Height="50*"/>
             </Grid.RowDefinitions>
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100" ></ColumnDefinition>
-                    <ColumnDefinition Width="100"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="100"></ColumnDefinition>
-                    <ColumnDefinition Width="100"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
+            <Grid.Effect>
+                <BlurEffect Radius="{Binding BlurIntensity}"/>
+            </Grid.Effect>
+            <Grid Grid.RowSpan="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition MaxHeight="100"></RowDefinition>
+                    <RowDefinition MinHeight="300"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Column="0" Grid.Row="0" Content="Customer" VerticalAlignment="Center"/>
-                <Label Grid.Column="0" Grid.Row="1" Content="Salesman" VerticalAlignment="Center"/>
-                <Label Grid.Column="0" Grid.Row="2" Content="Term Code" VerticalAlignment="Center"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" ></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                    </Grid.RowDefinitions>
 
-                <TextBox Grid.Column="1" Grid.Row="0" Height="20"
+                    <Label Grid.Column="0" Grid.Row="0" Content="Customer" VerticalAlignment="Center"/>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Salesman" VerticalAlignment="Center"/>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Term Code" VerticalAlignment="Center"/>
+
+                    <TextBox Grid.Column="1" Grid.Row="0" Height="20"
                      Text="{Binding TxtCustomerNumber}" IsHitTestVisible="False" Focusable="False"/>
 
-                <TextBox Grid.Column="1" Grid.Row="1" Height="20"
+                    <TextBox Grid.Column="1" Grid.Row="1" Height="20"
                      Text="{Binding TxtSalesmanNumber}" IsHitTestVisible="False" Focusable="False"/>
 
-                <TextBox Grid.Column="1" Grid.Row="2" Height="20"
+                    <TextBox Grid.Column="1" Grid.Row="2" Height="20"
                      Text="{Binding TxtTermCode}" IsHitTestVisible="False" Focusable="False"/>
 
-                <TextBox Grid.Column="2" Grid.Row="0" Height="20" Margin="2,0,2,0" Width="400" HorizontalAlignment="Left"
+                    <TextBox Grid.Column="2" Grid.Row="0" Height="20" Margin="2,0,2,0" Width="400" HorizontalAlignment="Left"
                      Text="{Binding TxtCustomerName}" IsHitTestVisible="False" Focusable="False"/>
 
-                <TextBox Grid.Column="2" Grid.Row="1" Height="20" Margin="2,0,2,0" Width="400" HorizontalAlignment="Left"
+                    <TextBox Grid.Column="2" Grid.Row="1" Height="20" Margin="2,0,2,0" Width="400" HorizontalAlignment="Left"
                      Text="{Binding TxtsalesmanName}" IsHitTestVisible="False" Focusable="False"/>
 
-                <TextBox Grid.Column="2" Grid.Row="2" Height="20" Margin="2,0,2,0" Width="400" HorizontalAlignment="Left"
+                    <TextBox Grid.Column="2" Grid.Row="2" Height="20" Margin="2,0,2,0" Width="400" HorizontalAlignment="Left"
                      Text="{Binding TxtTermDescription}" IsHitTestVisible="False" Focusable="False"/>
 
-                <Label Grid.Column="3" Grid.Row="0" Content="Order Number" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                <Label Grid.Column="3" Grid.Row="1" Content="Total Cases" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                <Label Grid.Column="3" Grid.Row="2" Content="Total Pieces" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label Grid.Column="3" Grid.Row="0" Content="Order Number" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label Grid.Column="3" Grid.Row="1" Content="Total Cases" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label Grid.Column="3" Grid.Row="2" Content="Total Pieces" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
-                <TextBox Grid.Column="4" Grid.Row="0" Height="20"
+                    <TextBox Grid.Column="4" Grid.Row="0" Height="20"
                      Text="{Binding TxtOrderNumber}" IsHitTestVisible="False" Focusable="False"/>
 
-                <TextBox Grid.Column="4" Grid.Row="1" Height="20"
+                    <TextBox Grid.Column="4" Grid.Row="1" Height="20"
                      Text="{Binding TxtTotalCases}" IsHitTestVisible="False" Focusable="False"/>
 
-                <TextBox Grid.Column="4" Grid.Row="2" Height="20"
+                    <TextBox Grid.Column="4" Grid.Row="2" Height="20"
                      Text="{Binding TxtTotalPieces}" IsHitTestVisible="False" Focusable="False"/>
 
-            </Grid>
+                </Grid>
 
-            <Grid Grid.Row="1" Visibility="{Binding IsItemsGridVisible, Converter={StaticResource boolToVisConverter}}" Panel.ZIndex="100"  Margin="0,10,0,10">
-                <Grid.Background>
-                    <SolidColorBrush Color="Black" Opacity=".6"/>
-                </Grid.Background>
-                <TextBlock Text="{Binding LoadingMessage}" FontSize="20" Width="200" Height="50" Foreground="DodgerBlue"/>
-            </Grid>
+                <Grid Grid.Row="1" Visibility="{Binding IsItemsGridVisible, Converter={StaticResource boolToVisConverter}}" Panel.ZIndex="100"  Margin="0,10,0,10">
+                    <Grid.Background>
+                        <SolidColorBrush Color="Black" Opacity=".6"/>
+                    </Grid.Background>
+                    <TextBlock Text="{Binding LoadingMessage}" FontSize="20" Width="200" Height="50" Foreground="DodgerBlue"/>
+                </Grid>
 
-            <DataGrid Grid.Row="1" Margin="0,10,0,10" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1" BorderBrush="#FF3F3F46" ItemsSource="{Binding DatagridItems}" SelectedItem="{Binding SelectedDatagridItem}" CanUserReorderColumns="False" CanUserResizeRows="False" SelectionUnit="FullRow">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Width="90"  Header="Item Code" Binding="{Binding ItemCode}" >
-                        <DataGridTextColumn.CellStyle>
-                            <Style>
-                                <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
+                <DataGrid Grid.Row="1" Margin="0,10,0,10" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1" BorderBrush="#FF3F3F46" ItemsSource="{Binding DatagridItems}" SelectedItem="{Binding SelectedDatagridItem}" CanUserReorderColumns="False" CanUserResizeRows="False" SelectionUnit="FullRow">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="90"  Header="Item Code" Binding="{Binding ItemCode}" >
+                            <DataGridTextColumn.CellStyle>
+                                <Style>
+                                    <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
 
-                    <DataGridTextColumn Width="45"  Header="P/T" Binding="{Binding PriceType}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style>
-                                <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
+                        <DataGridTextColumn Width="45"  Header="P/T" Binding="{Binding PriceType}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style>
+                                    <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
 
-                    <DataGridTextColumn MinWidth="300" MaxWidth="800" Header="Description" Binding="{Binding ItemDescription}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style>
-                                <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
+                        <DataGridTextColumn MinWidth="300" MaxWidth="800" Header="Description" Binding="{Binding ItemDescription}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style>
+                                    <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
 
-                    <DataGridTextColumn MinWidth="40"  Header="LC" Binding="{Binding Location}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style>
-                                <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
+                        <DataGridTextColumn MinWidth="40"  Header="LC" Binding="{Binding Location}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style>
+                                    <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
 
-                    <DataGridTextColumn MinWidth="40"  Header="Lot Number" Binding="{Binding LotNumber}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style>
-                                <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
+                        <DataGridTextColumn MinWidth="40"  Header="Lot Number" Binding="{Binding LotNumber}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style>
+                                    <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
 
-                    <DataGridTextColumn MinWidth="60"  Header="Cases" Binding="{Binding Cases}" >
-                        <DataGridTextColumn.CellStyle>
-                            <Style>
-                                <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
-                                <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
+                        <DataGridTextColumn MinWidth="60"  Header="Cases" Binding="{Binding Cases}" >
+                            <DataGridTextColumn.CellStyle>
+                                <Style>
+                                    <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+                                    <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
 
-                    <DataGridTextColumn MinWidth="65"  Header="Pieces" Binding="{Binding Pieces}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style>
-                                <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
-                                <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
+                        <DataGridTextColumn MinWidth="65"  Header="Pieces" Binding="{Binding Pieces}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style>
+                                    <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
+                                    <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
 
-                    <DataGridTextColumn MinWidth="100"  Header="Price/Piece" Binding="{Binding PricePerPiece, StringFormat=\{0:#\,##0.00\}}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style>
-                                <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
-                                <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
+                        <DataGridTextColumn MinWidth="100"  Header="Price/Piece" Binding="{Binding PricePerPiece, StringFormat=\{0:#\,##0.00\}}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style>
+                                    <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
+                                    <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
 
-                    <DataGridTextColumn MinWidth="130" Header="Line Amount" Binding="{Binding LineAmount, StringFormat=\{0:#\,##0.00\}}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style>
-                                <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
-                                <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
+                        <DataGridTextColumn MinWidth="130" Header="Line Amount" Binding="{Binding LineAmount, StringFormat=\{0:#\,##0.00\}}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style>
+                                    <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
+                                    <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
 
-            <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition MinWidth="620"></ColumnDefinition>
-                    <ColumnDefinition Width="250"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition MinHeight="50" MaxHeight="60"></RowDefinition>
-                    <RowDefinition MinHeight="30" MaxHeight="50"></RowDefinition>
-                    <RowDefinition MinHeight="30"></RowDefinition>
-                </Grid.RowDefinitions>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="620"></ColumnDefinition>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition MinHeight="50" MaxHeight="60"></RowDefinition>
+                        <RowDefinition MinHeight="30" MaxHeight="50"></RowDefinition>
+                        <RowDefinition MinHeight="30"></RowDefinition>
+                    </Grid.RowDefinitions>
 
-                <StackPanel Orientation="Horizontal" Grid.Column="0">
-                    <StackPanel Margin="2">
-                        <Label Content="Item Code" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                        <TextBox Width="100" HorizontalAlignment="Left"
+                    <StackPanel Orientation="Horizontal" Grid.Column="0">
+                        <StackPanel Margin="2">
+                            <Label Content="Item Code" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                            <TextBox Width="100" HorizontalAlignment="Left"
                              Text="{Binding TxtItemCode,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"/>
-                    </StackPanel>
+                        </StackPanel>
 
-                    <StackPanel Margin="2">
-                        <Label Content="P/T" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                        <TextBox Width="40" HorizontalAlignment="Left"
-                             Text="{Binding TxtPT}" IsHitTestVisible="False" Focusable="False"/>
-                    </StackPanel>
+                        <StackPanel Margin="2">
+                            <Label Content="P/T" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                            <ComboBox Width="60" Height="20" ItemsSource="{Binding PricetypeCollection}" SelectedItem="{Binding SelectedPricetype}" SelectedIndex="{Binding SelectedIndexPricetype}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Code}" Width="60"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <!--<TextBox Width="40" HorizontalAlignment="Left"
+                             Text="{Binding TxtPT}" IsHitTestVisible="False" Focusable="False"/>-->
+                        </StackPanel>
 
-                    <StackPanel Margin="2">
-                        <Label Content="LC" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                        <ComboBox Width="60" HorizontalAlignment="Left" Height="20"
+                        <StackPanel Margin="2">
+                            <Label Content="LC" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                            <ComboBox Width="60" HorizontalAlignment="Left" Height="20"
                              ItemsSource="{Binding LocationList}" SelectedItem="{Binding SelectedLocation, ValidatesOnDataErrors=True}" SelectedIndex="{Binding SelectedIndexLocation}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Code}" VerticalAlignment="Center" Width="30"/>
-                                        <TextBlock Text="{Binding Location}" VerticalAlignment="Center" Width="200"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </StackPanel>
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Code}" VerticalAlignment="Center" Width="30"/>
+                                            <TextBlock Text="{Binding Location}" VerticalAlignment="Center" Width="200"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
 
-                    <StackPanel Margin="2">
-                        <Label Content="Cases" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                        <TextBox Width="50" HorizontalAlignment="Left"
+                        <StackPanel Margin="2">
+                            <Label Content="Cases" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                            <TextBox Width="50" HorizontalAlignment="Left"
                              Text="{Binding TxtCases,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"/>
-                    </StackPanel>
+                        </StackPanel>
 
-                    <StackPanel Margin="2">
-                        <Label Content="Pieces" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                        <TextBox Width="50" HorizontalAlignment="Left"
+                        <StackPanel Margin="2">
+                            <Label Content="Pieces" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                            <TextBox Width="50" HorizontalAlignment="Left"
                              Text="{Binding TxtPieces,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"/>
-                    </StackPanel>
+                        </StackPanel>
 
-                    <StackPanel Margin="2">
-                        <Label Content="Unit Price" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                        <TextBox Width="60" HorizontalAlignment="Left"
+                        <StackPanel Margin="2">
+                            <Label Content="Unit Price" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                            <TextBox Width="60" HorizontalAlignment="Left"
                              Text="{Binding TxtUnitPrice}" IsHitTestVisible="False" Focusable="False"/>
-                    </StackPanel>
+                        </StackPanel>
 
-                    <StackPanel Margin="2">
-                        <Label Content="Tax Rate" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                        <TextBox Width="55" HorizontalAlignment="Left"
+                        <StackPanel Margin="2">
+                            <Label Content="Tax Rate" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                            <TextBox Width="55" HorizontalAlignment="Left"
                              Text="{Binding TxtTaxRate}" IsHitTestVisible="False" Focusable="False"/>
-                    </StackPanel>
+                        </StackPanel>
 
-                    <StackPanel Margin="2">
-                        <Label Content="Warehouse" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                        <TextBox Width="70" HorizontalAlignment="Left"
+                        <StackPanel Margin="2">
+                            <Label Content="Warehouse" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                            <TextBox Width="70" HorizontalAlignment="Left"
                              Text="{Binding TxtWarehouse}" IsHitTestVisible="False" Focusable="False"/>
-                    </StackPanel>
+                        </StackPanel>
 
-                    <StackPanel Margin="2">
-                        <Label Content="Lot Number" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                        <TextBox Width="70" HorizontalAlignment="Left"
+                        <StackPanel Margin="2">
+                            <Label Content="Lot Number" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                            <TextBox Width="70" HorizontalAlignment="Left"
                              Text="{Binding TxtLotNumber}" IsHitTestVisible="True" Focusable="True"/>
+                        </StackPanel>
+
                     </StackPanel>
 
-                </StackPanel>
-
-                <TextBlock Grid.Row="1" Width="600" HorizontalAlignment="Left"
+                    <TextBlock Grid.Row="1" Width="600" HorizontalAlignment="Left"
                        FontSize="15" FontWeight="DemiBold" Background="DodgerBlue" TextAlignment="Center" VerticalAlignment="Center"
                        IsHitTestVisible="False" Margin="0,10" Text="{Binding TxtItemDescription}" Cursor="None"/>
 
-                <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition MinHeight="30" MaxHeight="40"></RowDefinition>
-                        <RowDefinition MinHeight="30" MaxHeight="40"></RowDefinition>
-                        <RowDefinition MinHeight="30" MaxHeight="40"></RowDefinition>
-                    </Grid.RowDefinitions>
+                    <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition MinHeight="30" MaxHeight="40"></RowDefinition>
+                            <RowDefinition MinHeight="30" MaxHeight="40"></RowDefinition>
+                            <RowDefinition MinHeight="30" MaxHeight="40"></RowDefinition>
+                        </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center"
+                        <Label Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center"
                        Content="Order Amount"/>
-                    <Label Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center"
+                        <Label Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center"
                        Content="Peso Discount"/>
-                    <Label Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center"
+                        <Label Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center"
                        Content="Trucking Charge"/>
 
-                    <TextBox Grid.Column="1" Grid.Row="0" Height="20"
+                        <TextBox Grid.Column="1" Grid.Row="0" Height="20"
                          Text="{Binding TxtOrderAmount}" IsHitTestVisible="False" Focusable="False"/>
 
-                    <TextBox Grid.Column="1" Grid.Row="1" Height="20"
+                        <TextBox Grid.Column="1" Grid.Row="1" Height="20"
                          Text="{Binding TxtPesoDiscount, ValidatesOnDataErrors=True}"/>
 
-                    <TextBox Grid.Column="1" Grid.Row="2" Height="20"
+                        <TextBox Grid.Column="1" Grid.Row="2" Height="20"
                          Text="{Binding TxtTruckingCharge, ValidatesOnDataErrors=True}"/>
-                </Grid>
+                    </Grid>
 
-                <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10">
+                    <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10">
 
-                    <Button Content="Items List" Height="20" Width="100" Margin="5,0"
+                        <Button Content="Items List" Height="20" Width="100" Margin="5,0"
                             Command="{Binding ShowItemSearchCommand}"/>
 
-                    <Button Content="Add" Height="20" Width="80" Margin="5,0"
+                        <Button Content="Add" Height="20" Width="80" Margin="5,0"
                             IsEnabled="{Binding IsAddable}" Command="{Binding AddItemCommand}"/>
 
-                    <Button Content="Delete" Height="20" Width="80" Margin="5,0"
+                        <Button Content="Delete" Height="20" Width="80" Margin="5,0"
                             Command="{Binding DeleteItemCommand}"/>
 
-                    <Button Content="Close" Height="20" Width="80" Margin="5,0"
+                        <Button Content="Close" Height="20" Width="80" Margin="5,0"
                         Command="{Binding CloseCommand}"/>
-                </StackPanel>
+                    </StackPanel>
+
+                </Grid>
 
             </Grid>
-
         </Grid>
     </Grid>
 </Page>

@@ -68,8 +68,6 @@ namespace ESI_ITE.Model
                 record = db.SelectMultiple("select * from so_pricetype where pricetype_id = '" + id + "'");
             }
 
-            IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
-
             foreach ( var row in record )
             {
                 var clone = row.Clone();
@@ -89,8 +87,6 @@ namespace ESI_ITE.Model
 
             var record = db.SelectMultiple("select * from so_pricetype");
 
-            IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
-
             list.Clear();
 
             foreach ( var row in record )
@@ -107,6 +103,19 @@ namespace ESI_ITE.Model
             }
 
             return list;
+        }
+
+        public List<SalesOrderPriceTypeModel> FetchPerItem( string itemId )
+        {
+            var pricetypeList = new List<SalesOrderPriceTypeModel>();
+            var results = db.SelectMultiple("select * from so_price_selling where item_id = '" + itemId + "'");
+
+            foreach ( var row in results )
+            {
+                pricetypeList.Add((SalesOrderPriceTypeModel)this.Fetch(row["pricetype_id"], "id"));
+            }
+
+            return pricetypeList;
         }
 
         public void UpdateItem( string qry )

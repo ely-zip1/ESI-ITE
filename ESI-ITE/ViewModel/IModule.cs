@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace ESI_ITE.ViewModel
 {
-    interface IModule
+    public interface IModule
     {
         string Name { get; }
         UserControl Userinterface { get; }

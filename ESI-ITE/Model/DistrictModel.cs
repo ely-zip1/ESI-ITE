@@ -14,7 +14,6 @@ namespace ESI_ITE.Model
         DataAccess db = new DataAccess();
 
         private int districtId;
-
         public int DistrictId
         {
             get { return districtId; }
@@ -22,7 +21,6 @@ namespace ESI_ITE.Model
         }
 
         private string districtNumber;
-
         public string DistrictNumber
         {
             get { return districtNumber; }
@@ -30,7 +28,6 @@ namespace ESI_ITE.Model
         }
 
         private string area;
-
         public string Area
         {
             get { return area; }
@@ -38,7 +35,6 @@ namespace ESI_ITE.Model
         }
 
         private int salesman;
-
         public int Salesman
         {
             get { return salesman; }
@@ -46,7 +42,6 @@ namespace ESI_ITE.Model
         }
 
         private decimal target;
-
         public decimal Target
         {
             get { return target; }
@@ -54,7 +49,6 @@ namespace ESI_ITE.Model
         }
 
         private int warehouse;
-
         public int Warehouse
         {
             get { return warehouse; }
@@ -68,7 +62,7 @@ namespace ESI_ITE.Model
         {
             List<object> list = new List<object>();
 
-            var record = db.SelectMultiple("select * from districts");
+            var record = db.SelectMultiple("select * from districts order by district_number asc");
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 

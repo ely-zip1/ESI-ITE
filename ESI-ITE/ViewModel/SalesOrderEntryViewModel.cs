@@ -1001,11 +1001,14 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private SalesOrderModel FillSalesOrder( )
+        private SalesOrderModel FillSalesOrder( string orderStatus )
         {
             var order = new SalesOrderModel();
+            if ( orderStatus == "New" )
+                order.OrderId = 0;
+            else
+                order.OrderId = int.Parse(db.Select("select order_id from orders where order_number = '" + SelectedSalesOrder[0] + "'"));
 
-            order.OrderId = int.Parse(db.Select("select order_id from orders where order_number = '" + SelectedSalesOrder[0] + "'"));
             order.OrderNumber = SelectedSalesOrder[0];
             order.OrderDate = DateTime.Parse(OrderDate);
             order.RequiredShipDate = DateTime.Parse(RequiredShipDate);
@@ -1028,7 +1031,7 @@ namespace ESI_ITE.ViewModel
         {
             if ( latestOrderNumber == SelectedSalesOrder[0] )
             {
-                var order = FillSalesOrder();
+                var order = FillSalesOrder("New");
 
                 var orderNumber = new OrderNumberModel();
                 orderNumber.UpdateItem("");
@@ -1045,7 +1048,7 @@ namespace ESI_ITE.ViewModel
             }
             else
             {
-                var secondOrder = FillSalesOrder();
+                var secondOrder = FillSalesOrder("Old");
 
                 foreach ( var order in OrderCollection )
                 {

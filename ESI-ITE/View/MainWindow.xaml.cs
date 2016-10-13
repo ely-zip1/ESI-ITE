@@ -11,7 +11,6 @@ using System.Windows.Xps;
 using ESI_ITE.View;
 using ESI_ITE.ViewModel;
 
-
 namespace ESI_ITE.View
 {
     /// <summary>
@@ -19,21 +18,21 @@ namespace ESI_ITE.View
     /// </summary>
     public partial class MainWindow
     {
-        public MainWindow()
+        public MainWindow( )
         {
             InitializeComponent();
             //dvDocumentViewer.Document = CreateMultiPageFixedDocument();
         }
 
         //Creates a FixedDocument with lots of pages.
-        public FixedDocument CreateMultiPageFixedDocument()
+        public FixedDocument CreateMultiPageFixedDocument( )
         {
             FixedDocument fixedDocument = new FixedDocument();
             fixedDocument.DocumentPaginator.PageSize = new Size(96 * 8.5, 96 * 11);
 
             //Create a large number of pages so we can see the progress
             //bar and cancel button in action.
-            for (int i = 0; i < 2; i++)
+            for ( int i = 0;i < 2;i++ )
             {
                 PageContent pageContent = new PageContent();
                 fixedDocument.Pages.Add(pageContent);
@@ -67,13 +66,13 @@ namespace ESI_ITE.View
 
         //Present the user with a PrintDialog and use it to
         //obtain a reference to a PrintQueue.
-        public PrintQueue GetPrintQueue()
+        public PrintQueue GetPrintQueue( )
         {
             PrintDialog printDialog = new PrintDialog();
 
             bool? result = printDialog.ShowDialog();
 
-            if (result.HasValue && result.Value)
+            if ( result.HasValue && result.Value )
             {
                 return printDialog.PrintQueue;
             }
@@ -84,7 +83,7 @@ namespace ESI_ITE.View
         //Keep a reference to the xps document writer we use.
         private XpsDocumentWriter xpsDocumentWriter;
 
-        public void PrintDocumentAsync(FixedDocument fixedDocument)
+        public void PrintDocumentAsync( FixedDocument fixedDocument )
         {
             //Get a hold of a PrintQueue.
             PrintQueue printQueue = GetPrintQueue();
@@ -107,28 +106,28 @@ namespace ESI_ITE.View
             xpsDocumentWriter.WriteAsync(fixedDocument);
         }
 
-        private void PrintAsync_WritingProgressChanged(object sender,
-            WritingProgressChangedEventArgs e)
+        private void PrintAsync_WritingProgressChanged( object sender,
+            WritingProgressChangedEventArgs e )
         {
             //Another page of the document has been printed. Update the UI.
             //pbPrintProgress.Value = e.Number;
         }
 
-        private void PrintAsync_Completed(object sender,
-            WritingCompletedEventArgs e)
+        private void PrintAsync_Completed( object sender,
+            WritingCompletedEventArgs e )
         {
             string message;
             MessageBoxImage messageBoxImage;
 
             //Check to see if there was a problem with the printing.
-            if (e.Error != null)
+            if ( e.Error != null )
             {
                 messageBoxImage = MessageBoxImage.Error;
                 message =
                     string.Format("An error occurred whilst printing.\n\n{0}",
                                   e.Error.Message);
             }
-            else if (e.Cancelled)
+            else if ( e.Cancelled )
             {
                 messageBoxImage = MessageBoxImage.Stop;
                 message = "Printing was cancelled by the user.";
@@ -145,7 +144,7 @@ namespace ESI_ITE.View
             StopLongPrintingOperation();
         }
 
-        private void StartLongPrintingOperation(int pages)
+        private void StartLongPrintingOperation( int pages )
         {
             //pbPrintProgress.Value = 0;
             //pbPrintProgress.Maximum = pages;
@@ -153,21 +152,21 @@ namespace ESI_ITE.View
             //spProgressMask.Visibility = Visibility.Visible;
         }
 
-        private void StopLongPrintingOperation()
+        private void StopLongPrintingOperation( )
         {
             //spProgressMask.Visibility = Visibility.Collapsed;
         }
 
-        private void DocumentViewer_PrintDocument(object sender, EventArgs e)
+        private void DocumentViewer_PrintDocument( object sender, EventArgs e )
         {
             PrintDocumentAsync(CreateMultiPageFixedDocument());
         }
 
-        private void btnCancelPrint_Click(object sender, RoutedEventArgs e)
+        private void btnCancelPrint_Click( object sender, RoutedEventArgs e )
         {
             //The user has pressed the cancel button.
             //First ensure we have a valid XpsDocumentWriter.
-            if (xpsDocumentWriter != null)
+            if ( xpsDocumentWriter != null )
             {
                 //Cancel the job.
                 xpsDocumentWriter.CancelAsync();

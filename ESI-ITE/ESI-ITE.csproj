@@ -103,6 +103,7 @@
     <Reference Include="System.Windows.Controls.Layout.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Controls.Layout.Toolkit.Design, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Controls.Layout.Toolkit.VisualStudio.Design, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -153,18 +154,26 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CloneableDictionary.cs" />
+    <Compile Include="Model\AllocatedStocksModel.cs" />
     <Compile Include="Model\CustomerModel.cs" />
     <Compile Include="Model\DistrictModel.cs" />
+    <Compile Include="Model\GatepassModel.cs" />
     <Compile Include="Model\IModelTemplate.cs" />
     <Compile Include="Model\InventoryDummy2Model.cs" />
+    <Compile Include="Model\InventoryMaster2Model.cs" />
     <Compile Include="Model\Item2Model.cs" />
     <Compile Include="Model\LocationModel.cs" />
     <Compile Include="Model\ObjectBase.cs" />
     <Compile Include="Model\OrderNumberModel.cs" />
+    <Compile Include="Model\PermissionsModel.cs" />
+    <Compile Include="Model\PickListHeaderModel.cs" />
+    <Compile Include="Model\PickListLineModel.cs" />
+    <Compile Include="Model\PickListNumberModel.cs" />
     <Compile Include="Model\PostingModel.cs" />
     <Compile Include="Model\PriceModel.cs" />
     <Compile Include="Model\PriceTypeModel.cs" />
     <Compile Include="Model\PricingModel.cs" />
+    <Compile Include="Model\ProgramsModel.cs" />
     <Compile Include="Model\ReasonsModel.cs" />
     <Compile Include="Model\RouteModel.cs" />
     <Compile Include="Model\SalesmanModel.cs" />
@@ -193,6 +202,7 @@
     </Compile>
     <Compile Include="ViewModel\Command\DelegateCommand.cs" />
     <Compile Include="ViewModel\Converter\BoolToVisibilityConverter.cs" />
+    <Compile Include="ViewModel\HelperClass\BoundPasswordBox.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\IModule.cs" />
     <Compile Include="ViewModel\InvoicingAllocationMaintenanceViewModel.cs" />
@@ -205,6 +215,7 @@
     <Compile Include="ViewModel\ITEViewModel.cs" />
     <Compile Include="ViewModel\LineItemPageViewModel.cs" />
     <Compile Include="ViewModel\LineItemViewModel.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\SalesOrderEntryViewModel.cs" />
     <Compile Include="ViewModel\SOLineItemViewModel.cs" />
@@ -230,6 +241,9 @@
     </Compile>
     <Compile Include="View\InvoicingView.xaml.cs">
       <DependentUpon>InvoicingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PostingPageView.xaml.cs">
       <DependentUpon>PostingPageView.xaml</DependentUpon>
@@ -275,9 +289,6 @@
     <Compile Include="View\TransactionEntryView.xaml.cs">
       <DependentUpon>TransactionEntryView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserPageView.xaml.cs">
-      <DependentUpon>UserPageView.xaml</DependentUpon>
-    </Compile>
     <Page Include="Printing\PrintingFooterTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -315,6 +326,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\InvoicingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -384,10 +399,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TransactionEntryView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UserPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

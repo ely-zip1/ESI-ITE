@@ -255,17 +255,19 @@ namespace ESI_ITE.Data_Access
         {
             if ( this.OpenConnection() == true )
             {
-                MySqlTransaction myTransaction =
-                    connection.BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                //MySqlTransaction myTransaction = connection.BeginTransaction();
+                MySqlTransaction myTransaction = connection.BeginTransaction(System.Data.IsolationLevel.RepeatableRead);
                 try
                 {
                     MySqlCommand cmd = new MySqlCommand();
+                    cmd.Connection = connection;
+                    cmd.Transaction = myTransaction;
 
                     foreach ( var query in transString )
                     {
-                        cmd.Connection = connection;
                         cmd.CommandText = query;
-                        MessageBox.Show("" + cmd.ExecuteNonQuery());
+                        cmd.ExecuteNonQuery();
+                        //MessageBox.Show("" + cmd.ExecuteNonQuery());
                         //MessageBox.Show("POSTING COMMAND" + query);
                         OnItemPosted();
                     }

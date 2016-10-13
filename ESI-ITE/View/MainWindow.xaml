@@ -7,23 +7,32 @@
         xmlns:myControls="clr-namespace:ESI_ITE.View"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:conv="clr-namespace:ESI_ITE.ViewModel.Converter"
-        mc:Ignorable="d"
-        Title="ESI System" Height="700" Width="1300" 
+        mc:Ignorable="d" 
+        Title="{Binding WindowTitle}"
+        Height="700" Width="1300"
         WindowStartupLocation="CenterScreen" 
-        WindowState="Maximized"
-                      
-        GlowBrush="{DynamicResource AccentColorBrush}" MinHeight="720"
-        >
+        WindowState="Maximized"                  
+        GlowBrush="{DynamicResource AccentColorBrush}" MinHeight="720">
+
     <Controls:MetroWindow.Resources>
         <conv:BoolToVisibilityConverter x:Key="boolToVisConverter"/>
     </Controls:MetroWindow.Resources>
+
 
     <Grid UseLayoutRounding="True"
         RenderOptions.BitmapScalingMode="NearestNeighbor"
         SnapsToDevicePixels="True"
         RenderOptions.ClearTypeHint="Enabled">
 
+        <Grid Name="LoginGrid" Panel.ZIndex="200" Visibility="{Binding IsLoginVisible, Converter={StaticResource boolToVisConverter}}">
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity=".5"/>
+            </Grid.Background>
+            <Controls:TransitioningContentControl Transition="Normal" Content="{Binding LoginUi}"/>
+        </Grid>
+
         <!--<Grid Panel.ZIndex="100" Visibility="{Binding lkj, Converter={StaticResource boolToVisConverter}}">-->
+
         <Grid Panel.ZIndex="100" Visibility="Hidden">
             <Grid.Background>
                 <SolidColorBrush Color="Black" Opacity=".6"/>
@@ -60,6 +69,9 @@
                 <RowDefinition Height="1*"></RowDefinition>
                 <RowDefinition Height="19*"></RowDefinition>
             </Grid.RowDefinitions>
+            <Grid.Effect>
+                <BlurEffect Radius="{Binding BlurIntensity}"/>
+            </Grid.Effect>
             <Grid Grid.ColumnSpan="2" Background="#FF212121"></Grid>
 
             <ListView Name="lvModulesList" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch"
@@ -79,7 +91,7 @@
         </ListView>-->
 
             <Controls:TransitioningContentControl Name="contentPresenter" Grid.Row="1" Grid.Column="1" IsTabStop="False" Focusable="False"
-                          Content="{Binding UserInterface}" OpacityMask="#FF252525" Transition="LeftReplace"/>
+                          Content="{Binding UserInterface}" OpacityMask="#FF252525" Transition="Normal"/>
         </Grid>
     </Grid>
 </Controls:MetroWindow>
