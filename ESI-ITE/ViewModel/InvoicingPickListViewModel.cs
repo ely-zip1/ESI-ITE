@@ -491,6 +491,7 @@ namespace ESI_ITE.ViewModel
             var dummy = new InventoryDummy2Model();
             var pickHead = new PickListHeaderModel();
             var picknumber = new PickListNumberModel();
+            Dictionary<int, string> ordersToBeRemoved = new Dictionary<int, string>();
 
             AllocationQueries.Clear();
 
@@ -505,28 +506,26 @@ namespace ESI_ITE.ViewModel
             AllocationQueries.Add(pickHead.GetAddQuery(pickHead));
             AllocationQueries.Add(picknumber.GetAddQuery());
 
+            var index = 0;
             foreach ( var row in PicklistSalesOrdersCollection )
             {
                 if ( row.IsSelected )
                 {
+                    ordersToBeRemoved.Add(index, row.SoNumber);
                     allocatePerOrder(row.SoNumber, pickHead);
                 }
+                index++;
             }
 
             db.RunMySqlTransaction(AllocationQueries);
 
-            int x = 0;
-            foreach ( var row in PicklistSalesOrdersCollection )
+            foreach ( var i in ordersToBeRemoved )
             {
-                if ( row.IsSelected )
-                {
-                    order = (SalesOrderModel)order.Fetch(row.SoNumber, "code");
-                    order.IsPicked = true;
-                    order.UpdateItem(order);
+                order = (SalesOrderModel)order.Fetch(i.Value, "code");
+                order.IsPicked = true;
+                order.UpdateItem(order);
 
-                    PicklistSalesOrdersCollection.RemoveAt(x);
-                }
-                x++;
+                PicklistSalesOrdersCollection.RemoveAt(i.Key);
             }
         }
 
