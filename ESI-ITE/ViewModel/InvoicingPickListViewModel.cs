@@ -1,5 +1,6 @@
 ﻿using ESI_ITE.Data_Access;
 using ESI_ITE.Model;
+using ESI_ITE.View.PrintingTemplate;
 using ESI_ITE.ViewModel.Command;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,12 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
+using System.Windows.Threading;
 
 namespace ESI_ITE.ViewModel
 {
@@ -23,8 +29,10 @@ namespace ESI_ITE.ViewModel
             itemCheckedCommand = new DelegateCommand(toggleItemChecked);
             itemUncheckedCommand = new DelegateCommand(toggleItemChecked);
             selectAllCommand = new DelegateCommand(toggleSelectAll);
-            allocateStocksCommand = new DelegateCommand(allocateStocks);
-            deallocateStocksCommand = new DelegateCommand(deallocateStocks);
+            allocateStocksCommand = new DelegateCommand(StartAllocation);
+            deallocateStocksCommand = new DelegateCommand(StartDeallocation);
+            printPicklistCommand = new DelegateCommand(StartPrinting);
+
 
             Load();
         }
@@ -33,24 +41,24 @@ namespace ESI_ITE.ViewModel
 
         DataAccess db = new DataAccess();
 
-        private List<SalesOrderModel> salesOrderCollection = new List<SalesOrderModel>();
-        public List<SalesOrderModel> SalesOrderCollection
+        private List<SalesOrderModel> salesOrderList = new List<SalesOrderModel>();
+        public List<SalesOrderModel> SalesOrderList
         {
-            get { return salesOrderCollection; }
+            get { return salesOrderList; }
             set
             {
-                salesOrderCollection = value;
+                salesOrderList = value;
                 OnPropertyChanged();
             }
         }
 
-        private List<PickListHeaderModel> pickHeadCollection = new List<PickListHeaderModel>();
-        public List<PickListHeaderModel> PickHeadCollection
+        private List<PickListHeaderModel> pickHeadList = new List<PickListHeaderModel>();
+        public List<PickListHeaderModel> PickHeadList
         {
-            get { return pickHeadCollection; }
+            get { return pickHeadList; }
             set
             {
-                pickHeadCollection = value;
+                pickHeadList = value;
                 OnPropertyChanged();
             }
         }
@@ -147,18 +155,17 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private int selectedIndexPickList = -1;
+        private int selectedIndexPickList = 0;
         public int SelectedIndexPickList
         {
             get { return selectedIndexPickList; }
             set
             {
                 selectedIndexPickList = value;
-                IsDeallocateable = (SelectedIndexPickList > 0) ? true : false;
+                IsDeallocateable = (value > 0) ? true : false;
                 OnPropertyChanged();
             }
         }
-
 
         private string orderBeginDate;
         public string OrderBeginDate
@@ -198,6 +205,18 @@ namespace ESI_ITE.ViewModel
         }
 
         private List<string> AllocationQueries = new List<string>();
+
+        private string informationUpdates;
+        public string InformationUpdates
+        {
+            get { return informationUpdates; }
+            set
+            {
+                informationUpdates = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         #region Commands
 
@@ -253,6 +272,8 @@ namespace ESI_ITE.ViewModel
 
         #region Flags
 
+        private bool isFirstLoad = true;
+
         public bool isItemSelected;
 
         private bool isAllocateable = false;
@@ -277,6 +298,41 @@ namespace ESI_ITE.ViewModel
             }
         }
 
+        private bool isWaitingVisible = false;
+        public bool IsWaitingVisible
+        {
+            get { return isWaitingVisible; }
+            set
+            {
+                isWaitingVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool isFilterEnabled = true;
+        public bool IsFilterEnabled
+        {
+            get { return isFilterEnabled; }
+            set
+            {
+                isFilterEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool isShowAllEnabled = true;
+        public bool IsShowAllEnabled
+        {
+            get { return isShowAllEnabled; }
+            set
+            {
+                isShowAllEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool IsAllocating = false;
+
 
         #endregion
 
@@ -285,16 +341,7 @@ namespace ESI_ITE.ViewModel
         private void Load( )
         {
             //Sales Orders
-
-            var salesOrder = new SalesOrderModel();
-            var orderList = salesOrder.FetchAll();
-
-            foreach ( var row in orderList )
-            {
-                var order = (SalesOrderModel)row;
-                SalesOrderCollection.Add(order);
-            }
-
+            LoadOrders();
             ShowAllOrders();
 
             SelectedIndexOrder = -1;
@@ -304,7 +351,6 @@ namespace ESI_ITE.ViewModel
             var districts = district.FetchAll();
 
             DistrictCollection.Clear();
-            DistrictCollection.Add(new List<string> { "All", "" });
             foreach ( var row in districts )
             {
                 var tempDistrict = (DistrictModel)row;
@@ -312,12 +358,18 @@ namespace ESI_ITE.ViewModel
 
                 _salesman = (SalesmanModel)_salesman.Fetch(tempDistrict.Salesman.ToString(), "id");
 
+                if ( _salesman.SalesmanName == "VACANT" )
+                    continue;
+
                 var tempList = new List<string>();
                 tempList.Add(_salesman.SalesmanName);
                 tempList.Add(tempDistrict.DistrictNumber);
 
                 DistrictCollection.Add(tempList);
             }
+
+            DistrictCollection.OrderBy(x => x[0]);
+            DistrictCollection.Insert(0, new List<string> { "All", "" });
 
             SelectedIndexDistrict = 0;
 
@@ -328,7 +380,9 @@ namespace ESI_ITE.ViewModel
             var pick = new PickListHeaderModel();
             var pickList = pick.FetchAll();
 
-            PickHeadCollection.Clear();
+            PickHeadList.Clear();
+            PicklistCollection.Clear();
+            PicklistCollection.Add(new List<string> { "", "", "" });
             foreach ( var row in pickList )
             {
                 var tempPick = (PickListHeaderModel)row;
@@ -340,12 +394,28 @@ namespace ESI_ITE.ViewModel
 
                 PicklistCollection.Add(list);
             }
+
+            isFirstLoad = false;
+        }
+
+        private void LoadOrders( )
+        {
+            var salesOrder = new SalesOrderModel();
+            var orderList = salesOrder.FetchAll();
+
+            SalesOrderList.Clear();
+
+            foreach ( var row in orderList )
+            {
+                var order = (SalesOrderModel)row;
+                SalesOrderList.Add(order);
+            }
         }
 
         private void ShowAllOrders( )
         {
             PicklistSalesOrdersCollection.Clear();
-            foreach ( var row in SalesOrderCollection )
+            foreach ( var row in SalesOrderList )
             {
                 if ( (row.IsServed == false && row.IsPicked == false) || (row.IsServed == true && row.IsPicked == false) )
                     PicklistSalesOrdersCollection.Add(FillPicklistSO(row));
@@ -355,18 +425,20 @@ namespace ESI_ITE.ViewModel
         private void filterOrders( )
         {
             var district = new DistrictModel();
+
             var startDate = new DateTime();
             var endDate = new DateTime();
 
-            if ( OrderBeginDate.Contains("/") )
-                startDate = DateTime.ParseExact(OrderBeginDate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
-            else
-                startDate = DateTime.ParseExact(OrderBeginDate, "MMddyyyy", CultureInfo.InvariantCulture);
 
             if ( OrderEndDate.Contains("/") )
                 endDate = DateTime.ParseExact(OrderEndDate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
             else
                 endDate = DateTime.ParseExact(OrderEndDate, "MMddyyyy", CultureInfo.InvariantCulture);
+
+            if ( OrderBeginDate.Contains("/") )
+                startDate = DateTime.ParseExact(OrderBeginDate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            else
+                startDate = DateTime.ParseExact(OrderBeginDate, "MMddyyyy", CultureInfo.InvariantCulture);
 
 
             if ( SelectedIndexDistrict <= 0 )
@@ -383,7 +455,7 @@ namespace ESI_ITE.ViewModel
         {
             PicklistSalesOrdersCollection.Clear();
 
-            foreach ( var row in SalesOrderCollection )
+            foreach ( var row in SalesOrderList )
             {
                 if ( district == null )
                 {
@@ -439,7 +511,10 @@ namespace ESI_ITE.ViewModel
                 foreach ( var row in PicklistSalesOrdersCollection )
                 {
                     row.IsSelected = true;
-                    IsAllocateable = true;
+                    if ( IsAllocating )
+                        IsAllocateable = false;
+                    else
+                        IsAllocateable = true;
                 }
             }
             else
@@ -478,30 +553,86 @@ namespace ESI_ITE.ViewModel
 
             if ( checkCounter > 0 )
             {
-                IsAllocateable = true;
+                if ( IsAllocating )
+                    IsAllocateable = false;
+                else
+                    IsAllocateable = true;
             }
             else
                 IsAllocateable = false;
         }
 
-        private void allocateStocks( )
+        #region Stock Allocation
+
+        private void StartAllocation( )
         {
-            //Thread.Sleep(5000);
-            var order = new SalesOrderModel();
-            var dummy = new InventoryDummy2Model();
+            IsFilterEnabled = false;
+            IsShowAllEnabled = false;
+            IsAllocating = true;
+
+            CallAllocateStocks();
+
+            IsWaitingVisible = true;
+            InformationUpdates = "Allocating Stocks. Please Wait . . .";
+        }
+
+        private async void CallAllocateStocks( )
+        {
+            var pickNumber = new PickListNumberModel();
             var pickHead = new PickListHeaderModel();
-            var picknumber = new PickListNumberModel();
-            Dictionary<int, string> ordersToBeRemoved = new Dictionary<int, string>();
 
-            AllocationQueries.Clear();
-
-            pickHead.HeaderNumber = picknumber.GenerateNumber();
+            pickHead.HeaderNumber = pickNumber.GenerateNumber();
             pickHead.UserId = MyGlobals.LoggedUser.Id;
-            pickHead.Pickdate = DateTime.UtcNow;
+            pickHead.Pickdate = DateTime.Now;
             pickHead.IsSuccessful = true;
             pickHead.IsAssigned = false;
             pickHead.IsGatepassPrinted = false;
             pickHead.GatepassId = null;
+
+            var result = await AllocateStocksAsync(pickHead);
+
+            var order = new SalesOrderModel();
+
+            foreach ( var i in result )
+            {
+                order = (SalesOrderModel)order.Fetch(i.Value, "code");
+                order.IsPicked = true;
+                order.UpdateItem(order);
+
+                PicklistSalesOrdersCollection.RemoveAt(i.Key);
+            }
+            LoadOrders();
+            ShowAllOrders();
+
+            //Add new Picklist
+            var newPickList = new List<string>();
+            newPickList.Add(pickHead.HeaderNumber);
+            newPickList.Add(MyGlobals.LoggedUser.Username);
+            newPickList.Add(pickHead.Pickdate.ToString());
+
+            PicklistCollection.Add(newPickList);
+
+            IsWaitingVisible = false;
+            InformationUpdates = string.Empty;
+
+            IsAllocating = false;
+            IsFilterEnabled = true;
+            IsShowAllEnabled = true;
+        }
+
+        private Task<Dictionary<int, string>> AllocateStocksAsync( PickListHeaderModel pickHead )
+        {
+            return Task.Factory.StartNew(( ) => allocateStocks(pickHead));
+        }
+
+        private Dictionary<int, string> allocateStocks( PickListHeaderModel pickHead )
+        {
+            var order = new SalesOrderModel();
+            var dummy = new InventoryDummy2Model();
+            var picknumber = new PickListNumberModel();
+            Dictionary<int, string> ordersToBeRemoved = new Dictionary<int, string>();
+
+            AllocationQueries.Clear();
 
             AllocationQueries.Add(pickHead.GetAddQuery(pickHead));
             AllocationQueries.Add(picknumber.GetAddQuery());
@@ -519,14 +650,7 @@ namespace ESI_ITE.ViewModel
 
             db.RunMySqlTransaction(AllocationQueries);
 
-            foreach ( var i in ordersToBeRemoved )
-            {
-                order = (SalesOrderModel)order.Fetch(i.Value, "code");
-                order.IsPicked = true;
-                order.UpdateItem(order);
-
-                PicklistSalesOrdersCollection.RemoveAt(i.Key);
-            }
+            return ordersToBeRemoved;
         }
 
         private void allocatePerOrder( string soNumber, PickListHeaderModel pickhead )
@@ -634,8 +758,41 @@ namespace ESI_ITE.ViewModel
             AllocationQueries.Add(picklistLine.GetAddQuery(picklistLine));
         }
 
+        #endregion
+
+        #region Stock Deallocation
+
+        private void StartDeallocation( )
+        {
+            IsAllocating = true;
+            IsAllocateable = false;
+
+            CallDeallocateStocks();
+
+            IsWaitingVisible = true;
+            InformationUpdates = "Deallocating Stocks. Please Wait . . .";
+        }
+
+        private async void CallDeallocateStocks( )
+        {
+            await DeallocateStocksAsync();
+
+            IsWaitingVisible = false;
+            InformationUpdates = string.Empty;
+
+            ShowAllOrders();
+
+            PicklistCollection.RemoveAt(SelectedIndexPickList);
+        }
+
+        private Task DeallocateStocksAsync( )
+        {
+            return Task.Factory.StartNew(( ) => deallocateStocks());
+        }
+
         private void deallocateStocks( )
         {
+            Thread.Sleep(5000);
             var pickHead = new PickListHeaderModel();
             var pickLine = new PickListLineModel();
             var allocatedStocks = new AllocatedStocksModel();
@@ -644,46 +801,66 @@ namespace ESI_ITE.ViewModel
             var item = new Item2Model();
             var dummy = new InventoryDummy2Model();
             var inventoryItem = new InventoryMaster2Model();
+            var order = new SalesOrderModel();
             var piecePerCase = 0;
-            int? previousItem = null;
             int stockInPieces = 0;
             int inventoryItemInPieces = 0;
             int totalPieces = 0;
+            var previousOrder = string.Empty;
+            var deallocatedOrders = new List<string>();
 
             pickHead = (PickListHeaderModel)pickHead.Fetch(SelectedPickList[0], "code");
 
             var picklineList = pickLine.FetchPerPickHead(pickHead.Id.ToString());
-            var allocatedStocksList = allocatedStocks.FetchPerPickList(pickHead.Id.ToString());
 
-            foreach ( var stock in allocatedStocksList )
+            foreach ( var line in picklineList )
             {
-                if ( previousItem == null || previousItem != stock.InventoryDummyId )
+                dummy = (InventoryDummy2Model)dummy.Fetch(line.InventoryDummyId.ToString(), "id");
+
+                if ( line.AllocatedCases > 0 || line.AllocatedPieces > 0 )
                 {
-                    dummy = (InventoryDummy2Model)dummy.Fetch(stock.InventoryDummyId.ToString(), "id");
                     item = (Item2Model)item.Fetch(dummy.ItemCode, "code");
                     piecePerCase = item.PackSize * item.PackSizeBO;
+
+                    var stockList = allocatedStocks.FetchPerPickLine(pickHead, dummy);
+
+                    foreach ( var stock in stockList )
+                    {
+                        inventoryItem = (InventoryMaster2Model)inventoryItem.FetchItem(item.ItemId, stock.Expiry);
+
+                        stockInPieces = (stock.Cases * piecePerCase) + stock.Pieces;
+                        inventoryItemInPieces = (inventoryItem.Cases * piecePerCase) + inventoryItem.Pieces;
+
+                        totalPieces = stockInPieces + inventoryItemInPieces;
+
+                        if ( totalPieces >= piecePerCase )
+                            inventoryItem.Cases = totalPieces / piecePerCase;
+                        else
+                            inventoryItem.Cases = 0;
+
+                        inventoryItem.Pieces = totalPieces % piecePerCase;
+
+                        transactionString.Add(inventoryItem.GetUpdateQuery(inventoryItem));//update inventory
+
+                    }
                 }
-                inventoryItem = (InventoryMaster2Model)inventoryItem.FetchItem(item.ItemId, stock.Expiry);
 
-                stockInPieces = (stock.Cases * piecePerCase) + stock.Pieces;
-                inventoryItemInPieces = (inventoryItem.Cases * piecePerCase) + inventoryItem.Pieces;
+                if ( previousOrder != dummy.OrderNumber )
+                {
+                    order = (SalesOrderModel)order.Fetch(dummy.OrderNumber, "code");
+                    order.IsPicked = false;
+                    transactionString.Add(order.GetUpdateQuery(order));
 
-                totalPieces = stockInPieces + inventoryItemInPieces;
+                    previousOrder = order.OrderNumber;
+                    deallocatedOrders.Add(previousOrder);
+                }
 
-                if ( totalPieces >= piecePerCase )
-                    inventoryItem.Cases = totalPieces / piecePerCase;
-                else
-                    inventoryItem.Cases = 0;
-
-                inventoryItem.Pieces = totalPieces % piecePerCase;
-
-                transactionString.Add(inventoryItem.GetUpdateQuery(inventoryItem));//update inventory
-
-                previousItem = stock.InventoryDummyId;
             }
             transactionString.Add(pickHead.GetDeleteQuery(pickHead));
 
             db.RunMySqlTransaction(transactionString);
+
+            LoadOrders();
         }
 
         private int ConvertToPieces( int cases, int pieces, int piecePerCase )
@@ -693,13 +870,94 @@ namespace ESI_ITE.ViewModel
             return itemInPieces;
         }
 
+        #endregion
+
+        #region Printing
+
+        private void StartPrinting( )
+        {
+            CallPrinting();
+        }
+
+        private async void CallPrinting( )
+        {
+            var result = await PicklistPrintingAsync();
+
+            MyGlobals.printingDoc = result;
+
+            MyGlobals.PrintingParent = MyGlobals.InvoicingVM.SelectedPage;
+            MyGlobals.InvoicingVM.SelectedPage = new PrintingMainPageView();
+            //printingVM.FixedDoc = (FixedDocument)result;
+        }
+
+        private Task<FixedDocument> PicklistPrintingAsync( )
+        {
+            return Task.Factory.StartNew(( ) => PicklistPrinting());
+        }
+
+        private FixedDocument PicklistPrinting( )
+        {
+            FixedDocument fixedDoc = null;
+            Application.Current.Dispatcher.Invoke(( ) =>
+            {
+                // Your Code Goes here
+                fixedDoc = new FixedDocument();
+                //var vmList = new List<PicklistPrintTemplateViewModel>();
+                var pick = new PickListLineModel();
+                var pickhead = new PickListHeaderModel();
+                pickhead = (PickListHeaderModel)pickhead.Fetch(SelectedPickList[0], "code");
+                var pickList = pick.FetchPerPickHead(pickhead.Id.ToString());
+
+                var isFull = false;
+                //foreach ( var row in pickList )
+                for ( int x = 1; x <= 20; x++ )
+                {
+                    isFull = true;
+                    if ( isFull )
+                    {
+                        var fixedPage = new FixedPage();
+                        var grid = new Grid();
+                        var templateView = new PicklistPrintTemplate();
+                        var templateVM = (PicklistPrintTemplateViewModel)templateView.DataContext;
+                        //var templateVM = new PicklistPrintTemplateViewModel();
+
+                        templateView.Width = 768;
+                        templateView.MinHeight = 100;
+
+                        fixedPage.Width = 768;
+                        fixedPage.Height = 1056;
+
+                        templateVM.User = MyGlobals.LoggedUser.Username;
+                        templateVM.Date = DateTime.Now.ToShortDateString();
+                        templateVM.Time = DateTime.Now.ToShortTimeString();
+                        templateVM.PageNumber = x.ToString();
+
+                        grid.Children.Add(templateView);
+                        fixedPage.Children.Add(grid);
+
+                        var pageContent = new PageContent();
+                        //(pageContent as IAddChild).AddChild(fixedPage);
+                        pageContent.Child = fixedPage;
+
+                        fixedDoc.Pages.Add(pageContent);
+                    }
+                }
+            });
+            return fixedDoc;
+        }
+
+        #endregion
+
 
         #region IDataErrorInfo Members
-        public string this[string columnName]
+        public string this[string propertyName]
         {
             get
             {
-                return null;
+                if ( isFirstLoad )
+                    return null;
+                else
+                    return GetValidationError(propertyName);
             }
         }
 
@@ -707,9 +965,132 @@ namespace ESI_ITE.ViewModel
         {
             get
             {
-                throw new NotImplementedException();
+                return null;
             }
         }
+
+        public object Dispatcher { get; private set; }
+        #endregion
+
+
+        #region Validation
+
+        string[] validProperties = { null, null };
+
+        private void IsValid( )
+        {
+            var x = 0;
+            foreach ( var row in validProperties )
+            {
+                if ( !string.IsNullOrWhiteSpace(row) )
+                    x++;
+            }
+
+            if ( x > 0 )
+                IsFilterEnabled = false;
+            else
+                ValidateFilterDate();
+        }
+
+        private void ResetValidProperties( )
+        {
+            for ( int x = 0; x < validProperties.Length; x++ )
+            {
+                validProperties[x] = null;
+            }
+        }
+
+        private void ValidateFilterDate( )
+        {
+            var startDate = new DateTime();
+            var endDate = new DateTime();
+
+            if ( OrderEndDate.Contains("/") )
+                endDate = DateTime.ParseExact(OrderEndDate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            else if ( OrderEndDate.Contains("_") )
+                IsFilterEnabled = false;
+            else
+                endDate = DateTime.ParseExact(OrderEndDate, "MMddyyyy", CultureInfo.InvariantCulture);
+
+            if ( OrderBeginDate.Contains("/") )
+                startDate = DateTime.ParseExact(OrderBeginDate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            else if ( OrderBeginDate.Contains("_") )
+                IsFilterEnabled = false;
+            else
+                startDate = DateTime.ParseExact(OrderBeginDate, "MMddyyyy", CultureInfo.InvariantCulture);
+
+            if ( endDate < startDate )
+                IsFilterEnabled = false;
+            else
+                IsFilterEnabled = true;
+        }
+
+        private string GetValidationError( string propertyName )
+        {
+            string error = null;
+
+            var startDate = new DateTime();
+            var endDate = new DateTime();
+
+            ResetValidProperties();
+
+            switch ( propertyName )
+            {
+                case "OrderBeginDate":
+                    if ( OrderBeginDate.Contains("/") )
+                        try
+                        {
+                            startDate = DateTime.ParseExact(OrderBeginDate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                            error = null;
+                        }
+                        catch ( Exception e )
+                        {
+                            error = "Invalid Date!";
+                            validProperties[0] = "Error";
+                        }
+                    else
+                        try
+                        {
+                            startDate = DateTime.ParseExact(OrderBeginDate, "MMddyyyy", CultureInfo.InvariantCulture);
+                            error = null;
+                        }
+                        catch ( Exception e )
+                        {
+                            error = "Invalid date!";
+                            validProperties[0] = "Error";
+                        }
+                    break;
+
+                case "OrderEndDate":
+                    if ( OrderEndDate.Contains("/") )
+                        try
+                        {
+                            endDate = DateTime.ParseExact(OrderEndDate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                            error = null;
+                        }
+                        catch ( Exception e )
+                        {
+                            error = "Invalid Date!";
+                            validProperties[1] = "Error";
+                        }
+                    else
+                        try
+                        {
+                            endDate = DateTime.ParseExact(OrderEndDate, "MMddyyyy", CultureInfo.InvariantCulture);
+                            error = null;
+                        }
+                        catch ( Exception e )
+                        {
+                            error = "Invalid date!";
+                            validProperties[1] = "Error";
+                        }
+                    break;
+            }
+            IsValid();
+
+            return error;
+        }
+
         #endregion
     }
 

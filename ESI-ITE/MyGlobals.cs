@@ -7,6 +7,7 @@ using ESI_ITE.ViewModel;
 using ESI_ITE.Model;
 using ESI_ITE.View;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace ESI_ITE
 {
@@ -55,9 +56,10 @@ namespace ESI_ITE
         #region Invoicing
 
         public static InvoicingViewModel InvoicingVM;
-        
+
         #endregion
 
+        public static FixedDocument printingDoc;
 
         //Progress Monitors
         public static int ProgressTotalStep;

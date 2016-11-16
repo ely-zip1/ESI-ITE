@@ -437,3 +437,11 @@ C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
 C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache
 C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LoginView.g.cs
 C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LoginView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\WpfAnimatedGif.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\WpfAnimatedGif.xml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PicklistPrintTemplate.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingMainPageView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PicklistPrintTemplate.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingMainPageView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PrintingMainPageView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PrintingMainPageView.baml

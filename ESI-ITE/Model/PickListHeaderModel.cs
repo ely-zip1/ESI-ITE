@@ -79,7 +79,7 @@ namespace ESI_ITE.Model
             sb.Append("insert into pickhead values (null, ");
             sb.Append("'" + header.HeaderNumber + "', ");
             sb.Append("'" + header.UserId + "', ");
-            sb.Append("str_to_date('" + header.Pickdate.ToString("%M/%d/yyyy") + "','%m/%d/%Y'), ");
+            sb.Append("str_to_date('" + header.Pickdate.ToString("MM-dd-yyyy-HH-mm-ss") + "','%m-%d-%Y-%H-%i-%s'), ");
             sb.Append("'");
             sb.Append(header.IsSuccessful ? "1" : "0");
             sb.Append("', ");
@@ -100,7 +100,7 @@ namespace ESI_ITE.Model
             sb.Append("insert into pickhead values (null, ");
             sb.Append("'" + item.HeaderNumber + "', ");
             sb.Append("'" + item.UserId + "', ");
-            sb.Append("str_to_date('" + item.Pickdate.ToString("%M/%d/yyyy") + "','%m/%d/%Y'), ");
+            sb.Append("str_to_date('" + item.Pickdate.ToString("MM-dd-yyyy-HH-mm-ss") + "','%m-%d-%Y-%H-%i-%s'), ");
             sb.Append("'");
             sb.Append(item.IsSuccessful ? "1" : "0");
             sb.Append("', ");

@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("externalassemblies/system.windows.interactivity.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/circle.gif")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/pixel.gif")]
 
 

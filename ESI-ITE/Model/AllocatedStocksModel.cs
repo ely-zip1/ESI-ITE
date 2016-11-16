@@ -99,8 +99,6 @@ namespace ESI_ITE.Model
             db.Delete(qry);
         }
 
-
-
         public void DeleteItem( AllocatedStocksModel item )
         {
             StringBuilder sb = new StringBuilder();
@@ -112,8 +110,6 @@ namespace ESI_ITE.Model
             db.Delete(sb.ToString());
         }
 
-
-
         public string GetDeleteQuery( AllocatedStocksModel item )
         {
             StringBuilder sb = new StringBuilder();
@@ -124,8 +120,6 @@ namespace ESI_ITE.Model
 
             return sb.ToString();
         }
-
-
 
         public object Fetch( string id, string type )
         {
@@ -158,7 +152,29 @@ namespace ESI_ITE.Model
             return stock;
         }
 
+        public List<AllocatedStocksModel> FetchPerPickLine( PickListHeaderModel pickhead, InventoryDummy2Model item )
+        {
+            var stockList = new List<AllocatedStocksModel>();
 
+            var result = db.SelectMultiple("select * from allocated_stocks where pickhead_id = '" + pickhead.Id + "' and inventory_dummy_id = '" + item.Id + "'");
+
+            foreach ( var row in result )
+            {
+                var clone = row.Clone();
+                var stock = new AllocatedStocksModel();
+
+                stock.Id = int.Parse(row["allocated_stocks_id"]);
+                stock.PickHeadId = int.Parse(row["pickhead_id"]);
+                stock.InventoryDummyId = int.Parse(row["inventory_dummy_id"]);
+                stock.Cases = int.Parse(row["cases"]);
+                stock.Pieces = int.Parse(row["pieces"]);
+                stock.Expiry = DateTime.Parse(row["expiry"]);
+
+                stockList.Add(stock);
+            }
+
+            return stockList;
+        }
 
         public List<AllocatedStocksModel> FetchPerPickList( string picklistNumber )
         {
@@ -185,8 +201,6 @@ namespace ESI_ITE.Model
             return ListOfAllocatedStocks;
         }
 
-
-
         public List<AllocatedStocksModel> FetchPerOrder( string orderNumber )
         {
             var ListOfAllocatedStocks = new List<AllocatedStocksModel>();
@@ -195,8 +209,6 @@ namespace ESI_ITE.Model
 
             return ListOfAllocatedStocks;
         }
-
-
 
         public List<object> FetchAll( )
         {
@@ -220,8 +232,6 @@ namespace ESI_ITE.Model
 
             return stockList;
         }
-
-
 
         public void UpdateItem( string qry )
         {

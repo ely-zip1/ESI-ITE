@@ -766,6 +766,7 @@ namespace ESI_ITE.ViewModel
         private void closePage( )
         {
             MyGlobals.SoViewModel.SelectedPage = MyGlobals.SalesOrderEntryPage;
+            //(this as IDisposable).Dispose();
         }
 
         private void toggleItemSearchVisibility( )
