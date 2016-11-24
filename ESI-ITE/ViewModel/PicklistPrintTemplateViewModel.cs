@@ -11,7 +11,7 @@ using System.Windows.Controls;
 
 namespace ESI_ITE.ViewModel
 {
-    public class PicklistPrintTemplateViewModel: ViewModelBase
+    public class PicklistPrintTemplateViewModel : ViewModelBase
     {
 
         private string user;
@@ -113,20 +113,31 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private bool isFooterVisible;
-        public bool IsFooterVisible
+        private bool isTotalVisible = false;
+        public bool IsTotalVisible
         {
-            get { return isFooterVisible; }
+            get { return isTotalVisible; }
             set
             {
-                isFooterVisible = value;
+                isTotalVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool isOrderVisible = false;
+        public bool IsOrderVisible
+        {
+            get { return isOrderVisible; }
+            set
+            {
+                isOrderVisible = value;
                 OnPropertyChanged();
             }
         }
 
 
-        private ObservableCollection<string> itemList;
-        public ObservableCollection<string> ItemList
+        private ObservableCollection<List<string>> itemList = new ObservableCollection<List<string>>();
+        public ObservableCollection<List<string>> ItemList
         {
             get { return itemList; }
             set
@@ -136,8 +147,8 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private ObservableCollection<string> ordersList;
-        public ObservableCollection<string> OrdersList
+        private ObservableCollection<List<string>> ordersList = new ObservableCollection<List<string>>();
+        public ObservableCollection<List<string>> OrdersList
         {
             get { return ordersList; }
             set

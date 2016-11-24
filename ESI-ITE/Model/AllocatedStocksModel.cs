@@ -75,9 +75,7 @@ namespace ESI_ITE.Model
 
             db.Insert(sb.ToString());
         }
-
-
-
+        
         public string GetAddQuery( AllocatedStocksModel item )
         {
             StringBuilder sb = new StringBuilder();
@@ -91,9 +89,7 @@ namespace ESI_ITE.Model
 
             return sb.ToString();
         }
-
-
-
+        
         public void DeleteItem( string qry )
         {
             db.Delete(qry);

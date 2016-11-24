@@ -36,70 +36,52 @@
                 <CheckBox Content="Show All" HorizontalAlignment="Right" FontSize="15" FontWeight="Bold"/>
             </Grid>
 
-            <DataGrid Grid.Row="1" AutoGenerateColumns="False">
+            <DataGrid Grid.Row="1" AutoGenerateColumns="False" BorderThickness="1" 
+                      ItemsSource="{Binding CriticalItemCollection}" SelectedItem="{Binding SelectedCriticalItem}"
+                      SelectedIndex="{Binding SelectedIndexCriticalItem}" CanUserReorderColumns="False"
+                      CanUserSortColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Item Code" Width="90">
+                    <DataGridTextColumn Binding="{Binding [0]}" Header="Item Code" Width="90"/>
 
-                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding [1]}" Header="Item Description" Width="250"/>
 
-                    <DataGridTextColumn Header="Item Description" Width="250">
+                    <DataGridTextColumn Binding="{Binding [2]}" Header="Order Cases" Width="100"/>
 
-                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding [3]}" Header="Order Pieces" Width="100"/>
 
-                    <DataGridTextColumn Header="Order Cases" Width="100">
+                    <DataGridTextColumn Binding="{Binding [4]}" Header="Allocated Cases" Width="130"/>
 
-                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding [5]}" Header="Allocated Pieces" Width="130"/>
 
-                    <DataGridTextColumn Header="Order Pieces" Width="100">
-
-                    </DataGridTextColumn>
-
-                    <DataGridTextColumn Header="Allocated Cases" Width="130">
-
-                    </DataGridTextColumn>
-
-                    <DataGridTextColumn Header="Allocated Pieces" Width="130">
-
-                    </DataGridTextColumn>
-
-                    <DataGridTextColumn Header="LC" Width="50">
-
-                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding [6]}" Header="LC" Width="50"/>
 
                 </DataGrid.Columns>
             </DataGrid>
 
             <Label Grid.Row="2" Content="Partially Served Orders" FontSize="15" FontWeight="Bold"/>
 
-            <DataGrid Grid.Row="3">
+            <DataGrid Grid.Row="3" BorderThickness="1" ItemsSource="{Binding PartiallyServedOrderCollection}"
+                      SelectedItem="{Binding SelectedPSO}" SelectedIndex="{Binding SelectedIndexPSO}" 
+                      AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserSortColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Customer #" Width="100">
+                    <DataGridTextColumn Binding="{Binding [0]}" Header="Customer #" Width="100"/>
 
-                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding [1]}" Header="Customer Name" Width="250"/>
 
-                    <DataGridTextColumn Header="Customer Name" Width="250">
+                    <DataGridTextColumn Binding="{Binding [2]}" Header="Order Cases" Width="100"
+                                        TextBlock.TextAlignment="Right"/>
 
-                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding [3]}" Header="Order Pieces" Width="100"
+                                        TextBlock.TextAlignment="Right"/>
 
-                    <DataGridTextColumn Header="Order Cases" Width="100">
+                    <DataGridTextColumn Binding="{Binding [4]}" Header="Allocated Cases" Width="130"
+                                        TextBlock.TextAlignment="Right"/>
 
-                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding [5]}" Header="Allocated Pieces" Width="130"
+                                        TextBlock.TextAlignment="Right"/>
 
-                    <DataGridTextColumn Header="Order Pieces" Width="100">
-
-                    </DataGridTextColumn>
-
-                    <DataGridTextColumn Header="Allocated Cases" Width="130">
-
-                    </DataGridTextColumn>
-
-                    <DataGridTextColumn Header="Allocated Pieces" Width="130">
-
-                    </DataGridTextColumn>
-
-                    <DataGridTextColumn Header="LC" Width="50">
-
-                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding [6]}" Header="LC" Width="50"
+                                        TextBlock.TextAlignment="Center"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -115,8 +97,17 @@
 
             <Label Content="Select PickList Number" FontSize="15" FontWeight="Bold"/>
 
-            <ComboBox Grid.Row="1" VerticalAlignment="Top">
-
+            <ComboBox Grid.Row="1" VerticalAlignment="Top" ItemsSource="{Binding PicklistCollection}"
+                      SelectedItem="{Binding SelectedPicklist}" SelectedIndex="{Binding SelectedIndexPicklist}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <TextBlock Text="{Binding [0]}" Width="60"/>
+                            <TextBlock Text="{Binding [1]}" Width="60"/>
+                            <TextBlock Text="{Binding [2]}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
             </ComboBox>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">

@@ -79,7 +79,7 @@ namespace ESI_ITE.Model
 
             string pickNumber = lastPickNumber.ToString();
 
-            for ( int x = pickNumber.Length;x < 7;x++ )
+            for ( int x = pickNumber.Length;x < 6;x++ )
             {
                 pickNumber = "0" + pickNumber;
             }

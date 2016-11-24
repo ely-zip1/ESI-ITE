@@ -17,7 +17,6 @@ namespace ESI_ITE.ViewModel
     {
         TransactionModel transactionModel;
 
-
         #region Constructor
 
         public LineItemPageViewModel( )

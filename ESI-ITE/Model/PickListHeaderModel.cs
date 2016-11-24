@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ESI_ITE.Model
 {
-    public class PickListHeaderModel: IModelTemplate
+    public class PickListHeaderModel : IModelTemplate
     {
         #region Properties
 
@@ -71,7 +71,7 @@ namespace ESI_ITE.Model
 
         #endregion
 
-        public void AddNew( object item )
+        public void AddNew(object item)
         {
             var header = (PickListHeaderModel)item;
 
@@ -94,7 +94,7 @@ namespace ESI_ITE.Model
             db.Insert(sb.ToString());
         }
 
-        public string GetAddQuery( PickListHeaderModel item )
+        public string GetAddQuery(PickListHeaderModel item)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("insert into pickhead values (null, ");
@@ -117,15 +117,15 @@ namespace ESI_ITE.Model
         }
 
 
-        public void DeleteItem( string qry )
+        public void DeleteItem(string qry)
         {
             throw new NotImplementedException();
         }
 
 
-        public void DeleteItem( string id, string type )
+        public void DeleteItem(string id, string type)
         {
-            switch ( type )
+            switch (type)
             {
                 case "id":
                     db.Delete("delete from pickhead where pickhead_id = '" + id + "'");
@@ -138,21 +138,21 @@ namespace ESI_ITE.Model
         }
 
 
-        public void DeleteItem( PickListHeaderModel item )
+        public void DeleteItem(PickListHeaderModel item)
         {
-            if ( item != null )
+            if (item != null)
                 db.Delete("delete from pickhead where pickhead_id = '" + item.Id + "'");
         }
 
-        public string GetDeleteQuery( PickListHeaderModel item )
+        public string GetDeleteQuery(PickListHeaderModel item)
         {
             return "delete from pickhead where pickhead_id = '" + item.Id + "'";
         }
 
-        public object Fetch( string id, string type )
+        public object Fetch(string id, string type)
         {
             var result = new List<CloneableDictionary<string, string>>();
-            switch ( type )
+            switch (type)
             {
                 case "id":
                     result = db.SelectMultiple("select * from pickhead where pickhead_id = '" + id + "'");
@@ -164,7 +164,7 @@ namespace ESI_ITE.Model
 
             var header = new PickListHeaderModel();
 
-            foreach ( var row in result )
+            foreach (var row in result)
             {
                 var clone = row.Clone();
 
@@ -176,7 +176,7 @@ namespace ESI_ITE.Model
                 header.IsAssigned = row["is_assigned"] == "1" ? true : false;
                 header.IsGatepassPrinted = row["is_gatepass_printed"] == "1" ? true : false;
 
-                if ( !string.IsNullOrWhiteSpace(row["gatepass_id"]) )
+                if (!string.IsNullOrWhiteSpace(row["gatepass_id"]))
                     header.GatepassId = int.Parse(row["gatepass_id"]);
                 else
                     header.GatepassId = null;
@@ -185,12 +185,12 @@ namespace ESI_ITE.Model
             return header;
         }
 
-        public List<object> FetchAll( )
+        public List<object> FetchAll()
         {
             var headerList = new List<object>();
             var result = db.SelectMultiple("select * from pickhead");
 
-            foreach ( var row in result )
+            foreach (var row in result)
             {
                 var clone = row.Clone();
                 var header = new PickListHeaderModel();
@@ -199,11 +199,11 @@ namespace ESI_ITE.Model
                 header.HeaderNumber = row["pick_number"];
                 header.UserId = int.Parse(row["user_id"]);
                 header.Pickdate = DateTime.Parse(row["pick_date"]);
-                header.IsSuccessful = row["is_successful"] == "1" ? true : false;
-                header.IsAssigned = row["is_assigned"] == "1" ? true : false;
-                header.IsGatepassPrinted = row["is_gatepass_printed"] == "1" ? true : false;
+                header.IsSuccessful = row["is_successful"] == "True" ? true : false;
+                header.IsAssigned = row["is_assigned"] == "True" ? true : false;
+                header.IsGatepassPrinted = row["is_gatepass_printed"] == "True" ? true : false;
 
-                if ( !string.IsNullOrWhiteSpace(row["gatepass_id"]) )
+                if (!string.IsNullOrWhiteSpace(row["gatepass_id"]))
                     header.GatepassId = int.Parse(row["gatepass_id"]);
                 else
                     header.GatepassId = null;
@@ -214,16 +214,16 @@ namespace ESI_ITE.Model
             return headerList;
         }
 
-        public void UpdateItem( string qry )
+        public void UpdateItem(string qry)
         {
             throw new NotImplementedException();
         }
 
-        public int GenerateId( )
+        public int GenerateId()
         {
             var maxId = db.Select("select max(pickhead_id) from pickhead limit 1");
 
-            if ( !string.IsNullOrWhiteSpace(maxId) )
+            if (!string.IsNullOrWhiteSpace(maxId))
                 return int.Parse(maxId) + 1;
             else
                 return 1;
