@@ -1,4 +1,5 @@
 ﻿using ESI_ITE.Model;
+using ESI_ITE.ViewModel.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,6 +7,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace ESI_ITE.ViewModel
 {
@@ -13,6 +16,11 @@ namespace ESI_ITE.ViewModel
     {
         public InvoicingAllocationMaintenanceViewModel()
         {
+            casesValueChangedCommand = new DelegateCommand(UpdateCases);
+            piecesValueChangedCommand = new DelegateCommand(UpdatePieces);
+            cancelAllocationCommand = new DelegateCommand(CancelAllocation);
+            updateStocksCommand = new DelegateCommand(UpdateStocks);
+
             Load();
         }
 
@@ -27,8 +35,8 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private ObservableCollection<List<string>> criticalItemCollection = new ObservableCollection<List<string>>();
-        public ObservableCollection<List<string>> CriticalItemCollection
+        private ObservableCollection<CriticalItems> criticalItemCollection = new ObservableCollection<CriticalItems>();
+        public ObservableCollection<CriticalItems> CriticalItemCollection
         {
             get { return criticalItemCollection; }
             set
@@ -38,8 +46,8 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private ObservableCollection<List<string>> partiallyServedOrderCollection = new ObservableCollection<List<string>>();
-        public ObservableCollection<List<string>> PartiallyServedOrderCollection
+        private ObservableCollection<PartiallyServedOrders> partiallyServedOrderCollection = new ObservableCollection<PartiallyServedOrders>();
+        public ObservableCollection<PartiallyServedOrders> PartiallyServedOrderCollection
         {
             get { return partiallyServedOrderCollection; }
             set
@@ -61,19 +69,21 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private List<string> selectedCriticalItem = new List<string>();
-        public List<string> SelectedCriticalItem
+        private CriticalItems selectedCriticalItem = new CriticalItems();
+        public CriticalItems SelectedCriticalItem
         {
             get { return selectedCriticalItem; }
             set
             {
                 selectedCriticalItem = value;
                 OnPropertyChanged();
+                if (value != null)
+                    SelectedItemChanged();
             }
         }
 
-        private List<string> selectedPSO = new List<string>();
-        public List<string> SelectedPSO
+        private PartiallyServedOrders selectedPSO = new PartiallyServedOrders();
+        public PartiallyServedOrders SelectedPSO
         {
             get { return selectedPSO; }
             set
@@ -83,7 +93,6 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-
         private int selectedIndexPickList = -1;
         public int SelectedIndexPicklist
         {
@@ -92,7 +101,8 @@ namespace ESI_ITE.ViewModel
             {
                 selectedIndexPickList = value;
                 OnPropertyChanged();
-                SelectedPicklistChanged();
+                if (value > -1)
+                    SelectedPicklistChanged();
             }
         }
 
@@ -141,10 +151,38 @@ namespace ESI_ITE.ViewModel
             }
         }
 
+        #region Commands
+
+        private DelegateCommand casesValueChangedCommand;
+        public ICommand CasesValueChangedCommand
+        {
+            get { return casesValueChangedCommand; }
+        }
+
+        private DelegateCommand piecesValueChangedCommand;
+        public ICommand PiecesValueChangedCommand
+        {
+            get { return piecesValueChangedCommand; }
+        }
+
+        private DelegateCommand cancelAllocationCommand;
+        public ICommand CancelAllocationCommand
+        {
+            get { return cancelAllocationCommand; }
+        }
+
+        private DelegateCommand updateStocksCommand;
+        public ICommand UpdateStocksCommand
+        {
+            get { return updateStocksCommand; }
+        }
+
+        #endregion
+
         private PickListHeaderModel PickHead;
-        private List<SalesOrderModel> PartiallyServedOrderList;
         private List<PickListLineModel> PickLineList = new List<PickListLineModel>();
         private List<List<object>> PickOrderList = new List<List<object>>();
+        private List<PartiallyServedOrders> itemsPerOrderList = new List<PartiallyServedOrders>();
 
         #endregion
 
@@ -176,6 +214,10 @@ namespace ESI_ITE.ViewModel
 
         private void SelectedPicklistChanged()
         {
+            CriticalItemCollection.Clear();
+
+            itemsPerOrderList.Clear();
+
             var pickLine = new PickListLineModel();
             PickLineList = pickLine.FetchPerPickHead(PickHead.Id.ToString());
 
@@ -187,6 +229,12 @@ namespace ESI_ITE.ViewModel
             {
                 var inventoryDummy = new InventoryDummy2Model();
                 inventoryDummy = (InventoryDummy2Model)inventoryDummy.Fetch(line.InventoryDummyId.ToString(), "id");
+
+                var order = new SalesOrderModel();
+                order = (SalesOrderModel)order.Fetch(inventoryDummy.OrderNumber, "code");
+
+                var customer = new CustomerModel();
+                customer = (CustomerModel)customer.Fetch(order.CustomerID.ToString(), "id");
 
                 var isUpdated = false;
                 if (itemList.Count > 0)
@@ -203,38 +251,18 @@ namespace ESI_ITE.ViewModel
                                 item[2] = true;
 
                             isUpdated = true;
-                            continue;
+                            break;
                         }
                 }
                 if (isUpdated)
                     continue;
 
-                var _itemList = new List<object>();
-                _itemList.Add(inventoryDummy);
-                _itemList.Add(line);
-                _itemList.Add(line.IsCritical);
+                var _item = new List<object>();
+                _item.Add(inventoryDummy);
+                _item.Add(line);
+                _item.Add(line.IsCritical);
 
-                itemList.Add(_itemList);
-            }
-
-            foreach (var item in itemList)
-            {
-                var inventoryDummy = item[0] as InventoryDummy2Model;
-                var _pickline = item[1] as PickListLineModel;
-                var isCritical = (bool)item[2];
-                if (isCritical)
-                {
-                    var critItemList = new List<string>();
-                    critItemList.Add(inventoryDummy.ItemCode);
-                    critItemList.Add(inventoryDummy.ItemDescription);
-                    critItemList.Add(inventoryDummy.Cases.ToString());
-                    critItemList.Add(inventoryDummy.Pieces.ToString());
-                    critItemList.Add(_pickline.AllocatedCases.ToString());
-                    critItemList.Add(_pickline.AllocatedPieces.ToString());
-                    critItemList.Add(inventoryDummy.Location);
-
-                    CriticalItemCollection.Add(critItemList);
-                }
+                itemList.Add(_item);
             }
 
             foreach (var line in PickLineList)
@@ -248,43 +276,172 @@ namespace ESI_ITE.ViewModel
                 var customer = new CustomerModel();
                 customer = (CustomerModel)customer.Fetch(order.CustomerID.ToString(), "id");
 
-                var pickOrder = new List<object>();
-                pickOrder.Add(line);
-                pickOrder.Add(inventoryDummy);
-                pickOrder.Add(order);
-                pickOrder.Add(customer);
+                var PSO = new PartiallyServedOrders();
+                PSO.Customer = customer;
+                PSO.OrderItem = inventoryDummy;
+                PSO.PicklistItem = line;
+                PSO.AllocatedCases = line.AllocatedCases.ToString();
+                PSO.AllocatedPieces = line.AllocatedPieces.ToString();
 
-                PickOrderList.Add(pickOrder);
+                itemsPerOrderList.Add(PSO);
             }
 
-            LoadOrders(CriticalItemCollection[0][0]);
+            foreach (var item in itemList)
+            {
+                var inventoryDummy = item[0] as InventoryDummy2Model;
+                var _pickline = item[1] as PickListLineModel;
+                var isCritical = (bool)item[2];
+                if (isCritical)
+                {
+                    var critItem = new CriticalItems();
+                    critItem.ItemCode = inventoryDummy.ItemCode;
+                    critItem.ItemDescription = inventoryDummy.ItemDescription;
+                    critItem.OrderCases = inventoryDummy.Cases;
+                    critItem.OrderPieces = inventoryDummy.Pieces;
+                    critItem.AllocatedCases = _pickline.AllocatedCases;
+                    critItem.AllocatedPieces = _pickline.AllocatedPieces;
+                    critItem.LC = inventoryDummy.Location;
 
-            var inventory = new InventoryMaster2Model();
+                    CriticalItemCollection.Add(critItem);
+                }
+            }
+
+            SelectedIndexCriticalItem = 0;
+
+            LoadOrders(CriticalItemCollection[0].ItemCode);
         }
 
         private void LoadOrders(string itemCode)
         {
-            foreach (var pickOrder in PickOrderList)
+            PartiallyServedOrderCollection.Clear();
+            foreach (var pickOrder in itemsPerOrderList)
             {
-                if ((pickOrder[1] as InventoryDummy2Model).ItemCode == itemCode)
+                if (pickOrder.OrderItem.ItemCode == itemCode)
                 {
-                    var pickline = pickOrder[0] as PickListLineModel;
-                    var inventoryDummy = pickOrder[1] as InventoryDummy2Model;
-                    var order = pickOrder[2] as SalesOrderModel;
-                    var customer = pickOrder[3] as CustomerModel;
-
-                    var PSO = new List<string>();
-                    PSO.Add(customer.CustomerNumber);
-                    PSO.Add(customer.CustomerName);
-                    PSO.Add(inventoryDummy.Cases.ToString());
-                    PSO.Add(inventoryDummy.Pieces.ToString());
-                    PSO.Add(pickline.AllocatedCases.ToString());
-                    PSO.Add(pickline.AllocatedPieces.ToString());
-                    PSO.Add(inventoryDummy.Location);
-
-                    PartiallyServedOrderCollection.Add(PSO);
+                    PartiallyServedOrderCollection.Add(pickOrder);
                 }
             }
+
+            var itemMaster = new Item2Model();
+            itemMaster = (Item2Model)itemMaster.Fetch(itemCode, "code");
+
+            var inventoryMaster = new InventoryMaster2Model();
+            var inventoryItemList = inventoryMaster.FetchPerItem(itemMaster.ItemId);
+
+            var totalCases = 0;
+            var totalPieces = 0;
+            foreach (var inventoryItem in inventoryItemList)
+            {
+                totalCases += inventoryItem.Cases;
+                totalPieces += inventoryItem.Pieces;
+            }
+
+            CasesOnHand = totalCases.ToString();
+            PiecesOnHand = totalPieces.ToString();
+        }
+
+        private void SelectedItemChanged()
+        {
+            LoadOrders(SelectedCriticalItem.ItemCode);
+        }
+
+        private void UpdateCases()
+        {
+            if (SelectedPSO != null)
+                if (SelectedPSO.Customer != null)
+                    if (SelectedPSO.IsCasesValid)
+                    {
+                        foreach (var PSO in itemsPerOrderList)
+                        {
+                            if (PSO.Customer.CustomerNumber == SelectedPSO.Customer.CustomerNumber &&
+                                PSO.OrderItem.ItemCode == SelectedPSO.OrderItem.ItemCode)
+                            {
+                                if (int.Parse(SelectedPSO.AllocatedCases) > int.Parse(CasesOnHand))
+                                {
+                                    MessageBox.Show("Allocated stock cannot exceed the current stock on hand.",
+                                        "Allocation Overflow",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Warning);
+                                }
+                                else if (int.Parse(SelectedPSO.AllocatedCases) > SelectedPSO.OrderItem.Cases)
+                                {
+                                    MessageBox.Show("Allocated stock cannot exceed the ordered quantity.",
+                                        "Allocation Overflow",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Warning);
+                                }
+                                else {
+                                    PSO.AllocatedCases = SelectedPSO.AllocatedCases;
+                                }
+                                break;
+                            }
+                        }
+
+                        var totalCases = 0;
+                        foreach (var PSO in itemsPerOrderList)
+                        {
+                            if (PSO.OrderItem.ItemCode == SelectedPSO.OrderItem.ItemCode)
+                                totalCases += int.Parse(PSO.AllocatedCases);
+                        }
+
+                        if (totalCases > SelectedCriticalItem.OrderCases)
+                        {
+                            MessageBox.Show("Allocated stock must be equal or less than the ordered quantity.",
+                                "Allocation Overflow",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                        }
+                        else
+                            CriticalItemCollection.ElementAt(SelectedIndexCriticalItem).AllocatedCases = totalCases;
+                    }
+        }
+
+        private void UpdatePieces()
+        {
+            if (SelectedPSO != null)
+                if (SelectedPSO.Customer != null)
+                    if (SelectedPSO.IsPiecesValid)
+                    {
+                        foreach (var PSO in itemsPerOrderList)
+                        {
+                            if (PSO.Customer.CustomerNumber == SelectedPSO.Customer.CustomerNumber &&
+                                PSO.OrderItem.ItemCode == SelectedPSO.OrderItem.ItemCode)
+                            {
+                                PSO.AllocatedPieces = SelectedPSO.AllocatedPieces;
+                                break;
+                            }
+                        }
+
+                        var totalPieces = 0;
+                        foreach (var PSO in itemsPerOrderList)
+                        {
+                            if (PSO.OrderItem.ItemCode == SelectedPSO.OrderItem.ItemCode)
+                                totalPieces += int.Parse(PSO.AllocatedPieces);
+                        }
+
+                        CriticalItemCollection.ElementAt(SelectedIndexCriticalItem).AllocatedPieces = totalPieces;
+                    }
+        }
+
+        private void CancelAllocation()
+        {
+            var result = MessageBox.Show("Are you sure you want to cancel?", "Cancel Allocation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                PartiallyServedOrderCollection.Clear();
+                CriticalItemCollection.Clear();
+                itemsPerOrderList.Clear();
+                PickOrderList.Clear();
+                PickLineList.Clear();
+
+                SelectedIndexPicklist = -1;
+            }
+        }
+
+        private void UpdateStocks()
+        {
+            throw new NotImplementedException();
         }
 
         #region IDataErrorInfo Members
@@ -304,5 +461,237 @@ namespace ESI_ITE.ViewModel
             }
         }
         #endregion
+    }
+
+    public class PartiallyServedOrders : ViewModelBase, IDataErrorInfo
+    {
+        private CustomerModel customer;
+        public CustomerModel Customer
+        {
+            get { return customer; }
+            set
+            {
+                customer = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private InventoryDummy2Model orderItem;
+        public InventoryDummy2Model OrderItem
+        {
+            get { return orderItem; }
+            set
+            {
+                orderItem = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private PickListLineModel picklistItem;
+        public PickListLineModel PicklistItem
+        {
+            get { return picklistItem; }
+            set
+            {
+                picklistItem = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string allocatedCases;
+        public string AllocatedCases
+        {
+            get { return allocatedCases; }
+            set
+            {
+                allocatedCases = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string allocatedPieces;
+        public string AllocatedPieces
+        {
+            get { return allocatedPieces; }
+            set
+            {
+                allocatedPieces = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool isCasesValid = true;
+        public bool IsCasesValid
+        {
+            get { return isCasesValid; }
+            set
+            {
+                isCasesValid = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool isPiecesValid = true;
+        public bool IsPiecesValid
+        {
+            get { return isPiecesValid; }
+            set
+            {
+                isPiecesValid = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        #region IDataErrorInfo Members
+        public string Error
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                return GetValidationError(columnName);
+            }
+        }
+        #endregion
+
+        #region Validation Members
+
+        private string GetValidationError(string propertyName)
+        {
+            string error = null;
+            int x = 0;
+            switch (propertyName)
+            {
+                case "AllocatedCases":
+                    try
+                    {
+                        if (string.IsNullOrWhiteSpace(AllocatedCases))
+                        {
+                            error = "Field must not be empty!";
+                            IsCasesValid = false;
+                        }
+                        else {
+                            x = int.Parse(AllocatedCases);
+                            IsCasesValid = true;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        error = "Invalid Input!";
+                        IsCasesValid = false;
+                    }
+                    break;
+                case "AllocatedPieces":
+                    try
+                    {
+                        if (string.IsNullOrWhiteSpace(AllocatedPieces))
+                        {
+                            error = "Field must not be empty!";
+                            IsPiecesValid = false;
+                        }
+                        else {
+                            x = int.Parse(AllocatedPieces);
+                            IsPiecesValid = true;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        error = "Invalid Input!";
+                        IsPiecesValid = false;
+                    }
+                    break;
+            }
+
+            return error;
+        }
+
+        #endregion
+    }
+
+    public class CriticalItems : ViewModelBase
+    {
+        private string itemCode;
+        public string ItemCode
+        {
+            get { return itemCode; }
+            set
+            {
+                itemCode = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string itemDescription;
+        public string ItemDescription
+        {
+            get { return itemDescription; }
+            set
+            {
+                itemDescription = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int orderCases;
+        public int OrderCases
+        {
+            get { return orderCases; }
+            set
+            {
+                orderCases = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int orderPieces;
+        public int OrderPieces
+        {
+            get { return orderPieces; }
+            set
+            {
+                orderPieces = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int allocatedCases;
+        public int AllocatedCases
+        {
+            get { return allocatedCases; }
+            set
+            {
+                allocatedCases = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int allocatedPieces;
+        public int AllocatedPieces
+        {
+            get { return allocatedPieces; }
+            set
+            {
+                allocatedPieces = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string lc;
+        public string LC
+        {
+            get { return lc; }
+            set
+            {
+                lc = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

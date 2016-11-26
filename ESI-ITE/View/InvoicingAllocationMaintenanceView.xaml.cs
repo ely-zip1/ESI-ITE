@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ESI_ITE.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,16 @@ namespace ESI_ITE.View
         public InvoicingAllocationMaintenanceView( )
         {
             InitializeComponent();
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            (this.DataContext as InvoicingAllocationMaintenanceViewModel).CasesValueChangedCommand.Execute(e);
+        }
+
+        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+            (this.DataContext as InvoicingAllocationMaintenanceViewModel).PiecesValueChangedCommand.Execute(e);
         }
     }
 }

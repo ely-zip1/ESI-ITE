@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ESI_ITE.Model
 {
-    public class InventoryMaster2Model: IModelTemplate
+    public class InventoryMaster2Model : IModelTemplate
     {
 
         #region Properties
@@ -74,29 +74,29 @@ namespace ESI_ITE.Model
 
         #endregion
 
-        public void AddNew( object item )
+        public void AddNew(object item)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteItem( string qry )
+        public void DeleteItem(string qry)
         {
             throw new NotImplementedException();
         }
 
-        public object Fetch( string id, string type )
+        public object Fetch(string id, string type)
         {
             var inventory = new InventoryMaster2Model();
             var result = new List<CloneableDictionary<string, string>>();
 
-            switch ( type )
+            switch (type)
             {
                 case "id":
                     result = db.SelectMultiple("select * from inventory_master2 where inventory2_id = '" + id + "'");
                     break;
             }
 
-            foreach ( var row in result )
+            foreach (var row in result)
             {
                 var clone = row.Clone();
 
@@ -113,12 +113,12 @@ namespace ESI_ITE.Model
             return inventory;
         }
 
-        public List<InventoryMaster2Model> FetchPerItem( int itemId )
+        public List<InventoryMaster2Model> FetchPerItem(int itemId)
         {
             var inventoryList = new List<InventoryMaster2Model>();
             var results = db.SelectMultiple("select * from inventory_master2 where item_id_link = '" + itemId + "'");
 
-            foreach ( var row in results )
+            foreach (var row in results)
             {
                 var clone = row.Clone();
                 var inventory = new InventoryMaster2Model();
@@ -129,7 +129,7 @@ namespace ESI_ITE.Model
                 inventory.LocationId = int.Parse(row["location_link"]);
                 inventory.Cases = int.Parse(row["i_cases"]);
                 inventory.Pieces = int.Parse(row["i_pieces"]);
-                inventory.ExpirationDate = DateTime.ParseExact(row["expiration_date"], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+                inventory.ExpirationDate = DateTime.Parse(row["expiration_date"]);
                 inventory.LotNumber = row["lot_number"];
 
                 inventoryList.Add(inventory);
@@ -138,13 +138,13 @@ namespace ESI_ITE.Model
             return inventoryList;
         }
 
-        public InventoryMaster2Model FetchItem( int itemId, DateTime expiration )
+        public InventoryMaster2Model FetchItem(int itemId, DateTime expiration)
         {
             var inventoryItem = new InventoryMaster2Model();
 
             var result = db.SelectMultiple("select * from inventory_master2 where item_id_link = '" + ItemId + "' and expiration_date = str_to_date('" + expiration.ToString("MM/dd/yyyy") + "','%m/%d/%Y')");
 
-            foreach ( var row in result )
+            foreach (var row in result)
             {
                 var clone = row.Clone();
 
@@ -154,19 +154,19 @@ namespace ESI_ITE.Model
                 inventoryItem.LocationId = int.Parse(row["location_link"]);
                 inventoryItem.Cases = int.Parse(row["i_cases"]);
                 inventoryItem.Pieces = int.Parse(row["i_pieces"]);
-                inventoryItem.ExpirationDate = DateTime.ParseExact(row["expiration_date"], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+                inventoryItem.ExpirationDate = DateTime.Parse(row["expiration_date"]);
                 inventoryItem.LotNumber = row["lot_number"];
             }
 
             return inventoryItem;
         }
 
-        public List<InventoryMaster2Model> FetchPerItem( string itemCode )
+        public List<InventoryMaster2Model> FetchPerItem(string itemCode)
         {
             var inventoryList = new List<InventoryMaster2Model>();
             var results = db.SelectMultiple("select * from inventory_master2 where item_id_link = '" + itemId + "'");
 
-            foreach ( var row in results )
+            foreach (var row in results)
             {
                 var clone = row.Clone();
                 var inventory = new InventoryMaster2Model();
@@ -186,17 +186,17 @@ namespace ESI_ITE.Model
             return inventoryList;
         }
 
-        public List<object> FetchAll( )
+        public List<object> FetchAll()
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateItem( string qry )
+        public void UpdateItem(string qry)
         {
             db.Update(qry);
         }
 
-        public void UpdateItem( InventoryMaster2Model item )
+        public void UpdateItem(InventoryMaster2Model item)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -213,7 +213,7 @@ namespace ESI_ITE.Model
             db.Update(sb.ToString());
         }
 
-        public string GetUpdateQuery( InventoryMaster2Model item )
+        public string GetUpdateQuery(InventoryMaster2Model item)
         {
 
             StringBuilder sb = new StringBuilder();
