@@ -138,11 +138,11 @@ namespace ESI_ITE.Model
             return inventoryList;
         }
 
-        public InventoryMaster2Model FetchItem(int itemId, DateTime expiration)
+        public InventoryMaster2Model FetchItem(int _itemId, DateTime expiration)
         {
             var inventoryItem = new InventoryMaster2Model();
 
-            var result = db.SelectMultiple("select * from inventory_master2 where item_id_link = '" + ItemId + "' and expiration_date = str_to_date('" + expiration.ToString("MM/dd/yyyy") + "','%m/%d/%Y')");
+            var result = db.SelectMultiple("select * from inventory_master2 where item_id_link = '" + _itemId + "' and str_to_date(expiration_date,'%Y-%m-%d') = str_to_date('" + expiration.ToString("MM/dd/yyyy") + "','%m/%d/%Y')");
 
             foreach (var row in result)
             {
@@ -177,7 +177,32 @@ namespace ESI_ITE.Model
                 inventory.LocationId = int.Parse(row["location_link"]);
                 inventory.Cases = int.Parse(row["i_cases"]);
                 inventory.Pieces = int.Parse(row["i_pieces"]);
-                inventory.ExpirationDate = DateTime.ParseExact(row["expiration_date"], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+                inventory.ExpirationDate = DateTime.Parse(row["expiration_date"]);
+                inventory.LotNumber = row["lot_number"];
+
+                inventoryList.Add(inventory);
+            }
+
+            return inventoryList;
+        }
+
+        public List<InventoryMaster2Model> FetchInStockItem(int itemId)
+        {
+            var inventoryList = new List<InventoryMaster2Model>();
+            var results = db.SelectMultiple("select * from inventory_master2 where item_id_link = '" + itemId + "' and (i_cases > 0 or i_pieces > 0)");
+
+            foreach (var row in results)
+            {
+                var clone = row.Clone();
+                var inventory = new InventoryMaster2Model();
+
+                inventory.Id = int.Parse(row["inventory2_id"]);
+                inventory.ItemId = int.Parse(row["item_id_link"]);
+                inventory.WarehouseId = int.Parse(row["warehouse_id"]);
+                inventory.LocationId = int.Parse(row["location_link"]);
+                inventory.Cases = int.Parse(row["i_cases"]);
+                inventory.Pieces = int.Parse(row["i_pieces"]);
+                inventory.ExpirationDate = DateTime.Parse(row["expiration_date"]);
                 inventory.LotNumber = row["lot_number"];
 
                 inventoryList.Add(inventory);
@@ -206,7 +231,7 @@ namespace ESI_ITE.Model
             sb.Append("location_link = '" + item.LocationId + "', ");
             sb.Append("i_cases = '" + item.Cases + "', ");
             sb.Append("i_pieces = '" + item.Pieces + "', ");
-            sb.Append("expiration_date = str_to_date('" + item.ExpirationDate.ToString("MM/dd/yyyy") + "','%m/%d%/Y'), ");
+            sb.Append("expiration_date = str_to_date('" + item.ExpirationDate.ToString("MM/dd/yyyy") + "','%m/%d/%Y'), ");
             sb.Append("lot_number = '" + item.LotNumber + "' ");
             sb.Append("where inventory2_id = '" + item.Id + "'");
 
@@ -224,7 +249,7 @@ namespace ESI_ITE.Model
             sb.Append("location_link = '" + item.LocationId + "', ");
             sb.Append("i_cases = '" + item.Cases + "', ");
             sb.Append("i_pieces = '" + item.Pieces + "', ");
-            sb.Append("expiration_date = str_to_date('" + item.ExpirationDate.ToString("MM/dd/yyyy") + "','%m/%d%/Y'), ");
+            sb.Append("expiration_date = str_to_date('" + item.ExpirationDate.ToString("MM/dd/yyyy") + "','%m/%d/%Y'), ");
             sb.Append("lot_number = '" + item.LotNumber + "' ");
             sb.Append("where inventory2_id = '" + item.Id + "'");
 

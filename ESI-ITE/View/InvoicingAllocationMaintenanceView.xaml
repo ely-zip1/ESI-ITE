@@ -1,12 +1,12 @@
 ﻿<Page x:Class="ESI_ITE.View.InvoicingAllocationMaintenanceView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:ESI_ITE.View"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:vm="clr-namespace:ESI_ITE.ViewModel"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="710" d:DesignWidth="1495"
       Title="InvoicingAllocationMaintenanceView">
 
@@ -50,7 +50,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Item Description" Width="350">
+                    <DataGridTemplateColumn Header="Item Description" Width="200">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding ItemDescription}" Padding="5"/>
@@ -115,7 +115,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Customer Name" Width="350">
+                    <DataGridTemplateColumn Header="Customer Name" Width="200">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Customer.CustomerName}" Padding="5"/>
@@ -202,12 +202,12 @@
             <StackPanel Grid.Row="4" Orientation="Horizontal">
                 <StackPanel Margin="0,0,10,0">
                     <Label Content="Cases"/>
-                    <TextBox Width="140" Text="{Binding CasesOnHand}"/>
+                    <TextBox Width="140" Text="{Binding CasesOnHand}" IsHitTestVisible="False"/>
                 </StackPanel>
 
                 <StackPanel>
                     <Label Content="Pieces"/>
-                    <TextBox Width="140" Text="{Binding PiecesOnHand}"/>
+                    <TextBox Width="140" Text="{Binding PiecesOnHand}" IsHitTestVisible="False"/>
                 </StackPanel>
             </StackPanel>
         </Grid>

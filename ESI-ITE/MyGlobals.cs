@@ -57,6 +57,8 @@ namespace ESI_ITE
 
         public static InvoicingViewModel InvoicingVM;
 
+        public static InvoicingMainPageViewModel InvoicingMainVM;
+
         #endregion
 
         public static FixedDocument printingDoc;

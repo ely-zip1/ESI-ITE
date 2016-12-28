@@ -89,7 +89,8 @@ namespace ESI_ITE.Model
             sb.Append("'");
             sb.Append(header.IsGatepassPrinted ? "1" : "0");
             sb.Append("', ");
-            sb.Append("" + header.GatepassId == null ? "null" : "'" + header.GatepassId + "'" + ")");
+            sb.Append(string.IsNullOrWhiteSpace(header.GatepassId.ToString()) ? "null" : "'" + header.GatepassId + "'");
+            sb.Append(")");
 
             db.Insert(sb.ToString());
         }

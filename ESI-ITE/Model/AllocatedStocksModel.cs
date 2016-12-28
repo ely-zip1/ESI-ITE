@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ESI_ITE.Model
 {
-    public class AllocatedStocksModel: IModelTemplate
+    public class AllocatedStocksModel : IModelTemplate
     {
 
         #region Properties
@@ -60,7 +60,7 @@ namespace ESI_ITE.Model
         #endregion
 
 
-        public void AddNew( object item )
+        public void AddNew(object item)
         {
             var stock = (AllocatedStocksModel)item;
 
@@ -75,8 +75,8 @@ namespace ESI_ITE.Model
 
             db.Insert(sb.ToString());
         }
-        
-        public string GetAddQuery( AllocatedStocksModel item )
+
+        public string GetAddQuery(AllocatedStocksModel item)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -89,13 +89,13 @@ namespace ESI_ITE.Model
 
             return sb.ToString();
         }
-        
-        public void DeleteItem( string qry )
+
+        public void DeleteItem(string qry)
         {
             db.Delete(qry);
         }
 
-        public void DeleteItem( AllocatedStocksModel item )
+        public void DeleteItem(AllocatedStocksModel item)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -106,7 +106,7 @@ namespace ESI_ITE.Model
             db.Delete(sb.ToString());
         }
 
-        public string GetDeleteQuery( AllocatedStocksModel item )
+        public string GetDeleteQuery(AllocatedStocksModel item)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -117,12 +117,12 @@ namespace ESI_ITE.Model
             return sb.ToString();
         }
 
-        public object Fetch( string id, string type )
+        public object Fetch(string id, string type)
         {
             var result = new List<CloneableDictionary<string, string>>();
             var stock = new AllocatedStocksModel();
 
-            switch ( type )
+            switch (type)
             {
                 case "allocationId":
                     result = db.SelectMultiple("select * from allocated_stocks where allocated_stocks_id = '" + id + "' ");
@@ -133,7 +133,7 @@ namespace ESI_ITE.Model
                     break;
             }
 
-            foreach ( var row in result )
+            foreach (var row in result)
             {
                 var clone = row.Clone();
 
@@ -148,13 +148,13 @@ namespace ESI_ITE.Model
             return stock;
         }
 
-        public List<AllocatedStocksModel> FetchPerPickLine( PickListHeaderModel pickhead, InventoryDummy2Model item )
+        public List<AllocatedStocksModel> FetchPerPickLine(int pickheadID, int itemID)
         {
             var stockList = new List<AllocatedStocksModel>();
 
-            var result = db.SelectMultiple("select * from allocated_stocks where pickhead_id = '" + pickhead.Id + "' and inventory_dummy_id = '" + item.Id + "'");
+            var result = db.SelectMultiple("select * from allocated_stocks where pickhead_id = '" + pickheadID + "' and inventory_dummy_id = '" + itemID + "'");
 
-            foreach ( var row in result )
+            foreach (var row in result)
             {
                 var clone = row.Clone();
                 var stock = new AllocatedStocksModel();
@@ -172,17 +172,19 @@ namespace ESI_ITE.Model
             return stockList;
         }
 
-        public List<AllocatedStocksModel> FetchPerPickList( string picklistNumber )
+
+
+        public List<AllocatedStocksModel> FetchPerPickList(string pickHeadNumber)
         {
             var ListOfAllocatedStocks = new List<AllocatedStocksModel>();
             var pickHead = new PickListHeaderModel();
             var results = new List<CloneableDictionary<string, string>>();
             var stock = new AllocatedStocksModel();
 
-            pickHead = (PickListHeaderModel)pickHead.Fetch(picklistNumber, "code");
+            pickHead = (PickListHeaderModel)pickHead.Fetch(pickHeadNumber, "code");
             results = db.SelectMultiple("select * from allocated_stocks where pickhead_id = '" + pickHead.Id + "'");
 
-            foreach ( var row in results )
+            foreach (var row in results)
             {
                 var clone = row.Clone();
 
@@ -197,7 +199,7 @@ namespace ESI_ITE.Model
             return ListOfAllocatedStocks;
         }
 
-        public List<AllocatedStocksModel> FetchPerOrder( string orderNumber )
+        public List<AllocatedStocksModel> FetchPerOrder(string orderNumber)
         {
             var ListOfAllocatedStocks = new List<AllocatedStocksModel>();
 
@@ -206,12 +208,12 @@ namespace ESI_ITE.Model
             return ListOfAllocatedStocks;
         }
 
-        public List<object> FetchAll( )
+        public List<object> FetchAll()
         {
             var stockList = new List<object>();
             var result = db.SelectMultiple("select * from allocated_stocks");
 
-            foreach ( var row in result )
+            foreach (var row in result)
             {
                 var clone = row.Clone();
                 var stock = new AllocatedStocksModel();
@@ -229,9 +231,25 @@ namespace ESI_ITE.Model
             return stockList;
         }
 
-        public void UpdateItem( string qry )
+        public void UpdateItem(string qry)
         {
             throw new NotImplementedException();
+        }
+
+        public void UpdateItem(AllocatedStocksModel item)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("update allocated_stocks set ");
+            sb.Append("pickhead_id = '" + item.PickHeadId + "', ");
+            sb.Append("inventory_dummy_id = '" + item.InventoryDummyId + "', ");
+            sb.Append("cases = '" + item.Cases + "', ");
+            sb.Append("pieces = '" + item.Pieces + "', ");
+            sb.Append("expiry = '" + item.Expiry + "' ");
+            sb.Append("where pickhead_id = '" + item.PickHeadId + "' and ");
+            sb.Append("inventory_dummy_id = '" + item.InventoryDummyId + "'");
+
+            db.Update(sb.ToString());
         }
     }
 }

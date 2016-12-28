@@ -32,8 +32,7 @@ namespace ESI_ITE.ViewModel
             allocateStocksCommand = new DelegateCommand(StartAllocation);
             deallocateStocksCommand = new DelegateCommand(StartDeallocation);
             printPicklistCommand = new DelegateCommand(StartPrinting);
-
-
+            
             Load();
         }
 
@@ -217,6 +216,7 @@ namespace ESI_ITE.ViewModel
             }
         }
 
+        private List<List<InventoryMaster2Model>> InventoryMasterList = new List<List<InventoryMaster2Model>>();
 
         #region Commands
 
@@ -589,6 +589,8 @@ namespace ESI_ITE.ViewModel
             pickHead.IsGatepassPrinted = false;
             pickHead.GatepassId = null;
 
+            pickHead.AddNew(pickHead);
+
             var result = await AllocateStocksAsync(pickHead);
 
             var order = new SalesOrderModel();
@@ -618,6 +620,8 @@ namespace ESI_ITE.ViewModel
             IsAllocating = false;
             IsFilterEnabled = true;
             IsShowAllEnabled = true;
+
+            MyGlobals.InvoicingMainVM.AllocationMaintenanceView = new View.InvoicingAllocationMaintenanceView();
         }
 
         private Task<Dictionary<int, string>> AllocateStocksAsync(PickListHeaderModel pickHead)
@@ -627,23 +631,53 @@ namespace ESI_ITE.ViewModel
 
         private Dictionary<int, string> allocateStocks(PickListHeaderModel pickHead)
         {
-            var order = new SalesOrderModel();
             var dummy = new InventoryDummy2Model();
             var picknumber = new PickListNumberModel();
             Dictionary<int, string> ordersToBeRemoved = new Dictionary<int, string>();
 
-            AllocationQueries.Clear();
+            pickHead.Fetch(pickHead.HeaderNumber, "code");
 
-            AllocationQueries.Add(pickHead.GetAddQuery(pickHead));
+            AllocationQueries.Clear();
             AllocationQueries.Add(picknumber.GetAddQuery());
 
             var index = 0;
-            foreach (var row in PicklistSalesOrdersCollection)
+            foreach (var order in PicklistSalesOrdersCollection)
             {
-                if (row.IsSelected)
+                if (order.IsSelected)
                 {
-                    ordersToBeRemoved.Add(index, row.SoNumber);
-                    allocatePerOrder(row.SoNumber, pickHead);
+                    var inventoryDummy = new InventoryDummy2Model();
+                    var orderItems = inventoryDummy.FetchPerOrder(order.SoNumber);
+
+                    foreach (var orderItem in orderItems)
+                    {
+                        var currentItem = new Item2Model();
+                        currentItem = (Item2Model)currentItem.Fetch(orderItem.ItemCode, "code");
+
+                        var inventoryMaster = new InventoryMaster2Model();
+                        var itemMasterList = inventoryMaster.FetchInStockItem(currentItem.ItemId);
+
+                        if (itemMasterList.Count > 0)
+                            if (InventoryMasterList.Count > 0)
+                            {
+                                var hasDuplicate = false;
+                                foreach (var item in InventoryMasterList)
+                                {
+                                    if (item.Count > 0)
+                                        if (item[0].ItemId == currentItem.ItemId)
+                                            hasDuplicate = true;
+                                }
+
+                                if (hasDuplicate == false)
+                                    InventoryMasterList.Add(itemMasterList);
+                            }
+                            else
+                            {
+                                InventoryMasterList.Add(itemMasterList);
+                            }
+                    }
+
+                    ordersToBeRemoved.Add(index, order.SoNumber);
+                    allocatePerOrder(order.SoNumber, pickHead);
                 }
                 index++;
             }
@@ -658,6 +692,8 @@ namespace ESI_ITE.ViewModel
             var dummy = new InventoryDummy2Model();
             var dummyList = dummy.FetchPerOrder(soNumber);
 
+            //dummyList.Sort((x, y) => x.ItemCode.CompareTo(y.ItemCode));
+
             foreach (var row in dummyList)
             {
                 allocatePerItem(row, pickhead);
@@ -668,11 +704,22 @@ namespace ESI_ITE.ViewModel
         {
             pickhead = (PickListHeaderModel)pickhead.Fetch(pickhead.HeaderNumber, "code");
 
-            var inventory = new InventoryMaster2Model();
-            var inventoryItems = inventory.FetchPerItem(orderedItem.ItemCode);
+            var item = new Item2Model();
+            item = (Item2Model)item.Fetch(orderedItem.ItemCode, "code");
 
-            var itemModel = new Item2Model();
-            var item = (Item2Model)itemModel.Fetch(orderedItem.ItemCode, "code");
+            var inventory = new InventoryMaster2Model();
+            var inventoryItems = new List<InventoryMaster2Model>();
+
+            if (InventoryMasterList.Count > 0)
+                foreach (var inventoryItem in InventoryMasterList)
+                {
+                    if (inventoryItem.Count > 0)
+                        if (inventoryItem[0].ItemId == item.ItemId)
+                        {
+                            inventoryItems = inventoryItem;
+                        }
+                }
+
             var piecePerCase = item.PackSize * item.PackSizeBO;
 
             var orderedCases = orderedItem.Cases;
@@ -688,57 +735,76 @@ namespace ESI_ITE.ViewModel
             var allocateStocks = new AllocatedStocksModel();
             var _allocatedItemInPieces = 0;
 
-            inventoryItems.Sort((x, y) => x.ExpirationDate.CompareTo(y.ExpirationDate));
-
-            foreach (var inventoryItem in inventoryItems)
-            {
-                _allocatedItemInPieces = 0;
-                var currentItemInPieces = ConvertToPieces(inventoryItem.Cases, inventoryItem.Pieces, piecePerCase);
-
-                if (remainingOrderInPieces > 0)
-                {
-                    if (currentItemInPieces > 0)
+            //inventoryItems.Sort((x, y) => x.ExpirationDate.CompareTo(y.ExpirationDate));
+            if (InventoryMasterList.Count > 0)
+                if (inventoryItems.Count > 0)
+                    foreach (var inventoryItem in inventoryItems)
                     {
-                        if (currentItemInPieces >= remainingOrderInPieces)
+                        if (inventoryItem.Cases == 0 && inventoryItem.Pieces == 0)
+                            continue;
+
+                        _allocatedItemInPieces = 0;
+                        var currentItemInPieces = ConvertToPieces(inventoryItem.Cases, inventoryItem.Pieces, piecePerCase);
+
+                        if (remainingOrderInPieces > 0)
                         {
-                            allocatedInPieces += remainingOrderInPieces;
-                            _allocatedItemInPieces += remainingOrderInPieces;
-                            currentItemInPieces -= remainingOrderInPieces;
+                            if (currentItemInPieces > 0)
+                            {
+                                if (currentItemInPieces >= remainingOrderInPieces)
+                                {
+                                    allocatedInPieces += remainingOrderInPieces;
+                                    _allocatedItemInPieces += remainingOrderInPieces;
+                                    currentItemInPieces -= remainingOrderInPieces;
 
-                            remainingOrderInPieces = orderInPieces - allocatedInPieces;
+                                    //remainingOrderInPieces = orderInPieces - allocatedInPieces;
+                                    remainingOrderInPieces = 0;
 
-                            inventoryItem.Cases = currentItemInPieces / piecePerCase;
-                            inventoryItem.Pieces = currentItemInPieces % piecePerCase;
+                                    inventoryItem.Cases = currentItemInPieces / piecePerCase;
+                                    inventoryItem.Pieces = currentItemInPieces % piecePerCase;
+
+                                    allocateStocks.PickHeadId = pickhead.Id;
+                                    allocateStocks.InventoryDummyId = orderedItem.Id;
+                                    if (_allocatedItemInPieces >= piecePerCase)
+                                        allocateStocks.Cases = _allocatedItemInPieces / piecePerCase;
+                                    else
+                                        allocateStocks.Cases = 0;
+
+                                    allocateStocks.Pieces = _allocatedItemInPieces % piecePerCase;
+                                    allocateStocks.Expiry = inventoryItem.ExpirationDate;
+
+                                    AllocationQueries.Add(allocateStocks.GetAddQuery(allocateStocks));
+                                    AllocationQueries.Add(inventoryItem.GetUpdateQuery(inventoryItem));
+                                    break;
+                                }
+                                else
+                                {
+                                    _allocatedItemInPieces += currentItemInPieces;
+                                    allocatedInPieces += currentItemInPieces;
+                                    currentItemInPieces = 0;
+
+                                    remainingOrderInPieces = orderInPieces - allocatedInPieces;
+
+                                    inventoryItem.Cases = 0;
+                                    inventoryItem.Pieces = 0;
+
+                                    allocateStocks.PickHeadId = pickhead.Id;
+                                    allocateStocks.InventoryDummyId = orderedItem.Id;
+                                    if (_allocatedItemInPieces >= piecePerCase)
+                                        allocateStocks.Cases = _allocatedItemInPieces / piecePerCase;
+                                    else
+                                        allocateStocks.Cases = 0;
+
+                                    allocateStocks.Pieces = _allocatedItemInPieces % piecePerCase;
+                                    allocateStocks.Expiry = inventoryItem.ExpirationDate;
+
+                                    AllocationQueries.Add(allocateStocks.GetAddQuery(allocateStocks));
+                                    AllocationQueries.Add(inventoryItem.GetUpdateQuery(inventoryItem));
+                                }
+                            }
+                        }
+                        else
                             break;
-                        }
-                        else
-                        {
-                            _allocatedItemInPieces += currentItemInPieces;
-                            allocatedInPieces += currentItemInPieces;
-                            currentItemInPieces = 0;
-
-                            remainingOrderInPieces = orderInPieces - allocatedInPieces;
-
-                            inventoryItem.Cases = 0;
-                            inventoryItem.Pieces = 0;
-                        }
-
-                        allocateStocks.InventoryDummyId = orderedItem.Id;
-                        if (_allocatedItemInPieces >= piecePerCase)
-                            allocateStocks.Cases = _allocatedItemInPieces / piecePerCase;
-                        else
-                            allocateStocks.Cases = 0;
-
-                        allocateStocks.Pieces = _allocatedItemInPieces % piecePerCase;
-                        allocateStocks.Expiry = inventoryItem.ExpirationDate;
-
-                        AllocationQueries.Add(allocateStocks.GetAddQuery(allocateStocks));
-                        AllocationQueries.Add(inventoryItem.GetUpdateQuery(inventoryItem));
                     }
-                }
-                else
-                    break;
-            }
 
             picklistLine.PickListHeaderId = pickhead.GenerateId();
             picklistLine.InventoryDummyId = orderedItem.Id;
@@ -825,7 +891,7 @@ namespace ESI_ITE.ViewModel
                     item = (Item2Model)item.Fetch(dummy.ItemCode, "code");
                     piecePerCase = item.PackSize * item.PackSizeBO;
 
-                    var stockList = allocatedStocks.FetchPerPickLine(pickHead, dummy);
+                    var stockList = allocatedStocks.FetchPerPickLine(pickHead.Id, dummy.Id);
 
                     foreach (var stock in stockList)
                     {
@@ -843,7 +909,7 @@ namespace ESI_ITE.ViewModel
 
                         inventoryItem.Pieces = totalPieces % piecePerCase;
 
-                        transactionString.Add(inventoryItem.GetUpdateQuery(inventoryItem));//update inventory
+                        //transactionString.Add(inventoryItem.GetUpdateQuery(inventoryItem));//update inventory
 
                     }
                 }
@@ -866,14 +932,14 @@ namespace ESI_ITE.ViewModel
             LoadOrders();
         }
 
+        #endregion
+
         private int ConvertToPieces(int cases, int pieces, int piecePerCase)
         {
             var itemInPieces = 0;
             itemInPieces = (cases * piecePerCase) + pieces;
             return itemInPieces;
         }
-
-        #endregion
 
         #region Printing
 

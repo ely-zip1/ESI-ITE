@@ -66,6 +66,8 @@ namespace ESI_ITE.ViewModel
             {
                 selectedPicklist = value;
                 OnPropertyChanged();
+                if (selectedIndexPickList > -1)
+                    SelectedPicklistChanged();
             }
         }
 
@@ -101,8 +103,6 @@ namespace ESI_ITE.ViewModel
             {
                 selectedIndexPickList = value;
                 OnPropertyChanged();
-                if (value > -1)
-                    SelectedPicklistChanged();
             }
         }
 
@@ -129,8 +129,8 @@ namespace ESI_ITE.ViewModel
         }
 
 
-        private string casesOnHand;
-        public string CasesOnHand
+        private int casesOnHand;
+        public int CasesOnHand
         {
             get { return casesOnHand; }
             set
@@ -140,8 +140,8 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private string piecesOnHand;
-        public string PiecesOnHand
+        private int piecesOnHand;
+        public int PiecesOnHand
         {
             get { return piecesOnHand; }
             set
@@ -183,6 +183,10 @@ namespace ESI_ITE.ViewModel
         private List<PickListLineModel> PickLineList = new List<PickListLineModel>();
         private List<List<object>> PickOrderList = new List<List<object>>();
         private List<PartiallyServedOrders> itemsPerOrderList = new List<PartiallyServedOrders>();
+        private List<List<string>> QuantityOnHand = new List<List<string>>(); //[0] Item ID
+                                                                              //[1] Item Code
+                                                                              //[2] Cases
+                                                                              //[3] Pieces
 
         #endregion
 
@@ -195,8 +199,6 @@ namespace ESI_ITE.ViewModel
             foreach (var row in pickheadList)
             {
                 var header = (PickListHeaderModel)row;
-
-                PickHead = header;
 
                 if (header.IsSuccessful && header.IsAssigned == false && header.IsGatepassPrinted == false)
                 {
@@ -214,6 +216,8 @@ namespace ESI_ITE.ViewModel
 
         private void SelectedPicklistChanged()
         {
+            PickHead = (PickListHeaderModel)PickHead.Fetch(SelectedPicklist[0], "code");
+
             CriticalItemCollection.Clear();
 
             itemsPerOrderList.Clear();
@@ -308,6 +312,47 @@ namespace ESI_ITE.ViewModel
 
             SelectedIndexCriticalItem = 0;
 
+            var inventoryMaster = new InventoryMaster2Model();
+            // Stocks On-Hand Calculator
+            foreach (var item in itemList)
+            {
+                var itemCases = 0;
+                var itemPieces = 0;
+                var dummy = (InventoryDummy2Model)item[0];
+                var itemMaster = new Item2Model();
+                itemMaster = (Item2Model)itemMaster.Fetch(dummy.ItemCode, "code");
+
+                var inventoryItems = inventoryMaster.FetchInStockItem(itemMaster.ItemId);
+                foreach (var inventoryItem in inventoryItems)
+                {
+                    itemCases += inventoryItem.Cases;
+                    itemPieces += inventoryItem.Pieces;
+                }
+
+
+                var allocationModel = new AllocatedStocksModel();
+                var allocatedStocks = allocationModel.FetchPerPickList(PickHead.HeaderNumber);
+                foreach (var alloc in allocatedStocks)
+                {
+                    var allocatedItem = alloc as AllocatedStocksModel;
+                    var _dummy = new InventoryDummy2Model();
+                    _dummy = (InventoryDummy2Model)_dummy.Fetch(allocatedItem.InventoryDummyId.ToString(), "id");
+
+                    if (_dummy.ItemCode == dummy.ItemCode)
+                    {
+                        itemCases += allocatedItem.Cases;
+                        itemPieces += allocatedItem.Pieces;
+                    }
+                }
+
+                var itemOnHand = new List<string>();
+                itemOnHand.Add(itemMaster.ItemId.ToString());
+                itemOnHand.Add(itemMaster.Code);
+                itemOnHand.Add(itemCases.ToString());
+                itemOnHand.Add(itemPieces.ToString());
+                QuantityOnHand.Add(itemOnHand);
+            }
+
             LoadOrders(CriticalItemCollection[0].ItemCode);
         }
 
@@ -325,19 +370,27 @@ namespace ESI_ITE.ViewModel
             var itemMaster = new Item2Model();
             itemMaster = (Item2Model)itemMaster.Fetch(itemCode, "code");
 
-            var inventoryMaster = new InventoryMaster2Model();
-            var inventoryItemList = inventoryMaster.FetchPerItem(itemMaster.ItemId);
+            //var inventoryMaster = new InventoryMaster2Model();
+            //var inventoryItemList = inventoryMaster.FetchPerItem(itemMaster.ItemId);
 
-            var totalCases = 0;
-            var totalPieces = 0;
-            foreach (var inventoryItem in inventoryItemList)
+            //var totalCases = 0;
+            //var totalPieces = 0;
+            //foreach (var inventoryItem in inventoryItemList)
+            //{
+            //    totalCases += inventoryItem.Cases;
+            //    totalPieces += inventoryItem.Pieces;
+            //}
+
+            //CasesOnHand = totalCases;
+            //PiecesOnHand = totalPieces;
+            foreach (var row in QuantityOnHand)
             {
-                totalCases += inventoryItem.Cases;
-                totalPieces += inventoryItem.Pieces;
+                if (row[1] == itemCode)
+                {
+                    CasesOnHand = int.Parse(row[2]);
+                    PiecesOnHand = int.Parse(row[3]);
+                }
             }
-
-            CasesOnHand = totalCases.ToString();
-            PiecesOnHand = totalPieces.ToString();
         }
 
         private void SelectedItemChanged()
@@ -347,6 +400,8 @@ namespace ESI_ITE.ViewModel
 
         private void UpdateCases()
         {
+            var isValid = true;
+
             if (SelectedPSO != null)
                 if (SelectedPSO.Customer != null)
                     if (SelectedPSO.IsCasesValid)
@@ -356,12 +411,13 @@ namespace ESI_ITE.ViewModel
                             if (PSO.Customer.CustomerNumber == SelectedPSO.Customer.CustomerNumber &&
                                 PSO.OrderItem.ItemCode == SelectedPSO.OrderItem.ItemCode)
                             {
-                                if (int.Parse(SelectedPSO.AllocatedCases) > int.Parse(CasesOnHand))
+                                if (int.Parse(SelectedPSO.AllocatedCases) > CasesOnHand)
                                 {
                                     MessageBox.Show("Allocated stock cannot exceed the current stock on hand.",
                                         "Allocation Overflow",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Warning);
+                                    isValid = false;
                                 }
                                 else if (int.Parse(SelectedPSO.AllocatedCases) > SelectedPSO.OrderItem.Cases)
                                 {
@@ -369,35 +425,55 @@ namespace ESI_ITE.ViewModel
                                         "Allocation Overflow",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Warning);
+                                    isValid = false;
                                 }
-                                else {
+                                else
+                                {
                                     PSO.AllocatedCases = SelectedPSO.AllocatedCases;
+                                    isValid = true;
                                 }
                                 break;
                             }
                         }
 
-                        var totalCases = 0;
-                        foreach (var PSO in itemsPerOrderList)
+                        if (isValid)
                         {
-                            if (PSO.OrderItem.ItemCode == SelectedPSO.OrderItem.ItemCode)
-                                totalCases += int.Parse(PSO.AllocatedCases);
-                        }
+                            var totalCases = 0;
+                            foreach (var PSO in itemsPerOrderList)
+                            {
+                                if (PSO.OrderItem.ItemCode == SelectedPSO.OrderItem.ItemCode)
+                                    totalCases += int.Parse(PSO.AllocatedCases);
+                            }
 
-                        if (totalCases > SelectedCriticalItem.OrderCases)
-                        {
-                            MessageBox.Show("Allocated stock must be equal or less than the ordered quantity.",
-                                "Allocation Overflow",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Warning);
+                            if (totalCases > SelectedCriticalItem.OrderCases)
+                            {
+                                MessageBox.Show("Allocated stock cannot exceed the ordered quantity.",
+                                    "Allocation Overflow",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Warning);
+                                isValid = false;
+                            }
+                            else if (totalCases > CasesOnHand)
+                            {
+                                MessageBox.Show("TOTAL ALLOCATED STOCK cannot exceed the Current Stock On-Hand.",
+                                    "Allocation Overflow",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Warning);
+                                isValid = false;
+                            }
+                            else
+                                isValid = true;
+
+                            if (isValid)
+                                CriticalItemCollection.ElementAt(SelectedIndexCriticalItem).AllocatedCases = totalCases;
                         }
-                        else
-                            CriticalItemCollection.ElementAt(SelectedIndexCriticalItem).AllocatedCases = totalCases;
                     }
         }
 
         private void UpdatePieces()
         {
+            var isValid = true;
+
             if (SelectedPSO != null)
                 if (SelectedPSO.Customer != null)
                     if (SelectedPSO.IsPiecesValid)
@@ -407,19 +483,62 @@ namespace ESI_ITE.ViewModel
                             if (PSO.Customer.CustomerNumber == SelectedPSO.Customer.CustomerNumber &&
                                 PSO.OrderItem.ItemCode == SelectedPSO.OrderItem.ItemCode)
                             {
-                                PSO.AllocatedPieces = SelectedPSO.AllocatedPieces;
+                                if (int.Parse(SelectedPSO.AllocatedPieces) > PiecesOnHand)
+                                {
+                                    MessageBox.Show("Allocated stock cannot exceed the current stock on hand.",
+                                        "Allocation Overflow",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Warning);
+                                    isValid = false;
+                                }
+                                else if (int.Parse(SelectedPSO.AllocatedPieces) > SelectedPSO.OrderItem.Pieces)
+                                {
+                                    MessageBox.Show("Allocated stock cannot exceed the ordered quantity.",
+                                        "Allocation Overflow",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Warning);
+                                    isValid = false;
+                                }
+                                else
+                                {
+                                    PSO.AllocatedPieces = SelectedPSO.AllocatedPieces;
+                                    isValid = true;
+                                }
                                 break;
                             }
                         }
 
-                        var totalPieces = 0;
-                        foreach (var PSO in itemsPerOrderList)
+                        if (isValid)
                         {
-                            if (PSO.OrderItem.ItemCode == SelectedPSO.OrderItem.ItemCode)
-                                totalPieces += int.Parse(PSO.AllocatedPieces);
-                        }
+                            var totalPieces = 0;
+                            foreach (var PSO in itemsPerOrderList)
+                            {
+                                if (PSO.OrderItem.ItemCode == SelectedPSO.OrderItem.ItemCode)
+                                    totalPieces += int.Parse(PSO.AllocatedPieces);
+                            }
 
-                        CriticalItemCollection.ElementAt(SelectedIndexCriticalItem).AllocatedPieces = totalPieces;
+                            if (totalPieces > SelectedCriticalItem.OrderPieces)
+                            {
+                                MessageBox.Show("Allocated stock cannot exceed the ordered quantity.",
+                                    "Allocation Overflow",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Warning);
+                                isValid = false;
+                            }
+                            else if (totalPieces > PiecesOnHand)
+                            {
+                                MessageBox.Show("TOTAL ALLOCATED STOCK cannot exceed the Current Stock On-Hand.",
+                                    "Allocation Overflow",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Warning);
+                                isValid = false;
+                            }
+                            else
+                                isValid = true;
+
+                            if (isValid)
+                                CriticalItemCollection.ElementAt(SelectedIndexCriticalItem).AllocatedPieces = totalPieces;
+                        }
                     }
         }
 
@@ -441,7 +560,33 @@ namespace ESI_ITE.ViewModel
 
         private void UpdateStocks()
         {
-            throw new NotImplementedException();
+            var allocationModel = new AllocatedStocksModel();
+            var pickHead = new PickListHeaderModel();
+
+            pickHead = (PickListHeaderModel)pickHead.Fetch(SelectedPicklist[0], "code");
+            foreach (var item in itemsPerOrderList)
+            {
+                var itemModel = new Item2Model();
+                itemModel = (Item2Model)itemModel.Fetch(item.OrderItem.ItemCode, "code");
+
+                var allocatedQuantity = ((item.PicklistItem.AllocatedCases * itemModel.PackSize) * itemModel.PackSizeBO) + item.PicklistItem.AllocatedPieces;
+                var adjustedQuantity = (((int.Parse(item.AllocatedCases)) * itemModel.PackSize) * itemModel.PackSizeBO) + int.Parse(item.AllocatedPieces);
+
+                if(allocatedQuantity != adjustedQuantity)
+                {
+
+                }
+            }
+        }
+
+        private void Allocate()
+        {
+
+        }
+
+        private void Deallocate()
+        {
+
         }
 
         #region IDataErrorInfo Members
@@ -574,10 +719,12 @@ namespace ESI_ITE.ViewModel
                     {
                         if (string.IsNullOrWhiteSpace(AllocatedCases))
                         {
-                            error = "Field must not be empty!";
-                            IsCasesValid = false;
+                            AllocatedCases = "0";
+                            //error = "Field must not be empty!";
+                            //IsCasesValid = false;
                         }
-                        else {
+                        else
+                        {
                             x = int.Parse(AllocatedCases);
                             IsCasesValid = true;
                         }
@@ -593,10 +740,12 @@ namespace ESI_ITE.ViewModel
                     {
                         if (string.IsNullOrWhiteSpace(AllocatedPieces))
                         {
-                            error = "Field must not be empty!";
-                            IsPiecesValid = false;
+                            AllocatedPieces = "0";
+                            //error = "Field must not be empty!";
+                            //IsPiecesValid = false;
                         }
-                        else {
+                        else
+                        {
                             x = int.Parse(AllocatedPieces);
                             IsPiecesValid = true;
                         }

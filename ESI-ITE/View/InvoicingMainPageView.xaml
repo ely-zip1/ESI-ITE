@@ -56,19 +56,19 @@
                         </Style>
                     </TabControl.Resources>
 
-                    <TabItem Header="Picklist" >
+                    <TabItem Header="Picklist" Foreground="White" FontWeight="DemiBold">
                         <Frame Content="{Binding PickListView}" Padding="20 " NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Stretch"/>
                     </TabItem>
-                    <TabItem Header="Allocation Maintenance">
+                    <TabItem Header="Allocation Maintenance" Foreground="White" FontWeight="DemiBold">
                         <Frame Content="{Binding AllocationMaintenanceView}" Padding="20 " NavigationUIVisibility="Hidden" Margin="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Stretch"/>
                     </TabItem>
-                    <TabItem Header="Invoice Assignment">
+                    <TabItem Header="Invoice Assignment" Foreground="White" FontWeight="DemiBold">
                         <Frame Content="{Binding AssignmentView}" Padding="20 " NavigationUIVisibility="Hidden" Margin="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Stretch"/>
                     </TabItem>
-                    <TabItem Header="Gatepass">
+                    <TabItem Header="Gatepass" Foreground="White" FontWeight="DemiBold">
                         <Frame Content="{Binding GatepassView}" Padding="20 " NavigationUIVisibility="Hidden" Margin="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Stretch"/>
                     </TabItem>
-                    <TabItem Header="Dispatch">
+                    <TabItem Header="Dispatch" Foreground="White" FontWeight="DemiBold">
                         <Frame Content="{Binding DispatchView}" Padding="20 " NavigationUIVisibility="Hidden" Margin="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Stretch"/>
                     </TabItem>
                 </TabControl>

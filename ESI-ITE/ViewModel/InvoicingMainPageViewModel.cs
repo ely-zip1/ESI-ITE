@@ -12,7 +12,7 @@ namespace ESI_ITE.ViewModel
     {
         public InvoicingMainPageViewModel( )
         {
-
+            MyGlobals.InvoicingMainVM = this;
         }
 
         private InvoicingPickListView pickListView = new InvoicingPickListView();
