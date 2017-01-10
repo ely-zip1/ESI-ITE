@@ -204,7 +204,7 @@ namespace ESI_ITE.Model
         public List<object> FetchAll( )
         {
             var list = new List<object>();
-            ;
+            
             var record = db.SelectMultiple("select * from item_master2");
 
             foreach ( var row in record )

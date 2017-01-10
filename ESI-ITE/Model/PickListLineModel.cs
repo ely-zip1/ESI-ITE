@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ESI_ITE.Model
 {
-    public class PickListLineModel: IModelTemplate
+    public class PickListLineModel : IModelTemplate
     {
         #region Properties
 
@@ -58,7 +58,7 @@ namespace ESI_ITE.Model
 
         #endregion
 
-        public void AddNew( object item )
+        public void AddNew(object item)
         {
             var line = (PickListLineModel)item;
 
@@ -77,7 +77,7 @@ namespace ESI_ITE.Model
         }
 
 
-        public string GetAddQuery( PickListLineModel item )
+        public string GetAddQuery(PickListLineModel item)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -94,13 +94,13 @@ namespace ESI_ITE.Model
         }
 
 
-        public void DeleteItem( string qry )
+        public void DeleteItem(string qry)
         {
             db.Delete(qry);
         }
 
 
-        public void DeleteItem( PickListLineModel pickLine )
+        public void DeleteItem(PickListLineModel pickLine)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -113,7 +113,7 @@ namespace ESI_ITE.Model
         }
 
 
-        public string GetDeleteQuery( PickListLineModel pickLine )
+        public string GetDeleteQuery(PickListLineModel pickLine)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -126,14 +126,14 @@ namespace ESI_ITE.Model
         }
 
 
-        public object Fetch( string id, string type )
+        public object Fetch(string id, string type)
         {
             var result = new List<CloneableDictionary<string, string>>();
             var line = new PickListLineModel();
 
             result = db.SelectMultiple("select * from pickline where pickline_id = '" + id + "'");
 
-            foreach ( var row in result )
+            foreach (var row in result)
             {
                 var clone = row.Clone();
 
@@ -149,12 +149,12 @@ namespace ESI_ITE.Model
         }
 
 
-        public List<object> FetchAll( )
+        public List<object> FetchAll()
         {
             var lineList = new List<object>();
             var result = db.SelectMultiple("select * from pickline");
 
-            foreach ( var row in result )
+            foreach (var row in result)
             {
                 var clone = row.Clone();
                 var line = new PickListLineModel();
@@ -173,13 +173,13 @@ namespace ESI_ITE.Model
         }
 
 
-        public List<PickListLineModel> FetchPerPickHead( string pickHeadId )
+        public List<PickListLineModel> FetchPerPickHead(string pickHeadId)
         {
             var pickLineList = new List<PickListLineModel>();
 
             var result = db.SelectMultiple("select * from pickline where pickhead_id = '" + pickHeadId + "'");
 
-            foreach ( var row in result )
+            foreach (var row in result)
             {
                 var clone = row.Clone();
                 var line = new PickListLineModel();
@@ -198,9 +198,36 @@ namespace ESI_ITE.Model
         }
 
 
-        public void UpdateItem( string qry )
+        public void UpdateItem(string qry)
         {
             throw new NotImplementedException();
+        }
+
+        public void UpdateItem(PickListLineModel lineItem)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("update pickline set ");
+            sb.Append("allocated_cases = '" + lineItem.AllocatedCases + "', ");
+            sb.Append("allocated_pieces = '" + lineItem.AllocatedPieces + "', ");
+            sb.Append("is_critical = '" + lineItem.IsCritical + "' ");
+            sb.Append("where pickhead_id = '" + lineItem.PickListHeaderId + "' and inventory_dummy_id = '" + lineItem.InventoryDummyId + "'");
+
+            db.Update(sb.ToString());
+        }
+
+        public string GetUpdateQuery(PickListLineModel lineItem)
+        {
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("update pickline set ");
+            sb.Append("allocated_cases = '" + lineItem.AllocatedCases + "', ");
+            sb.Append("allocated_pieces = '" + lineItem.AllocatedPieces + "', ");
+            sb.Append("is_critical = '" + lineItem.IsCritical + "' ");
+            sb.Append("where pickhead_id = '" + lineItem.PickListHeaderId + "' and inventory_dummy_id = '" + lineItem.InventoryDummyId + "'");
+
+            return sb.ToString();
         }
     }
 }

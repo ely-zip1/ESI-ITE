@@ -1,4 +1,5 @@
-﻿using ESI_ITE.Model;
+﻿using ESI_ITE.Data_Access;
+using ESI_ITE.Model;
 using ESI_ITE.ViewModel.Command;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,9 @@ namespace ESI_ITE.ViewModel
         }
 
         #region Properties
+
+        DataAccess db = new DataAccess();
+
         private ObservableCollection<List<string>> picklistCollection = new ObservableCollection<List<string>>();
         public ObservableCollection<List<string>> PicklistCollection
         {
@@ -187,6 +191,8 @@ namespace ESI_ITE.ViewModel
                                                                               //[1] Item Code
                                                                               //[2] Cases
                                                                               //[3] Pieces
+
+        private List<string> AllocationQueries = new List<string>();
 
         #endregion
 
@@ -569,24 +575,123 @@ namespace ESI_ITE.ViewModel
                 var itemModel = new Item2Model();
                 itemModel = (Item2Model)itemModel.Fetch(item.OrderItem.ItemCode, "code");
 
-                var allocatedQuantity = ((item.PicklistItem.AllocatedCases * itemModel.PackSize) * itemModel.PackSizeBO) + item.PicklistItem.AllocatedPieces;
-                var adjustedQuantity = (((int.Parse(item.AllocatedCases)) * itemModel.PackSize) * itemModel.PackSizeBO) + int.Parse(item.AllocatedPieces);
+                var allocatedQuantity = ConvertToPieces(item.PicklistItem.AllocatedCases, item.PicklistItem.AllocatedPieces, itemModel.PackSize, itemModel.PackSizeBO);
+                var adjustedQuantity = ConvertToPieces(int.Parse(item.AllocatedCases), int.Parse(item.AllocatedPieces), itemModel.PackSize, itemModel.PackSizeBO);
 
-                if(allocatedQuantity != adjustedQuantity)
+                if (allocatedQuantity != adjustedQuantity)
                 {
-
+                    if (allocatedQuantity > adjustedQuantity)
+                    {
+                        Allocate(item, itemModel, allocatedQuantity, adjustedQuantity);
+                    }
+                    else
+                    {
+                        Deallocate(item, itemModel, allocatedQuantity, adjustedQuantity);
+                    }
                 }
             }
         }
 
-        private void Allocate()
+        private void Allocate(PartiallyServedOrders item, Item2Model itemModel, int allocatedQtty, int adjustedQtty)
+        {
+            var requiredBalance = adjustedQtty - allocatedQtty;
+            var requiredQuantity = requiredBalance;
+
+            var allocationModel = new AllocatedStocksModel();
+            var allocatedStocks = allocationModel.FetchPerPickLine(item.PicklistItem.PickListHeaderId, item.OrderItem.Id);
+
+            var inventoryModel = new InventoryMaster2Model();
+            var inventoryItems = inventoryModel.FetchInStockItem(itemModel.ItemId);
+
+            AllocationQueries.Clear();
+
+            foreach (var inventoryItem in inventoryItems)
+            {
+                var itemInPieces = ConvertToPieces(inventoryItem.Cases, inventoryItem.Pieces, itemModel.PackSize, itemModel.PackSizeBO);
+
+                if (requiredBalance > 0)
+                {
+                    if (itemInPieces >= requiredBalance)
+                    {
+                        itemInPieces -= requiredBalance;
+
+                        var inventoryItemInCases = ConvertToCases(itemInPieces, itemModel.PackSize, itemModel.PackSizeBO);
+                        inventoryItem.Cases = inventoryItemInCases[0];
+                        inventoryItem.Pieces = inventoryItemInCases[1];
+
+                        var allocatedItemInCases = ConvertToCases(requiredBalance, itemModel.PackSize, itemModel.PackSizeBO);
+
+                        var allocationItem = new AllocatedStocksModel();
+                        allocationItem.PickHeadId = item.PicklistItem.PickListHeaderId;
+                        allocationItem.InventoryDummyId = item.OrderItem.Id;
+                        allocationItem.Cases = allocatedItemInCases[0];
+                        allocationItem.Pieces = allocatedItemInCases[1];
+                        allocationItem.Expiry = inventoryItem.ExpirationDate;
+
+                        requiredBalance = 0;
+
+                        AllocationQueries.Add(inventoryModel.GetUpdateQuery(inventoryItem));
+                        AllocationQueries.Add(allocationModel.GetAddQuery(allocationItem));
+                        break;
+                    }
+                    else
+                    {
+                        requiredBalance -= itemInPieces;
+                        itemInPieces = 0;
+
+                        inventoryItem.Cases = 0;
+                        inventoryItem.Pieces = 0;
+
+                        var allocatedItemInCases = ConvertToCases(requiredBalance, itemModel.PackSize, itemModel.PackSizeBO);
+
+                        var allocationItem = new AllocatedStocksModel();
+                        allocationItem.PickHeadId = item.PicklistItem.PickListHeaderId;
+                        allocationItem.InventoryDummyId = item.OrderItem.Id;
+                        allocationItem.Cases = allocatedItemInCases[0];
+                        allocationItem.Pieces = allocatedItemInCases[1];
+                        allocationItem.Expiry = inventoryItem.ExpirationDate;
+
+                        AllocationQueries.Add(inventoryModel.GetUpdateQuery(inventoryItem));
+                        AllocationQueries.Add(allocationModel.GetAddQuery(allocationItem));
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            var quantityToAdd = requiredQuantity - requiredBalance;
+            var picklistQuantityOnPieces = ((item.PicklistItem.AllocatedCases * itemModel.PackSize) * itemModel.PackSizeBO) + item.PicklistItem.AllocatedPieces;
+
+            var totalQuantity = ConvertToCases(picklistQuantityOnPieces + quantityToAdd, itemModel.PackSize, itemModel.PackSizeBO);
+
+            item.PicklistItem.AllocatedCases = totalQuantity[0];
+            item.PicklistItem.AllocatedPieces = totalQuantity[1];
+
+            AllocationQueries.Add(item.PicklistItem.GetUpdateQuery(item.PicklistItem));
+
+            db.RunMySqlTransaction(AllocationQueries);
+        }
+
+        private void Deallocate(PartiallyServedOrders item, Item2Model itemModel, int allocatedQtty, int adjustedQtty)
         {
 
         }
 
-        private void Deallocate()
+        private int ConvertToPieces(int Cases, int Pieces, int packSize, int PackSizeBO)
         {
+            return ((Cases * packSize) * PackSizeBO) + Pieces;
+        }
 
+        private List<int> ConvertToCases(int itemInPieces, int packSize, int packSizeBO)
+        {
+            List<int> quantity = new List<int>();
+
+            quantity.Add((itemInPieces / packSize) / packSizeBO);
+            quantity.Add(itemInPieces % quantity[0]);
+
+            return quantity;
         }
 
         #region IDataErrorInfo Members

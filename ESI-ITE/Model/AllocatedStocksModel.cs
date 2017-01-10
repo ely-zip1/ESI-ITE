@@ -148,11 +148,11 @@ namespace ESI_ITE.Model
             return stock;
         }
 
-        public List<AllocatedStocksModel> FetchPerPickLine(int pickheadID, int itemID)
+        public List<AllocatedStocksModel> FetchPerPickLine(int pickheadID, int inventoryDummyId)
         {
             var stockList = new List<AllocatedStocksModel>();
 
-            var result = db.SelectMultiple("select * from allocated_stocks where pickhead_id = '" + pickheadID + "' and inventory_dummy_id = '" + itemID + "'");
+            var result = db.SelectMultiple("select * from allocated_stocks where pickhead_id = '" + pickheadID + "' and inventory_dummy_id = '" + inventoryDummyId + "'");
 
             foreach (var row in result)
             {
