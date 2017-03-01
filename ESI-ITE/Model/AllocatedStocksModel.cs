@@ -172,8 +172,6 @@ namespace ESI_ITE.Model
             return stockList;
         }
 
-
-
         public List<AllocatedStocksModel> FetchPerPickList(string pickHeadNumber)
         {
             var ListOfAllocatedStocks = new List<AllocatedStocksModel>();
@@ -250,6 +248,22 @@ namespace ESI_ITE.Model
             sb.Append("inventory_dummy_id = '" + item.InventoryDummyId + "'");
 
             db.Update(sb.ToString());
+        }
+
+        public string GetUpdateQuery(AllocatedStocksModel item)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("update allocated_stocks set ");
+            sb.Append("pickhead_id = '" + item.PickHeadId + "', ");
+            sb.Append("inventory_dummy_id = '" + item.InventoryDummyId + "', ");
+            sb.Append("cases = '" + item.Cases + "', ");
+            sb.Append("pieces = '" + item.Pieces + "', ");
+            sb.Append("expiry = '" + item.Expiry + "' ");
+            sb.Append("where pickhead_id = '" + item.PickHeadId + "' and ");
+            sb.Append("inventory_dummy_id = '" + item.InventoryDummyId + "'");
+
+            return sb.ToString();
         }
     }
 }

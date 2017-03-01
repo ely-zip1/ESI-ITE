@@ -106,7 +106,7 @@ namespace ESI_ITE.Model
                 inventory.LocationId = int.Parse(row["location_link"]);
                 inventory.Cases = int.Parse(row["i_cases"]);
                 inventory.Pieces = int.Parse(row["i_pieces"]);
-                inventory.ExpirationDate = DateTime.ParseExact(row["expiration_date"], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+                inventory.ExpirationDate = DateTime.Parse(row["expiration_date"]);
                 inventory.LotNumber = row["lot_number"];
             }
 

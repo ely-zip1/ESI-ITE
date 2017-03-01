@@ -5,6 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ESI_ITE.View"
       xmlns:vm="clr-namespace:ESI_ITE.ViewModel"
+      xmlns:conv="clr-namespace:ESI_ITE.ViewModel.Converter"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="730" d:DesignWidth="1190"
       Title="InvoicingAssignmentView">
@@ -12,6 +14,10 @@
     <Page.DataContext>
         <vm:InvoicingAssignmentViewModel x:Name="viewModel"/>
     </Page.DataContext>
+
+    <Page.Resources>
+        <conv:BoolToVisibilityConverter x:Key="boolToVisConverter"/>
+    </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -27,29 +33,38 @@
 
             <Label Content="Sales Orders to be Invoiced" FontSize="15" FontWeight="Bold"/>
 
-            <DataGrid Grid.Row="1" AutoGenerateColumns="False">
+            <DataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding OrdersCollection}" SelectedItem="{Binding SelectedOrder}" SelectedIndex="{Binding SelectedIndexOrder}" CanUserAddRows="False" CanUserDeleteRows="False">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Width="25">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox/>
+                                <CheckBox IsChecked="{Binding IsChecked}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Checked">
+                                            <i:InvokeCommandAction Command="{Binding Path=DataContext.ItemCheckedCommand,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page}}"/>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="Unchecked">
+                                            <i:InvokeCommandAction Command="{Binding Path=DataContext.ItemUncheckedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page}}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </CheckBox>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTextColumn Header="Invoice #" Width="80"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Invoice #" Width="80" IsReadOnly="True"/>
 
-                    <DataGridTextColumn Header="SO Number" Width="90"></DataGridTextColumn>
+                    <DataGridTextColumn Header="SO Number" Width="90" Binding="{Binding OrderNumber}" IsReadOnly="True"/>
 
-                    <DataGridTextColumn Header="Customer Name" Width="200"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Customer Name" Width="200" Binding="{Binding CustomerName}" IsReadOnly="True"/>
 
-                    <DataGridTextColumn Header="Order Cases" Width="100"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Order Cases" Width="100" Binding="{Binding SoCasesQuantity}" IsReadOnly="True"/>
 
-                    <DataGridTextColumn Header="Order Pieces" Width="105"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Order Pieces" Width="105" Binding="{Binding SoPiecesQuantity}" IsReadOnly="True"/>
 
-                    <DataGridTextColumn Header="Allocated Cases" Width="130"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Allocated Cases" Width="130" Binding="{Binding AllocCasesQuantity}" IsReadOnly="True"/>
 
-                    <DataGridTextColumn Header="Allocated Pieces" Width="130"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Allocated Pieces" Width="130" Binding="{Binding AllocPiecesQuantity}" IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -58,7 +73,17 @@
             <StackPanel>
                 <Label Content="Select Picklist Number" FontSize="15" FontWeight="Bold"/>
 
-                <ComboBox></ComboBox>
+                <ComboBox ItemsSource="{Binding PickNumberCollection}" SelectedItem="{Binding SelectedPickNumber}" SelectedIndex="{Binding SelectedIndexPickNumber}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding [0]}" Width="60"/>
+                                <TextBlock Text="{Binding [1]}" Width="80"/>
+                                <TextBlock Text="{Binding [2]}"/>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
                 <StackPanel Orientation="Horizontal" Margin="0,10">
                     <Button Content="Assign Invoice Number" Margin="0,0,10,0"/>

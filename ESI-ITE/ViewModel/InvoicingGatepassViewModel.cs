@@ -9,6 +9,19 @@ namespace ESI_ITE.ViewModel
 {
     public class InvoicingGatepassViewModel: ViewModelBase, IDataErrorInfo
     {
+        public InvoicingGatepassViewModel()
+        {
+
+        }
+
+        #region Properties
+
+
+
+        #endregion
+
+        #region IDataErrorInfo Members
+
         public string this[string columnName]
         {
             get
@@ -24,5 +37,6 @@ namespace ESI_ITE.ViewModel
                 throw new NotImplementedException();
             }
         }
+        #endregion
     }
 }

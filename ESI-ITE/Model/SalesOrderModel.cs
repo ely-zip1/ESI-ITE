@@ -7,7 +7,7 @@ using ESI_ITE.Data_Access;
 
 namespace ESI_ITE.Model
 {
-    public class SalesOrderModel: IModelTemplate
+    public class SalesOrderModel : IModelTemplate
     {
         #region Properties
         DataAccess db = new DataAccess();
@@ -141,7 +141,7 @@ namespace ESI_ITE.Model
 
         #endregion
 
-        public void AddNew( object item )
+        public void AddNew(object item)
         {
             var order = item as SalesOrderModel;
             StringBuilder sb = new StringBuilder();
@@ -169,18 +169,18 @@ namespace ESI_ITE.Model
             db.Insert(sb.ToString());
         }
 
-        public void DeleteItem( string qry )
+        public void DeleteItem(string qry)
         {
             db.Delete(qry);
         }
 
-        public void UpdateInventoryDummy( string type, string value )
+        public void UpdateInventoryDummy(string type, string value)
         {
-            if ( type == "cutOffDate" )
+            if (type == "cutOffDate")
             {
                 var orderIdList = db.SelectMultiple("select order_id from orders where order_date <= str_to_date('" + value + "','%m/%d/%Y')");
 
-                foreach ( var row in orderIdList )
+                foreach (var row in orderIdList)
                 {
                     var clone = row.Clone();
                     var dummy = new InventoryDummy2Model();
@@ -188,7 +188,7 @@ namespace ESI_ITE.Model
                     dummy.DeleteItem("delete from inventory_dummy_2 where order_id = '" + row["order_id"] + "'");
                 }
             }
-            else if ( type == "orderNumber" )
+            else if (type == "orderNumber")
             {
                 var orderId = db.Select("select order_id from orders where order_number = '" + value + "'");
 
@@ -197,30 +197,30 @@ namespace ESI_ITE.Model
             }
         }
 
-        public void DeleteOrders( DateTime date )
+        public void DeleteOrders(DateTime date)
         {
             var cutOffDate = date.ToString("MM/dd/yyyy");
 
             db.Delete("delete from orders where order_date <= str_to_date('" + cutOffDate + "','%m/%d/%Y')");
         }
 
-        public object Fetch( string id, string type )
+        public object Fetch(string id, string type)
         {
             SalesOrderModel orderModel = new SalesOrderModel();
 
             var record = new List<CloneableDictionary<string, string>>();
 
-            if ( type == "code" )
+            if (type == "code")
             {
                 record = db.SelectMultiple("select * from orders where order_number = '" + id + "'");
             }
-            else if ( type == "id" )
+            else if (type == "id")
             {
                 record = db.SelectMultiple("select * from orders where order_id = '" + id + "'");
             }
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
-            foreach ( var row in record )
+            foreach (var row in record)
             {
                 var clone = row.Clone();
 
@@ -248,7 +248,7 @@ namespace ESI_ITE.Model
             return orderModel;
         }
 
-        public List<object> FetchAll( )
+        public List<object> FetchAll()
         {
             List<object> list = new List<object>();
 
@@ -257,7 +257,7 @@ namespace ESI_ITE.Model
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
             list.Clear();
-            foreach ( var row in record )
+            foreach (var row in record)
             {
                 var order = new SalesOrderModel();
                 var clone = row.Clone();
@@ -287,7 +287,44 @@ namespace ESI_ITE.Model
             return list;
         }
 
-        public void UpdateItem( SalesOrderModel order )
+        public List<SalesOrderModel> FetchPickedOrders()
+        {
+            var pickedOrders = new List<SalesOrderModel>();
+
+            var result = db.SelectMultiple("select * from orders where picked = 1");
+
+            if (result.Count > 0)
+                foreach (var row in result)
+                {
+                    var order = new SalesOrderModel();
+                    var clone = row.Clone();
+
+                    order.OrderId = Int32.Parse(row["order_id"]);
+                    order.OrderNumber = row["order_number"].ToString();
+                    order.OrderDate = DateTime.Parse(row["order_date"]);
+                    order.RequiredShipDate = DateTime.Parse(row["required_ship_date"]);
+                    order.PONumber = row["po_number"].ToString();
+                    order.OrderNote = row["order_note"].ToString();
+                    order.OrderAmount = Decimal.Parse(row["order_amount"]);
+                    order.Cases = Int32.Parse(row["cases"]);
+                    order.Pieces = Int32.Parse(row["pieces"]);
+                    order.IsServed = bool.Parse(row["served"]);
+                    order.IsPicked = bool.Parse(row["picked"]);
+                    order.IsPrinted = bool.Parse(row["printed"]);
+                    order.DistrictId = Int32.Parse(row["district_id"]);
+                    order.CustomerID = Int32.Parse(row["customer_id"]);
+                    order.RouteId = Int32.Parse(row["route_id"]);
+                    order.TermId = Int32.Parse(row["term_id"]);
+                    order.PriceId = Int32.Parse(row["price_id"]);
+                    order.WarehouseId = Int32.Parse(row["warehouse_id"]);
+
+                    pickedOrders.Add(order);
+                }
+
+            return pickedOrders;
+        }
+
+        public void UpdateItem(SalesOrderModel order)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -318,12 +355,12 @@ namespace ESI_ITE.Model
             db.Update(sb.ToString());
         }
 
-        public void UpdateItem( string qry )
+        public void UpdateItem(string qry)
         {
             throw new NotImplementedException();
         }
 
-        public string GetUpdateQuery( SalesOrderModel order )
+        public string GetUpdateQuery(SalesOrderModel order)
         {
 
             StringBuilder sb = new StringBuilder();

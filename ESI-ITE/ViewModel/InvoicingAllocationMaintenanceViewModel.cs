@@ -193,6 +193,7 @@ namespace ESI_ITE.ViewModel
                                                                               //[3] Pieces
 
         private List<string> AllocationQueries = new List<string>();
+        private List<List<InventoryMaster2Model>> Inventory = new List<List<InventoryMaster2Model>>();
 
         #endregion
 
@@ -569,57 +570,88 @@ namespace ESI_ITE.ViewModel
             var allocationModel = new AllocatedStocksModel();
             var pickHead = new PickListHeaderModel();
 
+            foreach (var item in itemsPerOrderList)
+            {
+                if ((int.Parse(item.AllocatedCases) != item.OrderItem.Cases) || (int.Parse(item.AllocatedPieces) != item.OrderItem.Pieces))
+                {
+                    var itemModel = new Item2Model();
+                    itemModel = (Item2Model)itemModel.Fetch(item.OrderItem.ItemCode, "code");
+
+                    var inventoryModel = new InventoryMaster2Model();
+
+                    if (Inventory.Count > 0)
+                    {
+                        foreach (var items in Inventory)
+                        {
+                            if (items[0].ItemId != itemModel.ItemId)
+                            {
+                                Inventory.Add(inventoryModel.FetchInStockItem(itemModel.ItemId));
+                            }
+                        }
+                    }
+                }
+            }
+
             pickHead = (PickListHeaderModel)pickHead.Fetch(SelectedPicklist[0], "code");
             foreach (var item in itemsPerOrderList)
             {
                 var itemModel = new Item2Model();
                 itemModel = (Item2Model)itemModel.Fetch(item.OrderItem.ItemCode, "code");
 
-                var allocatedQuantity = ConvertToPieces(item.PicklistItem.AllocatedCases, item.PicklistItem.AllocatedPieces, itemModel.PackSize, itemModel.PackSizeBO);
+                var previousQuantity = ConvertToPieces(item.PicklistItem.AllocatedCases, item.PicklistItem.AllocatedPieces, itemModel.PackSize, itemModel.PackSizeBO);
                 var adjustedQuantity = ConvertToPieces(int.Parse(item.AllocatedCases), int.Parse(item.AllocatedPieces), itemModel.PackSize, itemModel.PackSizeBO);
 
-                if (allocatedQuantity != adjustedQuantity)
+                if (previousQuantity != adjustedQuantity)
                 {
-                    if (allocatedQuantity > adjustedQuantity)
+                    var index = 0;
+                    foreach (var inventoryItems in Inventory)
                     {
-                        Allocate(item, itemModel, allocatedQuantity, adjustedQuantity);
+                        if (inventoryItems[0].ItemId == itemModel.ItemId)
+                        {
+                            index++;
+                            break;
+                        }
+                        index++;
+                    }
+
+                    if (adjustedQuantity > previousQuantity)
+                    {
+                        Allocate(item, itemModel, previousQuantity, adjustedQuantity, index);
                     }
                     else
                     {
-                        Deallocate(item, itemModel, allocatedQuantity, adjustedQuantity);
+                        Deallocate(item, itemModel, previousQuantity, adjustedQuantity, index);
                     }
                 }
             }
         }
 
-        private void Allocate(PartiallyServedOrders item, Item2Model itemModel, int allocatedQtty, int adjustedQtty)
+        private void Allocate(PartiallyServedOrders item, Item2Model itemModel, int allocatedQtty, int adjustedQtty, int inventoryIndex)
         {
-            var requiredBalance = adjustedQtty - allocatedQtty;
-            var requiredQuantity = requiredBalance;
+            var toBeAllocated = adjustedQtty - allocatedQtty;
+            var requiredQuantity = toBeAllocated;
 
             var allocationModel = new AllocatedStocksModel();
             var allocatedStocks = allocationModel.FetchPerPickLine(item.PicklistItem.PickListHeaderId, item.OrderItem.Id);
 
             var inventoryModel = new InventoryMaster2Model();
-            var inventoryItems = inventoryModel.FetchInStockItem(itemModel.ItemId);
 
             AllocationQueries.Clear();
-
-            foreach (var inventoryItem in inventoryItems)
+            foreach (var inventoryItem in Inventory[inventoryIndex])
             {
                 var itemInPieces = ConvertToPieces(inventoryItem.Cases, inventoryItem.Pieces, itemModel.PackSize, itemModel.PackSizeBO);
 
-                if (requiredBalance > 0)
+                if (toBeAllocated > 0)
                 {
-                    if (itemInPieces >= requiredBalance)
+                    if (itemInPieces >= toBeAllocated)
                     {
-                        itemInPieces -= requiredBalance;
+                        itemInPieces -= toBeAllocated;
 
                         var inventoryItemInCases = ConvertToCases(itemInPieces, itemModel.PackSize, itemModel.PackSizeBO);
                         inventoryItem.Cases = inventoryItemInCases[0];
                         inventoryItem.Pieces = inventoryItemInCases[1];
 
-                        var allocatedItemInCases = ConvertToCases(requiredBalance, itemModel.PackSize, itemModel.PackSizeBO);
+                        var allocatedItemInCases = ConvertToCases(toBeAllocated, itemModel.PackSize, itemModel.PackSizeBO);
 
                         var allocationItem = new AllocatedStocksModel();
                         allocationItem.PickHeadId = item.PicklistItem.PickListHeaderId;
@@ -628,7 +660,7 @@ namespace ESI_ITE.ViewModel
                         allocationItem.Pieces = allocatedItemInCases[1];
                         allocationItem.Expiry = inventoryItem.ExpirationDate;
 
-                        requiredBalance = 0;
+                        toBeAllocated = 0;
 
                         AllocationQueries.Add(inventoryModel.GetUpdateQuery(inventoryItem));
                         AllocationQueries.Add(allocationModel.GetAddQuery(allocationItem));
@@ -636,13 +668,13 @@ namespace ESI_ITE.ViewModel
                     }
                     else
                     {
-                        requiredBalance -= itemInPieces;
+                        toBeAllocated -= itemInPieces;
                         itemInPieces = 0;
 
                         inventoryItem.Cases = 0;
                         inventoryItem.Pieces = 0;
 
-                        var allocatedItemInCases = ConvertToCases(requiredBalance, itemModel.PackSize, itemModel.PackSizeBO);
+                        var allocatedItemInCases = ConvertToCases(toBeAllocated, itemModel.PackSize, itemModel.PackSizeBO);
 
                         var allocationItem = new AllocatedStocksModel();
                         allocationItem.PickHeadId = item.PicklistItem.PickListHeaderId;
@@ -661,8 +693,8 @@ namespace ESI_ITE.ViewModel
                 }
             }
 
-            var quantityToAdd = requiredQuantity - requiredBalance;
-            var picklistQuantityOnPieces = ((item.PicklistItem.AllocatedCases * itemModel.PackSize) * itemModel.PackSizeBO) + item.PicklistItem.AllocatedPieces;
+            var quantityToAdd = requiredQuantity - toBeAllocated;
+            var picklistQuantityOnPieces = ConvertToPieces(item.PicklistItem.AllocatedCases, item.PicklistItem.AllocatedPieces, itemModel.PackSize, itemModel.PackSizeBO);
 
             var totalQuantity = ConvertToCases(picklistQuantityOnPieces + quantityToAdd, itemModel.PackSize, itemModel.PackSizeBO);
 
@@ -670,13 +702,101 @@ namespace ESI_ITE.ViewModel
             item.PicklistItem.AllocatedPieces = totalQuantity[1];
 
             AllocationQueries.Add(item.PicklistItem.GetUpdateQuery(item.PicklistItem));
-
-            db.RunMySqlTransaction(AllocationQueries);
         }
 
-        private void Deallocate(PartiallyServedOrders item, Item2Model itemModel, int allocatedQtty, int adjustedQtty)
+        private void Deallocate(PartiallyServedOrders item, Item2Model itemModel, int allocatedQtty, int adjustedQtty, int inventoryIndex)
         {
+            //
+            //number of pieces to be deallocated
+            //
+            var removableQtty = allocatedQtty - adjustedQtty;
+            var quantityToDeallocate = removableQtty;
 
+            var allocationModel = new AllocatedStocksModel();
+            //
+            //Get allocated items and sort ascending
+            //
+            var allocatedStocks = allocationModel.FetchPerPickLine(item.PicklistItem.PickListHeaderId, item.OrderItem.Id);
+            var sortedAllocatedStocks = allocatedStocks.OrderBy(o => o.Cases);
+
+            var inventoryModel = new InventoryMaster2Model();
+            int inventoryItemIndex = 0;
+
+            foreach (var allocatedItem in sortedAllocatedStocks)
+            {
+                //
+                // While there are items to be deallocated
+                //
+                if (removableQtty > 0)
+                {
+                    //
+                    // Find item index in inventory list
+                    //
+                    foreach (var inventoryItem in Inventory[inventoryIndex])
+                    {
+                        if (inventoryItem.ExpirationDate == allocatedItem.Expiry)
+                            break;
+
+                        inventoryItemIndex++;
+                    }
+
+                    var allocatedItemInPieces = ConvertToPieces(allocatedItem.Cases, allocatedItem.Pieces, itemModel.PackSize, itemModel.PackSizeBO);
+
+                    if (allocatedItemInPieces >= removableQtty)
+                    {
+                        var itemInPieces = ConvertToPieces(Inventory[inventoryIndex][inventoryItemIndex].Cases, Inventory[inventoryIndex][inventoryItemIndex].Pieces, itemModel.PackSize, itemModel.PackSizeBO);
+
+                        itemInPieces += removableQtty;
+
+                        var itemInCases = ConvertToCases(itemInPieces, itemModel.PackSize, itemModel.PackSizeBO);
+
+                        Inventory[inventoryIndex][inventoryItemIndex].Cases = itemInCases[0];
+                        Inventory[inventoryIndex][inventoryItemIndex].Pieces = itemInCases[1];
+
+                        AllocationQueries.Add(inventoryModel.GetUpdateQuery(Inventory[inventoryIndex][inventoryItemIndex]));
+
+                        allocatedItemInPieces -= removableQtty;
+                        if (allocatedItemInPieces == 0)
+                        {
+                            AllocationQueries.Add(allocationModel.GetDeleteQuery(allocatedItem));
+                        }
+                        else
+                        {
+                            var allocatedItemInCases = ConvertToCases(allocatedItemInPieces, itemModel.PackSize, itemModel.PackSizeBO);
+                            allocatedItem.Cases = allocatedItemInCases[0];
+                            allocatedItem.Pieces = allocatedItemInCases[1];
+
+                            AllocationQueries.Add(allocationModel.GetUpdateQuery(allocatedItem));
+                        }
+
+                        removableQtty = 0;
+                    }
+                    else
+                    {
+                        removableQtty -= allocatedItemInPieces;
+
+                        var itemInPieces = ConvertToPieces(Inventory[inventoryIndex][inventoryItemIndex].Cases, Inventory[inventoryIndex][inventoryItemIndex].Pieces, itemModel.PackSize, itemModel.PackSizeBO);
+                        itemInPieces += allocatedItemInPieces;
+
+                        var itemInCases = ConvertToCases(itemInPieces, itemModel.PackSize, itemModel.PackSizeBO);
+
+                        Inventory[inventoryIndex][inventoryItemIndex].Cases = itemInCases[0];
+                        Inventory[inventoryIndex][inventoryItemIndex].Pieces = itemInCases[1];
+
+                        AllocationQueries.Add(inventoryModel.GetUpdateQuery(Inventory[inventoryIndex][inventoryItemIndex]));
+                        AllocationQueries.Add(allocationModel.GetDeleteQuery(allocatedItem));
+                    }
+                }
+            }
+            var qttyToRemove = quantityToDeallocate - removableQtty;
+            var picklistQuantityOnPieces = ConvertToPieces(item.PicklistItem.AllocatedCases, item.PicklistItem.AllocatedPieces, itemModel.PackSize, itemModel.PackSizeBO);
+
+            var totalQuantity = ConvertToCases(picklistQuantityOnPieces - qttyToRemove, itemModel.PackSize, itemModel.PackSizeBO);
+
+            item.PicklistItem.AllocatedCases = totalQuantity[0];
+            item.PicklistItem.AllocatedPieces = totalQuantity[1];
+
+            AllocationQueries.Add(item.PicklistItem.GetUpdateQuery(item.PicklistItem));
         }
 
         private int ConvertToPieces(int Cases, int Pieces, int packSize, int PackSizeBO)
