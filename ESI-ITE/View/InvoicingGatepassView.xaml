@@ -26,7 +26,7 @@
 
             <Label Content="Attached Invoices" FontSize="15" FontWeight="Bold"/>
 
-            <DataGrid Grid.Row="1">
+            <DataGrid Grid.Row="1" BorderThickness="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Invoice #" Width="90"></DataGridTextColumn>
                     <DataGridTextColumn Header="Customer #" Width="100"></DataGridTextColumn>
@@ -43,7 +43,7 @@
             <ComboBox></ComboBox>
 
             <StackPanel Orientation="Horizontal" Margin="0,10">
-                <Button Content="Print Gatepass" Margin="0,0,10,0"/>
+                <Button Content="Print Gatepass" Width="100" Margin="0,0,10,0"/>
                 <Button Content="Cancel"/>
             </StackPanel>
         </StackPanel>

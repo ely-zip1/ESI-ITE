@@ -8,6 +8,7 @@ using ESI_ITE.Model;
 using System.Collections.ObjectModel;
 using ESI_ITE.ViewModel.Command;
 using System.Windows.Input;
+using System.Windows.Documents;
 
 namespace ESI_ITE.ViewModel
 {
@@ -18,23 +19,10 @@ namespace ESI_ITE.ViewModel
             itemCheckedCommand = new DelegateCommand(itemChecked);
             itemUncheckedCommand = new DelegateCommand(itemUnchecked);
             selectAllCommand = new DelegateCommand(selectAllChanged);
+            assignInvoiceCommand = new DelegateCommand(assignInvoice);
+            printInvoiceCommand = new DelegateCommand(StartPrinting);
 
             Load();
-        }
-
-        private void selectAllChanged()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void itemUnchecked()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void itemChecked()
-        {
-            throw new NotImplementedException();
         }
 
         #region Properties
@@ -134,6 +122,9 @@ namespace ESI_ITE.ViewModel
             }
         }
 
+        private bool isItemChecked = false;
+        private bool selectAllClicked = true;
+
         #region Commands
 
         private DelegateCommand itemCheckedCommand;
@@ -149,9 +140,21 @@ namespace ESI_ITE.ViewModel
         }
 
         private DelegateCommand selectAllCommand;
-        private ICommand SelectAllCommand
+        public ICommand SelectAllCommand
         {
             get { return selectAllCommand; }
+        }
+
+        private DelegateCommand assignInvoiceCommand;
+        public ICommand AssignInvoiceCommand
+        {
+            get { return assignInvoiceCommand; }
+        }
+
+        private DelegateCommand printInvoiceCommand;
+        public ICommand PrintInvoiceCommand
+        {
+            get { return printInvoiceCommand; }
         }
 
         #endregion
@@ -238,6 +241,121 @@ namespace ESI_ITE.ViewModel
             }
         }
 
+        private void selectAllChanged()
+        {
+            selectAllClicked = true;
+
+            if (IsChecked)
+            {
+                foreach (var orderToBeInvoiced in OrdersCollection)
+                {
+                    orderToBeInvoiced.IsSelected = true;
+                }
+            }
+            else
+            {
+                foreach (var orderToBeInvoiced in OrdersCollection)
+                {
+                    orderToBeInvoiced.IsSelected = false;
+                }
+            }
+
+            selectAllClicked = false;
+        }
+
+        private void itemChecked()
+        {
+            if (selectAllClicked == false)
+            {
+                OrdersCollection[SelectedIndexOrder].IsSelected = true;
+
+                var checkCounter = 0;
+                foreach (var orderToBeInvoiced in OrdersCollection)
+                {
+                    if (orderToBeInvoiced.IsSelected)
+                        checkCounter++;
+                }
+
+                if (checkCounter == OrdersCollection.Count)
+                    IsChecked = true;
+            }
+        }
+
+        private void itemUnchecked()
+        {
+            if (selectAllClicked == false)
+            {
+                OrdersCollection[SelectedIndexOrder].IsSelected = false;
+                IsChecked = false;
+            }
+        }
+
+        private void assignInvoice()
+        {
+            foreach (var _orderToBeInvoiced in OrdersCollection)
+            {
+                var invoiceObj = new InvoicesModel();
+                var invoiceNumberObj = new InvoiceNumberModel();
+
+                if (_orderToBeInvoiced.AllocCasesQuantity != 0 && _orderToBeInvoiced.AllocPiecesQuantity != 0)
+                {
+                    var invoice = new InvoicesModel();
+                    invoice.InvoiceNumber = invoiceNumberObj.FetchLatest().InvoiceNumber;
+                    invoice.PickheadId = _orderToBeInvoiced.PickId;
+                    invoice.OrderId = _orderToBeInvoiced.OrderId;
+                    invoice.UserId = MyGlobals.LoggedUser.Id;
+
+                    invoiceObj.AddNew(invoice);
+
+                    invoiceNumberObj.AddNew(new InvoiceNumberModel());
+
+                    _orderToBeInvoiced.InvoiceNumber = invoice.InvoiceNumber;
+                }
+            }
+        }
+
+
+        #region Printing
+
+        private void StartPrinting()
+        {
+            CallPrintingAsync();
+        }
+
+        private async void CallPrintingAsync()
+        {
+            var result = await InvoicePrintingAsync();
+        }
+
+        private Task<FixedDocument> InvoicePrintingAsync()
+        {
+            return Task.Factory.StartNew(() => InvoicePrinting());
+        }
+
+        private FixedDocument InvoicePrinting()
+        {
+            FixedDocument fixedDoc = null;
+
+            foreach (var _orderToBeInvoiced in OrdersCollection)
+            {
+                if (_orderToBeInvoiced.IsSelected)
+                {
+                    var invoiceTemplateViewModel = new InvoicePrintTemplateViewModel();
+                    var inventoryDummy = new InventoryDummy2Model();
+                    var itemMaster = new ItemModel();
+
+                    var orderItems = inventoryDummy.FetchPerOrder(_orderToBeInvoiced.OrderNumber);
+
+
+                }
+            }
+
+            return fixedDoc;
+        }
+
+        #endregion
+
+
         #region IDataErrorInfo Members
         public string this[string columnName]
         {
@@ -267,6 +385,39 @@ namespace ESI_ITE.ViewModel
             set
             {
                 isSelected = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int orderId;
+        public int OrderId
+        {
+            get { return orderId; }
+            set
+            {
+                orderId = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int pickId;
+        public int PickId
+        {
+            get { return pickId; }
+            set
+            {
+                pickId = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string invoiceNumber;
+        public string InvoiceNumber
+        {
+            get { return invoiceNumber; }
+            set
+            {
+                invoiceNumber = value;
                 OnPropertyChanged();
             }
         }

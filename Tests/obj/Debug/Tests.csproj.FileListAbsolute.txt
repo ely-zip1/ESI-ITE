@@ -66,3 +66,4 @@ E:\GitHub\ESI-ITE\Tests\obj\Debug\Tests.Properties.Resources.resources
 E:\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.GenerateResource.Cache
 E:\GitHub\ESI-ITE\Tests\obj\Debug\Tests.exe
 E:\GitHub\ESI-ITE\Tests\obj\Debug\Tests.pdb
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.exe.config

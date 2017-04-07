@@ -32,7 +32,7 @@ namespace ESI_ITE.ViewModel
             allocateStocksCommand = new DelegateCommand(StartAllocation);
             deallocateStocksCommand = new DelegateCommand(StartDeallocation);
             printPicklistCommand = new DelegateCommand(StartPrinting);
-            
+
             Load();
         }
 
@@ -562,6 +562,9 @@ namespace ESI_ITE.ViewModel
         }
 
         #region Stock Allocation
+        //
+        // Asynchronous
+        //
 
         private void StartAllocation()
         {
@@ -962,7 +965,7 @@ namespace ESI_ITE.ViewModel
 
         private Task<FixedDocument> PicklistPrintingAsync()
         {
-            return Task.Factory.StartNew(() => PicklistPrinting());
+            return Task.Factory.StartNew(() => PicklistPrinting()); 
         }
 
         private FixedDocument PicklistPrinting()
@@ -989,11 +992,8 @@ namespace ESI_ITE.ViewModel
                 PicklistPrintTemplate templateView = new PicklistPrintTemplate();
                 PicklistPrintTemplateViewModel templateVM = new PicklistPrintTemplateViewModel();
 
-                Random r = new Random();
-
                 var listHeight = 0;
                 var tempItemList = new List<List<string>>();
-                var ordersHeight = 30;
                 var orderNumberList = new List<string>();
                 var tempOrdersList = new List<List<string>>();
                 var pageNumber = 1;
@@ -1003,9 +1003,9 @@ namespace ESI_ITE.ViewModel
                 var totalAllocatedCases = 0;
                 var totalAllocatedPieces = 0;
 
-                foreach (var row in pickList)
+                foreach (var pickLine in pickList)
                 {
-                    inventoryDummy = (InventoryDummy2Model)inventoryDummy.Fetch(row.InventoryDummyId.ToString(), "id");
+                    inventoryDummy = (InventoryDummy2Model)inventoryDummy.Fetch(pickLine.InventoryDummyId.ToString(), "id");
                     order = (SalesOrderModel)order.Fetch(inventoryDummy.OrderNumber, "code");
                     customer = (CustomerModel)customer.Fetch(order.CustomerID.ToString(), "id");
                     term = (TermModel)term.Fetch(order.TermId.ToString(), "id");
@@ -1024,13 +1024,13 @@ namespace ESI_ITE.ViewModel
 
                                 content[3] = (_orderedCases + inventoryDummy.Cases).ToString();
                                 content[4] = (_orderedPieces + inventoryDummy.Pieces).ToString();
-                                content[5] = (_allocCases + row.AllocatedCases).ToString();
-                                content[6] = (_allocPieces + row.AllocatedPieces).ToString();
+                                content[5] = (_allocCases + pickLine.AllocatedCases).ToString();
+                                content[6] = (_allocPieces + pickLine.AllocatedPieces).ToString();
 
                                 totalOrderCases += inventoryDummy.Cases;
                                 totalOrderPieces += inventoryDummy.Pieces;
-                                totalAllocatedCases += row.AllocatedCases;
-                                totalAllocatedPieces += row.AllocatedPieces;
+                                totalAllocatedCases += pickLine.AllocatedCases;
+                                totalAllocatedPieces += pickLine.AllocatedPieces;
 
                                 isUpdated = true;
                                 continue;
@@ -1039,6 +1039,7 @@ namespace ESI_ITE.ViewModel
                                 isUpdated = false;
                         }
                     }
+
                     if (isUpdated)
                         continue;
 
@@ -1048,16 +1049,16 @@ namespace ESI_ITE.ViewModel
                     item.Add(inventoryDummy.Location);
                     item.Add(inventoryDummy.Cases.ToString());
                     item.Add(inventoryDummy.Pieces.ToString());
-                    item.Add(row.AllocatedCases.ToString());
-                    item.Add(row.AllocatedPieces.ToString());
-                    item.Add(row.IsCritical ? "**" : "");
+                    item.Add(pickLine.AllocatedCases.ToString());
+                    item.Add(pickLine.AllocatedPieces.ToString());
+                    item.Add(pickLine.IsCritical ? "**" : "");
 
                     tempItemList.Add(item);
 
                     totalOrderCases += inventoryDummy.Cases;
                     totalOrderPieces += inventoryDummy.Pieces;
-                    totalAllocatedCases += row.AllocatedCases;
-                    totalAllocatedPieces += row.AllocatedPieces;
+                    totalAllocatedCases += pickLine.AllocatedCases;
+                    totalAllocatedPieces += pickLine.AllocatedPieces;
 
                     //Orders
                     if (tempOrdersList.Count > 0)

@@ -33,12 +33,12 @@
 
             <Label Content="Sales Orders to be Invoiced" FontSize="15" FontWeight="Bold"/>
 
-            <DataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding OrdersCollection}" SelectedItem="{Binding SelectedOrder}" SelectedIndex="{Binding SelectedIndexOrder}" CanUserAddRows="False" CanUserDeleteRows="False">
+            <DataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding OrdersCollection}" SelectedItem="{Binding SelectedOrder}" SelectedIndex="{Binding SelectedIndexOrder}" CanUserAddRows="False" CanUserDeleteRows="False" BorderThickness="1">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Width="25">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsChecked}">
+                                <CheckBox IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" >
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="Checked">
                                             <i:InvokeCommandAction Command="{Binding Path=DataContext.ItemCheckedCommand,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page}}"/>
@@ -76,17 +76,17 @@
                 <ComboBox ItemsSource="{Binding PickNumberCollection}" SelectedItem="{Binding SelectedPickNumber}" SelectedIndex="{Binding SelectedIndexPickNumber}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <WrapPanel>
+                            <StackPanel Orientation="Horizontal" >
                                 <TextBlock Text="{Binding [0]}" Width="60"/>
                                 <TextBlock Text="{Binding [1]}" Width="80"/>
                                 <TextBlock Text="{Binding [2]}"/>
-                            </WrapPanel>
+                            </StackPanel>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
 
                 <StackPanel Orientation="Horizontal" Margin="0,10">
-                    <Button Content="Assign Invoice Number" Margin="0,0,10,0"/>
+                    <Button Content="Assign Invoice Number" Margin="0,0,10,0" Command="{Binding AssignInvoiceCommand}"/>
                     <Button Content="Cancel"/>
                 </StackPanel>
 
@@ -96,7 +96,13 @@
 
                 <Label Content="Invoice Printing" FontSize="15" FontWeight="Bold"/>
 
-                <CheckBox Content="Select All"/>
+                <CheckBox Content="Select All" IsChecked="{Binding IsChecked}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding SelectAllCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </CheckBox>
 
                 <Button Content=" Print Invoice" Margin="0,10"/>
             </StackPanel>

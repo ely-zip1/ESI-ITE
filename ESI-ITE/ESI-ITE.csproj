@@ -165,6 +165,8 @@
     <Compile Include="Model\IModelTemplate.cs" />
     <Compile Include="Model\InventoryDummy2Model.cs" />
     <Compile Include="Model\InventoryMaster2Model.cs" />
+    <Compile Include="Model\InvoiceNumberModel.cs" />
+    <Compile Include="Model\InvoicesModel.cs" />
     <Compile Include="Model\Item2Model.cs" />
     <Compile Include="Model\LocationModel.cs" />
     <Compile Include="Model\ObjectBase.cs" />
@@ -191,8 +193,12 @@
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="MyGlobals.cs" />
     <Compile Include="Printing\Paginator.cs" />
+    <Compile Include="ViewModel\InvoicePrintTemplateViewModel.cs" />
     <Compile Include="ViewModel\PicklistPrintTemplateViewModel.cs" />
     <Compile Include="ViewModel\PrintingMainPageViewModel.cs" />
+    <Compile Include="View\PrintingTemplate\InvoicePrintTemplate.xaml.cs">
+      <DependentUpon>InvoicePrintTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PrintingTemplate\PicklistPrintTemplate.xaml.cs">
       <DependentUpon>PicklistPrintTemplate.xaml</DependentUpon>
     </Compile>
@@ -304,6 +310,10 @@
     <Compile Include="View\TransactionEntryView.xaml.cs">
       <DependentUpon>TransactionEntryView.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\PrintingTemplate\InvoicePrintTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\PrintingTemplate\PicklistPrintTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

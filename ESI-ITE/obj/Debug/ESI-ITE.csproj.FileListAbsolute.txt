@@ -566,3 +566,5 @@ E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.baml
 E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.g.resources
 E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI_ITE.Properties.Resources.resources
 E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.GenerateResource.Cache
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\InvoicePrintTemplate.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\InvoicePrintTemplate.baml

@@ -1,0 +1,167 @@
+﻿<UserControl x:Class="ESI_ITE.View.PrintingTemplate.InvoicePrintTemplate"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ESI_ITE.View.PrintingTemplate"
+      xmlns:vm="clr-namespace:ESI_ITE.ViewModel"
+      xmlns:conv="clr-namespace:ESI_ITE.ViewModel.Converter"
+      mc:Ignorable="d" 
+      d:DesignHeight="1056" d:DesignWidth="768"
+      Background="White"
+      Foreground="Black"
+      FontFamily="Calibri"
+      FontSize="11">
+
+    <UserControl.DataContext>
+        <vm:InvoicePrintTemplateViewModel x:Name="viewModel"/>
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+        <conv:BoolToVisibilityConverter x:Key="boolToVisConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="90"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="30,0,0,0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <TextBlock Text="108957" FontSize="15" FontWeight="Bold"/>
+            <TextBlock Text=" - " VerticalAlignment="Center"/>
+            <TextBlock Text="03/16/2017" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <!--#region  Header -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="270"></ColumnDefinition>
+                <ColumnDefinition Width="130"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"></RowDefinition>
+                <RowDefinition Height="20"></RowDefinition>
+                <RowDefinition Height="20"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal">
+                <TextBlock Text="Account No.: " FontSize="9" Visibility="{Binding LabelVisibility,Converter={StaticResource boolToVisConverter}}"/>
+                <TextBlock Text="032349"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+                <TextBlock Text="Salesman: " FontSize="9" Visibility="{Binding LabelVisibility,Converter={StaticResource boolToVisConverter}}"/>
+                <TextBlock Text="H/A - CDO"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Bottom">
+                <TextBlock Text="District: " FontSize="9" Visibility="{Binding LabelVisibility,Converter={StaticResource boolToVisConverter}}"/>
+                <TextBlock Text="730"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Bottom">
+                <TextBlock Text="Whse: " FontSize="9" Visibility="{Binding LabelVisibility,Converter={StaticResource boolToVisConverter}}"/>
+                <TextBlock Text="01"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Bottom">
+                <TextBlock Text="Customer:" FontSize="9" Visibility="{Binding LabelVisibility,Converter={StaticResource boolToVisConverter}}"/>
+                <TextBlock Text="CHERYL JUNE T. GAMO"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+                <TextBlock Text="SO No.:" FontSize="9" Visibility="{Binding LabelVisibility,Converter={StaticResource boolToVisConverter}}"/>
+                <TextBlock Text="108957"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Bottom">
+                <TextBlock Text="Terms:" FontSize="9" Visibility="{Binding LabelVisibility,Converter={StaticResource boolToVisConverter}}"/>
+                <TextBlock Text="CR15"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Bottom">
+                <TextBlock Text="    " FontSize="9" Visibility="{Binding LabelVisibility,Converter={StaticResource boolToVisConverter}}"/>
+                <TextBlock Text="MOLUGAN, EL SALVADOR, MISAMIS ORIENTAL"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,5">
+                <TextBlock Text="Delivery Notes: " FontSize="9" Visibility="{Binding LabelVisibility,Converter={StaticResource boolToVisConverter}}"/>
+                <TextBlock Text="C/O SANOFI"/>
+            </StackPanel>
+
+        </Grid>
+        <!--#endregion-->
+
+        <Grid Grid.Row="3" Margin="0,30,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="90"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ListView Background="Transparent" Foreground="Black" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                      ItemsSource="{Binding ItemList}" Grid.ColumnSpan="2">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="MinHeight" Value="10"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" MinHeight="10">
+                            <TextBlock Width="270" Foreground="Black" Text="{Binding ItemDescription}"/>
+                            <TextBlock Width="30" Foreground="Black" Text="{Binding Cases}"/>
+                            <TextBlock Width="30" Foreground="Black" Text="{Binding Pieces}"/>
+                            <TextBlock Width="90" Foreground="Black" Text="{Binding CasesPrice}"/>
+                            <TextBlock Width="90" Foreground="Black" Text="{Binding PiecesPrice}"/>
+                            <TextBlock Width="100" Foreground="Black" Text="{Binding Amount}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!--#region Total-->
+            <Grid Grid.Row="3" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="270"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                    <ColumnDefinition Width="130"></ColumnDefinition>
+                    <ColumnDefinition Width="140"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <TextBox Grid.Column="1" Text="23" Background="Transparent" Foreground="Black" HorizontalContentAlignment="Right" BorderThickness="0,1,0,0" BorderBrush="Black" FontSize="11"/>
+                <TextBox Grid.Column="2" Text="7" Background="Transparent" Foreground="Black" HorizontalContentAlignment="Right" BorderThickness="0,1,0,0" BorderBrush="Black"  FontSize="11"/>
+                <TextBox Grid.Column="4" Text="347,256.41" Background="Transparent" Foreground="Black" HorizontalContentAlignment="Right" BorderThickness="0,1,0,0" BorderBrush="Black" FontSize="11"/>
+
+                <TextBox Grid.Column="3" Grid.Row="1" Text="12% VAT" Background="Transparent" Foreground="Black" HorizontalContentAlignment="Right" BorderBrush="Transparent" FontSize="11"/>
+                <TextBox Grid.Column="4" Grid.Row="1" Text="41,670.76" Background="Transparent" Foreground="Black" HorizontalContentAlignment="Right" BorderBrush="Transparent" FontSize="11"/>
+
+                <TextBox Grid.Column="4" Grid.Row="2" Text="388,927.17" Background="Transparent" Foreground="Black" HorizontalContentAlignment="Right" BorderThickness="0,1,0,0" BorderBrush="Black" FontSize="11"/>
+            </Grid>
+            <!--#endregion-->
+        </Grid>
+
+        <Grid Grid.Row="4">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <TextBlock Text="Page" Foreground="Black"/>
+                <TextBlock Text="1" Foreground="Black" Margin="20,0,0,0"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

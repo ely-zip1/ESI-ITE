@@ -7,14 +7,13 @@ using ESI_ITE.Data_Access;
 
 namespace ESI_ITE.Model
 {
-    public class SupplierModel: IModelTemplate
+    public class SupplierModel : IModelTemplate
     {
         #region Properties
 
         DataAccess db = new DataAccess();
 
         private int supplierId;
-
         public int SupplierId
         {
             get { return supplierId; }
@@ -22,7 +21,6 @@ namespace ESI_ITE.Model
         }
 
         private string supplierCode;
-
         public string SupplierCode
         {
             get { return supplierCode; }
@@ -30,7 +28,6 @@ namespace ESI_ITE.Model
         }
 
         private string supplierName;
-
         public string SupplierName
         {
             get { return supplierName; }
@@ -38,7 +35,6 @@ namespace ESI_ITE.Model
         }
 
         private string address;
-
         public string Address
         {
             get { return address; }
@@ -46,7 +42,6 @@ namespace ESI_ITE.Model
         }
 
         private string contactPerson;
-
         public string ContactPerson
         {
             get { return contactPerson; }
@@ -54,15 +49,13 @@ namespace ESI_ITE.Model
         }
 
         private string contactnumber;
-
-        public string ContacNumber
+        public string ContactNumber
         {
             get { return contactnumber; }
             set { contactnumber = value; }
         }
 
         private int termId;
-
         public int TermId
         {
             get { return termId; }
@@ -71,17 +64,17 @@ namespace ESI_ITE.Model
 
         #endregion
 
-        public List<object> FetchAll( )
+        public List<object> FetchAll()
         {
             List<object> list = new List<object>();
+            list.Clear();
 
             var record = db.SelectMultiple("select * from supplier");
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
-            foreach ( var row in record )
+            foreach (var row in record)
             {
-                list.Clear();
                 var supplier = new SupplierModel();
                 var clone = row.Clone();
 
@@ -90,7 +83,7 @@ namespace ESI_ITE.Model
                 supplier.SupplierName = row["supplier_name"].ToString();
                 supplier.Address = row["address"].ToString();
                 supplier.ContactPerson = row["contact_person"].ToString();
-                supplier.ContacNumber = row["contact_number"].ToString();
+                supplier.ContactNumber = row["contact_number"].ToString();
                 supplier.TermId = int.Parse(row["term_id"]);
 
                 list.Add(supplier);
@@ -99,20 +92,20 @@ namespace ESI_ITE.Model
             return list;
         }
 
-        public object Fetch( string id, string type )
+        public object Fetch(string id, string type)
         {
             var supplier = new SupplierModel();
 
             var record = new List<CloneableDictionary<string, string>>();
 
-            if ( type == "code" )
+            if (type == "code")
                 record = db.SelectMultiple("select * from supplier where supplier_code = '" + id + "'");
-            else if ( type == "id" )
+            else if (type == "id")
                 record = db.SelectMultiple("select * from supplier where supplier_id = '" + id + "'");
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
-            foreach ( var row in record )
+            foreach (var row in record)
             {
                 var clone = row.Clone();
 
@@ -121,24 +114,49 @@ namespace ESI_ITE.Model
                 supplier.SupplierName = row["supplier_name"].ToString();
                 supplier.Address = row["address"].ToString();
                 supplier.ContactPerson = row["contact_person"].ToString();
-                supplier.ContacNumber = row["contact_number"].ToString();
+                supplier.ContactNumber = row["contact_number"].ToString();
                 supplier.TermId = int.Parse(row["term_id"]);
             }
 
             return supplier;
         }
 
-        public void AddNew( object item )
+        public void AddNew(object item)
+        {
+            throw new NotImplementedException();
+
+            //var newSupplier = item as SupplierModel;
+            //var results = db.SelectMultiple("select * from supplier order by supplier_id desc limit 1");
+            //int lastSupplierCode = 0;
+
+            //foreach (var row in results)
+            //{
+            //    var clone = row.Clone();
+
+            //    lastSupplierCode = int.Parse(row["supplier_code"]);
+            //}
+            //var newSupplierCode = lastSupplierCode + 1;
+
+            //StringBuilder sb = new StringBuilder();
+
+            //sb.Append("insert into supplier values(null, ");
+            //sb.Append("'" + newSupplierCode + "', ");
+            //sb.Append("'" + newSupplier.SupplierName + "', ");
+            //sb.Append("'" + newSupplier.Address + "', ");
+            //sb.Append("'" + newSupplier.ContactPerson + "', ");
+            //sb.Append("'" + newSupplier.ContactNumber + "', ");
+            //sb.Append("'" + 1 + "'");
+            //sb.Append(")");
+
+            //db.Insert(sb.ToString());
+        }
+
+        public void UpdateItem(string qry)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateItem( string qry )
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteItem( string qry )
+        public void DeleteItem(string qry)
         {
             throw new NotImplementedException();
         }
