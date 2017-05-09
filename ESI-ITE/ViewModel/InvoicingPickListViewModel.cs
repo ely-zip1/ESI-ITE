@@ -497,7 +497,8 @@ namespace ESI_ITE.ViewModel
                 picklistSO.Status = "Partially Served";
 
             picklistSO.Term = _term.TermDescription;
-            picklistSO.Address = _customer.AddressMain + ", " + _customer.AddressCity + ", " + _customer.AddressProvince;
+            picklistSO.Address =_customer.AddressCity;
+            //picklistSO.Address = _customer.AddressMain + ", " + _customer.AddressCity + ", " + _customer.AddressProvince;
             picklistSO.District = _district.DistrictNumber;
 
             return picklistSO;

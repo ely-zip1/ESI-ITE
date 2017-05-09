@@ -79,6 +79,10 @@ namespace ESI_ITE.Model
 
             if (type == "id")
                 results = db.SelectMultiple("select * from invoices where id = '" + id + "'");
+            else if (type == "code")
+            {
+                results = db.SelectMultiple("select * from invoices where invoice_number = '" + id + "'");
+            }
 
             foreach (var row in results)
             {

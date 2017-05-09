@@ -9,6 +9,9 @@ using System.Collections.ObjectModel;
 using ESI_ITE.ViewModel.Command;
 using System.Windows.Input;
 using System.Windows.Documents;
+using ESI_ITE.View.PrintingTemplate;
+using System.Windows.Controls;
+using System.Windows;
 
 namespace ESI_ITE.ViewModel
 {
@@ -325,6 +328,11 @@ namespace ESI_ITE.ViewModel
         private async void CallPrintingAsync()
         {
             var result = await InvoicePrintingAsync();
+
+            MyGlobals.printingDoc = result;
+
+            MyGlobals.PrintingParent = MyGlobals.InvoicingVM.SelectedPage;
+            MyGlobals.InvoicingVM.SelectedPage = new PrintingMainPageView();
         }
 
         private Task<FixedDocument> InvoicePrintingAsync()
@@ -336,21 +344,204 @@ namespace ESI_ITE.ViewModel
         {
             FixedDocument fixedDoc = null;
 
-            foreach (var _orderToBeInvoiced in OrdersCollection)
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                if (_orderToBeInvoiced.IsSelected)
+                fixedDoc = new FixedDocument();
+                foreach (var _orderToBeInvoiced in OrdersCollection)
                 {
-                    var invoiceTemplateViewModel = new InvoicePrintTemplateViewModel();
-                    var inventoryDummy = new InventoryDummy2Model();
-                    var itemMaster = new ItemModel();
+                    if (_orderToBeInvoiced.IsSelected)
+                    {
+                        var invoiceTemplateViewModel = new InvoicePrintTemplateViewModel();
+                        var inventoryDummy = new InventoryDummy2Model();
+                        var itemMaster = new Item2Model();
+                        var allocationObj = new AllocatedStocksModel();
 
-                    var orderItems = inventoryDummy.FetchPerOrder(_orderToBeInvoiced.OrderNumber);
+                        var invoiceableItems = new List<InvoiceItems>();
+                        var allocatedOrderItems = allocationObj.FetchPerOrder(_orderToBeInvoiced.OrderNumber, SelectedPickNumber[0]);
 
+                        // header - ORDER DETAILS
 
+                        var order = new SalesOrderModel();
+                        order = (SalesOrderModel)order.Fetch(_orderToBeInvoiced.OrderNumber, "code");
+
+                        var customer = new CustomerModel();
+                        var salesman = new SalesmanModel();
+                        var district = new DistrictModel();
+                        var warehouse = new WareHouseModel();
+                        var terms = new TermModel();
+                        var invoice = new InvoicesModel();
+
+                        invoice = (InvoicesModel)invoice.Fetch(_orderToBeInvoiced.InvoiceNumber, "code");
+                        customer = (CustomerModel)customer.Fetch(order.CustomerID.ToString(), "id");
+                        district = (DistrictModel)district.Fetch(customer.DistrictId.ToString(), "id");
+                        salesman = (SalesmanModel)salesman.Fetch(district.Salesman.ToString(), "id");
+                        warehouse = (WareHouseModel)warehouse.Fetch(order.WarehouseId.ToString(), "id");
+                        terms = (TermModel)terms.Fetch(order.TermId.ToString(), "id");
+
+                        var invoiceHeader = new InvoiceHeader();
+                        invoiceHeader.InvoiceNumber = _orderToBeInvoiced.InvoiceNumber;
+                        invoiceHeader.InvoiceDate = DateTime.Today.ToShortDateString();
+                        invoiceHeader.AccountNumber = customer.CustomerNumber;
+                        invoiceHeader.Salesman = salesman.SalesmanName;
+                        invoiceHeader.District = district.DistrictNumber;
+                        invoiceHeader.Warehouse = warehouse.Code;
+                        invoiceHeader.CustomerName = customer.CustomerName;
+                        invoiceHeader.CustomerAddress = customer.AddressMain + ", " + customer.AddressCity + ", " + customer.AddressProvince;
+                        invoiceHeader.SoNumber = order.OrderNumber;
+                        invoiceHeader.SoDate = order.OrderDate.ToShortDateString();
+                        invoiceHeader.Terms = terms.TermCode;
+
+                        // calculation
+
+                        var totalCases = 0;
+                        var totalPieces = 0;
+                        decimal totalAmount = 0;
+
+                        foreach (var allocatedItem in allocatedOrderItems)
+                        {
+                            var itemExists = false;
+
+                            inventoryDummy = (InventoryDummy2Model)inventoryDummy.Fetch(allocatedItem.InventoryDummyId.ToString(), "id");
+                            itemMaster = (Item2Model)itemMaster.Fetch(inventoryDummy.ItemCode, "code");
+
+                            if (invoiceableItems.Count > 0)
+                            {
+                                foreach (var invoiceItem in invoiceableItems)
+                                {
+                                    if (invoiceItem.ItemDescription == itemMaster.Description)
+                                    {
+                                        invoiceItem.Cases += allocatedItem.Cases;
+                                        invoiceItem.Pieces += allocatedItem.Pieces;
+
+                                        invoiceItem.Amount += (allocatedItem.Cases * invoiceItem.PricePerCase) + (allocatedItem.Pieces * invoiceItem.PricePerPiece);
+
+                                        itemExists = true;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        itemExists = false;
+                                    }
+                                }
+
+                                if (itemExists == false)
+                                {
+                                    var _invoiceableItem = new InvoiceItems();
+                                    _invoiceableItem.ItemDescription = itemMaster.Description;
+                                    _invoiceableItem.Cases = allocatedItem.Cases;
+                                    _invoiceableItem.Pieces = allocatedItem.Pieces;
+                                    _invoiceableItem.PricePerCase = itemMaster.PackSize * itemMaster.PackSizeBO * itemMaster.CurrentPrice;
+                                    _invoiceableItem.PricePerPiece = itemMaster.CurrentPrice;
+                                    _invoiceableItem.Amount = (_invoiceableItem.Cases * _invoiceableItem.PricePerCase) + (_invoiceableItem.Pieces * _invoiceableItem.PricePerPiece);
+
+                                    invoiceableItems.Add(_invoiceableItem);
+                                }
+                            }
+                            else
+                            {
+                                var _invoiceableItem = new InvoiceItems();
+                                _invoiceableItem.ItemDescription = itemMaster.Description;
+                                _invoiceableItem.Cases = allocatedItem.Cases;
+                                _invoiceableItem.Pieces = allocatedItem.Pieces;
+                                _invoiceableItem.PricePerCase = itemMaster.PackSize * itemMaster.PackSizeBO * itemMaster.CurrentPrice;
+                                _invoiceableItem.PricePerPiece = itemMaster.CurrentPrice;
+                                _invoiceableItem.Amount = (_invoiceableItem.Cases * _invoiceableItem.PricePerCase) + (_invoiceableItem.Pieces * _invoiceableItem.PricePerPiece);
+
+                                invoiceableItems.Add(_invoiceableItem);
+                            }
+                        }
+
+                        // content - ITEM LIST
+                        var pageNumber = 1;
+                        var newPage = CreateNewPage(invoiceHeader, pageNumber++);
+                        fixedDoc.Pages.Add((PageContent)newPage[1]);
+                        invoiceTemplateViewModel = (InvoicePrintTemplateViewModel)newPage[0];
+
+                        var lines = 0;
+
+                        foreach (var _invoiceableItem in invoiceableItems)
+                        {
+                            totalCases += _invoiceableItem.Cases;
+                            totalPieces += _invoiceableItem.Pieces;
+                            totalAmount += _invoiceableItem.Amount;
+
+                            if (lines >= 38)
+                            {
+                                newPage = CreateNewPage(invoiceHeader, pageNumber++);
+                                fixedDoc.Pages.Add((PageContent)newPage[1]);
+                                invoiceTemplateViewModel = (InvoicePrintTemplateViewModel)newPage[0];
+
+                                lines = 0;
+                            }
+
+                            if (_invoiceableItem.ItemDescription.Length >= 35)
+                                lines += 2;
+                            else
+                                lines++;
+
+                            invoiceTemplateViewModel.ItemList.Add(_invoiceableItem);
+                        }
+
+                        //footer - TOTAL
+                        if (lines >= 38)
+                        {
+                            newPage = CreateNewPage(invoiceHeader, pageNumber++);
+                            fixedDoc.Pages.Add((PageContent)newPage[1]);
+                            invoiceTemplateViewModel = (InvoicePrintTemplateViewModel)newPage[0];
+
+                            lines = 0;
+                        }
+
+                        invoiceTemplateViewModel.TotalCases = totalCases;
+                        invoiceTemplateViewModel.TotalPieces = totalPieces;
+                        invoiceTemplateViewModel.TotalAmount = totalAmount.ToString();
+                        invoiceTemplateViewModel.VatAmount = (totalAmount * decimal.Parse("0.12")).ToString();
+                        invoiceTemplateViewModel.TaxedTotal = (totalAmount - decimal.Parse(invoiceTemplateViewModel.VatAmount)).ToString();
+                    }
                 }
-            }
-
+            });
             return fixedDoc;
+        }
+
+        private List<object> CreateNewPage(InvoiceHeader _invoiceHeader, int pageNumber)
+        {
+            var fixedPage = new FixedPage();
+            var grid = new Grid();
+            var templateView = new InvoicePrintTemplate();
+            var templateVM = (InvoicePrintTemplateViewModel)templateView.DataContext;
+
+            templateView.Width = 768;
+            templateView.MinHeight = 100;
+
+            fixedPage.Width = 768;
+            fixedPage.Height = 1056;
+
+            templateVM.PageNumber = pageNumber;
+
+            templateVM.InvoiceNumber = _invoiceHeader.InvoiceNumber;
+            templateVM.InvoiceDate = _invoiceHeader.InvoiceDate;
+            templateVM.AccountNumber = _invoiceHeader.AccountNumber;
+            templateVM.Salesman = _invoiceHeader.Salesman;
+            templateVM.District = _invoiceHeader.District;
+            templateVM.Warehouse = _invoiceHeader.Warehouse;
+            templateVM.Customer = _invoiceHeader.CustomerName;
+            templateVM.Address = _invoiceHeader.CustomerAddress;
+            templateVM.OrderNumber = _invoiceHeader.SoNumber;
+            templateVM.OrderDate = _invoiceHeader.SoDate;
+            templateVM.TermCode = _invoiceHeader.Terms;
+            templateVM.DeliveryNotes = _invoiceHeader.DeliveryNotes;
+
+            grid.Children.Add(templateView);
+            fixedPage.Children.Add(grid);
+
+            var pageContent = new PageContent();
+            pageContent.Child = fixedPage;
+
+            var newPage = new List<object>();
+            newPage.Add(templateVM);
+            newPage.Add(pageContent);
+
+            return newPage;
         }
 
         #endregion

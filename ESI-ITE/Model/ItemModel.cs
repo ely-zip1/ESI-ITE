@@ -7,27 +7,139 @@ namespace ESI_ITE.Model
 {
     public class ItemModel
     {
-        public string Id { get; set; }
-        public string Code { get; set; }
-        public string Description { get; set; }
-        public string SmallestUnitMeasure { get; set; }
-        public string StockUnitMeasure { get; set; }
-        public string PiecePerUnit { get; set; }
-        public string WeightPerUnit { get; set; }
-        public string TaxRate { get; set; }
-        public string TargetWeek { get; set; }
-        public string Supplier { get; set; }
-        public string Source { get; set; }
-        public string Brand { get; set; }
-        public string Category { get; set; }
-        public string PiecesPerBO { get; set; }
-        public string OPG { get; set; }
-        public string Active { get; set; }
-        public string LotControl { get; set; }
-        public int PurchasePriceLink { get; set; }
-        public int SellingPriceLink { get; set; }
 
+        private string id;
+        public string Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
 
+        private string code;
+        public string Code
+        {
+            get { return code; }
+            set { code = value; }
+        }
+
+        private string description;
+        public string Description
+        {
+            get { return description; }
+            set { description = value; }
+        }
+
+        private string smallestUnitMeasure;
+        public string SmallestUnitMeasure
+        {
+            get { return smallestUnitMeasure; }
+            set { smallestUnitMeasure = value; }
+        }
+
+        private string stockUnitMeasure;
+        public string StockUnitMeasure
+        {
+            get { return stockUnitMeasure; }
+            set { stockUnitMeasure = value; }
+        }
+
+        private string piecePerUnit;
+        public string PiecePerUnit
+        {
+            get { return piecePerUnit; }
+            set { piecePerUnit = value; }
+        }
+
+        private string weightPerUnit;
+        public string WeightPerUnit
+        {
+            get { return weightPerUnit; }
+            set { weightPerUnit = value; }
+        }
+
+        private string taxRate;
+        public string TaxRate
+        {
+            get { return taxRate; }
+            set { taxRate = value; }
+        }
+
+        private string targetWeek;
+        public string TargetWeek
+        {
+            get { return targetWeek; }
+            set { targetWeek = value; }
+        }
+
+        private string supplier;
+        public string Supplier
+        {
+            get { return supplier; }
+            set { supplier = value; }
+        }
+
+        private string source;
+        public string Source
+        {
+            get { return source; }
+            set { source = value; }
+        }
+
+        private string brand;
+        public string Brand
+        {
+            get { return brand; }
+            set { brand = value; }
+        }
+
+        private string category;
+        public string Category
+        {
+            get { return category; }
+            set { category = value; }
+        }
+
+        private string piecesPerBO;
+        public string PiecesPerBO
+        {
+            get { return piecesPerBO; }
+            set { piecesPerBO = value; }
+        }
+
+        private string opg;
+        public string OPG
+        {
+            get { return opg; }
+            set { opg = value; }
+        }
+
+        private string active;
+        public string Active
+        {
+            get { return active; }
+            set { active = value; }
+        }
+
+        private string lotControl;
+        public string LotControl
+        {
+            get { return lotControl; }
+            set { lotControl = value; }
+        }
+
+        private int purchasePriceLink;
+        public int PurchasePriceLink
+        {
+            get { return purchasePriceLink; }
+            set { purchasePriceLink = value; }
+        }
+
+        private int sellingPriceLink;
+        public int SellingPriceLink
+        {
+            get { return sellingPriceLink; }
+            set { sellingPriceLink = value; }
+        }
 
         DataAccess db = new DataAccess();
 

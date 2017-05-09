@@ -253,39 +253,127 @@ namespace ESI_ITE.ViewModel
             set { itemDescription = value; }
         }
 
-        private string cases;
-        public string Cases
+        private int cases;
+        public int Cases
         {
             get { return cases; }
             set { cases = value; }
         }
 
-        private string pieces;
-        public string Pieces
+        private int pieces;
+        public int Pieces
         {
             get { return pieces; }
             set { pieces = value; }
         }
 
-        private string casesPrice;
-        public string CasesPrice
+        private decimal pricePerCase;
+        public decimal PricePerCase
         {
-            get { return casesPrice; }
-            set { casesPrice = value; }
+            get { return pricePerCase; }
+            set { pricePerCase = value; }
         }
 
-        private string piecesPrice;
-        public string PiecesPrice
+        private decimal pricePerPiece;
+        public decimal PricePerPiece
         {
-            get { return piecesPrice; }
-            set { piecesPrice = value; }
+            get { return pricePerPiece; }
+            set { pricePerPiece = value; }
         }
 
-        private string amount;
-        public string Amount
+        private decimal amount;
+        public decimal Amount
         {
             get { return amount; }
             set { amount = value; }
+        }
+
+    }
+
+    public class InvoiceHeader
+    {
+        private string invoiceNumber;
+        public string InvoiceNumber
+        {
+            get { return invoiceNumber; }
+            set { invoiceNumber = value; }
+        }
+
+        private string invoiceDate;
+        public string InvoiceDate
+        {
+            get { return invoiceDate; }
+            set { invoiceDate = value; }
+        }
+
+        private string accountNumber;
+        public string AccountNumber
+        {
+            get { return accountNumber; }
+            set { accountNumber = value; }
+        }
+
+        private string saleman;
+        public string Salesman
+        {
+            get { return saleman; }
+            set { saleman = value; }
+        }
+
+        private string district;
+        public string District
+        {
+            get { return district; }
+            set { district = value; }
+        }
+
+        private string warehouse;
+        public string Warehouse
+        {
+            get { return warehouse; }
+            set { warehouse = value; }
+        }
+
+        private string customerName;
+        public string CustomerName
+        {
+            get { return customerName; }
+            set { customerName = value; }
+        }
+
+        private string customerAddress;
+        public string CustomerAddress
+        {
+            get { return customerAddress; }
+            set { customerAddress = value; }
+        }
+
+        private string soNumber;
+        public string SoNumber
+        {
+            get { return soNumber; }
+            set { soNumber = value; }
+        }
+
+        private string soDate;
+        public string SoDate
+        {
+            get { return soDate; }
+            set { soDate = value; }
+        }
+
+        private string terms;
+        public string Terms
+        {
+            get { return terms; }
+            set { terms = value; }
+        }
+
+        private string deliveryNotes;
+        public string DeliveryNotes
+        {
+            get { return deliveryNotes; }
+            set { deliveryNotes = value; }
         }
 
     }

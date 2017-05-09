@@ -152,7 +152,9 @@ namespace ESI_ITE.Model
         {
             var stockList = new List<AllocatedStocksModel>();
 
-            var result = db.SelectMultiple("select * from allocated_stocks where pickhead_id = '" + pickheadID + "' and inventory_dummy_id = '" + inventoryDummyId + "'");
+            var result = new List<CloneableDictionary<string, string>>();
+
+            result = db.SelectMultiple("select * from allocated_stocks where pickhead_id = '" + pickheadID + "' and inventory_dummy_id = '" + inventoryDummyId + "'");
 
             foreach (var row in result)
             {
@@ -197,11 +199,22 @@ namespace ESI_ITE.Model
             return ListOfAllocatedStocks;
         }
 
-        public List<AllocatedStocksModel> FetchPerOrder(string orderNumber)
+        public List<AllocatedStocksModel> FetchPerOrder(string orderNumber, string pickHeadNumber)
         {
             var ListOfAllocatedStocks = new List<AllocatedStocksModel>();
 
-
+            var pickheadObj = new PickListHeaderModel();
+            var pickHead = (PickListHeaderModel)pickheadObj.Fetch(pickHeadNumber, "code");
+            var inventoryDummy2Obj = new InventoryDummy2Model();
+            var orderItems = inventoryDummy2Obj.FetchPerOrder(orderNumber);
+            foreach (var item in orderItems)
+            {
+                var allocatedItem = FetchPerPickLine(pickHead.Id, item.Id);
+                foreach (var row in allocatedItem)
+                {
+                    ListOfAllocatedStocks.Add(row);
+                }
+            }
 
             return ListOfAllocatedStocks;
         }
