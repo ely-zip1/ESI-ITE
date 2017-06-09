@@ -104,7 +104,7 @@ namespace ESI_ITE.Model
 
             if ( price != 0 && !string.IsNullOrWhiteSpace(priceType) )
             {
-                priceInformation.Price = price / Convert.ToDecimal(MyGlobals.SelectedItem.PiecePerUnit);
+                priceInformation.Price = price / Convert.ToDecimal(MyGlobals.SelectedItem.PackSize);
                 priceInformation.PriceType = priceType;
             }
             else
@@ -152,7 +152,7 @@ namespace ESI_ITE.Model
                     priceType = "PL1";
                 }
 
-                priceInformation.Price = price / Convert.ToDecimal(MyGlobals.SelectedItem.PiecePerUnit);
+                priceInformation.Price = price / Convert.ToDecimal(MyGlobals.SelectedItem.PackSize);
                 priceInformation.PriceType = priceType;
             }
         }

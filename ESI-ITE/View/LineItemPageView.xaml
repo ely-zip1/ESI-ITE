@@ -195,8 +195,7 @@
                 <StackPanel Orientation="Vertical"  Margin="2,0,2,0">
                     <Label Content="P/T" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,-5,-4" Height="24"/>
                     <ComboBox Width="60" x:Name="cmbPriceType" SelectedItem="{Binding PT,Mode=TwoWay}" ItemsSource="{Binding PtList}"
-                              SelectedIndex="{Binding PtSelectedIndex, Mode=TwoWay}" DisplayMemberPath="Code"
-                              IsHitTestVisible="False" Focusable="False"/>
+                              SelectedIndex="{Binding PtSelectedIndex, Mode=TwoWay}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"  Margin="2,0,2,0">

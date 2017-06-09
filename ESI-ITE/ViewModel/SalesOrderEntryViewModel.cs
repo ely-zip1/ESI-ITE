@@ -66,8 +66,8 @@ namespace ESI_ITE.ViewModel
             set { districtList = value; }
         }
 
-        private List<SalesOrderPriceTypeModel> priceTypeList = new List<SalesOrderPriceTypeModel>();
-        public List<SalesOrderPriceTypeModel> PriceTypeList
+        private List<PriceTypeModel> priceTypeList = new List<PriceTypeModel>();
+        public List<PriceTypeModel> PriceTypeList
         {
             get { return priceTypeList; }
             set { priceTypeList = value; }
@@ -126,8 +126,8 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private SalesOrderPriceTypeModel selectedPriceType = new SalesOrderPriceTypeModel();
-        public SalesOrderPriceTypeModel SelectedPriceType
+        private PriceTypeModel selectedPriceType = new PriceTypeModel();
+        public PriceTypeModel SelectedPriceType
         {
             get { return selectedPriceType; }
             set
@@ -699,7 +699,7 @@ namespace ESI_ITE.ViewModel
             DistrictList.OrderBy(o => o.DistrictNumber);
 
             //PRICETYPE LIST
-            var pricetype = new SalesOrderPriceTypeModel();
+            var pricetype = new PriceTypeModel();
             list = pricetype.FetchAll();
 
             PriceTypeList.Add(pricetype);
@@ -708,7 +708,7 @@ namespace ESI_ITE.ViewModel
             {
                 ctr++;
 
-                pricetype = (SalesOrderPriceTypeModel)row;
+                pricetype = (PriceTypeModel)row;
                 PriceTypeList.Add(pricetype);
 
                 //if ( ctr == 2 )
@@ -815,7 +815,7 @@ namespace ESI_ITE.ViewModel
             SelectedIndexDistrict = 0;
             SelectedDistrict = new DistrictModel();
             SelectedIndexPriceType = 0;
-            SelectedPriceType = new SalesOrderPriceTypeModel();
+            SelectedPriceType = new PriceTypeModel();
             SelectedIndexTerm = 0;
             SelectedTerm = new TermModel();
             SelectedIndexSalesman = 0;
@@ -858,7 +858,7 @@ namespace ESI_ITE.ViewModel
             SelectedDistrict = (DistrictModel)SelectedDistrict.Fetch(order.DistrictId.ToString(), "id");
             SelectedIndexDistrict = DistrictList.FindIndex(o => o.DistrictId == SelectedDistrict.DistrictId);
 
-            SelectedPriceType = (SalesOrderPriceTypeModel)SelectedPriceType.Fetch(order.PriceId.ToString(), "id");
+            SelectedPriceType = (PriceTypeModel)SelectedPriceType.Fetch(order.PriceId.ToString(), "id");
             SelectedIndexPriceType = PriceTypeList.FindIndex(o => o.PriceTypeId == SelectedPriceType.PriceTypeId);
 
             SelectedTerm = (TermModel)SelectedTerm.Fetch(order.TermId.ToString(), "id");

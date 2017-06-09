@@ -15,9 +15,9 @@ using System.Threading;
 
 namespace ESI_ITE.ViewModel
 {
-    public class SOLineItemViewModel: ViewModelBase, IDataErrorInfo
+    public class SOLineItemViewModel : ViewModelBase, IDataErrorInfo
     {
-        public SOLineItemViewModel( )
+        public SOLineItemViewModel()
         {
             closeCommand = new DelegateCommand(closePage);
             showItemSearchCommand = new DelegateCommand(toggleItemSearchVisibility);
@@ -37,7 +37,7 @@ namespace ESI_ITE.ViewModel
         private SalesmanModel salesman = new SalesmanModel();
         private DistrictModel district = new DistrictModel();
         private TermModel term = new TermModel();
-        private SalesOrderPriceTypeModel priceType = new SalesOrderPriceTypeModel();
+        private PriceTypeModel priceType = new PriceTypeModel();
         private WareHouseModel warehouse = new WareHouseModel();
 
         //Collection
@@ -52,30 +52,30 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private ObservableCollection<Item2Model> itemCollection = new ObservableCollection<Item2Model>();
-        public ObservableCollection<Item2Model> ItemCollection
+        private ObservableCollection<ItemModel> itemCollection = new ObservableCollection<ItemModel>();
+        public ObservableCollection<ItemModel> ItemCollection
         {
             get { return itemCollection; }
             set { itemCollection = value; }
         }
 
-        private ObservableCollection<Item2Model> searchedItemCollection = new ObservableCollection<Item2Model>();
-        public ObservableCollection<Item2Model> SearchedItemCollection
+        private ObservableCollection<ItemModel> searchedItemCollection = new ObservableCollection<ItemModel>();
+        public ObservableCollection<ItemModel> SearchedItemCollection
         {
             get { return searchedItemCollection; }
             set { searchedItemCollection = value; }
         }
 
-        private ObservableCollection<SalesOrderPriceTypeModel> pricetypeCollection = new ObservableCollection<SalesOrderPriceTypeModel>();
-        public ObservableCollection<SalesOrderPriceTypeModel> PricetypeCollection
+        private ObservableCollection<PriceTypeModel> pricetypeCollection = new ObservableCollection<PriceTypeModel>();
+        public ObservableCollection<PriceTypeModel> PricetypeCollection
         {
             get { return pricetypeCollection; }
             set { pricetypeCollection = value; }
         }
 
 
-        private List<SalesOrderPriceTypeModel> pricetypeList = new List<SalesOrderPriceTypeModel>();
-        public List<SalesOrderPriceTypeModel> PricetypeList
+        private List<PriceTypeModel> pricetypeList = new List<PriceTypeModel>();
+        public List<PriceTypeModel> PricetypeList
         {
             get { return pricetypeList; }
             set { pricetypeList = value; }
@@ -96,7 +96,7 @@ namespace ESI_ITE.ViewModel
             get { return selectedDatagridItem; }
             set
             {
-                if ( value != null )
+                if (value != null)
                 {
                     selectedDatagridItem = value;
                     OnPropertyChanged("SelectedDatagridItem");
@@ -105,8 +105,8 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private Item2Model selectedSearchedItem = new Item2Model();
-        public Item2Model SelectedSearchedItem
+        private ItemModel selectedSearchedItem = new ItemModel();
+        public ItemModel SelectedSearchedItem
         {
             get { return selectedSearchedItem; }
             set
@@ -117,8 +117,8 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private SalesOrderPriceTypeModel selectedPricetype;
-        public SalesOrderPriceTypeModel SelectedPricetype
+        private PriceTypeModel selectedPricetype;
+        public PriceTypeModel SelectedPricetype
         {
             get { return selectedPricetype; }
             set
@@ -567,30 +567,30 @@ namespace ESI_ITE.ViewModel
 
         #endregion
 
-        private Item2Model currentItem = new Item2Model();
+        private ItemModel currentItem = new ItemModel();
 
         #endregion
 
-        private void Load( )
+        private void Load()
         {
             salesOrder = MyGlobals.SalesOrder;
 
             IsItemSearchVisible = false;
 
             //ITEMS
-            var item = new Item2Model();
+            var item = new ItemModel();
             var itemList = item.FetchAll();
 
-            foreach ( var row in itemList )
+            foreach (var row in itemList)
             {
-                ItemCollection.Add(row as Item2Model);
-                SearchedItemCollection.Add(row as Item2Model);
+                ItemCollection.Add(row as ItemModel);
+                SearchedItemCollection.Add(row as ItemModel);
             }
 
             //LOCATION
             var location = new LocationModel();
             var locations = location.FetchAll();
-            foreach ( var row in locations )
+            foreach (var row in locations)
             {
                 LocationList.Add(row);
             }
@@ -600,7 +600,7 @@ namespace ESI_ITE.ViewModel
             customer = (CustomerModel)customer.Fetch(salesOrder.CustomerID.ToString(), "id");
             district = (DistrictModel)district.Fetch(salesOrder.DistrictId.ToString(), "id");
             term = (TermModel)term.Fetch(salesOrder.TermId.ToString(), "id");
-            priceType = (SalesOrderPriceTypeModel)priceType.Fetch(salesOrder.PriceId.ToString(), "id");
+            priceType = (PriceTypeModel)priceType.Fetch(salesOrder.PriceId.ToString(), "id");
             salesman = (SalesmanModel)salesman.Fetch(district.Salesman.ToString(), "id");
             warehouse = (WareHouseModel)warehouse.Fetch(salesOrder.WarehouseId.ToString(), "id");
 
@@ -620,9 +620,9 @@ namespace ESI_ITE.ViewModel
             //PRICE TYPE
             //TxtPT = priceType.Code;
             var _pricetypeList = priceType.FetchAll();
-            foreach ( var row in _pricetypeList )
+            foreach (var row in _pricetypeList)
             {
-                var pt = (SalesOrderPriceTypeModel)row;
+                var pt = (PriceTypeModel)row;
                 PricetypeList.Add(pt);
             }
 
@@ -634,12 +634,12 @@ namespace ESI_ITE.ViewModel
             LoadingMessage = "Loading Items...";
         }
 
-        private async void CallItemLoad( )
+        private async void CallItemLoad()
         {
             List<InventoryDummy2Model> result = await LoadUpdateItemsAsync();
 
             DatagridItems.Clear();
-            foreach ( var row in result )
+            foreach (var row in result)
             {
                 DatagridItems.Add(row);
             }
@@ -649,28 +649,28 @@ namespace ESI_ITE.ViewModel
             IsItemsGridVisible = false;
         }
 
-        private Task<List<InventoryDummy2Model>> LoadUpdateItemsAsync( )
+        private Task<List<InventoryDummy2Model>> LoadUpdateItemsAsync()
         {
-            return Task.Factory.StartNew(( ) => LoadUpdateItems());
+            return Task.Factory.StartNew(() => LoadUpdateItems());
         }
 
-        private List<InventoryDummy2Model> LoadUpdateItems( )
+        private List<InventoryDummy2Model> LoadUpdateItems()
         {
             //Thread.Sleep(5000);
             //DATAGRID ITEMS
             var dummy = new InventoryDummy2Model();
             var dummyList = dummy.FetchPerOrder(salesOrder.OrderNumber);
 
-            priceType = (SalesOrderPriceTypeModel)priceType.Fetch(salesOrder.PriceId.ToString(), "id");
+            priceType = (PriceTypeModel)priceType.Fetch(salesOrder.PriceId.ToString(), "id");
 
-            foreach ( var dummyItem in dummyList )
+            foreach (var dummyItem in dummyList)
             {
-                if ( dummyItem.PriceType == priceType.Code )
+                if (dummyItem.PriceType == priceType.Code)
                     break;
                 else
                 {
-                    var _item = new Item2Model();
-                    _item = (Item2Model)_item.Fetch(dummyItem.ItemCode, "code");
+                    var _item = new ItemModel();
+                    _item = (ItemModel)_item.Fetch(dummyItem.ItemCode, "code");
 
                     var price = decimal.Parse(db.Select("select selling_price from so_price_selling where item_id = '" + _item.ItemId + "' and pricetype_id = '" + priceType.PriceTypeId + "'"));
 
@@ -700,19 +700,19 @@ namespace ESI_ITE.ViewModel
             return dummyList;
         }
 
-        private void SelectedItemChanged( )
+        private void SelectedItemChanged()
         {
-            var item = new Item2Model();
-            setCurrentItem((Item2Model)item.Fetch(SelectedDatagridItem.ItemCode, "code"));
+            var item = new ItemModel();
+            setCurrentItem((ItemModel)item.Fetch(SelectedDatagridItem.ItemCode, "code"));
 
             TxtCases = SelectedDatagridItem.Cases.ToString();
             TxtPieces = SelectedDatagridItem.Pieces.ToString();
             TxtLotNumber = SelectedDatagridItem.LotNumber;
 
             var counter = 0;
-            foreach ( var loc in LocationList )
+            foreach (var loc in LocationList)
             {
-                if ( loc.Code == SelectedDatagridItem.Location )
+                if (loc.Code == SelectedDatagridItem.Location)
                 {
                     SelectedIndexLocation = counter;
                     break;
@@ -720,37 +720,37 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private void SelectedSearchedItemChanged( )
+        private void SelectedSearchedItemChanged()
         {
-            if ( SelectedSearchedItem != null )
+            if (SelectedSearchedItem != null)
                 TxtSearchItemCode = SelectedSearchedItem.Code;
         }
 
-        private void SearchItem( string searchTerm )
+        private void SearchItem(string searchTerm)
         {
             SearchedItemCollection.Clear();
-            foreach ( var item in ItemCollection )
+            foreach (var item in ItemCollection)
             {
-                if ( item.Description.ToLower().Contains(searchTerm.ToLower()) )
+                if (item.Description.ToLower().Contains(searchTerm.ToLower()))
                 {
                     SearchedItemCollection.Add(item);
                 }
             }
-            if ( SearchedItemCollection.Count > 0 )
+            if (SearchedItemCollection.Count > 0)
             {
                 SelectedIndexSearchedItem = 0;
                 SelectedSearchedItem = SearchedItemCollection.ElementAt(0);
             }
         }
 
-        private void ItemCodeChanged( )
+        private void ItemCodeChanged()
         {
             resetValidProperties();
             IsFirstLoad = false;
 
         }
 
-        private void ClearForm( )
+        private void ClearForm()
         {
             IsFirstLoad = true;
             TxtItemCode = "";
@@ -763,15 +763,15 @@ namespace ESI_ITE.ViewModel
             SelectedIndexLocation = -1;
         }
 
-        private void closePage( )
+        private void closePage()
         {
             MyGlobals.SoViewModel.SelectedPage = MyGlobals.SalesOrderEntryPage;
             //(this as IDisposable).Dispose();
         }
 
-        private void toggleItemSearchVisibility( )
+        private void toggleItemSearchVisibility()
         {
-            if ( IsItemSearchVisible )
+            if (IsItemSearchVisible)
             {
                 IsItemSearchVisible = false;
                 BlurIntensity = 0;
@@ -783,7 +783,7 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private void setCurrentItem( Item2Model item )
+        private void setCurrentItem(ItemModel item)
         {
             currentItem = item;
 
@@ -791,10 +791,10 @@ namespace ESI_ITE.ViewModel
 
             PricetypeCollection.Clear();
             var x = 0;
-            foreach ( var row in _pricetypeList )
+            foreach (var row in _pricetypeList)
             {
                 PricetypeCollection.Add(row);
-                if ( row.Code == priceType.Code )
+                if (row.Code == priceType.Code)
                     SelectedIndexPricetype = x;
                 x++;
             }
@@ -807,23 +807,23 @@ namespace ESI_ITE.ViewModel
             setUnitPrice();
         }
 
-        private void setUnitPrice( )
+        private void setUnitPrice()
         {
             TxtUnitPrice = db.Select("select selling_price from so_price_selling where item_id = '" + currentItem.ItemId + "' and pricetype_id = '" + SelectedPricetype.PriceTypeId + "'");
         }
 
-        private void selectItem( )
+        private void selectItem()
         {
             ClearForm();
             setCurrentItem(SelectedSearchedItem);
             toggleItemSearchVisibility();
         }
 
-        private void locationChanged( )
+        private void locationChanged()
         {
-            if ( SelectedLocation != null )
-                if ( !string.IsNullOrWhiteSpace(SelectedLocation.Code) )
-                    if ( SelectedLocation.Code == "FR" )
+            if (SelectedLocation != null)
+                if (!string.IsNullOrWhiteSpace(SelectedLocation.Code))
+                    if (SelectedLocation.Code == "FR")
                     {
                         TxtUnitPrice = "0";
                     }
@@ -833,9 +833,9 @@ namespace ESI_ITE.ViewModel
                     }
         }
 
-        private void quantityChanged( string unit )
+        private void quantityChanged(string unit)
         {
-            switch ( unit )
+            switch (unit)
             {
                 case "Cases":
                     //if ( IsClearForm == false )
@@ -843,24 +843,24 @@ namespace ESI_ITE.ViewModel
 
                     //if ( CanBeDeleted )
                     //    CanBeAdded = true;
-                    if ( TxtPieces != "0" && TxtCases != "0" )
-                        if ( !string.IsNullOrWhiteSpace(TxtCases) && string.IsNullOrWhiteSpace(TxtPieces) )
+                    if (TxtPieces != "0" && TxtCases != "0")
+                        if (!string.IsNullOrWhiteSpace(TxtCases) && string.IsNullOrWhiteSpace(TxtPieces))
                         {
                             OnPropertyChanged("TxtPieces");
                             validProperties[1] = null;
                         }
-                        else if ( !string.IsNullOrWhiteSpace(TxtPieces) && string.IsNullOrWhiteSpace(TxtCases) )
+                        else if (!string.IsNullOrWhiteSpace(TxtPieces) && string.IsNullOrWhiteSpace(TxtCases))
                         {
                             OnPropertyChanged("TxtPieces");
                             validProperties[1] = null;
                         }
-                        else if ( !string.IsNullOrWhiteSpace(TxtCases) && !string.IsNullOrWhiteSpace(TxtPieces) )
+                        else if (!string.IsNullOrWhiteSpace(TxtCases) && !string.IsNullOrWhiteSpace(TxtPieces))
                         {
                             OnPropertyChanged("TxtPieces");
                             validProperties[1] = null;
                         }
-                        else if ( (string.IsNullOrWhiteSpace(TxtCases) && string.IsNullOrWhiteSpace(TxtPieces)) ||
-                             int.Parse(TxtCases) == 0 && int.Parse(TxtPieces) == 0 )
+                        else if ((string.IsNullOrWhiteSpace(TxtCases) && string.IsNullOrWhiteSpace(TxtPieces)) ||
+                             int.Parse(TxtCases) == 0 && int.Parse(TxtPieces) == 0)
                         {
                             OnPropertyChanged("TxtPieces");
                             validProperties[1] = "Error";
@@ -873,24 +873,24 @@ namespace ESI_ITE.ViewModel
 
                     //if ( CanBeDeleted )
                     //    CanBeAdded = true;
-                    if ( TxtPieces != "0" && TxtCases != "0" )
-                        if ( !string.IsNullOrWhiteSpace(TxtPieces) && string.IsNullOrWhiteSpace(TxtCases) )
+                    if (TxtPieces != "0" && TxtCases != "0")
+                        if (!string.IsNullOrWhiteSpace(TxtPieces) && string.IsNullOrWhiteSpace(TxtCases))
                         {
                             OnPropertyChanged("TxtCases");
                             validProperties[1] = null;
                         }
-                        else if ( string.IsNullOrWhiteSpace(TxtPieces) && !string.IsNullOrWhiteSpace(TxtCases) )
+                        else if (string.IsNullOrWhiteSpace(TxtPieces) && !string.IsNullOrWhiteSpace(TxtCases))
                         {
                             OnPropertyChanged("TxtCases");
                             validProperties[1] = null;
                         }
-                        else if ( !string.IsNullOrWhiteSpace(TxtCases) && !string.IsNullOrWhiteSpace(TxtPieces) )
+                        else if (!string.IsNullOrWhiteSpace(TxtCases) && !string.IsNullOrWhiteSpace(TxtPieces))
                         {
                             OnPropertyChanged("TxtCases");
                             validProperties[1] = null;
                         }
-                        else if ( (string.IsNullOrWhiteSpace(TxtCases) && string.IsNullOrWhiteSpace(TxtPieces)) ||
-                            int.Parse(TxtCases) == 0 && int.Parse(TxtPieces) == 0 )
+                        else if ((string.IsNullOrWhiteSpace(TxtCases) && string.IsNullOrWhiteSpace(TxtPieces)) ||
+                            int.Parse(TxtCases) == 0 && int.Parse(TxtPieces) == 0)
                         {
                             OnPropertyChanged("TxtCases");
                             validProperties[1] = "Error";
@@ -899,7 +899,7 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private void addItem( )
+        private void addItem()
         {
             var isUpdateable = checkForDuplicates();
             var updateItem = false;
@@ -917,20 +917,20 @@ namespace ESI_ITE.ViewModel
             inventoryDummyItem.Cases = int.Parse(TxtCases);
             inventoryDummyItem.Pieces = int.Parse(TxtPieces);
 
-            if ( !string.IsNullOrWhiteSpace(TxtUnitPrice) )
+            if (!string.IsNullOrWhiteSpace(TxtUnitPrice))
                 inventoryDummyItem.PricePerPiece = int.Parse(TxtUnitPrice) / (currentItem.PackSize * currentItem.PackSizeBO);
             else
                 inventoryDummyItem.PricePerPiece = 0;
 
             inventoryDummyItem.LineAmount = inventoryDummyItem.PricePerPiece * totalQuantity;
 
-            if ( isUpdateable )
+            if (isUpdateable)
             {
                 var dialogMessage = "Item already exists. Do you want to update it?";
                 var dialogTitle = "Duplicate Item";
                 MessageBoxResult result = MessageBox.Show(dialogMessage, dialogTitle, MessageBoxButton.YesNo);
 
-                switch ( result )
+                switch (result)
                 {
                     case MessageBoxResult.Yes:
 
@@ -952,7 +952,7 @@ namespace ESI_ITE.ViewModel
 
                             ClearForm();
                         }
-                        catch ( Exception e )
+                        catch (Exception e)
                         {
                             MessageBox.Show(e.Message);
                         }
@@ -972,7 +972,7 @@ namespace ESI_ITE.ViewModel
 
                     ClearForm();
                 }
-                catch ( Exception e )
+                catch (Exception e)
                 {
                     MessageBox.Show(e.Message);
                 }
@@ -982,13 +982,13 @@ namespace ESI_ITE.ViewModel
 
         }
 
-        private void computeTotalOrderAmount( )
+        private void computeTotalOrderAmount()
         {
             decimal totalOrderAmount = 0;
             var totalPieces = 0;
             var totalCases = 0;
 
-            foreach ( var datagridItem in DatagridItems )
+            foreach (var datagridItem in DatagridItems)
             {
                 totalOrderAmount += datagridItem.LineAmount;
                 totalPieces += datagridItem.Pieces;
@@ -1014,12 +1014,12 @@ namespace ESI_ITE.ViewModel
             MyGlobals.SoEntryViewModel.TotalCases = totalCases.ToString();
         }
 
-        private bool checkForDuplicates( )
+        private bool checkForDuplicates()
         {
             var isUpdateable = false;
-            foreach ( var dummyItem in DatagridItems )
+            foreach (var dummyItem in DatagridItems)
             {
-                if ( dummyItem.ItemCode == TxtItemCode )
+                if (dummyItem.ItemCode == TxtItemCode)
                 {
                     isUpdateable = true;
                     break;
@@ -1033,12 +1033,12 @@ namespace ESI_ITE.ViewModel
             return isUpdateable;
         }
 
-        private int refactorQuantity( int piecePerCase )
+        private int refactorQuantity(int piecePerCase)
         {
             var cases = int.Parse(TxtCases);
             var pieces = int.Parse(TxtPieces);
 
-            if ( pieces >= piecePerCase )
+            if (pieces >= piecePerCase)
             {
                 cases += pieces / piecePerCase;
                 pieces = pieces % piecePerCase;
@@ -1051,22 +1051,22 @@ namespace ESI_ITE.ViewModel
             return totalQuantityInPieces;
         }
 
-        private void deleteItem( )
+        private void deleteItem()
         {
             var dialogueMessage = "This will delete the current item. Do you want to proceed?";
             var dialogueTitle = "Confirm Deletion";
 
             var result = MessageBox.Show(dialogueMessage, dialogueTitle, MessageBoxButton.OKCancel);
 
-            switch ( result )
+            switch (result)
             {
                 case MessageBoxResult.OK:
                     var dummy = new InventoryDummy2Model();
                     dummy.DeleteItem("delete from inventory_dummy_2 where order_id = '" + salesOrder.OrderId + "' and item = '" + currentItem.ItemId + "'");
 
-                    foreach ( var dummyItem in DatagridItems )
+                    foreach (var dummyItem in DatagridItems)
                     {
-                        if ( dummyItem.ItemCode == currentItem.Code )
+                        if (dummyItem.ItemCode == currentItem.Code)
                         {
                             DatagridItems.Remove(dummyItem);
                             break;
@@ -1096,7 +1096,7 @@ namespace ESI_ITE.ViewModel
         {
             get
             {
-                if ( IsFirstLoad )
+                if (IsFirstLoad)
                     return null;
                 else
                     return GetValidationError(propertyName);
@@ -1109,26 +1109,26 @@ namespace ESI_ITE.ViewModel
 
         string[] validProperties = { "Error", "Error" };
 
-        private void resetValidProperties( )
+        private void resetValidProperties()
         {
             int x = validProperties.Length;
-            for ( int i = 0;i < x;i++ )
+            for (int i = 0; i < x; i++)
             {
                 validProperties[i] = "Error";
             }
             IsAddable = false;
         }
 
-        private void IsValid( )
+        private void IsValid()
         {
             int fieldNumber = 0;
             int errorCounter = 0;
 
             Debug.WriteLine("VALIDATION");
 
-            foreach ( var field in validProperties )
+            foreach (var field in validProperties)
             {
-                if ( field != null )
+                if (field != null)
                 {
                     errorCounter++;
                     Debug.WriteLine("Error on field: " + fieldNumber);
@@ -1136,56 +1136,56 @@ namespace ESI_ITE.ViewModel
                 fieldNumber++;
             }
 
-            if ( errorCounter > 0 )
+            if (errorCounter > 0)
             {
                 IsAddable = false;
             }
             else
             {
-                if ( SelectedLocation != null )
-                    if ( !string.IsNullOrWhiteSpace(SelectedLocation.Code) )
+                if (SelectedLocation != null)
+                    if (!string.IsNullOrWhiteSpace(SelectedLocation.Code))
                         IsAddable = true;
             }
         }
 
-        private string GetValidationError( string propertyName )
+        private string GetValidationError(string propertyName)
         {
             string error = null;
 
-            switch ( propertyName )
+            switch (propertyName)
             {
                 case "TxtItemCode":
                     error = ValidateNullOrEmpty("Item Code", TxtItemCode);
-                    if ( string.IsNullOrWhiteSpace(error) )
+                    if (string.IsNullOrWhiteSpace(error))
                     {
                         error = ValidateItemCode(TxtItemCode);
                     }
 
-                    if ( string.IsNullOrWhiteSpace(error) )
+                    if (string.IsNullOrWhiteSpace(error))
                         validProperties[0] = null;
                     else
                         validProperties[0] = "Error";
                     break;
                 case "TxtCases":
                     error = ValidateNullOrEmpty("Cases", TxtCases);
-                    if ( string.IsNullOrWhiteSpace(error) )
+                    if (string.IsNullOrWhiteSpace(error))
                     {
                         error = ValidateQuantity();
                     }
 
-                    if ( string.IsNullOrWhiteSpace(error) )
+                    if (string.IsNullOrWhiteSpace(error))
                         validProperties[1] = null;
                     else
                         validProperties[1] = "Error";
                     break;
                 case "TxtPieces":
                     error = ValidateNullOrEmpty("Pieces", TxtPieces);
-                    if ( string.IsNullOrWhiteSpace(error) )
+                    if (string.IsNullOrWhiteSpace(error))
                     {
                         error = ValidateQuantity();
                     }
 
-                    if ( string.IsNullOrWhiteSpace(error) )
+                    if (string.IsNullOrWhiteSpace(error))
                         validProperties[1] = null;
                     else
                         validProperties[1] = "Error";
@@ -1200,61 +1200,61 @@ namespace ESI_ITE.ViewModel
         }
 
 
-        private string ValidateQuantity( )
+        private string ValidateQuantity()
         {
             string error = null;
             int qtty;
 
-            if ( !string.IsNullOrWhiteSpace(TxtCases) && string.IsNullOrWhiteSpace(TxtPieces) )
+            if (!string.IsNullOrWhiteSpace(TxtCases) && string.IsNullOrWhiteSpace(TxtPieces))
             {
                 try
                 {
                     qtty = int.Parse(TxtCases);
 
-                    if ( TxtCases == "0" )
+                    if (TxtCases == "0")
                     {
                         error = "Fields cannot be empty!";
                     }
                 }
-                catch ( Exception e )
+                catch (Exception e)
                 {
                     error = "Invalid Input!";
                 }
             }
-            else if ( string.IsNullOrWhiteSpace(TxtCases) && !string.IsNullOrWhiteSpace(TxtPieces) )
+            else if (string.IsNullOrWhiteSpace(TxtCases) && !string.IsNullOrWhiteSpace(TxtPieces))
             {
                 try
                 {
                     qtty = int.Parse(TxtPieces);
 
-                    if ( TxtPieces == "0" )
+                    if (TxtPieces == "0")
                     {
                         error = "Fields cannot be empty!";
                     }
                 }
-                catch ( Exception e )
+                catch (Exception e)
                 {
                     error = "Invalid Input!";
                 }
             }
-            else if ( !string.IsNullOrWhiteSpace(TxtCases) && !string.IsNullOrWhiteSpace(TxtPieces) )
+            else if (!string.IsNullOrWhiteSpace(TxtCases) && !string.IsNullOrWhiteSpace(TxtPieces))
             {
                 try
                 {
                     qtty = int.Parse(TxtCases);
                     qtty = int.Parse(TxtPieces);
 
-                    if ( TxtCases == "0" && TxtPieces == "0" )
+                    if (TxtCases == "0" && TxtPieces == "0")
                     {
                         error = "Fields cannot be empty!";
                     }
                 }
-                catch ( Exception e )
+                catch (Exception e)
                 {
                     error = "Invalid Input!";
                 }
             }
-            else if ( string.IsNullOrWhiteSpace(TxtCases) && string.IsNullOrWhiteSpace(TxtPieces) )
+            else if (string.IsNullOrWhiteSpace(TxtCases) && string.IsNullOrWhiteSpace(TxtPieces))
             {
                 error = "Fields cannot be empty!";
             }
@@ -1262,22 +1262,22 @@ namespace ESI_ITE.ViewModel
             return error;
         }
 
-        private string ValidateNullOrEmpty( string propertyName, string value )
+        private string ValidateNullOrEmpty(string propertyName, string value)
         {
-            if ( string.IsNullOrWhiteSpace(value) )
+            if (string.IsNullOrWhiteSpace(value))
                 return propertyName + " cannot be empty!";
             else
                 return null;
         }
 
-        private string ValidateItemCode( string itemCode )
+        private string ValidateItemCode(string itemCode)
         {
             string error = null;
 
             var hasValue = false;
-            foreach ( var row in ItemCollection )
+            foreach (var row in ItemCollection)
             {
-                if ( row.Code == itemCode )
+                if (row.Code == itemCode)
                 {
                     hasValue = true;
                     TxtItemDescription = row.Description;
@@ -1285,7 +1285,7 @@ namespace ESI_ITE.ViewModel
                 }
             }
 
-            if ( !hasValue )
+            if (!hasValue)
                 error = "Invalid Item Code";
 
             return error;

@@ -326,8 +326,8 @@ namespace ESI_ITE.ViewModel
                 var itemCases = 0;
                 var itemPieces = 0;
                 var dummy = (InventoryDummy2Model)item[0];
-                var itemMaster = new Item2Model();
-                itemMaster = (Item2Model)itemMaster.Fetch(dummy.ItemCode, "code");
+                var itemMaster = new ItemModel();
+                itemMaster = (ItemModel)itemMaster.Fetch(dummy.ItemCode, "code");
 
                 var inventoryItems = inventoryMaster.FetchInStockItem(itemMaster.ItemId);
                 foreach (var inventoryItem in inventoryItems)
@@ -374,8 +374,8 @@ namespace ESI_ITE.ViewModel
                 }
             }
 
-            var itemMaster = new Item2Model();
-            itemMaster = (Item2Model)itemMaster.Fetch(itemCode, "code");
+            var itemMaster = new ItemModel();
+            itemMaster = (ItemModel)itemMaster.Fetch(itemCode, "code");
 
             //var inventoryMaster = new InventoryMaster2Model();
             //var inventoryItemList = inventoryMaster.FetchPerItem(itemMaster.ItemId);
@@ -574,8 +574,8 @@ namespace ESI_ITE.ViewModel
             {
                 if ((int.Parse(item.AllocatedCases) != item.OrderItem.Cases) || (int.Parse(item.AllocatedPieces) != item.OrderItem.Pieces))
                 {
-                    var itemModel = new Item2Model();
-                    itemModel = (Item2Model)itemModel.Fetch(item.OrderItem.ItemCode, "code");
+                    var itemModel = new ItemModel();
+                    itemModel = (ItemModel)itemModel.Fetch(item.OrderItem.ItemCode, "code");
 
                     var inventoryModel = new InventoryMaster2Model();
 
@@ -595,8 +595,8 @@ namespace ESI_ITE.ViewModel
             pickHead = (PickListHeaderModel)pickHead.Fetch(SelectedPicklist[0], "code");
             foreach (var item in itemsPerOrderList)
             {
-                var itemModel = new Item2Model();
-                itemModel = (Item2Model)itemModel.Fetch(item.OrderItem.ItemCode, "code");
+                var itemModel = new ItemModel();
+                itemModel = (ItemModel)itemModel.Fetch(item.OrderItem.ItemCode, "code");
 
                 var previousQuantity = ConvertToPieces(item.PicklistItem.AllocatedCases, item.PicklistItem.AllocatedPieces, itemModel.PackSize, itemModel.PackSizeBO);
                 var adjustedQuantity = ConvertToPieces(int.Parse(item.AllocatedCases), int.Parse(item.AllocatedPieces), itemModel.PackSize, itemModel.PackSizeBO);
@@ -626,7 +626,7 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private void Allocate(PartiallyServedOrders item, Item2Model itemModel, int allocatedQtty, int adjustedQtty, int inventoryIndex)
+        private void Allocate(PartiallyServedOrders item, ItemModel itemModel, int allocatedQtty, int adjustedQtty, int inventoryIndex)
         {
             var toBeAllocated = adjustedQtty - allocatedQtty;
             var requiredQuantity = toBeAllocated;
@@ -704,7 +704,7 @@ namespace ESI_ITE.ViewModel
             AllocationQueries.Add(item.PicklistItem.GetUpdateQuery(item.PicklistItem));
         }
 
-        private void Deallocate(PartiallyServedOrders item, Item2Model itemModel, int allocatedQtty, int adjustedQtty, int inventoryIndex)
+        private void Deallocate(PartiallyServedOrders item, ItemModel itemModel, int allocatedQtty, int adjustedQtty, int inventoryIndex)
         {
             //
             //number of pieces to be deallocated

@@ -167,7 +167,7 @@
     <Compile Include="Model\InventoryMaster2Model.cs" />
     <Compile Include="Model\InvoiceNumberModel.cs" />
     <Compile Include="Model\InvoicesModel.cs" />
-    <Compile Include="Model\Item2Model.cs" />
+    <Compile Include="Model\ItemModel.cs" />
     <Compile Include="Model\LocationModel.cs" />
     <Compile Include="Model\ObjectBase.cs" />
     <Compile Include="Model\OrderNumberModel.cs" />
@@ -177,14 +177,15 @@
     <Compile Include="Model\PickListNumberModel.cs" />
     <Compile Include="Model\PostingModel.cs" />
     <Compile Include="Model\PriceModel.cs" />
-    <Compile Include="Model\PriceTypeModel.cs" />
+    <Compile Include="Model\PricePurchaseModel.cs" />
+    <Compile Include="Model\PriceSellingModel.cs" />
     <Compile Include="Model\PricingModel.cs" />
     <Compile Include="Model\ProgramsModel.cs" />
     <Compile Include="Model\ReasonsModel.cs" />
     <Compile Include="Model\RouteModel.cs" />
     <Compile Include="Model\SalesmanModel.cs" />
     <Compile Include="Model\SalesOrderModel.cs" />
-    <Compile Include="Model\SalesOrderPriceTypeModel.cs" />
+    <Compile Include="Model\PriceTypeModel.cs" />
     <Compile Include="Model\SupplierModel.cs" />
     <Compile Include="Model\TermModel.cs" />
     <Compile Include="Model\TradeClassModel.cs" />
@@ -441,7 +442,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\ItemModel.cs" />
     <Compile Include="Model\InventoryDummyModel.cs" />
     <Compile Include="Model\TransactionModel.cs" />
     <Compile Include="Model\WareHouseModel.cs" />

@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using ESI_ITE.Data_Access;
 
 namespace ESI_ITE.Model
 {
-    public class ItemModel
+    public class ItemModel: IModelTemplate
     {
+        DataAccess db = new DataAccess();
 
-        private string id;
-        public string Id
+        private int itemId;
+        public int ItemId
         {
-            get { return id; }
-            set { id = value; }
+            get { return itemId; }
+            set { itemId = value; }
         }
 
         private string code;
@@ -29,67 +32,88 @@ namespace ESI_ITE.Model
             set { description = value; }
         }
 
-        private string smallestUnitMeasure;
-        public string SmallestUnitMeasure
+        private int location;
+        public int Location
         {
-            get { return smallestUnitMeasure; }
-            set { smallestUnitMeasure = value; }
+            get { return location; }
+            set { location = value; }
         }
 
-        private string stockUnitMeasure;
-        public string StockUnitMeasure
+        private int warehouse;
+        public int Warehouse
         {
-            get { return stockUnitMeasure; }
-            set { stockUnitMeasure = value; }
+            get { return warehouse; }
+            set { warehouse = value; }
         }
 
-        private string piecePerUnit;
-        public string PiecePerUnit
-        {
-            get { return piecePerUnit; }
-            set { piecePerUnit = value; }
-        }
-
-        private string weightPerUnit;
-        public string WeightPerUnit
-        {
-            get { return weightPerUnit; }
-            set { weightPerUnit = value; }
-        }
-
-        private string taxRate;
-        public string TaxRate
-        {
-            get { return taxRate; }
-            set { taxRate = value; }
-        }
-
-        private string targetWeek;
-        public string TargetWeek
-        {
-            get { return targetWeek; }
-            set { targetWeek = value; }
-        }
-
-        private string supplier;
-        public string Supplier
+        private int supplier;
+        public int Supplier
         {
             get { return supplier; }
             set { supplier = value; }
         }
 
-        private string source;
-        public string Source
+        private int packSize;
+        public int PackSize
         {
-            get { return source; }
-            set { source = value; }
+            get { return packSize; }
+            set { packSize = value; }
         }
 
-        private string brand;
-        public string Brand
+        private string unitMeasure;
+        public string UnitMeasure
         {
-            get { return brand; }
-            set { brand = value; }
+            get { return unitMeasure; }
+            set { unitMeasure = value; }
+        }
+
+        private string smallestUnit;
+        public string SmallestUnit
+        {
+            get { return smallestUnit; }
+            set { smallestUnit = value; }
+        }
+
+        private string smallestUnitSymbol;
+        public string SmallestUnitSymbol
+        {
+            get { return smallestUnitSymbol; }
+            set { smallestUnitSymbol = value; }
+        }
+
+        private decimal unitWeight;
+        public decimal UnitWeight
+        {
+            get { return unitWeight; }
+            set { unitWeight = value; }
+        }
+
+        private decimal taxrate;
+        public decimal Taxrate
+        {
+            get { return taxrate; }
+            set { taxrate = value; }
+        }
+
+        private bool opgActive;
+        public bool OPGActive
+        {
+            get { return opgActive; }
+            set { opgActive = value; }
+        }
+
+        private bool activeItem;
+        public bool ActiveItem
+        {
+            get { return activeItem; }
+            set { activeItem = value; }
+        }
+
+        private bool showItem;
+        public bool ShowItem
+        {
+            get { return showItem; }
+            set { showItem = value; }
         }
 
         private string category;
@@ -99,188 +123,188 @@ namespace ESI_ITE.Model
             set { category = value; }
         }
 
-        private string piecesPerBO;
-        public string PiecesPerBO
+        private string brand;
+        public string Brand
         {
-            get { return piecesPerBO; }
-            set { piecesPerBO = value; }
+            get { return brand; }
+            set { brand = value; }
         }
 
-        private string opg;
-        public string OPG
+        private string categoryCode;
+        public string CategoryCode
         {
-            get { return opg; }
-            set { opg = value; }
+            get { return categoryCode; }
+            set { categoryCode = value; }
         }
 
-        private string active;
-        public string Active
+        private string brandCode;
+        public string BrandCode
         {
-            get { return active; }
-            set { active = value; }
+            get { return brandCode; }
+            set { brandCode = value; }
         }
 
-        private string lotControl;
-        public string LotControl
+        private bool isSelected;
+        public bool IsSelected
         {
-            get { return lotControl; }
-            set { lotControl = value; }
+            get { return isSelected; }
+            set { isSelected = value; }
         }
 
-        private int purchasePriceLink;
-        public int PurchasePriceLink
+        private int weeksCoverd;
+        public int WeeksCovered
         {
-            get { return purchasePriceLink; }
-            set { purchasePriceLink = value; }
+            get { return weeksCoverd; }
+            set { weeksCoverd = value; }
         }
 
-        private int sellingPriceLink;
-        public int SellingPriceLink
+        private bool lotControlled;
+        public bool LotControlled
         {
-            get { return sellingPriceLink; }
-            set { sellingPriceLink = value; }
+            get { return lotControlled; }
+            set { lotControlled = value; }
         }
 
-        DataAccess db = new DataAccess();
-
-        public DataTable FetchTable()
+        private string locDescription;
+        public string LocDescription
         {
-            List<CloneableDictionary<string, string>> table = new List<CloneableDictionary<string, string>>();
+            get { return locDescription; }
+            set { locDescription = value; }
+        }
 
-            DataTable itemTable = new DataTable();
+        private decimal currentPrice;
+        public decimal CurrentPrice
+        {
+            get { return currentPrice; }
+            set { currentPrice = value; }
+        }
 
-            //table column definition
-            itemTable.Columns.Add("Id", typeof(int));
-            itemTable.Columns.Add("Code", typeof(string));
-            itemTable.Columns.Add("Description", typeof(string));
-            itemTable.Columns.Add("SmallestUnitMeasure", typeof(string));
-            itemTable.Columns.Add("StockUnitMeasure", typeof(string));
-            itemTable.Columns.Add("PiecePerUnit", typeof(int));
-            itemTable.Columns.Add("WeightPerUnit", typeof(decimal));
-            itemTable.Columns.Add("TaxRate", typeof(decimal));
-            itemTable.Columns.Add("TargetWeek", typeof(string));
-            itemTable.Columns.Add("Supplier", typeof(string));
-            itemTable.Columns.Add("Source", typeof(string));
-            itemTable.Columns.Add("Brand", typeof(string));
-            itemTable.Columns.Add("Category", typeof(string));
-            itemTable.Columns.Add("PiecesPerBO", typeof(int));
-            itemTable.Columns.Add("OPG", typeof(int));
-            itemTable.Columns.Add("Active", typeof(bool));
-            itemTable.Columns.Add("LotControl", typeof(int));
+        private bool isUpdated;
+        public bool IsUpdated
+        {
+            get { return isUpdated; }
+            set { isUpdated = value; }
+        }
 
-            table = db.SelectMultiple("SELECT * FROM item_master");
+        private int packSizeBO;
+        public int PackSizeBO
+        {
+            get { return packSizeBO; }
+            set { packSizeBO = value; }
+        }
 
-            //data insert
-            foreach (Dictionary<string, string> row in table)
+        private string source;
+        public string Source
+        {
+            get { return source; }
+            set { source = value; }
+        }
+
+
+        public List<object> FetchAll( )
+        {
+            var list = new List<object>();
+            
+            var record = db.SelectMultiple("select * from item_master");
+
+            foreach ( var row in record )
             {
-                DataRow itemRow = itemTable.NewRow();
+                var clone = row.Clone();
+                var item = new ItemModel();
 
-                itemRow["Id"] = Int32.Parse(row["item_id"]);
-                itemRow["Code"] = row["item_code"];
-                itemRow["Description"] = row["item_description"];
-                itemRow["SmallestUnitMeasure"] = row["smallest_unit_measure"];
-                itemRow["StockUnitMeasure"] = row["stock_unit_measure"];
-                itemRow["PiecePerUnit"] = Int32.Parse(row["pieces_per_unit"]);
-                itemRow["WeightPerUnit"] = Decimal.Parse(row["weight_per_stock_unit"]);
-                itemRow["TaxRate"] = Decimal.Parse(row["tax_rate"]);
-                itemRow["TargetWeek"] = row["target_week"];
-                itemRow["Supplier"] = row["supplier"];
-                itemRow["Source"] = row["source"];
-                itemRow["Brand"] = row["brand"];
-                itemRow["Category"] = row["category"];
-                itemRow["PiecesPerBO"] = Int32.Parse(row["pieces_per_bo"]);
-                itemRow["OPG"] = Int32.Parse(row["opg"]);
+                item.ItemId = int.Parse(row["item_master2_id"]);
+                item.Code = row["item_code"];
+                item.Description = row["description"];
+                item.Location = int.Parse(row["location_id"]);
+                item.Warehouse = int.Parse(row["warehouse_id"]);
+                item.Supplier = int.Parse(row["supplier_id"]);
+                item.PackSize = int.Parse(row["packsize"]);
+                item.UnitMeasure = row["unit_measure"];
+                item.SmallestUnit = row["smallest_unit"];
+                item.SmallestUnitSymbol = row["smallest_unit_symbol"];
+                item.UnitWeight = decimal.Parse(row["unit_weight"]);
+                item.Taxrate = decimal.Parse(row["tax_rate"]);
+                item.OPGActive = row["opg_active"] == "1" ? true : false;
+                item.ActiveItem = row["active_item"] == "1" ? true : false;
+                item.ShowItem = row["show_item"] == "1" ? true : false;
+                item.Category = row["category"];
+                item.Brand = row["brand"];
+                item.CategoryCode = row["category_code"];
+                item.BrandCode = row["brand_code"];
+                item.IsSelected = row["selected"] == "1" ? true : false;
+                item.WeeksCovered = int.Parse(row["weeks_cover"]);
+                item.LotControlled = row["lot_controlled"] == "1" ? true : false;
+                item.LocDescription = row["loc_description"];
+                item.CurrentPrice = decimal.Parse(row["current_price"]);
+                item.IsUpdated = row["updated"] == "1" ? true : false;
+                item.PackSizeBO = int.Parse(row["pack_size_bo"]);
+                item.Source = row["source"];
 
-                if (row["active"] == "1")
-                {
-                    itemRow["Active"] = true;
-                }
-                else
-                {
-                    itemRow["Active"] = false;
-                }
-
-                itemRow["LotControl"] = Int32.Parse(row["lot_controll"]);
-
-                itemTable.Rows.Add(itemRow);
+                list.Add(item);
             }
 
-            return itemTable;
+            return list;
         }
 
-        public List<ItemModel> FetchAll()
+        public object Fetch( string id, string type )
         {
-            var itemsList = new List<ItemModel>();
-            var itemTable = db.SelectMultiple("Select * from item_master");
+            var item = new ItemModel();
+            var record = new List<CloneableDictionary<string, string>>();
 
-            foreach (var row in itemTable)
+            if ( type == "id" )
+                record = db.SelectMultiple("select * from item_master where item_master2_id = '" + id + "'");
+            else if ( type == "code" )
+                record = db.SelectMultiple("select * from item_master where item_code = '" + id + "'");
+
+            foreach ( var row in record )
             {
-                var itemModel = new ItemModel();
                 var clone = row.Clone();
 
-                itemModel.Id = row["item_id"];
-                itemModel.Code = row["item_code"];
-                itemModel.Description = row["item_description"];
-                itemModel.SmallestUnitMeasure = row["smallest_unit_measure"];
-                itemModel.StockUnitMeasure = row["stock_unit_measure"];
-                itemModel.PiecePerUnit = row["pieces_per_unit"];
-                itemModel.WeightPerUnit = row["weight_per_stock_unit"];
-                itemModel.TaxRate = row["tax_rate"];
-                itemModel.TargetWeek = row["target_week"];
-                itemModel.Supplier = row["supplier"];
-                itemModel.Source = row["source"];
-                itemModel.Brand = row["brand"];
-                itemModel.Category = row["category"];
-                itemModel.PiecesPerBO = row["pieces_per_bo"];
-                itemModel.OPG = row["opg"];
-                itemModel.Active = row["active"];
-                itemModel.LotControl = row["lot_controll"];
-                itemModel.PurchasePriceLink = Convert.ToInt32(row["purchase_price_link"]);
-                itemModel.SellingPriceLink = Convert.ToInt32(row["selling_price_link"]);
-
-                itemsList.Add(itemModel);
+                item.ItemId = int.Parse(row["item_master2_id"]);
+                item.Code = row["item_code"];
+                item.Description = row["description"];
+                item.Location = int.Parse(row["location_id"]);
+                item.Warehouse = int.Parse(row["warehouse_id"]);
+                item.Supplier = int.Parse(row["supplier_id"]);
+                item.PackSize = int.Parse(row["packsize"]);
+                item.UnitMeasure = row["unit_measure"];
+                item.SmallestUnit = row["smallest_unit"];
+                item.SmallestUnitSymbol = row["smallest_unit_symbol"];
+                item.UnitWeight = decimal.Parse(row["unit_weight"]);
+                item.Taxrate = decimal.Parse(row["tax_rate"]);
+                item.OPGActive = row["opg_active"] == "1" ? true : false;
+                item.ActiveItem = row["active_item"] == "1" ? true : false;
+                item.ShowItem = row["show_item"] == "1" ? true : false;
+                item.Category = row["category"];
+                item.Brand = row["brand"];
+                item.CategoryCode = row["category_code"];
+                item.BrandCode = row["brand_code"];
+                item.IsSelected = row["selected"] == "1" ? true : false;
+                item.WeeksCovered = int.Parse(row["weeks_cover"]);
+                item.LotControlled = row["lot_controlled"] == "1" ? true : false;
+                item.LocDescription = row["loc_description"];
+                item.CurrentPrice = decimal.Parse(row["current_price"]);
+                item.IsUpdated = row["updated"] == "1" ? true : false;
+                item.PackSizeBO = int.Parse(row["pack_size_bo"]);
+                item.Source = row["source"];
             }
 
-            return itemsList;
+            return item;
         }
 
-        public List<ItemModel> Fetch(string itemCode)
+        public void AddNew( object item )
         {
-            var itemsList = new List<ItemModel>();
-            var itemTable = db.SelectMultiple("Select * from item_master where item_code = '" + itemCode + "' limit 1");
+            throw new NotImplementedException();
+        }
 
-            foreach (var row in itemTable)
-            {
-                var itemModel = new ItemModel();
-                var clone = row.Clone();
+        public void UpdateItem( string qry )
+        {
+            throw new NotImplementedException();
+        }
 
-                itemModel.Id = row["item_id"];
-                itemModel.Code = row["item_code"];
-                itemModel.Description = row["item_description"];
-                itemModel.SmallestUnitMeasure = row["smallest_unit_measure"];
-                itemModel.StockUnitMeasure = row["stock_unit_measure"];
-                itemModel.PiecePerUnit = row["pieces_per_unit"];
-                itemModel.WeightPerUnit = row["weight_per_stock_unit"];
-                itemModel.TaxRate = row["tax_rate"];
-                itemModel.TargetWeek = row["target_week"];
-                itemModel.Supplier = row["supplier"];
-                itemModel.Source = row["source"];
-                itemModel.Brand = row["brand"];
-                itemModel.Category = row["category"];
-                itemModel.PiecesPerBO = row["pieces_per_bo"];
-                itemModel.OPG = row["opg"];
-                itemModel.Active = row["active"];
-                itemModel.LotControl = row["lot_controll"];
-                itemModel.PurchasePriceLink = Convert.ToInt32(row["purchase_price_link"]);
-                itemModel.SellingPriceLink = Convert.ToInt32(row["selling_price_link"]);
-
-                itemsList.Add(itemModel);
-            }
-
-            return itemsList;
-
+        public void DeleteItem( string qry )
+        {
+            throw new NotImplementedException();
         }
     }
-
-
 }

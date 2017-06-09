@@ -353,7 +353,7 @@ namespace ESI_ITE.ViewModel
                     {
                         var invoiceTemplateViewModel = new InvoicePrintTemplateViewModel();
                         var inventoryDummy = new InventoryDummy2Model();
-                        var itemMaster = new Item2Model();
+                        var itemMaster = new ItemModel();
                         var allocationObj = new AllocatedStocksModel();
 
                         var invoiceableItems = new List<InvoiceItems>();
@@ -370,6 +370,7 @@ namespace ESI_ITE.ViewModel
                         var warehouse = new WareHouseModel();
                         var terms = new TermModel();
                         var invoice = new InvoicesModel();
+                        var priceType = new PriceTypeModel();
 
                         invoice = (InvoicesModel)invoice.Fetch(_orderToBeInvoiced.InvoiceNumber, "code");
                         customer = (CustomerModel)customer.Fetch(order.CustomerID.ToString(), "id");
@@ -377,6 +378,7 @@ namespace ESI_ITE.ViewModel
                         salesman = (SalesmanModel)salesman.Fetch(district.Salesman.ToString(), "id");
                         warehouse = (WareHouseModel)warehouse.Fetch(order.WarehouseId.ToString(), "id");
                         terms = (TermModel)terms.Fetch(order.TermId.ToString(), "id");
+                        priceType = (PriceTypeModel)priceType.Fetch(order.PriceId.ToString(), "id");
 
                         var invoiceHeader = new InvoiceHeader();
                         invoiceHeader.InvoiceNumber = _orderToBeInvoiced.InvoiceNumber;
@@ -402,7 +404,7 @@ namespace ESI_ITE.ViewModel
                             var itemExists = false;
 
                             inventoryDummy = (InventoryDummy2Model)inventoryDummy.Fetch(allocatedItem.InventoryDummyId.ToString(), "id");
-                            itemMaster = (Item2Model)itemMaster.Fetch(inventoryDummy.ItemCode, "code");
+                            itemMaster = (ItemModel)itemMaster.Fetch(inventoryDummy.ItemCode, "code");
 
                             if (invoiceableItems.Count > 0)
                             {
@@ -431,7 +433,7 @@ namespace ESI_ITE.ViewModel
                                     _invoiceableItem.Cases = allocatedItem.Cases;
                                     _invoiceableItem.Pieces = allocatedItem.Pieces;
                                     _invoiceableItem.PricePerCase = itemMaster.PackSize * itemMaster.PackSizeBO * itemMaster.CurrentPrice;
-                                    _invoiceableItem.PricePerPiece = itemMaster.CurrentPrice;
+                                    //_invoiceableItem.PricePerPiece = price.;
                                     _invoiceableItem.Amount = (_invoiceableItem.Cases * _invoiceableItem.PricePerCase) + (_invoiceableItem.Pieces * _invoiceableItem.PricePerPiece);
 
                                     invoiceableItems.Add(_invoiceableItem);

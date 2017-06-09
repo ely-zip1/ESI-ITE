@@ -39,7 +39,7 @@ namespace Tests
 
             var itemList = itemModel.FetchAll();
 
-            foreach ( var item in itemList )
+            foreach ( ItemModel item in itemList )
             {
                 pricePurchase = db.Select("select pcode from price_purchase where pcode = '" + item.Code + "'");
                 priceSelling = db.Select("select code from price_selling where code = '" + item.Code + "'");

@@ -654,8 +654,8 @@ namespace ESI_ITE.ViewModel
 
                     foreach (var orderItem in orderItems)
                     {
-                        var currentItem = new Item2Model();
-                        currentItem = (Item2Model)currentItem.Fetch(orderItem.ItemCode, "code");
+                        var currentItem = new ItemModel();
+                        currentItem = (ItemModel)currentItem.Fetch(orderItem.ItemCode, "code");
 
                         var inventoryMaster = new InventoryMaster2Model();
                         var itemMasterList = inventoryMaster.FetchInStockItem(currentItem.ItemId);
@@ -708,8 +708,8 @@ namespace ESI_ITE.ViewModel
         {
             pickhead = (PickListHeaderModel)pickhead.Fetch(pickhead.HeaderNumber, "code");
 
-            var item = new Item2Model();
-            item = (Item2Model)item.Fetch(orderedItem.ItemCode, "code");
+            var item = new ItemModel();
+            item = (ItemModel)item.Fetch(orderedItem.ItemCode, "code");
 
             var inventory = new InventoryMaster2Model();
             var inventoryItems = new List<InventoryMaster2Model>();
@@ -871,7 +871,7 @@ namespace ESI_ITE.ViewModel
             var allocatedStocks = new AllocatedStocksModel();
             var inventory = new InventoryMaster2Model();
             var transactionString = new List<string>();
-            var item = new Item2Model();
+            var item = new ItemModel();
             var dummy = new InventoryDummy2Model();
             var inventoryItem = new InventoryMaster2Model();
             var order = new SalesOrderModel();
@@ -892,7 +892,7 @@ namespace ESI_ITE.ViewModel
 
                 if (line.AllocatedCases > 0 || line.AllocatedPieces > 0)
                 {
-                    item = (Item2Model)item.Fetch(dummy.ItemCode, "code");
+                    item = (ItemModel)item.Fetch(dummy.ItemCode, "code");
                     piecePerCase = item.PackSize * item.PackSizeBO;
 
                     var stockList = allocatedStocks.FetchPerPickLine(pickHead.Id, dummy.Id);
