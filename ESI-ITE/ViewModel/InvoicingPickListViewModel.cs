@@ -497,7 +497,7 @@ namespace ESI_ITE.ViewModel
                 picklistSO.Status = "Partially Served";
 
             picklistSO.Term = _term.TermDescription;
-            picklistSO.Address =_customer.AddressCity;
+            picklistSO.Address = _customer.AddressCity;
             //picklistSO.Address = _customer.AddressMain + ", " + _customer.AddressCity + ", " + _customer.AddressProvince;
             picklistSO.District = _district.DistrictNumber;
 
@@ -569,15 +569,37 @@ namespace ESI_ITE.ViewModel
 
         private void StartAllocation()
         {
-            IsFilterEnabled = false;
-            IsShowAllEnabled = false;
-            IsAllocating = true;
-            HasAllSelected = false;
+            var haveItems = false;
 
-            CallAllocateStocks();
+            foreach (var order in PicklistSalesOrdersCollection)
+            {
+                if (order.IsSelected)
+                {
+                    var itemCount = db.Count("select count(*) from inventory_dummy_2 where order_id = '" + order.SoNumber + "'");
+                    if (itemCount > 0)
+                    {
+                        haveItems = true;
+                        break;
+                    }
+                }
+            }
 
-            IsWaitingVisible = true;
-            InformationUpdates = "Allocating Stocks. Please Wait . . .";
+            if (haveItems)
+            {
+                IsFilterEnabled = false;
+                IsShowAllEnabled = false;
+                IsAllocating = true;
+                HasAllSelected = false;
+
+                CallAllocateStocks();
+
+                IsWaitingVisible = true;
+                InformationUpdates = "Allocating Stocks. Please Wait . . .";
+            }
+            else
+            {
+                MessageBox.Show("There are no items to be allocated.");
+            }
         }
 
         private async void CallAllocateStocks()
@@ -635,7 +657,6 @@ namespace ESI_ITE.ViewModel
 
         private Dictionary<int, string> allocateStocks(PickListHeaderModel pickHead)
         {
-            var dummy = new InventoryDummy2Model();
             var picknumber = new PickListNumberModel();
             Dictionary<int, string> ordersToBeRemoved = new Dictionary<int, string>();
 
@@ -686,7 +707,7 @@ namespace ESI_ITE.ViewModel
                 index++;
             }
 
-            db.RunMySqlTransaction(AllocationQueries);
+            db.RunMySqlTransaction(AllocationQueries, null, null);
 
             return ordersToBeRemoved;
         }
@@ -907,9 +928,13 @@ namespace ESI_ITE.ViewModel
                         totalPieces = stockInPieces + inventoryItemInPieces;
 
                         if (totalPieces >= piecePerCase)
+                        {
                             inventoryItem.Cases = totalPieces / piecePerCase;
+                        }
                         else
+                        {
                             inventoryItem.Cases = 0;
+                        }
 
                         inventoryItem.Pieces = totalPieces % piecePerCase;
 
@@ -931,7 +956,7 @@ namespace ESI_ITE.ViewModel
             }
             transactionString.Add(pickHead.GetDeleteQuery(pickHead));
 
-            db.RunMySqlTransaction(transactionString);
+            db.RunMySqlTransaction(transactionString, null, null);
 
             LoadOrders();
         }
@@ -966,7 +991,7 @@ namespace ESI_ITE.ViewModel
 
         private Task<FixedDocument> PicklistPrintingAsync()
         {
-            return Task.Factory.StartNew(() => PicklistPrinting()); 
+            return Task.Factory.StartNew(() => PicklistPrinting());
         }
 
         private FixedDocument PicklistPrinting()

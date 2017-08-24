@@ -672,7 +672,7 @@ namespace ESI_ITE.ViewModel
                     var _item = new ItemModel();
                     _item = (ItemModel)_item.Fetch(dummyItem.ItemCode, "code");
 
-                    var price = decimal.Parse(db.Select("select selling_price from so_price_selling where item_id = '" + _item.ItemId + "' and pricetype_id = '" + priceType.PriceTypeId + "'"));
+                    var price = decimal.Parse(db.Select("select selling_price from price_selling where item_id = '" + _item.ItemId + "' and pricetype_id = '" + priceType.PriceTypeId + "'"));
 
                     var piecePerCase = _item.PackSize * _item.PackSizeBO;
                     var pricePerPiece = price / piecePerCase;
@@ -809,7 +809,7 @@ namespace ESI_ITE.ViewModel
 
         private void setUnitPrice()
         {
-            TxtUnitPrice = db.Select("select selling_price from so_price_selling where item_id = '" + currentItem.ItemId + "' and pricetype_id = '" + SelectedPricetype.PriceTypeId + "'");
+            TxtUnitPrice = db.Select("select selling_price from price_selling where item_id = '" + currentItem.ItemId + "' and pricetype_id = '" + SelectedPricetype.PriceTypeId + "'");
         }
 
         private void selectItem()

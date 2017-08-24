@@ -76,7 +76,42 @@ namespace ESI_ITE.Model
 
         public void AddNew(object item)
         {
-            throw new NotImplementedException();
+            var newItem = (InventoryMaster2Model)item;
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("insert into  inventory_master2 values(");
+            sb.Append("null,");
+            sb.Append("'" + newItem.ItemId + "',");
+            sb.Append("'" + newItem.WarehouseId + "',");
+            sb.Append("'" + newItem.LocationId + "'");
+            sb.Append("'" + newItem.Cases + "',");
+            sb.Append("'" + newItem.Pieces + "',");
+            sb.Append("'" + newItem.ExpirationDate.ToString("MM/dd/yyyy") + "',");
+            sb.Append("'" + newItem.LotNumber + "'");
+            sb.Append(")");
+
+            db.Insert(sb.ToString());
+        }
+
+        public string GetAddQuery(object item)
+        {
+            var newItem = (InventoryMaster2Model)item;
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("insert into  inventory_master2 values(");
+            sb.Append("null,");
+            sb.Append("'" + newItem.ItemId + "',");
+            sb.Append("'" + newItem.WarehouseId + "',");
+            sb.Append("'" + newItem.LocationId + "'");
+            sb.Append("'" + newItem.Cases + "',");
+            sb.Append("'" + newItem.Pieces + "',");
+            sb.Append("'" + newItem.ExpirationDate.ToString("MM/dd/yyyy") + "',");
+            sb.Append("'" + newItem.LotNumber + "'");
+            sb.Append(")");
+
+            return sb.ToString();
         }
 
         public void DeleteItem(string qry)

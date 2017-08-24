@@ -100,7 +100,7 @@ namespace ESI_ITE.Model
 
             var orderId = db.Select("select order_id from orders where order_number = '" + inventoryDummyItem.OrderNumber + "'");
             var itemId = db.Select("select item_master2_id from item_master where item_code = '" + inventoryDummyItem.ItemCode + "'");
-            var priceTypeId = db.Select("select pricetype_id from so_pricetype where code = '" + inventoryDummyItem.PriceType + "'");
+            var priceTypeId = db.Select("select pricetype_id from pricetype where code = '" + inventoryDummyItem.PriceType + "'");
             var locationId = db.Select("select location_id from location where code = '" + inventoryDummyItem.Location + "'");
 
             var sb = new StringBuilder();
@@ -222,7 +222,7 @@ namespace ESI_ITE.Model
 
             var orderId = db.Select("select order_id from orders where order_number = '" + dummy.OrderNumber + "'");
             var itemId = db.Select("select item_master2_id from item_master where item_code = '" + dummy.ItemCode + "'");
-            var priceTypeId = db.Select("select pricetype_id from so_pricetype where code = '" + dummy.PriceType + "'");
+            var priceTypeId = db.Select("select pricetype_id from pricetype where code = '" + dummy.PriceType + "'");
             var locationId = db.Select("select location_id from location where code = '" + dummy.Location + "'");
 
             sb.Append("update inventory_dummy_2 set ");

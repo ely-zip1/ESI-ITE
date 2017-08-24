@@ -541,7 +541,7 @@ namespace ESI_ITE.ViewModel
                 {
                     //transaction type
                     foreach (var transType in transactionType.FetchAll())
-                        if (transType.Code == trans.TransactionCode)
+                        if (transType.Code == trans.TransactionTypeCode)
                         {
                             IndexTransactionType = transType.Id;
                             SelectedTransactionType = transType;

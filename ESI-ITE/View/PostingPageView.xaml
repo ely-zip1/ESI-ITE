@@ -14,14 +14,16 @@
 
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-            <ProgressBar Height="30" MinWidth="200" MaxWidth="500" Margin="10"
+            <Label Content="{Binding ProgressInfo}" Margin="10,0" HorizontalAlignment="Center"/>
+
+            <ProgressBar Height="30" MinWidth="200" MaxWidth="500" Margin="10" Background="DodgerBlue"
                          Minimum="0" Maximum="{Binding PbMax}" Value="{Binding PbValue}" IsTabStop="False" IsHitTestVisible="False"/>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Post" Height="30" Width="80" Margin="10" Background="White"
+                <Button Content="Post" Width="80" Margin="10" IsEnabled="{Binding IsClickable}"
                     Command="{Binding PostCommand}"/>
 
-                <Button Content="Cancel" Height="30" Width="80" Margin="10" Background="White"
+                <Button Content="Close" Width="80" Margin="10" IsEnabled="{Binding IsClickable}"
                     Command="{Binding Cancelcommand}" />
             </StackPanel>
 

@@ -64,8 +64,10 @@ namespace ESI_ITE
         public static FixedDocument printingDoc;
 
         //Progress Monitors
-        public static int ProgressTotalStep;
-        public static int ProgressCurrentStep;
-        public static int ProgressPercentComplete;
+        public static float ProgressTotalStep;
+        public static float ProgressCurrentStep;
+        public static float ProgressPercentComplete;
+        public static float ProgressCurrentStage;
+        public static string ProgressDescription;
     }
 }

@@ -138,7 +138,7 @@ namespace ESI_ITE.Model
             }
             else
             {
-                return setPrice(result);
+                return setPrice(result, itemObj);
             }
         }
 
@@ -161,13 +161,16 @@ namespace ESI_ITE.Model
                 result = db.SelectMultiple("select * from price_purchase where item_id = '" + item + "' order by date desc");
             }
 
+            var packSize = itemObj.PackSize;
+            var packSizeBo = itemObj.PackSizeBO;
+
             if (result.Count == 0)
             {
                 return null;
             }
             else if (result.Count == 1)
             {
-                return setPrice(result);
+                return setPrice(result, itemObj);
             }
             else if (result.Count > 1)
             {
@@ -178,8 +181,8 @@ namespace ESI_ITE.Model
 
                     tempPrice.Id = int.Parse(row["price_id"]);
                     tempPrice.ItemId = int.Parse(row["item_id"]);
-                    tempPrice.PurchasePrice = decimal.Parse("purchase_price");
-                    tempPrice.IsActive = (row["isActive"] == "1") ? true : false;
+                    price.PurchasePrice = decimal.Parse(row["purchase_price"]) / packSize / packSizeBo;
+                    price.IsActive = (row["isactive"] == "1") ? true : false;
                     tempPrice.PriceDate = DateTime.Parse(row["date"]);
 
                     priceList.Add(tempPrice);
@@ -211,7 +214,6 @@ namespace ESI_ITE.Model
             return price;
         }
 
-
         public PricePurchaseModel FetchPrice3MonthsAgo(string item, string type)
         {
             var price = new PricePurchaseModel();
@@ -231,13 +233,16 @@ namespace ESI_ITE.Model
                 result = db.SelectMultiple("select * from price_purchase where item_id = '" + item + "' order by date desc");
             }
 
+            var packSize = itemObj.PackSize;
+            var packSizeBo = itemObj.PackSizeBO;
+
             if (result.Count == 0)
             {
                 return null;
             }
             else if (result.Count == 1)
             {
-                return setPrice(result);
+                return setPrice(result, itemObj);
             }
             else if (result.Count > 1)
             {
@@ -248,8 +253,8 @@ namespace ESI_ITE.Model
 
                     tempPrice.Id = int.Parse(row["price_id"]);
                     tempPrice.ItemId = int.Parse(row["item_id"]);
-                    tempPrice.PurchasePrice = decimal.Parse("purchase_price");
-                    tempPrice.IsActive = (row["isActive"] == "1") ? true : false;
+                    price.PurchasePrice = decimal.Parse(row["purchase_price"]) / packSize / packSizeBo;
+                    price.IsActive = (row["isactive"] == "1") ? true : false;
                     tempPrice.PriceDate = DateTime.Parse(row["date"]);
 
                     priceList.Add(tempPrice);
@@ -281,9 +286,12 @@ namespace ESI_ITE.Model
             return price;
         }
 
-        private PricePurchaseModel setPrice(List<CloneableDictionary<string, string>> result)
+        private PricePurchaseModel setPrice(List<CloneableDictionary<string, string>> result, ItemModel itemObj)
         {
             var price = new PricePurchaseModel();
+
+            var packSize = itemObj.PackSize;
+            var packSizeBo = itemObj.PackSizeBO;
 
             foreach (var row in result)
             {
@@ -291,14 +299,38 @@ namespace ESI_ITE.Model
 
                 price.Id = int.Parse(row["price_id"]);
                 price.ItemId = int.Parse(row["item_id"]);
-                price.PurchasePrice = decimal.Parse("purchase_price");
-                price.IsActive = (row["isActive"] == "1") ? true : false;
+                price.PurchasePrice = decimal.Parse(row["purchase_price"]) / packSize / packSizeBo;
+                price.IsActive = (row["isactive"] == "1") ? true : false;
                 price.PriceDate = DateTime.Parse(row["date"]);
 
-                break;
+                break;  
             }
 
             return price;
+        }
+
+        public bool HasPrice(string id, string type)
+        {
+            var itemObj = new ItemModel();
+
+            if (type == "id")
+            {
+                itemObj = (ItemModel)itemObj.Fetch(id, "id");
+
+                if (string.IsNullOrWhiteSpace(itemObj.Description))
+                    return false;
+                else
+                    return true;
+            }
+            else
+            {
+                itemObj = (ItemModel)itemObj.Fetch(id, "code");
+
+                if (string.IsNullOrWhiteSpace(itemObj.Description))
+                    return false;
+                else
+                    return true;
+            }
         }
     }
 }

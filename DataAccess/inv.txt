@@ -1,0 +1,13 @@
+select
+inv.id as invoice_id,
+inv.invoice_number,
+user.username,
+inv.date as invoice_date,
+cust.customer_number,
+cust.customer_name,
+sman.salesman_name,
+dist.district_number,
+wh.code as warehouse_code,
+ordr.order_number,
+ordr.order_date,
+term.term_code,

@@ -63,6 +63,7 @@ namespace ESI_ITE.Model
             set { isCurrent = value; }
         }
 
+
         #endregion
 
         public void AddNew(object item)
@@ -151,6 +152,187 @@ namespace ESI_ITE.Model
             }
 
             return price;
+        }
+
+        public List<PriceSellingModel> FetchCurrentPrice(string id, string type)
+        {
+            var priceList = new List<PriceSellingModel>();
+            var itemObj = new ItemModel();
+
+            var results = new List<CloneableDictionary<string, string>>();
+
+            if (type == "id")
+            {
+                results = db.SelectMultiple("select * from " +
+                    "(select * from price_selling where item_id = '" + id + "' group by pricetype_id asc, effective_from desc) as temp group by pricetype_id");
+            }
+            else if (type == "code")
+            {
+                itemObj = (ItemModel)itemObj.Fetch(id, "code");
+
+                results = db.SelectMultiple("select * from " +
+                    "(select * from price_selling where item_id = '" + itemObj.ItemId + "' group by pricetype_id asc, effective_from desc) as temp group by pricetype_id");
+            }
+
+            var packSize = itemObj.PackSize;
+            var packSizeBo = itemObj.PackSizeBO;
+
+            foreach (var row in results)
+            {
+                var clone = row.Clone();
+                var price = new PriceSellingModel();
+
+                price.Id = int.Parse(row["price_id"]);
+                price.ItemId = int.Parse(row["item_id"]);
+                price.PriceTypeId = int.Parse(row["pricetype_id"]);
+                price.SellingPrice = decimal.Parse(row["selling_price"]) / packSize / packSizeBo;
+                price.EffectiveFrom = DateTime.Parse(row["effective_from"]);
+                price.EffectiveTo = DateTime.Parse(row["effective_to"]);
+                price.IsCurrent = (row["current"] == "1") ? true : false;
+
+                priceList.Add(price);
+            }
+
+            return priceList;
+        }
+
+        public List<PriceSellingModel> FetchPrice6MonthsAgo(string id, string type)
+        {
+            var priceList = new List<PriceSellingModel>();
+            var currentPrices = FetchCurrentPrice(id, type);
+
+            foreach (var currentPrice in currentPrices)
+            {
+                var date3MonthsAgo = currentPrice.EffectiveFrom.AddMonths(-3);
+                var date6MonthsAgo = date3MonthsAgo.AddMonths(-3);
+
+                var result = db.SelectMultiple("select * from price_selling where item_id = '" + currentPrice.itemId + "' and pricetype_id = '" + currentPrice.PriceTypeId + "' ");
+
+                var hasMatch = false;
+                foreach (var row in result)
+                {
+                    var clone = row.Clone();
+
+                    var itemObj = new ItemModel();
+                    itemObj = (ItemModel)itemObj.Fetch(currentPrice.ItemId.ToString(), "id");
+
+                    var packSize = itemObj.PackSize;
+                    var packSizeBo = itemObj.PackSizeBO;
+
+                    var date = DateTime.Parse(row["effective_from"]);
+
+                    if (date > date6MonthsAgo && date < date3MonthsAgo)
+                    {
+                        var price = new PriceSellingModel();
+
+                        price.Id = int.Parse(row["price_id"]);
+                        price.ItemId = int.Parse(row["item_id"]);
+                        price.PriceTypeId = int.Parse(row["pricetype_id"]);
+                        price.SellingPrice = decimal.Parse(row["selling_price"]) / packSize / packSizeBo;
+                        price.EffectiveFrom = DateTime.Parse(row["effective_from"]);
+                        price.EffectiveTo = DateTime.Parse(row["effective_to"]);
+                        price.IsCurrent = (row["Current"] == "1") ? true : false;
+
+                        priceList.Add(price);
+
+                        hasMatch = true;
+                    }
+                    else
+                    {
+                        hasMatch = false;
+                        currentPrice.SellingPrice = currentPrice.SellingPrice / packSize / packSizeBo;
+                    }
+                }
+
+                if (hasMatch == false)
+                {
+                    priceList.Add(currentPrice);
+                }
+
+            }
+
+            return priceList;
+        }
+
+        public List<PriceSellingModel> FetchPrice3MonthsAgo(string id, string type)
+        {
+            var priceList = new List<PriceSellingModel>();
+            var currentPrices = FetchCurrentPrice(id, type);
+
+            foreach (var currentPrice in currentPrices)
+            {
+                var currentPriceDate = currentPrice.EffectiveFrom;
+                var date3MonthsAgo = currentPriceDate.AddMonths(-3);
+
+                var result = db.SelectMultiple("select * from price_selling where item_id = '" + currentPrice.itemId + "' and pricetype_id = '" + currentPrice.PriceTypeId + "' ");
+
+                var hasMatch = false;
+                foreach (var row in result)
+                {
+                    var clone = row.Clone();
+
+                    var itemObj = new ItemModel();
+                    itemObj = (ItemModel)itemObj.Fetch(currentPrice.ItemId.ToString(), "id");
+
+                    var packSize = itemObj.PackSize;
+                    var packSizeBo = itemObj.PackSizeBO;
+
+                    var date = DateTime.Parse(row["effective_from"]);
+
+                    if (date > date3MonthsAgo && date < currentPriceDate)
+                    {
+                        var price = new PriceSellingModel();
+
+                        price.Id = int.Parse(row["price_id"]);
+                        price.ItemId = int.Parse(row["item_id"]);
+                        price.PriceTypeId = int.Parse(row["pricetype_id"]);
+                        price.SellingPrice = decimal.Parse(row["selling_price"]) / packSize / packSizeBo;
+                        price.EffectiveFrom = DateTime.Parse(row["effective_from"]);
+                        price.EffectiveTo = DateTime.Parse(row["effective_to"]);
+                        price.IsCurrent = (row["Current"] == "1") ? true : false;
+
+                        priceList.Add(price);
+
+                        hasMatch = true;
+                    }
+                    else
+                    {
+                        hasMatch = false;
+                        currentPrice.SellingPrice = currentPrice.SellingPrice / packSize / packSizeBo;
+                    }
+                }
+
+                if (hasMatch == false)
+                {
+                    priceList.Add(currentPrice);
+                }
+            }
+
+            return priceList;
+        }
+
+        public bool HasPrice(string id, string type)
+        {
+            var itemObj = new ItemModel();
+
+            if (type == "id")
+            {
+                itemObj = (ItemModel)itemObj.Fetch(id, "id");
+
+                if (string.IsNullOrWhiteSpace(itemObj.Description))
+                    return false;
+                else
+                    return true;
+            }
+            else
+            {
+                itemObj = (ItemModel)itemObj.Fetch(id, "code");
+
+                if (string.IsNullOrWhiteSpace(itemObj.Description))
+                    return false;
+                else
+                    return true;
+            }
         }
     }
 }

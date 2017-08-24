@@ -11,11 +11,11 @@ using System.Windows.Input;
 
 namespace ESI_ITE.ViewModel
 {
-    class TransactionEntryPageViewModel: ViewModelBase, IDataErrorInfo
+    class TransactionEntryPageViewModel : ViewModelBase, IDataErrorInfo
     {
         #region Constructor
 
-        public TransactionEntryPageViewModel( )
+        public TransactionEntryPageViewModel()
         {
             lineItemCommand = new DelegateCommand(LineItem);
             deleteTransactionCommand = new DelegateCommand(DeleteTransaction);
@@ -26,7 +26,7 @@ namespace ESI_ITE.ViewModel
             Load();
         }
 
-        public TransactionEntryPageViewModel( ITEViewModel container )
+        public TransactionEntryPageViewModel(ITEViewModel container)
         {
             this.Container = container;
 
@@ -136,12 +136,12 @@ namespace ESI_ITE.ViewModel
             get { return selectedTransactionNumber; }
             set
             {
-                if ( selectedTransactionNumber != value && value != null )
+                if (selectedTransactionNumber != value && value != null)
                 {
                     selectedTransactionNumber = value;
                     strTransactionNumber = value;
                     OnPropertyChanged("SelectedTransactionNumber");
-                    if ( !string.IsNullOrEmpty(selectedTransactionNumber) )
+                    if (!string.IsNullOrEmpty(selectedTransactionNumber))
                     {
                         SelectionChanged("SelectedTransactionNumber");
                     }
@@ -155,7 +155,7 @@ namespace ESI_ITE.ViewModel
             get { return selectedTransactionType; }
             set
             {
-                if ( selectedTransactionType != value && value != null )
+                if (selectedTransactionType != value && value != null)
                 {
                     selectedTransactionType = value;
                     validateReason = false;
@@ -172,7 +172,7 @@ namespace ESI_ITE.ViewModel
             get { return documentNumber; }
             set
             {
-                if ( documentNumber != value )
+                if (documentNumber != value)
                 {
                     documentNumber = value;
                     strDocumentNumber = value;
@@ -200,7 +200,7 @@ namespace ESI_ITE.ViewModel
             get { return selectedSourceWarehouse; }
             set
             {
-                if ( selectedSourceWarehouse != value && value != null )
+                if (selectedSourceWarehouse != value && value != null)
                 {
                     selectedSourceWarehouse = value;
                     strSourceWarehouse[0] = value.Code;
@@ -217,7 +217,7 @@ namespace ESI_ITE.ViewModel
             get { return selectedSourceLocation; }
             set
             {
-                if ( selectedSourceLocation != value && value != null )
+                if (selectedSourceLocation != value && value != null)
                 {
                     selectedSourceLocation = value;
                     strSourceLocation[0] = value.Code;
@@ -234,7 +234,7 @@ namespace ESI_ITE.ViewModel
             get { return selectedPriceCategory; }
             set
             {
-                if ( !string.IsNullOrEmpty(value) || selectedPriceCategory != value )
+                if (!string.IsNullOrEmpty(value) || selectedPriceCategory != value)
                 {
                     selectedPriceCategory = value;
                     strPriceCategory = value;
@@ -250,7 +250,7 @@ namespace ESI_ITE.ViewModel
             get { return selectedPriceType; }
             set
             {
-                if ( !string.IsNullOrEmpty(value) )
+                if (!string.IsNullOrEmpty(value))
                 {
                     selectedPriceType = value;
                     strPriceType = value;
@@ -266,7 +266,7 @@ namespace ESI_ITE.ViewModel
             get { return selectedDestinationWarehouse; }
             set
             {
-                if ( selectedDestinationWarehouse != value && value != null )
+                if (selectedDestinationWarehouse != value && value != null)
                 {
                     selectedDestinationWarehouse = value;
                     strDestinationWarehouse[0] = value.Code;
@@ -283,7 +283,7 @@ namespace ESI_ITE.ViewModel
             get { return selectedDestinationLocation; }
             set
             {
-                if ( selectedDestinationLocation != value && value != null )
+                if (selectedDestinationLocation != value && value != null)
                 {
                     selectedDestinationLocation = value;
                     strDestinationLocation[0] = value.Code;
@@ -300,7 +300,7 @@ namespace ESI_ITE.ViewModel
             get { return selectedReason; }
             set
             {
-                if ( selectedReason != value && value != null )
+                if (selectedReason != value && value != null)
                 {
                     selectedReason = value;
                     strReason[0] = value.ReasonCode;
@@ -317,7 +317,7 @@ namespace ESI_ITE.ViewModel
             get { return comment; }
             set
             {
-                if ( !string.IsNullOrEmpty(value) || comment != value )
+                if (!string.IsNullOrEmpty(value) || comment != value)
                 {
                     comment = value;
                     strComment = value;
@@ -524,14 +524,14 @@ namespace ESI_ITE.ViewModel
 
         #region Methods
 
-        private void Load( )
+        private void Load()
         {
             //Sorts and Loads Transaction Numbers
             UpdateTransactionNumbers();
 
             //Loads Transaction Types
             CmbTransactionType.Add(new TransactionTypesModel());
-            foreach ( var type in transactionType.FetchAll() )
+            foreach (var type in transactionType.FetchAll())
             {
                 CmbTransactionType.Add(type);
             }
@@ -541,14 +541,14 @@ namespace ESI_ITE.ViewModel
 
             //Loads SourceWarehouse
             CmbWarehouse.Add(new WareHouseModel());
-            foreach ( var wh in warehouse.FetchAll() )
+            foreach (var wh in warehouse.FetchAll())
             {
                 CmbWarehouse.Add(wh);
             }
 
             //Loads source Location
             CmbLocation.Add(new LocationModel());
-            foreach ( var loc in location.FetchAll() )
+            foreach (var loc in location.FetchAll())
             {
                 CmbLocation.Add(loc);
             }
@@ -568,14 +568,14 @@ namespace ESI_ITE.ViewModel
             EnableDestination = false;
         }
 
-        private void UpdateTransactionNumbers( )
+        private void UpdateTransactionNumbers()
         {
             List<string> sortable = new List<string>();
 
             latestTransNo = transactionNumber.Fetch();
             MyGlobals.TransactionList.Clear();
 
-            foreach ( var obj in (transaction.FetchAll()) )
+            foreach (var obj in (transaction.FetchAll()))
             {
                 MyGlobals.TransactionList.Add(obj);
                 sortable.Add(obj.TransactionNumber);
@@ -585,20 +585,24 @@ namespace ESI_ITE.ViewModel
             sortable.Sort();
 
             CmbTransactionNumbers.Clear();
-            foreach ( var i in sortable )
+            foreach (var i in sortable)
             {
                 CmbTransactionNumbers.Add(i);
             }
+
+            var newTransaction = CmbTransactionNumbers[CmbTransactionNumbers.Count - 1] + " (New Transaction)";
+            CmbTransactionNumbers.RemoveAt(CmbTransactionNumbers.Count - 1);
+            CmbTransactionNumbers.Add(newTransaction);
         }
 
-        private void fillForm( )
+        private void fillForm()
         {
-            foreach ( var trans in transaction.FetchAll() )
-                if ( trans.TransactionNumber == SelectedTransactionNumber )
+            foreach (var trans in transaction.FetchAll())
+                if (trans.TransactionNumber == SelectedTransactionNumber)
                 {
                     //transaction type
-                    foreach ( var transType in transactionType.FetchAll() )
-                        if ( transType.Code == trans.TransactionCode )
+                    foreach (var transType in transactionType.FetchAll())
+                        if (transType.Code == trans.TransactionTypeCode)
                         {
                             IndexTransactionType = transType.Id;
                             SelectedTransactionType = transType;
@@ -611,9 +615,9 @@ namespace ESI_ITE.ViewModel
                     TransactionDate = trans.TransactionDate.ToString("MM/dd/yyyy");
 
                     //warehouse
-                    foreach ( var wh in warehouse.FetchAll() )
+                    foreach (var wh in warehouse.FetchAll())
                     {
-                        if ( wh.Code == trans.SourceWarehouseCode )
+                        if (wh.Code == trans.SourceWarehouseCode)
                         {
                             IndexSourceWarehouse = wh.Id;
                             selectedSourceWarehouse = wh;
@@ -621,9 +625,9 @@ namespace ESI_ITE.ViewModel
                         }
                     }
 
-                    foreach ( var wh2 in warehouse.FetchAll() )
+                    foreach (var wh2 in warehouse.FetchAll())
                     {
-                        if ( wh2.Code == trans.DestinationWarehouseCode )
+                        if (wh2.Code == trans.DestinationWarehouseCode)
                         {
                             IndexDestinationWarehouse = wh2.Id;
                             SelectedDestinationWarehouse = wh2; //new WareHouseModel(wh2);
@@ -632,9 +636,9 @@ namespace ESI_ITE.ViewModel
                     }
 
                     //location
-                    foreach ( var loc in location.FetchAll() )
+                    foreach (var loc in location.FetchAll())
                     {
-                        if ( loc.Code == trans.SourceLocationCode )
+                        if (loc.Code == trans.SourceLocationCode)
                         {
                             IndexSourceLocation = loc.Id;
                             SelectedSourceLocation = loc; //new LocationModel(loc);
@@ -643,9 +647,9 @@ namespace ESI_ITE.ViewModel
                         }
                     }
 
-                    foreach ( var loc2 in location.FetchAll() )
+                    foreach (var loc2 in location.FetchAll())
                     {
-                        if ( loc2.Code == trans.DestinationLocationCode )
+                        if (loc2.Code == trans.DestinationLocationCode)
                         {
                             IndexDestinationLocation = loc2.Id;
                             SelectedDestinationLocation = loc2; //new LocationModel(loc2);
@@ -655,7 +659,7 @@ namespace ESI_ITE.ViewModel
                     }
 
                     //price category
-                    switch ( trans.PriceCategory )
+                    switch (trans.PriceCategory)
                     {
                         case "Selling Price":
                             IndexPriceCategory = 1;
@@ -672,7 +676,7 @@ namespace ESI_ITE.ViewModel
                     }
 
                     //price type
-                    switch ( trans.PriceType )
+                    switch (trans.PriceType)
                     {
                         case "Current":
                             IndexPriceType = 1;
@@ -693,9 +697,9 @@ namespace ESI_ITE.ViewModel
                     }
 
                     //reason code
-                    foreach ( var reason in reason.FetchAll() )
+                    foreach (var reason in reason.FetchAll())
                     {
-                        if ( reason.ReasonCode == trans.ReasonCode )
+                        if (reason.ReasonCode == trans.ReasonCode)
                         {
                             IndexReason = int.Parse(reason.ReasonCode.Substring(2));
                             SelectedReason = reason; //new ReasonsModel(reason);
@@ -709,13 +713,13 @@ namespace ESI_ITE.ViewModel
                 }
         }
 
-        private void SelectionChanged( string property )
+        private void SelectionChanged(string property)
         {
-            switch ( property )
+            switch (property)
             {
                 case "SelectedTransactionNumber":
                     resetValidProperties();
-                    if ( selectedTransactionNumber == latestTransNo )
+                    if (selectedTransactionNumber.Substring(0, 6) == latestTransNo)
                     {
                         IsFirstLoad = true;
                         updateTransNo = true;
@@ -734,7 +738,7 @@ namespace ESI_ITE.ViewModel
                         CanEdit = false;
                     }
 
-                    if ( string.IsNullOrEmpty(selectedTransactionNumber) )
+                    if (string.IsNullOrEmpty(selectedTransactionNumber))
                     {
                         validProperties[0] = "";
                         IsLineable = false;
@@ -749,19 +753,19 @@ namespace ESI_ITE.ViewModel
                     CmbReason.Clear();
                     CmbReason.Add(new ReasonsModel());
 
-                    if ( SelectedTransactionType != null )
-                        if ( !string.IsNullOrEmpty(SelectedTransactionType.Code) )
+                    if (SelectedTransactionType != null)
+                        if (!string.IsNullOrEmpty(SelectedTransactionType.Code))
                         {
-                            foreach ( var item in ReasonList )
+                            foreach (var item in ReasonList)
                             {
-                                if ( item.TransactionType == SelectedTransactionType.Code )
+                                if (item.TransactionType == SelectedTransactionType.Code)
                                 {
                                     CmbReason.Add(item);
                                 }
                             }
                         }
 
-                    if ( string.IsNullOrEmpty(SelectedTransactionType.Code) )
+                    if (string.IsNullOrEmpty(SelectedTransactionType.Code))
                     {
                         validProperties[1] = "";
                         IsLineable = false;
@@ -771,7 +775,7 @@ namespace ESI_ITE.ViewModel
                     break;
 
                 case "DocumentNumber":
-                    if ( string.IsNullOrEmpty(DocumentNumber) )
+                    if (string.IsNullOrEmpty(DocumentNumber))
                     {
                         validProperties[2] = "";
                         IsLineable = false;
@@ -782,7 +786,7 @@ namespace ESI_ITE.ViewModel
 
                 case "TransactionDate":
 
-                    if ( string.IsNullOrEmpty(transactionDate) )
+                    if (string.IsNullOrEmpty(transactionDate))
                     {
                         validProperties[3] = "";
                         IsLineable = false;
@@ -793,8 +797,8 @@ namespace ESI_ITE.ViewModel
 
                 case "SelectedSourceWarehouse":
 
-                    if ( SelectedSourceWarehouse != null )
-                        if ( string.IsNullOrEmpty(SelectedSourceWarehouse.Code) )
+                    if (SelectedSourceWarehouse != null)
+                        if (string.IsNullOrEmpty(SelectedSourceWarehouse.Code))
                         {
                             validProperties[4] = "";
                             IsLineable = false;
@@ -805,8 +809,8 @@ namespace ESI_ITE.ViewModel
 
                 case "SelectedSourceLocation":
 
-                    if ( SelectedSourceLocation != null )
-                        if ( string.IsNullOrEmpty(SelectedSourceLocation.Code) )
+                    if (SelectedSourceLocation != null)
+                        if (string.IsNullOrEmpty(SelectedSourceLocation.Code))
                         {
                             validProperties[5] = "";
                             IsLineable = false;
@@ -817,7 +821,7 @@ namespace ESI_ITE.ViewModel
 
                 case "SelectedPriceCategory":
 
-                    if ( string.IsNullOrEmpty(SelectedPriceCategory) )
+                    if (string.IsNullOrEmpty(SelectedPriceCategory))
                     {
                         validProperties[6] = "";
                         IsLineable = false;
@@ -828,7 +832,7 @@ namespace ESI_ITE.ViewModel
 
                 case "SelectedPriceType":
 
-                    if ( string.IsNullOrEmpty(SelectedPriceType) )
+                    if (string.IsNullOrEmpty(SelectedPriceType))
                     {
                         validProperties[7] = "";
                         IsLineable = false;
@@ -838,9 +842,9 @@ namespace ESI_ITE.ViewModel
                     break;
 
                 case "SelectedDestinationWarehouse":
-                    if ( EnableDestination )
-                        if ( SelectedDestinationWarehouse != null )
-                            if ( string.IsNullOrEmpty(SelectedDestinationWarehouse.Code) )
+                    if (EnableDestination)
+                        if (SelectedDestinationWarehouse != null)
+                            if (string.IsNullOrEmpty(SelectedDestinationWarehouse.Code))
                             {
                                 validProperties[8] = "";
                                 IsLineable = false;
@@ -850,9 +854,9 @@ namespace ESI_ITE.ViewModel
                     break;
 
                 case "SelectedDestinationLocation":
-                    if ( EnableDestination )
-                        if ( SelectedDestinationLocation != null )
-                            if ( string.IsNullOrEmpty(SelectedDestinationLocation.Code) )
+                    if (EnableDestination)
+                        if (SelectedDestinationLocation != null)
+                            if (string.IsNullOrEmpty(SelectedDestinationLocation.Code))
                             {
                                 validProperties[9] = "";
                                 IsLineable = false;
@@ -863,8 +867,8 @@ namespace ESI_ITE.ViewModel
 
                 case "SelectedReason":
 
-                    if ( SelectedReason != null )
-                        if ( string.IsNullOrEmpty(SelectedReason.ReasonCode) )
+                    if (SelectedReason != null)
+                        if (string.IsNullOrEmpty(SelectedReason.ReasonCode))
                         {
                             validProperties[10] = "";
                             IsLineable = false;
@@ -877,7 +881,7 @@ namespace ESI_ITE.ViewModel
             isValid();
         }
 
-        private void ClearForm( )
+        private void ClearForm()
         {
             IndexTransactionType = 0;
             DocumentNumber = "";
@@ -892,9 +896,9 @@ namespace ESI_ITE.ViewModel
             Comment = "";
         }
 
-        public void IsDestinationEnabled( string transactionType )
+        public void IsDestinationEnabled(string transactionType)
         {
-            switch ( transactionType )
+            switch (transactionType)
             {
                 case "AD":
                 case "WW":
@@ -921,12 +925,12 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        public void ToggleFirstLoad( )
+        public void ToggleFirstLoad()
         {
             IsFirstLoad = false;
         }
 
-        private void LineItem( )
+        private void LineItem()
         {
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
@@ -935,7 +939,7 @@ namespace ESI_ITE.ViewModel
             TransactionModel lineableTransaction = new TransactionModel();
 
             lineableTransaction.TransactionNumber = SelectedTransactionNumber;
-            lineableTransaction.TransactionCode = SelectedTransactionType.Code;
+            lineableTransaction.TransactionTypeCode = SelectedTransactionType.Code;
             lineableTransaction.TransactionType = SelectedTransactionType.Description;
             lineableTransaction.DocumentNumber = DocumentNumber;
             lineableTransaction.TransactionDate = DateTime.Parse(TransactionDate, culture);
@@ -953,11 +957,11 @@ namespace ESI_ITE.ViewModel
             lineableTransaction.Reason = SelectedReason.Description;
             lineableTransaction.Comment = Comment;
 
-            if ( SelectedTransactionNumber == latestTransNo )
+            if (SelectedTransactionNumber == latestTransNo)
             {
                 tm.AddTransactionEntry(lineableTransaction);
 
-                if ( updateTransNo )
+                if (updateTransNo)
                 {
                     transactionNumber.Update();
                     UpdateTransactionNumbers();
@@ -974,16 +978,16 @@ namespace ESI_ITE.ViewModel
             MyGlobals.IteViewModel.SelectedPage = new LineItemPageView();
         }
 
-        private void DeleteTransaction( )
+        private void DeleteTransaction()
         {
-            if ( SelectedTransactionNumber != latestTransNo )
+            if (SelectedTransactionNumber != latestTransNo)
             {
-                if ( IsLineable )
+                if (IsLineable)
                 {
                     transaction.DeleteTransaction(SelectedTransactionNumber);
-                    foreach ( var transactionNumber in CmbTransactionNumbers )
+                    foreach (var transactionNumber in CmbTransactionNumbers)
                     {
-                        if ( transactionNumber == SelectedTransactionNumber )
+                        if (transactionNumber == SelectedTransactionNumber)
                         {
                             CmbTransactionNumbers.RemoveAt(CmbTransactionNumbers.IndexOf(transactionNumber));
                             break;
@@ -996,13 +1000,13 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private void Print( )
+        private void Print()
         {
             MyGlobals.PrintingParent = MyGlobals.TransactionEntryPage;
             MyGlobals.IteViewModel.SelectedPage = new PrintPreviewPageView();
         }
 
-        private void Post( )
+        private void Post()
         {
             MyGlobals.PostingParent = MyGlobals.TransactionEntryPage;
             MyGlobals.IteViewModel.SelectedPage = new PostingPageView();
@@ -1024,7 +1028,7 @@ namespace ESI_ITE.ViewModel
         {
             get
             {
-                if ( !IsFirstLoad )
+                if (!IsFirstLoad)
                     return GetValidationError(propertyName);
                 return null;
             }
@@ -1035,27 +1039,27 @@ namespace ESI_ITE.ViewModel
 
         string[] validProperties = { "Error", "Error", "Error", "Error", "Error", "Error", "Error", "Error", "Error", "Error", "Error" };
 
-        private void resetValidProperties( )
+        private void resetValidProperties()
         {
             int x = validProperties.Length;
-            for ( int i = 0;i < x;i++ )
+            for (int i = 0; i < x; i++)
             {
                 validProperties[i] = "Error";
             }
         }
 
-        private void isValid( )
+        private void isValid()
         {
             Debug.WriteLine("ISVALID");
             int counter = 0;
             int x = 0;
-            foreach ( var i in validProperties )
+            foreach (var i in validProperties)
             {
-                if ( !EnableDestination )
+                if (!EnableDestination)
                 {
-                    if ( x != 8 || x != 9 )
+                    if (x != 8 || x != 9)
                     {
-                        if ( i != null )
+                        if (i != null)
                         {
                             counter++;
                             Debug.WriteLine("validProperties[" + x + "] = " + i);
@@ -1065,7 +1069,7 @@ namespace ESI_ITE.ViewModel
                 }
                 else
                 {
-                    if ( i != null )
+                    if (i != null)
                     {
                         counter++;
                         Debug.WriteLine("validProperties[" + x + "] = " + i);
@@ -1074,29 +1078,29 @@ namespace ESI_ITE.ViewModel
                 }
             }
 
-            if ( counter > 0 )
+            if (counter > 0)
                 IsLineable = false;
             else
                 IsLineable = true;
         }
 
-        private string GetValidationError( string propertyName )
+        private string GetValidationError(string propertyName)
         {
             string error = null;
-            switch ( propertyName )
+            switch (propertyName)
             {
                 case "SelectedTransactionNumber":
                     error = ValidateNullOrEmpty("Transaction Number", selectedTransactionNumber);
-                    if ( string.IsNullOrEmpty(error) )
+                    if (string.IsNullOrEmpty(error))
                         validProperties[0] = null;
                     else
                         validProperties[0] = error;
                     break;
                 case "SelectedTransactionType":
-                    if ( SelectedTransactionType != null )
+                    if (SelectedTransactionType != null)
                     {
                         error = ValidateNullOrEmpty("Transaction Type", Convert.ToString(SelectedTransactionType.Code));
-                        if ( string.IsNullOrEmpty(error) )
+                        if (string.IsNullOrEmpty(error))
                             validProperties[1] = null;
                         else
                             validProperties[1] = error;
@@ -1108,7 +1112,7 @@ namespace ESI_ITE.ViewModel
                     break;
                 case "DocumentNumber":
                     error = ValidateDocumentNumber();
-                    if ( string.IsNullOrEmpty(error) )
+                    if (string.IsNullOrEmpty(error))
                         validProperties[2] = null;
                     else
                         validProperties[2] = error;
@@ -1119,16 +1123,16 @@ namespace ESI_ITE.ViewModel
                     //{
                     //    error = CheckDate(Convert.ToString(TransactionDate));
                     //}
-                    if ( string.IsNullOrEmpty(error) )
+                    if (string.IsNullOrEmpty(error))
                         validProperties[3] = null;
                     else
                         validProperties[3] = error;
                     break;
                 case "SelectedSourceWarehouse":
-                    if ( SelectedSourceWarehouse != null )
+                    if (SelectedSourceWarehouse != null)
                     {
                         error = ValidateNullOrEmpty("Source Warehouse", Convert.ToString(SelectedSourceWarehouse.Code));
-                        if ( string.IsNullOrEmpty(error) )
+                        if (string.IsNullOrEmpty(error))
                             validProperties[4] = null;
                         else
                             validProperties[4] = error;
@@ -1139,10 +1143,10 @@ namespace ESI_ITE.ViewModel
                     }
                     break;
                 case "SelectedSourceLocation":
-                    if ( SelectedSourceLocation != null )
+                    if (SelectedSourceLocation != null)
                     {
                         error = ValidateNullOrEmpty("Source Location", Convert.ToString(SelectedSourceLocation.Code));
-                        if ( string.IsNullOrEmpty(error) )
+                        if (string.IsNullOrEmpty(error))
                             validProperties[5] = null;
                         else
                             validProperties[5] = error;
@@ -1154,24 +1158,24 @@ namespace ESI_ITE.ViewModel
                     break;
                 case "SelectedPriceCategory":
                     error = ValidateNullOrEmpty("Price Category", SelectedPriceCategory);
-                    if ( string.IsNullOrEmpty(error) )
+                    if (string.IsNullOrEmpty(error))
                         validProperties[6] = null;
                     else
                         validProperties[6] = error;
                     break;
                 case "SelectedPriceType":
                     error = ValidateNullOrEmpty("Price Type", SelectedPriceType);
-                    if ( string.IsNullOrEmpty(error) )
+                    if (string.IsNullOrEmpty(error))
                         validProperties[7] = null;
                     else
                         validProperties[7] = error;
                     break;
                 case "SelectedDestinationWarehouse":
-                    if ( EnableDestination )
-                        if ( SelectedDestinationWarehouse != null )
+                    if (EnableDestination)
+                        if (SelectedDestinationWarehouse != null)
                         {
                             error = ValidateNullOrEmpty("Destination Warehouse", Convert.ToString(SelectedDestinationWarehouse.Code));
-                            if ( string.IsNullOrEmpty(error) )
+                            if (string.IsNullOrEmpty(error))
                                 validProperties[8] = null;
                             else
                                 validProperties[8] = error;
@@ -1182,11 +1186,11 @@ namespace ESI_ITE.ViewModel
                         }
                     break;
                 case "SelectedDestinationLocation":
-                    if ( EnableDestination )
-                        if ( SelectedDestinationLocation != null )
+                    if (EnableDestination)
+                        if (SelectedDestinationLocation != null)
                         {
                             error = ValidateNullOrEmpty("Destination Location", Convert.ToString(SelectedDestinationLocation.Code));
-                            if ( string.IsNullOrEmpty(error) )
+                            if (string.IsNullOrEmpty(error))
                                 validProperties[9] = null;
                             else
                                 validProperties[9] = error;
@@ -1197,10 +1201,10 @@ namespace ESI_ITE.ViewModel
                         }
                     break;
                 case "SelectedReason":
-                    if ( SelectedReason != null )
+                    if (SelectedReason != null)
                     {
                         error = ValidateNullOrEmpty("Reason", Convert.ToString(SelectedReason.Description));
-                        if ( string.IsNullOrEmpty(error) )
+                        if (string.IsNullOrEmpty(error))
                             validProperties[10] = null;
                         else
                             validProperties[10] = error;
@@ -1215,7 +1219,7 @@ namespace ESI_ITE.ViewModel
             return error;
         }
 
-        private string CheckDate( string date )
+        private string CheckDate(string date)
         {
             var temp = DateTime.UtcNow;
             string d = DateTime.TryParse(date, out temp).ToString();
@@ -1223,20 +1227,20 @@ namespace ESI_ITE.ViewModel
             return d;
         }
 
-        private string ValidateDocumentNumber( )
+        private string ValidateDocumentNumber()
         {
             Regex regex = new Regex("^[0-9]+$");
-            if ( string.IsNullOrEmpty(documentNumber) )
+            if (string.IsNullOrEmpty(documentNumber))
                 return "Document Number cannot be empty!";
-            else if ( !regex.IsMatch(documentNumber) )
+            else if (!regex.IsMatch(documentNumber))
                 return "Document Number cannot accept non-numeric values!";
 
             return null;
         }
 
-        private string ValidateNullOrEmpty( string propertyName, string value )
+        private string ValidateNullOrEmpty(string propertyName, string value)
         {
-            if ( string.IsNullOrWhiteSpace(value) )
+            if (string.IsNullOrWhiteSpace(value))
                 return propertyName + " cannot be empty!";
             else
                 return null;

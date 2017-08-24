@@ -284,7 +284,7 @@ namespace ESI_ITE.Model
             int transactionId;
 
 
-            itemId = Int32.Parse(db.Select("select item_id from item_master where item_code = '" + detail.ItemCode + "'"));
+            itemId = Int32.Parse(db.Select("select item_master2_id from item_master where item_code = '" + detail.ItemCode + "'"));
             locationId = Int32.Parse(db.Select("select location_id from location where code = '" + detail.Location + "'"));
             transactionId = Int32.Parse(db.Select("select entry_id from transaction_entry where trans_no = '" + detail.TransactionCode + "'"));
 
@@ -318,7 +318,7 @@ namespace ESI_ITE.Model
             int transactionId;
 
 
-            itemId = Int32.Parse(db.Select("select item_id from item_master where item_code = '" + detail.ItemCode + "'"));
+            itemId = Int32.Parse(db.Select("select item_master2_id from item_master where item_code = '" + detail.ItemCode + "'"));
             locationId = Int32.Parse(db.Select("select location_id from location where code = '" + detail.Location + "'"));
             transactionId = Int32.Parse(db.Select("select entry_id from transaction_entry where trans_no = '" + detail.TransactionCode + "'"));
 
@@ -340,7 +340,7 @@ namespace ESI_ITE.Model
 
         public void DeleteItem( string itemCode, string transactionNumber )
         {
-            string itemLink = db.Select("select item_id from item_master where item_code = '" + itemCode + "'");
+            string itemLink = db.Select("select item_master2_id from item_master where item_code = '" + itemCode + "'");
             string transactionLink = db.Select("select entry_id from transaction_entry where trans_no = '" + transactionNumber + "'");
 
             string query = "delete from inventory_dummy where transaction_link = '" + transactionLink + "' and item_link = '" + itemLink + "'";

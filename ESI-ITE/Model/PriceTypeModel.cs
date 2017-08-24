@@ -61,11 +61,11 @@ namespace ESI_ITE.Model
             var record = new List<CloneableDictionary<string, string>>();
             if ( type == "code" )
             {
-                record = db.SelectMultiple("select * from so_pricetype where code = '" + id + "'");
+                record = db.SelectMultiple("select * from pricetype where code = '" + id + "'");
             }
             else if ( type == "id" )
             {
-                record = db.SelectMultiple("select * from so_pricetype where pricetype_id = '" + id + "'");
+                record = db.SelectMultiple("select * from pricetype where pricetype_id = '" + id + "'");
             }
 
             foreach ( var row in record )
@@ -108,7 +108,7 @@ namespace ESI_ITE.Model
         public List<PriceTypeModel> FetchPerItem( string itemId )
         {
             var pricetypeList = new List<PriceTypeModel>();
-            var results = db.SelectMultiple("select * from so_price_selling where item_id = '" + itemId + "'");
+            var results = db.SelectMultiple("select * from price_selling where item_id = '" + itemId + "'");
 
             foreach ( var row in results )
             {

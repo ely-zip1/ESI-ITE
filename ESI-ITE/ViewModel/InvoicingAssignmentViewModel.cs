@@ -292,21 +292,22 @@ namespace ESI_ITE.ViewModel
                 IsChecked = false;
             }
         }
-
+    
         private void assignInvoice()
         {
             foreach (var _orderToBeInvoiced in OrdersCollection)
             {
-                var invoiceObj = new InvoicesModel();
+                var invoiceObj = new InvoiceModel();
                 var invoiceNumberObj = new InvoiceNumberModel();
 
-                if (_orderToBeInvoiced.AllocCasesQuantity != 0 && _orderToBeInvoiced.AllocPiecesQuantity != 0)
+                if (_orderToBeInvoiced.AllocCasesQuantity > 0 || _orderToBeInvoiced.AllocPiecesQuantity > 0)
                 {
-                    var invoice = new InvoicesModel();
+                    var invoice = new InvoiceModel();
                     invoice.InvoiceNumber = invoiceNumberObj.FetchLatest().InvoiceNumber;
                     invoice.PickheadId = _orderToBeInvoiced.PickId;
                     invoice.OrderId = _orderToBeInvoiced.OrderId;
                     invoice.UserId = MyGlobals.LoggedUser.Id;
+                    invoice.Date = DateTime.UtcNow;
 
                     invoiceObj.AddNew(invoice);
 
@@ -315,6 +316,11 @@ namespace ESI_ITE.ViewModel
                     _orderToBeInvoiced.InvoiceNumber = invoice.InvoiceNumber;
                 }
             }
+        }
+
+        private void calculateInvoiceAmount()
+        {
+
         }
 
 
@@ -369,10 +375,10 @@ namespace ESI_ITE.ViewModel
                         var district = new DistrictModel();
                         var warehouse = new WareHouseModel();
                         var terms = new TermModel();
-                        var invoice = new InvoicesModel();
+                        var invoice = new InvoiceModel();
                         var priceType = new PriceTypeModel();
 
-                        invoice = (InvoicesModel)invoice.Fetch(_orderToBeInvoiced.InvoiceNumber, "code");
+                        invoice = (InvoiceModel)invoice.Fetch(_orderToBeInvoiced.InvoiceNumber, "code");
                         customer = (CustomerModel)customer.Fetch(order.CustomerID.ToString(), "id");
                         district = (DistrictModel)district.Fetch(customer.DistrictId.ToString(), "id");
                         salesman = (SalesmanModel)salesman.Fetch(district.Salesman.ToString(), "id");

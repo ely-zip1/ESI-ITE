@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Windows;
 using MySql.Data.MySqlClient;
 using ESI_ITE.View;
+using System.Collections.Generic;
 
 namespace ESI_ITE.ViewModel
 {
@@ -59,9 +60,9 @@ namespace ESI_ITE.ViewModel
         ItemModel itemModel = new ItemModel();
         DataTable itemTable = new DataTable();
 
-        PriceTypeModel priceTypeModel = new PriceTypeModel();
-        PricingModel pricingModel = new PricingModel();
-        PriceModel price;
+        PriceTypeModel priceTypeObj = new PriceTypeModel();
+        //PricingModel pricingModel = new PricingModel();
+        //PriceModel price;
 
         bool isKeyDown = false;
 
@@ -298,6 +299,7 @@ namespace ESI_ITE.ViewModel
             }
         }
 
+
         private int ptSelectedIndex;
         public int PtSelectedIndex
         {
@@ -305,6 +307,7 @@ namespace ESI_ITE.ViewModel
             set
             {
                 ptSelectedIndex = value;
+                SelectedPriceTypeChanged();
                 OnPropertyChanged("PtSelectedIndex");
             }
         }
@@ -522,12 +525,10 @@ namespace ESI_ITE.ViewModel
 
         private int piecePerUnit;
 
-        #endregion
+        private List<PriceSellingModel> itemSellingPriceList = new List<PriceSellingModel>();
+        private PricePurchaseModel itemPurchasePrice = new PricePurchaseModel();
 
-        /// <summary>
-        /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// </summary>
+        #endregion
 
         #region Methods
 
@@ -538,7 +539,7 @@ namespace ESI_ITE.ViewModel
             TransactionNumber = transactionModel.TransactionNumber;
             DocumentNumber = transactionModel.DocumentNumber;
             TransactionDate = transactionModel.TransactionDate.ToString("MM/dd/yyyy");
-            TransactionTypeCode = transactionModel.TransactionCode;
+            TransactionTypeCode = transactionModel.TransactionTypeCode;
             TransactionTypeDescription = transactionModel.TransactionType;
             ReasonCode = transactionModel.ReasonCode;
             ReasonDescription = transactionModel.Reason;
@@ -577,26 +578,28 @@ namespace ESI_ITE.ViewModel
             ItemCodeList.Clear();
 
 
-            // to make sure that all items listed have their prices
-            //foreach (ItemModel item in itemModel.FetchAll())
-            //{
-            //    if (transactionModel.PriceCategory == "Selling Price")
-            //    {
-            //        if (item.SellingPriceLink == 1)
-            //        {
-            //            ItemCodeList.Add(item);
-            //        }
-            //    }
-            //    else if (transactionModel.PriceCategory == "Purchase Price")
-            //    {
-            //        if (item.PurchasePriceLink == 1)
-            //        {
-            //            ItemCodeList.Add(item);
-            //        }
-            //    }
-            //}
+            //to make sure that all items listed have prices
+            foreach (ItemModel item in itemModel.FetchAll())
+            {
+                if (transactionModel.PriceCategory == "Selling Price")
+                {
+                    var priceObj = new PriceSellingModel();
 
-            //ItemCodeList = itemModel.FetchAll();
+                    if (priceObj.HasPrice(item.ItemId.ToString(), "id"))
+                    {
+                        ItemCodeList.Add(item);
+                    }
+                }
+                else if (transactionModel.PriceCategory == "Purchase Price")
+                {
+                    var priceObj = new PricePurchaseModel();
+
+                    if (priceObj.HasPrice(item.ItemId.ToString(), "id"))
+                    {
+                        ItemCodeList.Add(item);
+                    }
+                }
+            }
         }
 
         private void SelectedDatagridItemChanged()
@@ -655,18 +658,57 @@ namespace ESI_ITE.ViewModel
             Cases = null;
             Pieces = null;
 
-            price = new PriceModel();
-            price = pricingModel.GetPrice(SelectedItemCode.Code, transactionModel.PriceCategory, transactionModel.PriceType);
+            PtList.Clear();
 
-            foreach (var p in PtList)
+            var priceSelling = new PriceSellingModel();
+            var pricePurchase = new PricePurchaseModel();
+
+
+            if (transactionModel.PriceCategory == "Purchase Price")
             {
-                if (p == price.PriceType)
+                if (transactionModel.PriceType == "Current")
                 {
-                    PtSelectedIndex = PtList.IndexOf(p);
+                    itemPurchasePrice = pricePurchase.FetchCurrentPrice(SelectedItemCode.Code, "code");
                 }
-            }
+                else if (transactionModel.PriceType == "3 Months Ago")
+                {
+                    itemPurchasePrice = pricePurchase.FetchPrice3MonthsAgo(SelectedItemCode.Code, "code");
+                }
+                else if (transactionModel.PriceType == "6 Months Ago")
+                {
+                    itemPurchasePrice = pricePurchase.FetchPrice6MonthsAgo(SelectedItemCode.Code, "code");
+                }
 
-            UnitPrice = Math.Round(price.Price, 2).ToString();
+                UnitPrice = itemPurchasePrice.PurchasePrice.ToString();
+                PtList.Add("PL1");
+                PtSelectedIndex = 0;
+
+            }
+            else if (transactionModel.PriceCategory == "Selling Price")
+            {
+                if (transactionModel.PriceType == "Current")
+                {
+                    itemSellingPriceList = priceSelling.FetchCurrentPrice(SelectedItemCode.Code, "code");
+                } 
+                else if (transactionModel.PriceType == "3 Months Ago")
+                {
+                    itemSellingPriceList = priceSelling.FetchPrice3MonthsAgo(SelectedItemCode.Code, "code");
+                }
+                else if (transactionModel.PriceType == "6 Months Ago")
+                {
+                    itemSellingPriceList = priceSelling.FetchPrice6MonthsAgo(SelectedItemCode.Code, "code");
+                }
+
+                foreach (var price in itemSellingPriceList)
+                {
+                    var pricetype = (PriceTypeModel)priceTypeObj.Fetch(price.PriceTypeId.ToString(), "id");
+
+                    PtList.Add(pricetype.Code);
+                }
+
+                UnitPrice = itemSellingPriceList[0].SellingPrice.ToString();
+                PtSelectedIndex = 0;
+            }
 
             TaxRate = selectedItemCode.Taxrate.ToString();
 
@@ -805,6 +847,13 @@ namespace ESI_ITE.ViewModel
             }
             isValid();
             isValidForDeletion();
+        }
+
+        private void SelectedPriceTypeChanged()
+        {
+            if (itemSellingPriceList.Count > 0)
+                if (PtSelectedIndex >= 0)
+                    UnitPrice = itemSellingPriceList[PtSelectedIndex].SellingPrice.ToString();
         }
 
         private void isValidForDeletion()

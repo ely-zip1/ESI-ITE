@@ -166,7 +166,7 @@
     <Compile Include="Model\InventoryDummy2Model.cs" />
     <Compile Include="Model\InventoryMaster2Model.cs" />
     <Compile Include="Model\InvoiceNumberModel.cs" />
-    <Compile Include="Model\InvoicesModel.cs" />
+    <Compile Include="Model\InvoiceModel.cs" />
     <Compile Include="Model\ItemModel.cs" />
     <Compile Include="Model\LocationModel.cs" />
     <Compile Include="Model\ObjectBase.cs" />
@@ -175,12 +175,12 @@
     <Compile Include="Model\PickListHeaderModel.cs" />
     <Compile Include="Model\PickListLineModel.cs" />
     <Compile Include="Model\PickListNumberModel.cs" />
-    <Compile Include="Model\PostingModel.cs" />
     <Compile Include="Model\PriceModel.cs" />
     <Compile Include="Model\PricePurchaseModel.cs" />
     <Compile Include="Model\PriceSellingModel.cs" />
     <Compile Include="Model\PricingModel.cs" />
     <Compile Include="Model\ProgramsModel.cs" />
+    <Compile Include="Model\ProgressReportModel.cs" />
     <Compile Include="Model\ReasonsModel.cs" />
     <Compile Include="Model\RouteModel.cs" />
     <Compile Include="Model\SalesmanModel.cs" />
