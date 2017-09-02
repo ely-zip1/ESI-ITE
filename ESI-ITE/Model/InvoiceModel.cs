@@ -53,13 +53,6 @@ namespace ESI_ITE.Model
             set { date = value; }
         }
 
-        private decimal amount;
-        public decimal Amount
-        {
-            get { return amount; }
-            set { amount = value; }
-        }
-
 
         #endregion
 
@@ -164,7 +157,7 @@ namespace ESI_ITE.Model
             sb.Append("'" + invoice.PickheadId + "', ");
             sb.Append("'" + invoice.OrderId + "', ");
             sb.Append("'" + invoice.UserId + "', ");
-            sb.Append("'" + invoice.Date.ToShortDateString() + "'");
+            sb.Append("str_to_date('" + invoice.Date.ToString("MM/dd/yyyy") + "','%m/%d/%Y')");
             sb.Append(")");
 
             db.Insert(sb.ToString());

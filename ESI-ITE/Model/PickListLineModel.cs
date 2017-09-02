@@ -27,6 +27,13 @@ namespace ESI_ITE.Model
             set { pickListHeaderId = value; }
         }
 
+        private int orderId;
+        public int OrderId
+        {
+            get { return orderId; }
+            set { orderId = value; }
+        }
+
         private int inventoryDummyId;
         public int InventoryDummyId
         {
@@ -66,6 +73,7 @@ namespace ESI_ITE.Model
 
             sb.Append("insert into pickline values (null, ");
             sb.Append("(select max(pickhead_id) from pickhead), ");
+            sb.Append("'" + line.OrderId + "', ");
             sb.Append("'" + line.InventoryDummyId + "', ");
             sb.Append("'" + line.AllocatedCases + "', ");
             sb.Append("'" + line.AllocatedPieces + "', ");
@@ -83,6 +91,7 @@ namespace ESI_ITE.Model
 
             sb.Append("insert into pickline values (null, ");
             sb.Append("(select max(pickhead_id) from pickhead), ");
+            sb.Append("'" + item.OrderId + "', ");
             sb.Append("'" + item.InventoryDummyId + "', ");
             sb.Append("'" + item.AllocatedCases + "', ");
             sb.Append("'" + item.AllocatedPieces + "', ");
@@ -139,6 +148,7 @@ namespace ESI_ITE.Model
 
                 line.Id = int.Parse(row["pickline_id"]);
                 line.PickListHeaderId = int.Parse(row["pickhead_id"]);
+                line.OrderId = int.Parse(row["order_id"]);
                 line.InventoryDummyId = int.Parse(row["inventory_dummy_id"]);
                 line.AllocatedCases = int.Parse(row["allocated_cases"]);
                 line.AllocatedPieces = int.Parse(row["allocated_pieces"]);
@@ -161,6 +171,7 @@ namespace ESI_ITE.Model
 
                 line.Id = int.Parse(row["pickline_id"]);
                 line.PickListHeaderId = int.Parse(row["pickhead_id"]);
+                line.OrderId = int.Parse(row["order_id"]);
                 line.InventoryDummyId = int.Parse(row["inventory_dummy_id"]);
                 line.AllocatedCases = int.Parse(row["allocated_cases"]);
                 line.AllocatedPieces = int.Parse(row["allocated_pieces"]);
@@ -186,6 +197,7 @@ namespace ESI_ITE.Model
 
                 line.Id = int.Parse(row["pickline_id"]);
                 line.PickListHeaderId = int.Parse(row["pickhead_id"]);
+                line.OrderId = int.Parse(row["order_id"]);
                 line.InventoryDummyId = int.Parse(row["inventory_dummy_id"]);
                 line.AllocatedCases = int.Parse(row["allocated_cases"]);
                 line.AllocatedPieces = int.Parse(row["allocated_pieces"]);

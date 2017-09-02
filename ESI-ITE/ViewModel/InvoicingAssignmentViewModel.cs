@@ -22,7 +22,7 @@ namespace ESI_ITE.ViewModel
             itemCheckedCommand = new DelegateCommand(itemChecked);
             itemUncheckedCommand = new DelegateCommand(itemUnchecked);
             selectAllCommand = new DelegateCommand(selectAllChanged);
-            assignInvoiceCommand = new DelegateCommand(assignInvoice);
+            assignInvoiceCommand = new DelegateCommand(OrderSelectionCheck);
             printInvoiceCommand = new DelegateCommand(StartPrinting);
 
             Load();
@@ -183,6 +183,16 @@ namespace ESI_ITE.ViewModel
 
                 PickNumberCollection.Add(listOfPickHeads);
             }
+
+            SetCurrentInvoiceNumber();
+        }
+
+        private void SetCurrentInvoiceNumber()
+        {
+            var invoiceNumberObj = new InvoiceNumberModel();
+            invoiceNumberObj = invoiceNumberObj.FetchLatest();
+
+            CurrentInvoiceNumber = invoiceNumberObj.InvoiceNumber;
         }
 
         private void SelectedPickNumberChanged()
@@ -202,7 +212,7 @@ namespace ESI_ITE.ViewModel
                 var customer = (CustomerModel)customerObj.Fetch(order.CustomerID.ToString(), "id");
 
                 var orderExists = false;
-                if (_ordersCollection.Count > 0)
+                if (OrdersCollection.Count > 0)
                 {
                     foreach (var _order in OrdersCollection)
                     {
@@ -292,7 +302,29 @@ namespace ESI_ITE.ViewModel
                 IsChecked = false;
             }
         }
-    
+
+        private void OrderSelectionCheck()
+        {
+            bool hasItemSelected = false;
+            foreach(var order in OrdersCollection)
+            {
+                if (order.IsSelected)
+                {
+                    hasItemSelected = true;
+                    break;
+                }
+            }
+
+            if (hasItemSelected)
+            {
+                assignInvoice();
+            }
+            else
+            {
+                MessageBox.Show("Please select orders to be invoiced.","Invoice Assignment");
+            }
+        }
+
         private void assignInvoice()
         {
             foreach (var _orderToBeInvoiced in OrdersCollection)
@@ -302,8 +334,10 @@ namespace ESI_ITE.ViewModel
 
                 if (_orderToBeInvoiced.AllocCasesQuantity > 0 || _orderToBeInvoiced.AllocPiecesQuantity > 0)
                 {
+                    var currentInvoiceNumber = int.Parse(invoiceNumberObj.FetchLatest().InvoiceNumber);
                     var invoice = new InvoiceModel();
-                    invoice.InvoiceNumber = invoiceNumberObj.FetchLatest().InvoiceNumber;
+
+                    invoice.InvoiceNumber = currentInvoiceNumber++.ToString();
                     invoice.PickheadId = _orderToBeInvoiced.PickId;
                     invoice.OrderId = _orderToBeInvoiced.OrderId;
                     invoice.UserId = MyGlobals.LoggedUser.Id;
@@ -316,11 +350,8 @@ namespace ESI_ITE.ViewModel
                     _orderToBeInvoiced.InvoiceNumber = invoice.InvoiceNumber;
                 }
             }
-        }
 
-        private void calculateInvoiceAmount()
-        {
-
+            SetCurrentInvoiceNumber();
         }
 
 

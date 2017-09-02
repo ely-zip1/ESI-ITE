@@ -39,7 +39,7 @@ namespace ESI_ITE.Model
 
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("insert into invoice_numbers values(");
+            sb.Append("insert into invoice_number values(");
             sb.Append("null, ");
             sb.Append("'" + latestInvoiceNumber++ + "' ");
             sb.Append(")");
@@ -63,7 +63,7 @@ namespace ESI_ITE.Model
         {
             var latestInvoiceNumber = new InvoiceNumberModel();
 
-            var results = db.SelectMultiple("select max(id) from invoice_numer limit 1");
+            var results = db.SelectMultiple("select * from invoice_number order by id desc limit 1");
 
             foreach (var row in results)
             {

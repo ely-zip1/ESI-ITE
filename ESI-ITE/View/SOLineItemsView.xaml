@@ -292,13 +292,13 @@
                         <StackPanel Margin="2">
                             <Label Content="Cases" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
                             <TextBox Width="50" HorizontalAlignment="Left"
-                             Text="{Binding TxtCases,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding TxtCases,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                         </StackPanel>
 
                         <StackPanel Margin="2">
                             <Label Content="Pieces" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
                             <TextBox Width="50" HorizontalAlignment="Left"
-                             Text="{Binding TxtPieces,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding TxtPieces,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                         </StackPanel>
 
                         <StackPanel Margin="2">

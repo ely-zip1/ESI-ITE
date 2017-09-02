@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace ESI_ITE.Model
 {
-    public class InventoryDummy2Model: IModelTemplate
+    public class InventoryDummy2Model : IModelTemplate
     {
         #region Properties
 
@@ -94,7 +94,7 @@ namespace ESI_ITE.Model
 
         #endregion
 
-        public void AddNew( object item )
+        public void AddNew(object item)
         {
             var inventoryDummyItem = (InventoryDummy2Model)item;
 
@@ -121,19 +121,39 @@ namespace ESI_ITE.Model
             db.Insert(sb.ToString());
         }
 
-        public void DeleteItem( string qry )
+        public void DeleteItem(string qry)
         {
             db.Delete(qry);
         }
 
-        public object Fetch( string id, string type )
+        public void DeletePerOrder(string id, string type)
+        {
+            if (type == "id")
+            {
+                var qry = "delete from inventory_dummy_2 where order_id = '" + id + "'";
+                db.Delete(qry);
+            }
+            else if (type == "code")
+            {
+                var orderObj = new SalesOrderModel();
+                orderObj = (SalesOrderModel)orderObj.Fetch(id, "code");
+
+                if (orderObj.OrderId > 0)
+                {
+                    var qry = "delete from inventory_dummy_2 where order_id = '" + id + "'";
+                    db.Delete(qry);
+                }
+            }
+        }
+
+        public object Fetch(string id, string type)
         {
             var dummy = new InventoryDummy2Model();
             var record = new List<CloneableDictionary<string, string>>();
 
             record = db.SelectMultiple("select * from view_inventory_dummy_2 where id = '" + id + "' limit 1");
 
-            foreach ( var row in record )
+            foreach (var row in record)
             {
                 var clone = row.Clone();
 
@@ -153,13 +173,13 @@ namespace ESI_ITE.Model
             return dummy;
         }
 
-        public List<InventoryDummy2Model> FetchPerOrder( string orderNumber )
+        public List<InventoryDummy2Model> FetchPerOrder(string orderNumber)
         {
             var items = new List<InventoryDummy2Model>();
 
             var record = db.SelectMultiple("select * from view_inventory_dummy_2 where order_number = '" + orderNumber + "'");
 
-            foreach ( var row in record )
+            foreach (var row in record)
             {
                 var dummy = new InventoryDummy2Model();
                 var clone = row.Clone();
@@ -182,13 +202,13 @@ namespace ESI_ITE.Model
             return items;
         }
 
-        public List<object> FetchAll( )
+        public List<object> FetchAll()
         {
             var items = new List<object>();
 
             var record = db.SelectMultiple("select * view_from inventory_dummy_2");
 
-            foreach ( var row in record )
+            foreach (var row in record)
             {
                 var dummy = new InventoryDummy2Model();
                 var clone = row.Clone();
@@ -211,12 +231,12 @@ namespace ESI_ITE.Model
             return items;
         }
 
-        public void UpdateItem( string qry )
+        public void UpdateItem(string qry)
         {
             db.Update(qry);
         }
 
-        public void UpdateItem( InventoryDummy2Model dummy )
+        public void UpdateItem(InventoryDummy2Model dummy)
         {
             StringBuilder sb = new StringBuilder();
 

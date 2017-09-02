@@ -486,6 +486,7 @@ namespace ESI_ITE.ViewModel
             _district = (DistrictModel)_district.Fetch(order.DistrictId.ToString(), "id");
 
             picklistSO.IsSelected = false;
+            picklistSO.OrderId = order.OrderId;
             picklistSO.SoNumber = order.OrderNumber;
             picklistSO.CustomerName = _customer.CustomerName;
             picklistSO.OrderAmount = order.OrderAmount;
@@ -575,7 +576,7 @@ namespace ESI_ITE.ViewModel
             {
                 if (order.IsSelected)
                 {
-                    var itemCount = db.Count("select count(*) from inventory_dummy_2 where order_id = '" + order.SoNumber + "'");
+                    var itemCount = db.Count("select count(*) from inventory_dummy_2 where order_id = '" + order.OrderId + "'");
                     if (itemCount > 0)
                     {
                         haveItems = true;
@@ -648,6 +649,9 @@ namespace ESI_ITE.ViewModel
             IsShowAllEnabled = true;
 
             MyGlobals.InvoicingMainVM.AllocationMaintenanceView = new View.InvoicingAllocationMaintenanceView();
+            MyGlobals.InvoicingMainVM.AssignmentView = new View.InvoicingAssignmentView();
+            MyGlobals.InvoicingMainVM.GatepassView = new View.InvoicingGatepassView();
+            MyGlobals.InvoicingMainVM.DispatchView = new View.InvoicingDispatchView();
         }
 
         private Task<Dictionary<int, string>> AllocateStocksAsync(PickListHeaderModel pickHead)
@@ -834,6 +838,11 @@ namespace ESI_ITE.ViewModel
             picklistLine.PickListHeaderId = pickhead.GenerateId();
             picklistLine.InventoryDummyId = orderedItem.Id;
 
+            var orderObj = new SalesOrderModel();
+            orderObj = (SalesOrderModel)orderObj.Fetch(orderedItem.OrderNumber, "code");
+
+            picklistLine.OrderId = orderObj.OrderId;
+
             if (allocatedInPieces >= piecePerCase)
                 picklistLine.AllocatedCases = allocatedInPieces / piecePerCase;
             else
@@ -876,6 +885,11 @@ namespace ESI_ITE.ViewModel
 
             PicklistCollection.RemoveAt(SelectedIndexPickList);
             IsAllocating = false;
+
+            MyGlobals.InvoicingMainVM.AllocationMaintenanceView = new View.InvoicingAllocationMaintenanceView();
+            MyGlobals.InvoicingMainVM.AssignmentView = new View.InvoicingAssignmentView();
+            MyGlobals.InvoicingMainVM.GatepassView = new View.InvoicingGatepassView();
+            MyGlobals.InvoicingMainVM.DispatchView = new View.InvoicingDispatchView();
 
         }
 
@@ -938,7 +952,7 @@ namespace ESI_ITE.ViewModel
 
                         inventoryItem.Pieces = totalPieces % piecePerCase;
 
-                        //transactionString.Add(inventoryItem.GetUpdateQuery(inventoryItem));//update inventory
+                        transactionString.Add(inventoryItem.GetUpdateQuery(inventoryItem));//update inventory
 
                     }
                 }
@@ -1368,6 +1382,13 @@ namespace ESI_ITE.ViewModel
                 isSelected = value;
                 OnPropertyChanged();
             }
+        }
+
+        private int orderId;
+        public int OrderId
+        {
+            get { return orderId; }
+            set { orderId = value; }
         }
 
         private string soNumber;

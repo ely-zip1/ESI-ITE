@@ -92,7 +92,7 @@
 
                 <Label Content="Current Invoice Number" FontSize="15" FontWeight="Bold"/>
 
-                <TextBox/>
+                <TextBox Name="CurrentInvoiceNumber" Text="{Binding CurrentInvoiceNumber}"/>
 
                 <Label Content="Invoice Printing" FontSize="15" FontWeight="Bold"/>
 

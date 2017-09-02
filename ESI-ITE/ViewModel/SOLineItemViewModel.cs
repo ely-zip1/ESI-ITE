@@ -171,7 +171,8 @@ namespace ESI_ITE.ViewModel
             set
             {
                 selectedIndexPricetype = value;
-                OnPropertyChanged();
+                SelectedPriceTypeChanged();
+                OnPropertyChanged("SelectedIndexPricetype");
             }
         }
 
@@ -341,8 +342,7 @@ namespace ESI_ITE.ViewModel
             set
             {
                 txtCases = value;
-                OnPropertyChanged();
-                quantityChanged("Cases");
+                //quantityChanged("Cases");
             }
         }
 
@@ -353,8 +353,7 @@ namespace ESI_ITE.ViewModel
             set
             {
                 txtPieces = value;
-                OnPropertyChanged();
-                quantityChanged("Pieces");
+                //quantityChanged("Pieces");
             }
         }
 
@@ -569,6 +568,8 @@ namespace ESI_ITE.ViewModel
 
         private ItemModel currentItem = new ItemModel();
 
+        private List<PriceSellingModel> PriceList = new List<PriceSellingModel>();
+
         #endregion
 
         private void Load()
@@ -746,6 +747,16 @@ namespace ESI_ITE.ViewModel
         private void ItemCodeChanged()
         {
             resetValidProperties();
+            if (TxtItemCode.Trim().Length == 6)
+            {
+                if (string.IsNullOrWhiteSpace(ValidateItemCode(TxtItemCode)))
+                {
+                    var itemObj = new ItemModel();
+                    itemObj = (ItemModel)itemObj.Fetch(TxtItemCode, "code");
+
+                    setCurrentItem(itemObj);
+                }
+            }
             IsFirstLoad = false;
 
         }
@@ -790,32 +801,43 @@ namespace ESI_ITE.ViewModel
             var _pricetypeList = priceType.FetchPerItem(currentItem.ItemId.ToString());
 
             PricetypeCollection.Clear();
+            PriceList.Clear();
+
             var x = 0;
+            var ptIndex = 0;
             foreach (var row in _pricetypeList)
             {
                 PricetypeCollection.Add(row);
                 if (row.Code == priceType.Code)
-                    SelectedIndexPricetype = x;
+                    ptIndex = x;
                 x++;
             }
 
-            TxtItemCode = currentItem.Code;
+            var priceSellingObj = new PriceSellingModel();
+            PriceList = priceSellingObj.FetchCurrentPrice(currentItem.ItemId.ToString(), "id");
+
             TxtItemDescription = currentItem.Description;
             TxtTaxRate = currentItem.Taxrate.ToString();
 
-
-            setUnitPrice();
+            SelectedIndexPricetype = ptIndex;
         }
 
-        private void setUnitPrice()
+        private void SelectedPriceTypeChanged()
         {
-            TxtUnitPrice = db.Select("select selling_price from price_selling where item_id = '" + currentItem.ItemId + "' and pricetype_id = '" + SelectedPricetype.PriceTypeId + "'");
+            if(PricetypeCollection.Count > 0)
+            {
+                if(SelectedIndexPricetype > -1)
+                {
+                    TxtUnitPrice = PriceList[SelectedIndexPricetype].SellingPrice.ToString();
+                }
+            }
         }
 
         private void selectItem()
         {
             ClearForm();
-            setCurrentItem(SelectedSearchedItem);
+            TxtItemCode = SelectedSearchedItem.Code;
+            //setCurrentItem(SelectedSearchedItem);
             toggleItemSearchVisibility();
         }
 
@@ -829,7 +851,7 @@ namespace ESI_ITE.ViewModel
                     }
                     else
                     {
-                        setUnitPrice();
+                        SelectedIndexPricetype = SelectedIndexPricetype;
                     }
         }
 
@@ -918,7 +940,7 @@ namespace ESI_ITE.ViewModel
             inventoryDummyItem.Pieces = int.Parse(TxtPieces);
 
             if (!string.IsNullOrWhiteSpace(TxtUnitPrice))
-                inventoryDummyItem.PricePerPiece = int.Parse(TxtUnitPrice) / (currentItem.PackSize * currentItem.PackSizeBO);
+                inventoryDummyItem.PricePerPiece = decimal.Parse(TxtUnitPrice);
             else
                 inventoryDummyItem.PricePerPiece = 0;
 
@@ -947,7 +969,7 @@ namespace ESI_ITE.ViewModel
 
                             inventoryDummyItem.UpdateItem(sb.ToString());
 
-                            DatagridItems.Remove(SelectedDatagridItem);
+                            DatagridItems.RemoveAt(SelectedIndexLineItem);
                             DatagridItems.Add(inventoryDummyItem);
 
                             ClearForm();
@@ -1035,8 +1057,19 @@ namespace ESI_ITE.ViewModel
 
         private int refactorQuantity(int piecePerCase)
         {
-            var cases = int.Parse(TxtCases);
-            var pieces = int.Parse(TxtPieces);
+
+            var cases = 0;
+            var pieces = 0;
+
+            if (string.IsNullOrWhiteSpace(TxtCases))
+                cases = 0;
+            else
+                cases = int.Parse(TxtCases);
+
+            if (string.IsNullOrWhiteSpace(TxtPieces))
+                pieces = 0;
+            else
+                pieces = int.Parse(TxtPieces);
 
             if (pieces >= piecePerCase)
             {
@@ -1107,7 +1140,7 @@ namespace ESI_ITE.ViewModel
 
         #region Validation
 
-        string[] validProperties = { "Error", "Error" };
+        string[] validProperties = { "Error", "Error", "Error" };
 
         private void resetValidProperties()
         {
@@ -1128,7 +1161,7 @@ namespace ESI_ITE.ViewModel
 
             foreach (var field in validProperties)
             {
-                if (field != null)
+                if (string.IsNullOrWhiteSpace(field) == false)
                 {
                     errorCounter++;
                     Debug.WriteLine("Error on field: " + fieldNumber);
@@ -1155,7 +1188,12 @@ namespace ESI_ITE.ViewModel
             switch (propertyName)
             {
                 case "TxtItemCode":
-                    error = ValidateNullOrEmpty("Item Code", TxtItemCode);
+                    if (string.IsNullOrEmpty(TxtItemCode))
+                    {
+                        validProperties[0] = null;
+                        break;
+                    }
+
                     if (string.IsNullOrWhiteSpace(error))
                     {
                         error = ValidateItemCode(TxtItemCode);
@@ -1167,28 +1205,122 @@ namespace ESI_ITE.ViewModel
                         validProperties[0] = "Error";
                     break;
                 case "TxtCases":
-                    error = ValidateNullOrEmpty("Cases", TxtCases);
-                    if (string.IsNullOrWhiteSpace(error))
+                    if (string.IsNullOrWhiteSpace(TxtCases))
                     {
-                        error = ValidateQuantity();
+                        TxtCases = "0";
+                    }
+
+                    var pc = 0;
+                    var cs = 0;
+
+                    try
+                    {
+                        cs = int.Parse(TxtCases);
+                    }
+                    catch (Exception e)
+                    {
+                        error = "Invalid Input";
+                    }
+
+                    try
+                    {
+                        pc = int.Parse(TxtPieces);
+                    }
+                    catch (Exception e)
+                    {
+                        if (string.IsNullOrWhiteSpace(error))
+                            OnPropertyChanged("TxtPieces");
                     }
 
                     if (string.IsNullOrWhiteSpace(error))
-                        validProperties[1] = null;
+                    {
+                        if (cs + pc > 0)
+                        {
+                            validProperties[1] = null;
+                            if (!string.IsNullOrWhiteSpace(validProperties[2]))
+                            {
+                                OnPropertyChanged("TxtPieces");
+                            }
+                        }
+                        else
+                        {
+                            error = "Quantity be empty!";
+                            validProperties[1] = "error";
+                        }
+                    }
                     else
-                        validProperties[1] = "Error";
+                    {
+                        validProperties[1] = "error";
+                    }
+
+                    //if (string.IsNullOrWhiteSpace(error))
+                    //{
+                    //    error = ValidateQuantity();
+                    //}
+
+                    //if (string.IsNullOrWhiteSpace(error))
+                    //    validProperties[1] = null;
+                    //else
+                    //    validProperties[1] = "Error";
                     break;
                 case "TxtPieces":
-                    error = ValidateNullOrEmpty("Pieces", TxtPieces);
-                    if (string.IsNullOrWhiteSpace(error))
+                    if (string.IsNullOrWhiteSpace(TxtPieces))
                     {
-                        error = ValidateQuantity();
+                        TxtPieces = "0";
+                    }
+
+                    pc = 0;
+                    cs = 0;
+
+                    try
+                    {
+                        pc = int.Parse(TxtPieces);
+                    }
+                    catch (Exception e)
+                    {
+                        error = "Invalid Input";
+                    }
+
+                    try
+                    {
+                        cs = int.Parse(TxtCases);
+                    }
+                    catch (Exception e)
+                    {
+                        if (string.IsNullOrWhiteSpace(error))
+                            OnPropertyChanged("TxtCases");
                     }
 
                     if (string.IsNullOrWhiteSpace(error))
-                        validProperties[1] = null;
+                    {
+                        if (cs + pc > 0)
+                        {
+                            validProperties[2] = null;
+                            if (!string.IsNullOrWhiteSpace(validProperties[1]))
+                            {
+                                OnPropertyChanged("TxtCases");
+                            }
+                        }
+                        else
+                        {
+                            error = "Quantity be empty!";
+                            validProperties[2] = "error";
+                        }
+                    }
                     else
-                        validProperties[1] = "Error";
+                    {
+                        validProperties[2] = "error";
+                    }
+
+                    //if (string.IsNullOrWhiteSpace(error))
+                    //{
+                    //    error = ValidateQuantity();
+                    //}
+
+                    //if (string.IsNullOrWhiteSpace(error))
+                    //    validProperties[1] = null;
+                    //else
+                    //    validProperties[1] = "Error";
                     break;
                 case "SelectedLocation":
                     break;

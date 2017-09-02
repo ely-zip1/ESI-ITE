@@ -1,0 +1,25 @@
+create view view_invoices as 
+select
+
+inv.id as invoice_id,
+inv.invoice_number,
+usr.username,
+inv.date as invoice_date,
+cust.customer_number,
+cust.customer_name,
+sman.salesman_name,
+dist.district_number,
+wh.code as warehouse_code,
+ordr.order_number,
+ordr.order_date,
+term.term_code
+
+from invoices as inv
+
+join users as usr on usr.id = inv.user_id
+join orders as ordr on ordr.order_id = inv.order_id
+join customers as cust on cust.customer_id = ordr.customer_id
+join districts as dist on dist.district_id = ordr.district_id
+join salesman as sman on sman.salesman_id = dist.salesman
+join warehouse as wh on wh.warehouse_id = ordr.warehouse_id
+join terms as term on term.term_id = ordr.term_id

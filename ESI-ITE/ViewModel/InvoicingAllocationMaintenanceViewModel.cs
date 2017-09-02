@@ -224,6 +224,21 @@ namespace ESI_ITE.ViewModel
         private void SelectedPicklistChanged()
         {
             PickHead = (PickListHeaderModel)PickHead.Fetch(SelectedPicklist[0], "code");
+            var criticalItemCount = db.Count("select count(*) from pickline where pickhead_id = '"+PickHead.Id+"' and is_critical = '1'");
+
+            if(criticalItemCount > 0)
+            {
+                LoadCriticalItems();
+            }
+            else
+            {
+                MessageBox.Show("The selected picklist contains no critical items.", "Allocation Maintenance");
+            }
+        }
+
+        private void LoadCriticalItems()
+        {
+            PickHead = (PickListHeaderModel)PickHead.Fetch(SelectedPicklist[0], "code");
 
             CriticalItemCollection.Clear();
 

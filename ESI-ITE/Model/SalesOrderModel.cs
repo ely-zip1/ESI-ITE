@@ -174,30 +174,7 @@ namespace ESI_ITE.Model
             db.Delete(qry);
         }
 
-        public void UpdateInventoryDummy(string type, string value)
-        {
-            if (type == "cutOffDate")
-            {
-                var orderIdList = db.SelectMultiple("select order_id from orders where order_date <= str_to_date('" + value + "','%m/%d/%Y')");
-
-                foreach (var row in orderIdList)
-                {
-                    var clone = row.Clone();
-                    var dummy = new InventoryDummy2Model();
-
-                    dummy.DeleteItem("delete from inventory_dummy_2 where order_id = '" + row["order_id"] + "'");
-                }
-            }
-            else if (type == "orderNumber")
-            {
-                var orderId = db.Select("select order_id from orders where order_number = '" + value + "'");
-
-                var dummy = new InventoryDummy2Model();
-                dummy.DeleteItem("delete from inventory_dummy_2 where order_id = '" + orderId + "'");
-            }
-        }
-
-        public void DeleteOrders(DateTime date)
+        public void DeleteOrderByDate(DateTime date)
         {
             var cutOffDate = date.ToString("MM/dd/yyyy");
 
@@ -246,6 +223,42 @@ namespace ESI_ITE.Model
             }
 
             return orderModel;
+        }
+
+        public List<SalesOrderModel> FetchByOrderDate(DateTime date)
+        {
+            var orderList = new List<SalesOrderModel>();
+
+            var result = db.SelectMultiple("select * from orders where order_date <= str_to_date('" + date + "','%m/%d/%Y')");
+
+            foreach (var row in result)
+            {
+                var clone = row.Clone();
+                var orderModel = new SalesOrderModel();
+
+                orderModel.OrderId = Int32.Parse(row["order_id"]);
+                orderModel.OrderNumber = row["order_number"].ToString();
+                orderModel.OrderDate = DateTime.Parse(row["order_date"]);
+                orderModel.RequiredShipDate = DateTime.Parse(row["required_ship_date"]);
+                orderModel.PONumber = row["po_number"].ToString();
+                orderModel.OrderNote = row["order_note"].ToString();
+                orderModel.OrderAmount = Decimal.Parse(row["order_amount"]);
+                orderModel.Cases = Int32.Parse(row["cases"]);
+                orderModel.Pieces = Int32.Parse(row["pieces"]);
+                orderModel.IsServed = bool.Parse(row["served"]);
+                orderModel.IsPicked = bool.Parse(row["picked"]);
+                orderModel.IsPrinted = bool.Parse(row["printed"]);
+                orderModel.DistrictId = Int32.Parse(row["district_id"]);
+                orderModel.CustomerID = Int32.Parse(row["customer_id"]);
+                orderModel.RouteId = Int32.Parse(row["route_id"]);
+                orderModel.TermId = Int32.Parse(row["term_id"]);
+                orderModel.PriceId = Int32.Parse(row["price_id"]);
+                orderModel.WarehouseId = Int32.Parse(row["warehouse_id"]);
+
+                orderList.Add(orderModel);
+            }
+
+            return orderList;
         }
 
         public List<object> FetchAll()
