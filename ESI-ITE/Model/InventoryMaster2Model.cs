@@ -191,6 +191,8 @@ namespace ESI_ITE.Model
                 inventoryItem.Pieces = int.Parse(row["i_pieces"]);
                 inventoryItem.ExpirationDate = DateTime.Parse(row["expiration_date"]);
                 inventoryItem.LotNumber = row["lot_number"];
+
+                break;
             }
 
             return inventoryItem;
@@ -224,7 +226,32 @@ namespace ESI_ITE.Model
         public List<InventoryMaster2Model> FetchInStockItem(int itemId)
         {
             var inventoryList = new List<InventoryMaster2Model>();
-            var results = db.SelectMultiple("select * from inventory_master2 where item_id_link = '" + itemId + "' and (i_cases > 0 or i_pieces > 0)");
+            var results = db.SelectMultiple("select * from inventory_master2 where item_id_link = '" + itemId + "' and (i_cases + i_pieces > 0)");
+
+            foreach (var row in results)
+            {
+                var clone = row.Clone();
+                var inventory = new InventoryMaster2Model();
+
+                inventory.Id = int.Parse(row["inventory2_id"]);
+                inventory.ItemId = int.Parse(row["item_id_link"]);
+                inventory.WarehouseId = int.Parse(row["warehouse_id"]);
+                inventory.LocationId = int.Parse(row["location_link"]);
+                inventory.Cases = int.Parse(row["i_cases"]);
+                inventory.Pieces = int.Parse(row["i_pieces"]);
+                inventory.ExpirationDate = DateTime.Parse(row["expiration_date"]);
+                inventory.LotNumber = row["lot_number"];
+
+                inventoryList.Add(inventory);
+            }
+
+            return inventoryList;
+        }
+
+        public List<InventoryMaster2Model> FetchUnexpired(int itemId)
+        {
+            var inventoryList = new List<InventoryMaster2Model>();
+            var results = db.SelectMultiple("select * from inventory_master2 where item_id_link = '" + itemId + "' and str_to_date(expiration_date,'%Y-%m-%d') > current_date");
 
             foreach (var row in results)
             {

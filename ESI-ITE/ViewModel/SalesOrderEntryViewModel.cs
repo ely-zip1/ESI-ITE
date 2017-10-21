@@ -648,8 +648,7 @@ namespace ESI_ITE.ViewModel
 
             //ORDERS LIST               
             var so = new SalesOrderModel();
-            var list = new List<object>();
-            list = so.FetchAll();
+            var list = so.FetchUnpickedOrders();
 
             foreach (var row in list)
             {
@@ -687,11 +686,11 @@ namespace ESI_ITE.ViewModel
 
             //DISTRICTS LIST
             var district = new DistrictModel();
-            list = district.FetchAll();
+            var districtList = district.FetchAll();
 
             DistrictList.Add(district);
 
-            foreach (var row in list)
+            foreach (var row in districtList)
             {
                 district = (DistrictModel)row;
                 DistrictList.Add(district);
@@ -700,11 +699,11 @@ namespace ESI_ITE.ViewModel
 
             //PRICETYPE LIST
             var pricetype = new PriceTypeModel();
-            list = pricetype.FetchAll();
+            var pricetypeList = pricetype.FetchAll();
 
             PriceTypeList.Add(pricetype);
             var ctr = 0;
-            foreach (var row in list)
+            foreach (var row in pricetypeList)
             {
                 ctr++;
 
@@ -718,11 +717,11 @@ namespace ESI_ITE.ViewModel
 
             //TERMS LIST
             var term = new TermModel();
-            list = term.FetchAll();
+            var termList = term.FetchAll();
 
             TermList.Add(term);
 
-            foreach (var row in list)
+            foreach (var row in termList)
             {
                 term = (TermModel)row;
                 TermList.Add(term);
@@ -731,11 +730,11 @@ namespace ESI_ITE.ViewModel
 
             //SALESMAN LIST
             var salesman = new SalesmanModel();
-            list = salesman.FetchAll();
+            var salesmanList = salesman.FetchAll();
 
             SalesmanCollection.Add(salesman);
 
-            foreach (var row in list)
+            foreach (var row in salesmanList)
             {
                 salesman = (SalesmanModel)row;
                 SalesmanCollection.Add(salesman);
@@ -744,11 +743,11 @@ namespace ESI_ITE.ViewModel
 
             //ROUTE LIST
             var route = new RouteModel();
-            list = route.FetchAll();
+            var routeList = route.FetchAll();
 
             RouteList.Add(route);
 
-            foreach (var row in list)
+            foreach (var row in routeList)
             {
                 route = (RouteModel)row;
                 RouteList.Add(route);

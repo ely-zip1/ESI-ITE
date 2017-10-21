@@ -116,14 +116,12 @@ namespace ESI_ITE.Model
 
             return sb.ToString();
         }
-
-
+        
         public void DeleteItem(string qry)
         {
             throw new NotImplementedException();
         }
-
-
+        
         public void DeleteItem(string id, string type)
         {
             switch (type)
@@ -137,8 +135,7 @@ namespace ESI_ITE.Model
             }
 
         }
-
-
+        
         public void DeleteItem(PickListHeaderModel item)
         {
             if (item != null)
@@ -213,6 +210,35 @@ namespace ESI_ITE.Model
             }
 
             return headerList;
+        }
+
+        public PickListHeaderModel FetchLatest()
+        {
+            var header = new PickListHeaderModel();
+
+            var result = db.SelectMultiple("select * from pickhead where pickhead_id = (select max(pickhead_id) from pickhead)");
+            
+            foreach (var row in result)
+            {
+                var clone = row.Clone();
+
+                header.Id = int.Parse(row["pickhead_id"]);
+                header.HeaderNumber = row["pick_number"];
+                header.UserId = int.Parse(row["user_id"]);
+                header.Pickdate = DateTime.Parse(row["pick_date"]);
+                header.IsSuccessful = row["is_successful"] == "True" ? true : false;
+                header.IsAssigned = row["is_assigned"] == "True" ? true : false;
+                header.IsGatepassPrinted = row["is_gatepass_printed"] == "True" ? true : false;
+
+                if (!string.IsNullOrWhiteSpace(row["gatepass_id"]))
+                    header.GatepassId = int.Parse(row["gatepass_id"]);
+                else
+                    header.GatepassId = null;
+
+                break;
+            }
+
+            return header;
         }
 
         public void UpdateItem(string qry)

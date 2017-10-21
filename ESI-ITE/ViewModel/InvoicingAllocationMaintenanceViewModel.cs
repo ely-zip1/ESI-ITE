@@ -117,6 +117,7 @@ namespace ESI_ITE.ViewModel
             set
             {
                 selectedIndexCriticalItem = value;
+                //SelectedCriticalItemChanged();
                 OnPropertyChanged();
             }
         }
@@ -186,7 +187,7 @@ namespace ESI_ITE.ViewModel
         private PickListHeaderModel PickHead;
         private List<PickListLineModel> PickLineList = new List<PickListLineModel>();
         private List<List<object>> PickOrderList = new List<List<object>>();
-        private List<PartiallyServedOrders> itemsPerOrderList = new List<PartiallyServedOrders>();
+        private List<PartiallyServedOrders> orderItemsList = new List<PartiallyServedOrders>();
         private List<List<string>> QuantityOnHand = new List<List<string>>(); //[0] Item ID
                                                                               //[1] Item Code
                                                                               //[2] Cases
@@ -224,16 +225,16 @@ namespace ESI_ITE.ViewModel
         private void SelectedPicklistChanged()
         {
             PickHead = (PickListHeaderModel)PickHead.Fetch(SelectedPicklist[0], "code");
-            var criticalItemCount = db.Count("select count(*) from pickline where pickhead_id = '"+PickHead.Id+"' and is_critical = '1'");
+            var criticalItemCount = db.Count("select count(*) from pickline where pickhead_id = '" + PickHead.Id + "' and is_critical = '1'");
 
-            if(criticalItemCount > 0)
+            if (criticalItemCount > 0)
             {
                 LoadCriticalItems();
             }
-            else
-            {
-                MessageBox.Show("The selected picklist contains no critical items.", "Allocation Maintenance");
-            }
+            //else
+            //{
+            //    MessageBox.Show("The selected picklist contains no critical items.", "Allocation Maintenance");
+            //}
         }
 
         private void LoadCriticalItems()
@@ -242,7 +243,7 @@ namespace ESI_ITE.ViewModel
 
             CriticalItemCollection.Clear();
 
-            itemsPerOrderList.Clear();
+            orderItemsList.Clear();
 
             var pickLine = new PickListLineModel();
             PickLineList = pickLine.FetchPerPickHead(PickHead.Id.ToString());
@@ -253,6 +254,9 @@ namespace ESI_ITE.ViewModel
 
             foreach (var line in PickLineList)
             {
+                //
+                // Load item per pickline
+                //
                 var inventoryDummy = new InventoryDummy2Model();
                 inventoryDummy = (InventoryDummy2Model)inventoryDummy.Fetch(line.InventoryDummyId.ToString(), "id");
 
@@ -266,12 +270,12 @@ namespace ESI_ITE.ViewModel
                 if (itemList.Count > 0)
                 {
                     foreach (var item in itemList)
-                        if ((item[0] as InventoryDummy2Model).ItemCode == inventoryDummy.ItemCode)
+                        if ((item[0] as InventoryDummy2Model).ItemCode == inventoryDummy.ItemCode /*&& (item[0] as InventoryDummy2Model).Id == inventoryDummy.Id*/)
                         {
                             (item[0] as InventoryDummy2Model).Cases += inventoryDummy.Cases;
                             (item[0] as InventoryDummy2Model).Pieces += inventoryDummy.Pieces;
-                            (item[1] as PickListLineModel).AllocatedCases += line.AllocatedCases;
-                            (item[1] as PickListLineModel).AllocatedPieces += line.AllocatedPieces;
+                            (item[1] as PickListLineModel).AllocatedCases = (item[1] as PickListLineModel).AllocatedCases + line.AllocatedCases;
+                            (item[1] as PickListLineModel).AllocatedPieces = (item[1] as PickListLineModel).AllocatedPieces + line.AllocatedPieces;
 
                             if ((item[1] as PickListLineModel).IsCritical)
                                 item[2] = true;
@@ -291,8 +295,13 @@ namespace ESI_ITE.ViewModel
                 itemList.Add(_item);
             }
 
+            PickLineList = pickLine.FetchPerPickHead(PickHead.Id.ToString());
             foreach (var line in PickLineList)
             {
+                //
+                // Load orders per pickline
+                //
+
                 var inventoryDummy = new InventoryDummy2Model();
                 inventoryDummy = (InventoryDummy2Model)inventoryDummy.Fetch(line.InventoryDummyId.ToString(), "id");
 
@@ -308,8 +317,7 @@ namespace ESI_ITE.ViewModel
                 PSO.PicklistItem = line;
                 PSO.AllocatedCases = line.AllocatedCases.ToString();
                 PSO.AllocatedPieces = line.AllocatedPieces.ToString();
-
-                itemsPerOrderList.Add(PSO);
+                orderItemsList.Add(PSO);
             }
 
             foreach (var item in itemList)
@@ -317,71 +325,107 @@ namespace ESI_ITE.ViewModel
                 var inventoryDummy = item[0] as InventoryDummy2Model;
                 var _pickline = item[1] as PickListLineModel;
                 var isCritical = (bool)item[2];
-                if (isCritical)
-                {
-                    var critItem = new CriticalItems();
-                    critItem.ItemCode = inventoryDummy.ItemCode;
-                    critItem.ItemDescription = inventoryDummy.ItemDescription;
-                    critItem.OrderCases = inventoryDummy.Cases;
-                    critItem.OrderPieces = inventoryDummy.Pieces;
-                    critItem.AllocatedCases = _pickline.AllocatedCases;
-                    critItem.AllocatedPieces = _pickline.AllocatedPieces;
-                    critItem.LC = inventoryDummy.Location;
 
-                    CriticalItemCollection.Add(critItem);
+                if (_pickline.AllocatedCases + _pickline.AllocatedPieces > 0)
+                {
+                    if (isCritical)
+                    {
+                        var critItem = new CriticalItems();
+                        critItem.ItemCode = inventoryDummy.ItemCode;
+                        critItem.ItemDescription = inventoryDummy.ItemDescription;
+                        critItem.OrderCases = inventoryDummy.Cases;
+                        critItem.OrderPieces = inventoryDummy.Pieces;
+                        critItem.AllocatedCases = _pickline.AllocatedCases;
+                        critItem.AllocatedPieces = _pickline.AllocatedPieces;
+                        critItem.LC = inventoryDummy.Location;
+
+                        CriticalItemCollection.Add(critItem);
+                    }
                 }
             }
 
             SelectedIndexCriticalItem = 0;
 
             var inventoryMaster = new InventoryMaster2Model();
+
             // Stocks On-Hand Calculator
-            foreach (var item in itemList)
-            {
-                var itemCases = 0;
-                var itemPieces = 0;
-                var dummy = (InventoryDummy2Model)item[0];
-                var itemMaster = new ItemModel();
-                itemMaster = (ItemModel)itemMaster.Fetch(dummy.ItemCode, "code");
 
-                var inventoryItems = inventoryMaster.FetchInStockItem(itemMaster.ItemId);
-                foreach (var inventoryItem in inventoryItems)
-                {
-                    itemCases += inventoryItem.Cases;
-                    itemPieces += inventoryItem.Pieces;
-                }
+            SelectedCriticalItemChanged();
+            //foreach (var item in itemList)
+            //{
+            //    var itemCases = 0;
+            //    var itemPieces = 0;
+            //    var dummy = (InventoryDummy2Model)item[0];
+            //    var itemMaster = new ItemModel();
+            //    itemMaster = (ItemModel)itemMaster.Fetch(dummy.ItemCode, "code");
+
+            //    var inventoryItems = inventoryMaster.FetchInStockItem(itemMaster.ItemId);
+            //    foreach (var inventoryItem in inventoryItems)
+            //    {
+            //        itemCases += inventoryItem.Cases;
+            //        itemPieces += inventoryItem.Pieces;
+            //    }
 
 
-                var allocationModel = new AllocatedStocksModel();
-                var allocatedStocks = allocationModel.FetchPerPickList(PickHead.HeaderNumber);
-                foreach (var alloc in allocatedStocks)
-                {
-                    var allocatedItem = alloc as AllocatedStocksModel;
-                    var _dummy = new InventoryDummy2Model();
-                    _dummy = (InventoryDummy2Model)_dummy.Fetch(allocatedItem.InventoryDummyId.ToString(), "id");
+            //    var allocationModel = new AllocatedStocksModel();
+            //    var allocatedStocks = allocationModel.FetchPerPickList(PickHead.HeaderNumber);
+            //    foreach (var alloc in allocatedStocks)
+            //    {
+            //        var allocatedItem = alloc as AllocatedStocksModel;
+            //        var _dummy = new InventoryDummy2Model();
+            //        _dummy = (InventoryDummy2Model)_dummy.Fetch(allocatedItem.InventoryDummyId.ToString(), "id");
 
-                    if (_dummy.ItemCode == dummy.ItemCode)
-                    {
-                        itemCases += allocatedItem.Cases;
-                        itemPieces += allocatedItem.Pieces;
-                    }
-                }
+            //        if (_dummy.ItemCode == dummy.ItemCode)
+            //        {
+            //            itemCases += allocatedItem.Cases;
+            //            itemPieces += allocatedItem.Pieces;
+            //        }
+            //    }
 
-                var itemOnHand = new List<string>();
-                itemOnHand.Add(itemMaster.ItemId.ToString());
-                itemOnHand.Add(itemMaster.Code);
-                itemOnHand.Add(itemCases.ToString());
-                itemOnHand.Add(itemPieces.ToString());
-                QuantityOnHand.Add(itemOnHand);
-            }
+            //    var itemOnHand = new List<string>();
+            //    itemOnHand.Add(itemMaster.ItemId.ToString());
+            //    itemOnHand.Add(itemMaster.Code);
+            //    itemOnHand.Add(itemCases.ToString());
+            //    itemOnHand.Add(itemPieces.ToString());
+            //    QuantityOnHand.Add(itemOnHand);
+            //}
 
             LoadOrders(CriticalItemCollection[0].ItemCode);
+        }
+
+        private void SelectedCriticalItemChanged()
+        {
+            var inventoryObj = new InventoryMaster2Model();
+            var criticalItem = SelectedCriticalItem;
+            var itemObj = new ItemModel();
+
+            itemObj = (ItemModel)itemObj.Fetch(criticalItem.ItemCode, "code");
+            var inventoryItemList = inventoryObj.FetchPerItem(itemObj.ItemId.ToString());
+
+            var goodItems = from item in inventoryItemList
+                            where item.ExpirationDate > DateTime.Now
+                            select item;
+
+            var inventoryCases = goodItems.Sum(i => i.Cases);
+            var inventoryPieces = goodItems.Sum(i => i.Pieces);
+
+            var itemInPieces = ConvertToPieces(inventoryCases + criticalItem.AllocatedCases, inventoryPieces + criticalItem.AllocatedPieces, itemObj.PackSize, itemObj.PackSizeBO);
+            var totalItemQuantity = ConvertToCases(itemInPieces, itemObj.PackSize, itemObj.PackSizeBO);
+
+            CasesOnHand = totalItemQuantity[0];
+            PiecesOnHand = totalItemQuantity[1];
+        }
+
+        private void SelectedItemChanged()
+        {
+            LoadOrders(SelectedCriticalItem.ItemCode);
+            SelectedCriticalItemChanged();
         }
 
         private void LoadOrders(string itemCode)
         {
             PartiallyServedOrderCollection.Clear();
-            foreach (var pickOrder in itemsPerOrderList)
+            foreach (var pickOrder in orderItemsList)
             {
                 if (pickOrder.OrderItem.ItemCode == itemCode)
                 {
@@ -389,8 +433,8 @@ namespace ESI_ITE.ViewModel
                 }
             }
 
-            var itemMaster = new ItemModel();
-            itemMaster = (ItemModel)itemMaster.Fetch(itemCode, "code");
+            //var itemMaster = new ItemModel();
+            //itemMaster = (ItemModel)itemMaster.Fetch(itemCode, "code");
 
             //var inventoryMaster = new InventoryMaster2Model();
             //var inventoryItemList = inventoryMaster.FetchPerItem(itemMaster.ItemId);
@@ -405,19 +449,14 @@ namespace ESI_ITE.ViewModel
 
             //CasesOnHand = totalCases;
             //PiecesOnHand = totalPieces;
-            foreach (var row in QuantityOnHand)
-            {
-                if (row[1] == itemCode)
-                {
-                    CasesOnHand = int.Parse(row[2]);
-                    PiecesOnHand = int.Parse(row[3]);
-                }
-            }
-        }
-
-        private void SelectedItemChanged()
-        {
-            LoadOrders(SelectedCriticalItem.ItemCode);
+            //foreach (var row in QuantityOnHand)
+            //{
+            //    if (row[1] == itemCode)
+            //    {
+            //        CasesOnHand = int.Parse(row[2]);
+            //        PiecesOnHand = int.Parse(row[3]);
+            //    }
+            //}
         }
 
         private void UpdateCases()
@@ -428,7 +467,7 @@ namespace ESI_ITE.ViewModel
                 if (SelectedPSO.Customer != null)
                     if (SelectedPSO.IsCasesValid)
                     {
-                        foreach (var PSO in itemsPerOrderList)
+                        foreach (var PSO in orderItemsList)
                         {
                             if (PSO.Customer.CustomerNumber == SelectedPSO.Customer.CustomerNumber &&
                                 PSO.OrderItem.ItemCode == SelectedPSO.OrderItem.ItemCode)
@@ -461,7 +500,7 @@ namespace ESI_ITE.ViewModel
                         if (isValid)
                         {
                             var totalCases = 0;
-                            foreach (var PSO in itemsPerOrderList)
+                            foreach (var PSO in orderItemsList)
                             {
                                 if (PSO.OrderItem.ItemCode == SelectedPSO.OrderItem.ItemCode)
                                     totalCases += int.Parse(PSO.AllocatedCases);
@@ -500,7 +539,7 @@ namespace ESI_ITE.ViewModel
                 if (SelectedPSO.Customer != null)
                     if (SelectedPSO.IsPiecesValid)
                     {
-                        foreach (var PSO in itemsPerOrderList)
+                        foreach (var PSO in orderItemsList)
                         {
                             if (PSO.Customer.CustomerNumber == SelectedPSO.Customer.CustomerNumber &&
                                 PSO.OrderItem.ItemCode == SelectedPSO.OrderItem.ItemCode)
@@ -527,13 +566,14 @@ namespace ESI_ITE.ViewModel
                                     isValid = true;
                                 }
                                 break;
+
                             }
                         }
 
                         if (isValid)
                         {
                             var totalPieces = 0;
-                            foreach (var PSO in itemsPerOrderList)
+                            foreach (var PSO in orderItemsList)
                             {
                                 if (PSO.OrderItem.ItemCode == SelectedPSO.OrderItem.ItemCode)
                                     totalPieces += int.Parse(PSO.AllocatedPieces);
@@ -572,7 +612,7 @@ namespace ESI_ITE.ViewModel
             {
                 PartiallyServedOrderCollection.Clear();
                 CriticalItemCollection.Clear();
-                itemsPerOrderList.Clear();
+                orderItemsList.Clear();
                 PickOrderList.Clear();
                 PickLineList.Clear();
 
@@ -580,14 +620,32 @@ namespace ESI_ITE.ViewModel
             }
         }
 
+        #region Update Stocks
+
+        private void StartUpdate()
+        {
+            CallUpdateStocks();
+        }
+
+        private async void CallUpdateStocks()
+        {
+            await UpdateStocksAsync();
+
+        }
+
+        private Task UpdateStocksAsync()
+        {
+            return Task.Factory.StartNew(() => UpdateStocks());
+        }
+
         private void UpdateStocks()
         {
             var allocationModel = new AllocatedStocksModel();
             var pickHead = new PickListHeaderModel();
 
-            foreach (var item in itemsPerOrderList)
+            foreach (var item in orderItemsList)
             {
-                if ((int.Parse(item.AllocatedCases) != item.OrderItem.Cases) || (int.Parse(item.AllocatedPieces) != item.OrderItem.Pieces))
+                if ((int.Parse(item.AllocatedCases) != item.PicklistItem.AllocatedCases) || (int.Parse(item.AllocatedPieces) != item.PicklistItem.AllocatedPieces))
                 {
                     var itemModel = new ItemModel();
                     itemModel = (ItemModel)itemModel.Fetch(item.OrderItem.ItemCode, "code");
@@ -596,19 +654,39 @@ namespace ESI_ITE.ViewModel
 
                     if (Inventory.Count > 0)
                     {
-                        foreach (var items in Inventory)
+                        var hasDuplicate = false;
+                        foreach (var itemList in Inventory)
                         {
-                            if (items[0].ItemId != itemModel.ItemId)
+                            if (itemList.Count > 0)
                             {
-                                Inventory.Add(inventoryModel.FetchInStockItem(itemModel.ItemId));
+                                if (itemList[0].ItemId == itemModel.ItemId)
+                                {
+                                    hasDuplicate = true;
+                                    break;
+                                }
                             }
                         }
+
+                        if (hasDuplicate == false)
+                        {
+                            var inStockItems = inventoryModel.FetchUnexpired(itemModel.ItemId);
+
+                            if (inStockItems.Count > 0)
+                                Inventory.Add(inStockItems);
+                        }
+                    }
+                    else
+                    {
+                        var inStockItems = inventoryModel.FetchUnexpired(itemModel.ItemId);
+
+                        if (inStockItems.Count > 0)
+                            Inventory.Add(inStockItems);
                     }
                 }
             }
 
             pickHead = (PickListHeaderModel)pickHead.Fetch(SelectedPicklist[0], "code");
-            foreach (var item in itemsPerOrderList)
+            foreach (var item in orderItemsList)
             {
                 var itemModel = new ItemModel();
                 itemModel = (ItemModel)itemModel.Fetch(item.OrderItem.ItemCode, "code");
@@ -623,7 +701,6 @@ namespace ESI_ITE.ViewModel
                     {
                         if (inventoryItems[0].ItemId == itemModel.ItemId)
                         {
-                            index++;
                             break;
                         }
                         index++;
@@ -639,6 +716,8 @@ namespace ESI_ITE.ViewModel
                     }
                 }
             }
+
+            db.RunMySqlTransaction(AllocationQueries, null, null);
         }
 
         private void Allocate(PartiallyServedOrders item, ItemModel itemModel, int allocatedQtty, int adjustedQtty, int inventoryIndex)
@@ -651,9 +730,11 @@ namespace ESI_ITE.ViewModel
 
             var inventoryModel = new InventoryMaster2Model();
 
-            AllocationQueries.Clear();
             foreach (var inventoryItem in Inventory[inventoryIndex])
             {
+                if (inventoryItem.Cases + inventoryItem.Pieces <= 0)
+                    continue;
+
                 var itemInPieces = ConvertToPieces(inventoryItem.Cases, inventoryItem.Pieces, itemModel.PackSize, itemModel.PackSizeBO);
 
                 if (toBeAllocated > 0)
@@ -661,10 +742,17 @@ namespace ESI_ITE.ViewModel
                     if (itemInPieces >= toBeAllocated)
                     {
                         itemInPieces -= toBeAllocated;
-
-                        var inventoryItemInCases = ConvertToCases(itemInPieces, itemModel.PackSize, itemModel.PackSizeBO);
-                        inventoryItem.Cases = inventoryItemInCases[0];
-                        inventoryItem.Pieces = inventoryItemInCases[1];
+                        if (itemInPieces > 0)
+                        {
+                            var inventoryItemInCases = ConvertToCases(itemInPieces, itemModel.PackSize, itemModel.PackSizeBO);
+                            inventoryItem.Cases = inventoryItemInCases[0];
+                            inventoryItem.Pieces = inventoryItemInCases[1];
+                        }
+                        else
+                        {
+                            inventoryItem.Cases = 0;
+                            inventoryItem.Pieces = 0;
+                        }
 
                         var allocatedItemInCases = ConvertToCases(toBeAllocated, itemModel.PackSize, itemModel.PackSizeBO);
 
@@ -673,7 +761,7 @@ namespace ESI_ITE.ViewModel
                         allocationItem.InventoryDummyId = item.OrderItem.Id;
                         allocationItem.Cases = allocatedItemInCases[0];
                         allocationItem.Pieces = allocatedItemInCases[1];
-                        allocationItem.Expiry = inventoryItem.ExpirationDate;
+                        allocationItem.InventoryId = inventoryItem.Id;
 
                         toBeAllocated = 0;
 
@@ -696,7 +784,7 @@ namespace ESI_ITE.ViewModel
                         allocationItem.InventoryDummyId = item.OrderItem.Id;
                         allocationItem.Cases = allocatedItemInCases[0];
                         allocationItem.Pieces = allocatedItemInCases[1];
-                        allocationItem.Expiry = inventoryItem.ExpirationDate;
+                        allocationItem.InventoryId = inventoryItem.Id;
 
                         AllocationQueries.Add(inventoryModel.GetUpdateQuery(inventoryItem));
                         AllocationQueries.Add(allocationModel.GetAddQuery(allocationItem));
@@ -747,12 +835,17 @@ namespace ESI_ITE.ViewModel
                     //
                     // Find item index in inventory list
                     //
-                    foreach (var inventoryItem in Inventory[inventoryIndex])
+                    if (Inventory.Count > 0 && Inventory.Count > inventoryIndex)
                     {
-                        if (inventoryItem.ExpirationDate == allocatedItem.Expiry)
-                            break;
+                        inventoryItemIndex = 0;
 
-                        inventoryItemIndex++;
+                        foreach (var inventoryItem in Inventory[inventoryIndex])
+                        {
+                            if (inventoryItem.Id == allocatedItem.InventoryId)
+                                break;
+
+                            inventoryItemIndex++;
+                        }
                     }
 
                     var allocatedItemInPieces = ConvertToPieces(allocatedItem.Cases, allocatedItem.Pieces, itemModel.PackSize, itemModel.PackSizeBO);
@@ -813,6 +906,8 @@ namespace ESI_ITE.ViewModel
 
             AllocationQueries.Add(item.PicklistItem.GetUpdateQuery(item.PicklistItem));
         }
+
+        #endregion
 
         private int ConvertToPieces(int Cases, int Pieces, int packSize, int PackSizeBO)
         {

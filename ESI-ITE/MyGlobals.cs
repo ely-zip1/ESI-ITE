@@ -63,6 +63,8 @@ namespace ESI_ITE
 
         public static FixedDocument printingDoc;
 
+        public static bool hasTransactionError = false;
+
         //Progress Monitors
         public static float ProgressTotalStep;
         public static float ProgressCurrentStep;

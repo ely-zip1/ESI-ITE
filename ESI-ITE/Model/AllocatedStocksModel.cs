@@ -49,12 +49,13 @@ namespace ESI_ITE.Model
             set { pieces = value; }
         }
 
-        private DateTime expiry;
-        public DateTime Expiry
+        private int inventoryId;
+        public int InventoryId
         {
-            get { return expiry; }
-            set { expiry = value; }
+            get { return inventoryId; }
+            set { inventoryId = value; }
         }
+
 
 
         #endregion
@@ -71,7 +72,7 @@ namespace ESI_ITE.Model
             sb.Append("'" + stock.InventoryDummyId + "', ");
             sb.Append("'" + stock.Cases + "', ");
             sb.Append("'" + stock.Pieces + "', ");
-            sb.Append("str_to_date('" + stock.Expiry.ToString("MM/dd/yyyy") + "', '%m/%d/%Y'))");
+            sb.Append("'" + stock.InventoryId + "')");
 
             db.Insert(sb.ToString());
         }
@@ -85,7 +86,7 @@ namespace ESI_ITE.Model
             sb.Append("'" + item.InventoryDummyId + "', ");
             sb.Append("'" + item.Cases + "', ");
             sb.Append("'" + item.Pieces + "', ");
-            sb.Append("str_to_date('" + item.Expiry.ToString("MM/dd/yyyy") + "', '%m/%d/%Y'))");
+            sb.Append("'" + item.InventoryId + "')");
 
             return sb.ToString();
         }
@@ -142,7 +143,7 @@ namespace ESI_ITE.Model
                 stock.InventoryDummyId = int.Parse(row["inventory_dummy_id"]);
                 stock.Cases = int.Parse(row["cases"]);
                 stock.Pieces = int.Parse(row["pieces"]);
-                stock.Expiry = DateTime.Parse(row["expiry"]);
+                stock.InventoryId = int.Parse(row["inventory_id"]);
             }
 
             return stock;
@@ -166,7 +167,7 @@ namespace ESI_ITE.Model
                 stock.InventoryDummyId = int.Parse(row["inventory_dummy_id"]);
                 stock.Cases = int.Parse(row["cases"]);
                 stock.Pieces = int.Parse(row["pieces"]);
-                stock.Expiry = DateTime.Parse(row["expiry"]);
+                stock.InventoryId = int.Parse(row["inventory_id"]);
 
                 stockList.Add(stock);
             }
@@ -193,7 +194,7 @@ namespace ESI_ITE.Model
                 stock.InventoryDummyId = int.Parse(row["inventory_dummy_id"]);
                 stock.Cases = int.Parse(row["cases"]);
                 stock.Pieces = int.Parse(row["pieces"]);
-                stock.Expiry = DateTime.Parse(row["expiry"]);
+                stock.InventoryId = int.Parse(row["inventory_id"]);
             }
 
             return ListOfAllocatedStocks;
@@ -234,7 +235,7 @@ namespace ESI_ITE.Model
                 stock.InventoryDummyId = int.Parse(row["inventory_dummy_id"]);
                 stock.Cases = int.Parse(row["cases"]);
                 stock.Pieces = int.Parse(row["pieces"]);
-                stock.Expiry = DateTime.Parse(row["expiry"]);
+                stock.InventoryId = int.Parse(row["inventory_id"]);
 
                 stockList.Add(stock);
             }
@@ -256,7 +257,7 @@ namespace ESI_ITE.Model
             sb.Append("inventory_dummy_id = '" + item.InventoryDummyId + "', ");
             sb.Append("cases = '" + item.Cases + "', ");
             sb.Append("pieces = '" + item.Pieces + "', ");
-            sb.Append("expiry = '" + item.Expiry + "' ");
+            sb.Append("inventory_id = '" + item.InventoryId + "' ");
             sb.Append("where pickhead_id = '" + item.PickHeadId + "' and ");
             sb.Append("inventory_dummy_id = '" + item.InventoryDummyId + "'");
 
@@ -272,7 +273,7 @@ namespace ESI_ITE.Model
             sb.Append("inventory_dummy_id = '" + item.InventoryDummyId + "', ");
             sb.Append("cases = '" + item.Cases + "', ");
             sb.Append("pieces = '" + item.Pieces + "', ");
-            sb.Append("expiry = '" + item.Expiry + "' ");
+            sb.Append("inventory_id = '" + item.InventoryId + "' ");
             sb.Append("where pickhead_id = '" + item.PickHeadId + "' and ");
             sb.Append("inventory_dummy_id = '" + item.InventoryDummyId + "'");
 

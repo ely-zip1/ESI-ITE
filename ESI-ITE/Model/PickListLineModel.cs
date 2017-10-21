@@ -222,7 +222,9 @@ namespace ESI_ITE.Model
             sb.Append("update pickline set ");
             sb.Append("allocated_cases = '" + lineItem.AllocatedCases + "', ");
             sb.Append("allocated_pieces = '" + lineItem.AllocatedPieces + "', ");
-            sb.Append("is_critical = '" + lineItem.IsCritical + "' ");
+            sb.Append("is_critical = '");
+            sb.Append(lineItem.IsCritical ? "1" : "0");
+            sb.Append("' ");
             sb.Append("where pickhead_id = '" + lineItem.PickListHeaderId + "' and inventory_dummy_id = '" + lineItem.InventoryDummyId + "'");
 
             db.Update(sb.ToString());
@@ -236,7 +238,9 @@ namespace ESI_ITE.Model
             sb.Append("update pickline set ");
             sb.Append("allocated_cases = '" + lineItem.AllocatedCases + "', ");
             sb.Append("allocated_pieces = '" + lineItem.AllocatedPieces + "', ");
-            sb.Append("is_critical = '" + lineItem.IsCritical + "' ");
+            sb.Append("is_critical = '");
+            sb.Append(lineItem.IsCritical ? "1" : "0");
+            sb.Append("' ");
             sb.Append("where pickhead_id = '" + lineItem.PickListHeaderId + "' and inventory_dummy_id = '" + lineItem.InventoryDummyId + "'");
 
             return sb.ToString();

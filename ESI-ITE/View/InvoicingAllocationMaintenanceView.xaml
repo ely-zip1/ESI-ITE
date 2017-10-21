@@ -193,7 +193,7 @@
             </ComboBox>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
-                <Button Content="Update Stocks" Width="100" Margin="0,0,10,0"/>
+                <Button Content="Update Stocks" Width="100" Margin="0,0,10,0" Command="{Binding UpdateStocksCommand}"/>
                 <Button Content="Cancel" Width="100" Command="{Binding CancelAllocationCommand}"/>
             </StackPanel>
 

@@ -8,7 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/circle.gif")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/pixel.gif")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("esi_logo_uu6_icon.ico")]
 
 

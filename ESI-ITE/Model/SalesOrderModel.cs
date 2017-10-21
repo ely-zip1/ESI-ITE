@@ -337,6 +337,43 @@ namespace ESI_ITE.Model
             return pickedOrders;
         }
 
+        public List<SalesOrderModel> FetchUnpickedOrders()
+        {
+            var pickedOrders = new List<SalesOrderModel>();
+
+            var result = db.SelectMultiple("select * from orders where picked = 0");
+
+            if (result.Count > 0)
+                foreach (var row in result)
+                {
+                    var order = new SalesOrderModel();
+                    var clone = row.Clone();
+
+                    order.OrderId = Int32.Parse(row["order_id"]);
+                    order.OrderNumber = row["order_number"].ToString();
+                    order.OrderDate = DateTime.Parse(row["order_date"]);
+                    order.RequiredShipDate = DateTime.Parse(row["required_ship_date"]);
+                    order.PONumber = row["po_number"].ToString();
+                    order.OrderNote = row["order_note"].ToString();
+                    order.OrderAmount = Decimal.Parse(row["order_amount"]);
+                    order.Cases = Int32.Parse(row["cases"]);
+                    order.Pieces = Int32.Parse(row["pieces"]);
+                    order.IsServed = bool.Parse(row["served"]);
+                    order.IsPicked = bool.Parse(row["picked"]);
+                    order.IsPrinted = bool.Parse(row["printed"]);
+                    order.DistrictId = Int32.Parse(row["district_id"]);
+                    order.CustomerID = Int32.Parse(row["customer_id"]);
+                    order.RouteId = Int32.Parse(row["route_id"]);
+                    order.TermId = Int32.Parse(row["term_id"]);
+                    order.PriceId = Int32.Parse(row["price_id"]);
+                    order.WarehouseId = Int32.Parse(row["warehouse_id"]);
+
+                    pickedOrders.Add(order);
+                }
+
+            return pickedOrders;
+        }
+
         public void UpdateItem(SalesOrderModel order)
         {
             StringBuilder sb = new StringBuilder();
