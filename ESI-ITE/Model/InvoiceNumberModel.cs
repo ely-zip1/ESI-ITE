@@ -16,15 +16,27 @@ namespace ESI_ITE.Model
         private int id;
         public int Id
         {
-            get { return id; }
-            set { id = value; }
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+            }
         }
 
         private string invoiceNumber;
         public string InvoiceNumber
         {
-            get { return invoiceNumber; }
-            set { invoiceNumber = value; }
+            get
+            {
+                return invoiceNumber;
+            }
+            set
+            {
+                invoiceNumber = value;
+            }
         }
 
         #endregion
@@ -33,20 +45,32 @@ namespace ESI_ITE.Model
 
         public void AddNew(object item)
         {
-            var invoiceNumberObj = FetchLatest();
-
-            var latestInvoiceNumber = int.Parse(invoiceNumberObj.InvoiceNumber);
+            var invoiceNumber = (InvoiceNumberModel)item;
 
             StringBuilder sb = new StringBuilder();
 
             sb.Append("insert into invoice_number values(");
             sb.Append("null, ");
-            sb.Append("'" + latestInvoiceNumber++ + "' ");
+            sb.Append("'" + invoiceNumber.InvoiceNumber + "' ");
             sb.Append(")");
 
             db.Insert(sb.ToString());
 
             db.Delete("delete from invoice_number where id = (select min(id) from (select * from invoice_number) as temp limit 1)");
+        }
+
+        public string GetAddQuery(InvoiceNumberModel invoiceNumber)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("insert into invoice_number values(");
+            sb.Append("null, ");
+            sb.Append("'" + invoiceNumber.InvoiceNumber + "' ");
+            sb.Append(");");
+
+            sb.Append("delete from invoice_number where id = (select min(id) from (select * from invoice_number) as temp limit 1)");
+
+            return sb.ToString();
         }
 
         public void DeleteItem(string qry)

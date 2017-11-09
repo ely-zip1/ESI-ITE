@@ -14,43 +14,79 @@ namespace ESI_ITE.Model
         private int id;
         public int Id
         {
-            get { return id; }
-            set { id = value; }
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+            }
         }
 
         private string invoiceNumber;
         public string InvoiceNumber
         {
-            get { return invoiceNumber; }
-            set { invoiceNumber = value; }
+            get
+            {
+                return invoiceNumber;
+            }
+            set
+            {
+                invoiceNumber = value;
+            }
         }
 
         private int pickheadId;
         public int PickheadId
         {
-            get { return pickheadId; }
-            set { pickheadId = value; }
+            get
+            {
+                return pickheadId;
+            }
+            set
+            {
+                pickheadId = value;
+            }
         }
 
         private int orderId;
         public int OrderId
         {
-            get { return orderId; }
-            set { orderId = value; }
+            get
+            {
+                return orderId;
+            }
+            set
+            {
+                orderId = value;
+            }
         }
 
         private int userId;
         public int UserId
         {
-            get { return userId; }
-            set { userId = value; }
+            get
+            {
+                return userId;
+            }
+            set
+            {
+                userId = value;
+            }
         }
 
         private DateTime date;
         public DateTime Date
         {
-            get { return date; }
-            set { date = value; }
+            get
+            {
+                return date;
+            }
+            set
+            {
+                date = value;
+            }
         }
 
 
@@ -145,6 +181,26 @@ namespace ESI_ITE.Model
             return invoiceList;
         }
 
+        public InvoiceModel FetchByOrder(string pickheadId, string orderId)
+        {
+            var invoice = new InvoiceModel();
+
+            var result = db.SelectMultiple("select * from invoices where pick_id = '" + pickheadId + "' and order_id = '" + orderId + "'");
+            foreach (var row in result)
+            {
+                invoice.Id = int.Parse(row["id"]);
+                invoice.InvoiceNumber = row["invoice_number"];
+                invoice.PickheadId = int.Parse(row["pick_id"]);
+                invoice.OrderId = int.Parse(row["order_id"]);
+                invoice.UserId = int.Parse(row["user_id"]);
+                invoice.Date = DateTime.Parse(row["date"]);
+
+                break;
+            }
+
+            return invoice;
+        }
+
 
         public void AddNew(object item)
         {
@@ -161,6 +217,23 @@ namespace ESI_ITE.Model
             sb.Append(")");
 
             db.Insert(sb.ToString());
+        }
+
+        public string GetAddQuery(object item)
+        {
+            var invoice = item as InvoiceModel;
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("insert into invoices values(");
+            sb.Append("null, ");
+            sb.Append("'" + invoice.InvoiceNumber + "', ");
+            sb.Append("'" + invoice.PickheadId + "', ");
+            sb.Append("'" + invoice.OrderId + "', ");
+            sb.Append("'" + invoice.UserId + "', ");
+            sb.Append("str_to_date('" + invoice.Date.ToString("MM/dd/yyyy") + "','%m/%d/%Y')");
+            sb.Append(")");
+
+            return sb.ToString();
         }
 
         public void UpdateItem(string qry)

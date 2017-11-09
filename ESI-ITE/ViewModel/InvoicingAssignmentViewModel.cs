@@ -12,6 +12,7 @@ using System.Windows.Documents;
 using ESI_ITE.View.PrintingTemplate;
 using System.Windows.Controls;
 using System.Windows;
+using ESI_ITE.Data_Access;
 
 namespace ESI_ITE.ViewModel
 {
@@ -30,6 +31,8 @@ namespace ESI_ITE.ViewModel
 
         #region Properties
 
+        private DataAccess db = new DataAccess();
+
         private PickListHeaderModel PickHead = new PickListHeaderModel();
         private PickListLineModel PickLine = new PickListLineModel();
         private InventoryDummy2Model InventoryDummy = new InventoryDummy2Model();
@@ -37,7 +40,10 @@ namespace ESI_ITE.ViewModel
         private ObservableCollection<List<string>> pickNumberCollection = new ObservableCollection<List<string>>();
         public ObservableCollection<List<string>> PickNumberCollection
         {
-            get { return pickNumberCollection; }
+            get
+            {
+                return pickNumberCollection;
+            }
             set
             {
                 pickNumberCollection = value;
@@ -48,7 +54,10 @@ namespace ESI_ITE.ViewModel
         private ObservableCollection<OrdersToBeInvoiced> ordersCollection = new ObservableCollection<OrdersToBeInvoiced>();
         public ObservableCollection<OrdersToBeInvoiced> OrdersCollection
         {
-            get { return ordersCollection; }
+            get
+            {
+                return ordersCollection;
+            }
             set
             {
                 ordersCollection = value;
@@ -59,7 +68,10 @@ namespace ESI_ITE.ViewModel
         private List<string> selectedPickNumber;
         public List<string> SelectedPickNumber
         {
-            get { return selectedPickNumber; }
+            get
+            {
+                return selectedPickNumber;
+            }
             set
             {
                 selectedPickNumber = value;
@@ -73,7 +85,10 @@ namespace ESI_ITE.ViewModel
         private OrdersToBeInvoiced selectedOrder;
         public OrdersToBeInvoiced SelectedOrder
         {
-            get { return selectedOrder; }
+            get
+            {
+                return selectedOrder;
+            }
             set
             {
                 selectedOrder = value;
@@ -84,7 +99,10 @@ namespace ESI_ITE.ViewModel
         private int selectedIndexPickNumber = -1;
         public int SelectedIndexPickNumber
         {
-            get { return selectedIndexPickNumber; }
+            get
+            {
+                return selectedIndexPickNumber;
+            }
             set
             {
                 selectedIndexPickNumber = value;
@@ -95,7 +113,10 @@ namespace ESI_ITE.ViewModel
         private int selectedIndexOrder = -1;
         public int SelectedIndexOrder
         {
-            get { return selectedIndexOrder; }
+            get
+            {
+                return selectedIndexOrder;
+            }
             set
             {
                 selectedIndexOrder = value;
@@ -106,7 +127,10 @@ namespace ESI_ITE.ViewModel
         private bool isChecked;
         public bool IsChecked
         {
-            get { return isChecked; }
+            get
+            {
+                return isChecked;
+            }
             set
             {
                 isChecked = value;
@@ -117,7 +141,10 @@ namespace ESI_ITE.ViewModel
         private string currentInvoiceNumber;
         public string CurrentInvoiceNumber
         {
-            get { return currentInvoiceNumber; }
+            get
+            {
+                return currentInvoiceNumber;
+            }
             set
             {
                 currentInvoiceNumber = value;
@@ -128,36 +155,52 @@ namespace ESI_ITE.ViewModel
         private bool isItemChecked = false;
         private bool selectAllClicked = true;
 
+        private List<string> InvoiceQueries = new List<string>();
         #region Commands
 
         private DelegateCommand itemCheckedCommand;
         public ICommand ItemCheckedCommand
         {
-            get { return itemCheckedCommand; }
+            get
+            {
+                return itemCheckedCommand;
+            }
         }
 
         private DelegateCommand itemUncheckedCommand;
         public ICommand ItemUncheckedCommand
         {
-            get { return itemUncheckedCommand; }
+            get
+            {
+                return itemUncheckedCommand;
+            }
         }
 
         private DelegateCommand selectAllCommand;
         public ICommand SelectAllCommand
         {
-            get { return selectAllCommand; }
+            get
+            {
+                return selectAllCommand;
+            }
         }
 
         private DelegateCommand assignInvoiceCommand;
         public ICommand AssignInvoiceCommand
         {
-            get { return assignInvoiceCommand; }
+            get
+            {
+                return assignInvoiceCommand;
+            }
         }
 
         private DelegateCommand printInvoiceCommand;
         public ICommand PrintInvoiceCommand
         {
-            get { return printInvoiceCommand; }
+            get
+            {
+                return printInvoiceCommand;
+            }
         }
 
         #endregion
@@ -203,6 +246,7 @@ namespace ESI_ITE.ViewModel
 
             var orderObj = new SalesOrderModel();
             var customerObj = new CustomerModel();
+            var invoiceObj = new InvoiceModel();
 
             var picklists = PickLine.FetchPerPickHead(SelectedPickNumber[3]);
             foreach (var _picklist in picklists)
@@ -210,23 +254,30 @@ namespace ESI_ITE.ViewModel
                 var inventoryDummy = (InventoryDummy2Model)InventoryDummy.Fetch(_picklist.InventoryDummyId.ToString(), "id");
                 var order = (SalesOrderModel)orderObj.Fetch(inventoryDummy.OrderNumber, "code");
                 var customer = (CustomerModel)customerObj.Fetch(order.CustomerID.ToString(), "id");
+                var invoice = invoiceObj.FetchByOrder(_picklist.PickListHeaderId.ToString(), order.OrderId.ToString());
 
-                var orderExists = false;
+                var hasDuplicate = false;
                 if (OrdersCollection.Count > 0)
                 {
                     foreach (var _order in OrdersCollection)
                     {
                         if (_order.OrderNumber == order.OrderNumber)
                         {
-                            orderExists = true;
+                            hasDuplicate = true;
                             _order.AllocCasesQuantity += _picklist.AllocatedCases;
                             _order.AllocPiecesQuantity += _picklist.AllocatedPieces;
                         }
                     }
 
-                    if (orderExists == false)
+                    if (hasDuplicate == false)
                     {
                         var orderToBeInvoiced = new OrdersToBeInvoiced();
+
+                        if (invoice.Id > 0)
+                            orderToBeInvoiced.InvoiceNumber = invoice.InvoiceNumber;
+
+                        orderToBeInvoiced.OrderId = order.OrderId;
+                        orderToBeInvoiced.PickId = _picklist.PickListHeaderId;
                         orderToBeInvoiced.OrderNumber = order.OrderNumber;
                         orderToBeInvoiced.CustomerName = customer.CustomerName;
                         orderToBeInvoiced.SoCasesQuantity = order.Cases;
@@ -236,11 +287,16 @@ namespace ESI_ITE.ViewModel
 
                         OrdersCollection.Add(orderToBeInvoiced);
                     }
-
                 }
                 else
                 {
                     var orderToBeInvoiced = new OrdersToBeInvoiced();
+
+                    if (invoice.Id > 0)
+                        orderToBeInvoiced.InvoiceNumber = invoice.InvoiceNumber;
+
+                    orderToBeInvoiced.OrderId = order.OrderId;
+                    orderToBeInvoiced.PickId = _picklist.PickListHeaderId;
                     orderToBeInvoiced.OrderNumber = order.OrderNumber;
                     orderToBeInvoiced.CustomerName = customer.CustomerName;
                     orderToBeInvoiced.SoCasesQuantity = order.Cases;
@@ -306,7 +362,7 @@ namespace ESI_ITE.ViewModel
         private void OrderSelectionCheck()
         {
             bool hasItemSelected = false;
-            foreach(var order in OrdersCollection)
+            foreach (var order in OrdersCollection)
             {
                 if (order.IsSelected)
                 {
@@ -317,43 +373,123 @@ namespace ESI_ITE.ViewModel
 
             if (hasItemSelected)
             {
-                assignInvoice();
+                StartInvoicing();
             }
             else
             {
-                MessageBox.Show("Please select orders to be invoiced.","Invoice Assignment");
+                MessageBox.Show("Please select orders to be invoiced.", "Invoice Assignment");
             }
         }
 
-        private void assignInvoice()
+
+        #region Invoice Assignment Async
+
+        private void StartInvoicing()
         {
+            InvoiceQueries.Clear();
+
+            CallInvoiceAssignment();
+        }
+
+        private async void CallInvoiceAssignment()
+        {
+            var result = await AssignInvoiceAsync();
+
+            if (MyGlobals.hasTransactionError)
+            {
+
+            }
+            else
+            {
+                foreach (var row in result)
+                {
+                    foreach (var order in OrdersCollection)
+                    {
+                        if (row.Key == order.OrderNumber)
+                        {
+                            order.InvoiceNumber = row.Value;
+                        }
+                    }
+                }
+
+                SetCurrentInvoiceNumber();
+            }
+        }
+
+        private Task<Dictionary<string, string>> AssignInvoiceAsync()
+        {
+            return Task.Factory.StartNew(() => AssignInvoices());
+        }
+
+        private Dictionary<string, string> AssignInvoices()
+        {
+            var assignedInvoices = new Dictionary<string, string>();//
+                                                                    //[0]Order Number
+
+            var invoiceObj = new InvoiceModel();
+            var invoiceNumberObj = new InvoiceNumberModel();
+            var invoiceNumber = int.Parse(invoiceNumberObj.FetchLatest().InvoiceNumber);                                              //[1]Invoice Number
+
             foreach (var _orderToBeInvoiced in OrdersCollection)
             {
-                var invoiceObj = new InvoiceModel();
-                var invoiceNumberObj = new InvoiceNumberModel();
 
                 if (_orderToBeInvoiced.AllocCasesQuantity > 0 || _orderToBeInvoiced.AllocPiecesQuantity > 0)
                 {
-                    var currentInvoiceNumber = int.Parse(invoiceNumberObj.FetchLatest().InvoiceNumber);
                     var invoice = new InvoiceModel();
 
-                    invoice.InvoiceNumber = currentInvoiceNumber++.ToString();
+                    invoice.InvoiceNumber = invoiceNumber++.ToString();
                     invoice.PickheadId = _orderToBeInvoiced.PickId;
                     invoice.OrderId = _orderToBeInvoiced.OrderId;
                     invoice.UserId = MyGlobals.LoggedUser.Id;
                     invoice.Date = DateTime.UtcNow;
 
-                    invoiceObj.AddNew(invoice);
+                    assignedInvoices.Add(_orderToBeInvoiced.OrderNumber, invoice.InvoiceNumber);
 
-                    invoiceNumberObj.AddNew(new InvoiceNumberModel());
+                    //invoiceObj.AddNew(invoice);
+                    InvoiceQueries.Add(invoiceObj.GetAddQuery(invoice));
 
                     _orderToBeInvoiced.InvoiceNumber = invoice.InvoiceNumber;
                 }
             }
 
-            SetCurrentInvoiceNumber();
+            invoiceNumberObj.InvoiceNumber = invoiceNumber.ToString();
+            InvoiceQueries.Add(invoiceNumberObj.GetAddQuery(invoiceNumberObj));
+
+            db.RunMySqlTransaction(InvoiceQueries, null, null);
+
+            return assignedInvoices;
         }
 
+        //private void assignInvoice()
+        //{
+        //    foreach (var _orderToBeInvoiced in OrdersCollection)
+        //    {
+        //        var invoiceObj = new InvoiceModel();
+        //        var invoiceNumberObj = new InvoiceNumberModel();
+
+        //        if (_orderToBeInvoiced.AllocCasesQuantity > 0 || _orderToBeInvoiced.AllocPiecesQuantity > 0)
+        //        {
+        //            var currentInvoiceNumber = int.Parse(invoiceNumberObj.FetchLatest().InvoiceNumber);
+        //            var invoice = new InvoiceModel();
+
+        //            invoice.InvoiceNumber = currentInvoiceNumber++.ToString();
+        //            invoice.PickheadId = _orderToBeInvoiced.PickId;
+        //            invoice.OrderId = _orderToBeInvoiced.OrderId;
+        //            invoice.UserId = MyGlobals.LoggedUser.Id;
+        //            invoice.Date = DateTime.UtcNow;
+
+        //            invoiceObj.AddNew(invoice);
+
+        //            invoiceNumberObj.AddNew(new InvoiceNumberModel());
+
+        //            _orderToBeInvoiced.InvoiceNumber = invoice.InvoiceNumber;
+        //        }
+        //    }
+
+        //    SetCurrentInvoiceNumber();
+        //}
+
+        #endregion
 
         #region Printing
 
@@ -384,6 +520,8 @@ namespace ESI_ITE.ViewModel
             Application.Current.Dispatcher.Invoke(() =>
             {
                 fixedDoc = new FixedDocument();
+                var pageNumber = 1;
+
                 foreach (var _orderToBeInvoiced in OrdersCollection)
                 {
                     if (_orderToBeInvoiced.IsSelected)
@@ -491,7 +629,6 @@ namespace ESI_ITE.ViewModel
                         }
 
                         // content - ITEM LIST
-                        var pageNumber = 1;
                         var newPage = CreateNewPage(invoiceHeader, pageNumber++);
                         fixedDoc.Pages.Add((PageContent)newPage[1]);
                         invoiceTemplateViewModel = (InvoicePrintTemplateViewModel)newPage[0];
@@ -611,7 +748,10 @@ namespace ESI_ITE.ViewModel
         private bool isSelected = false;
         public bool IsSelected
         {
-            get { return isSelected; }
+            get
+            {
+                return isSelected;
+            }
             set
             {
                 isSelected = value;
@@ -622,7 +762,10 @@ namespace ESI_ITE.ViewModel
         private int orderId;
         public int OrderId
         {
-            get { return orderId; }
+            get
+            {
+                return orderId;
+            }
             set
             {
                 orderId = value;
@@ -633,7 +776,10 @@ namespace ESI_ITE.ViewModel
         private int pickId;
         public int PickId
         {
-            get { return pickId; }
+            get
+            {
+                return pickId;
+            }
             set
             {
                 pickId = value;
@@ -644,7 +790,10 @@ namespace ESI_ITE.ViewModel
         private string invoiceNumber;
         public string InvoiceNumber
         {
-            get { return invoiceNumber; }
+            get
+            {
+                return invoiceNumber;
+            }
             set
             {
                 invoiceNumber = value;
@@ -655,7 +804,10 @@ namespace ESI_ITE.ViewModel
         private string orderNumber;
         public string OrderNumber
         {
-            get { return orderNumber; }
+            get
+            {
+                return orderNumber;
+            }
             set
             {
                 orderNumber = value;
@@ -666,7 +818,10 @@ namespace ESI_ITE.ViewModel
         private string customerName;
         public string CustomerName
         {
-            get { return customerName; }
+            get
+            {
+                return customerName;
+            }
             set
             {
                 customerName = value;
@@ -677,7 +832,10 @@ namespace ESI_ITE.ViewModel
         private int soCasesQuantity;
         public int SoCasesQuantity
         {
-            get { return soCasesQuantity; }
+            get
+            {
+                return soCasesQuantity;
+            }
             set
             {
                 soCasesQuantity = value;
@@ -688,7 +846,10 @@ namespace ESI_ITE.ViewModel
         private int soPiecesQuantity;
         public int SoPiecesQuantity
         {
-            get { return soPiecesQuantity; }
+            get
+            {
+                return soPiecesQuantity;
+            }
             set
             {
                 soPiecesQuantity = value;
@@ -699,7 +860,10 @@ namespace ESI_ITE.ViewModel
         private int allocCasesQuantity;
         public int AllocCasesQuantity
         {
-            get { return allocCasesQuantity; }
+            get
+            {
+                return allocCasesQuantity;
+            }
             set
             {
                 allocCasesQuantity = value;
@@ -710,13 +874,15 @@ namespace ESI_ITE.ViewModel
         private int allocPiecesQuantity;
         public int AllocPiecesQuantity
         {
-            get { return allocPiecesQuantity; }
+            get
+            {
+                return allocPiecesQuantity;
+            }
             set
             {
                 allocPiecesQuantity = value;
                 OnPropertyChanged();
             }
         }
-
     }
 }

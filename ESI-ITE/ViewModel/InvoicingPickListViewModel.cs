@@ -8,15 +8,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Markup;
-using System.Windows.Threading;
 
 namespace ESI_ITE.ViewModel
 {
@@ -43,7 +39,10 @@ namespace ESI_ITE.ViewModel
         private List<SalesOrderModel> salesOrderList = new List<SalesOrderModel>();
         public List<SalesOrderModel> SalesOrderList
         {
-            get { return salesOrderList; }
+            get
+            {
+                return salesOrderList;
+            }
             set
             {
                 salesOrderList = value;
@@ -54,7 +53,10 @@ namespace ESI_ITE.ViewModel
         private List<PickListHeaderModel> pickHeadList = new List<PickListHeaderModel>();
         public List<PickListHeaderModel> PickHeadList
         {
-            get { return pickHeadList; }
+            get
+            {
+                return pickHeadList;
+            }
             set
             {
                 pickHeadList = value;
@@ -66,7 +68,10 @@ namespace ESI_ITE.ViewModel
         private ObservableCollection<PickListSO> picklistSalesOrdersCollection = new ObservableCollection<PickListSO>();
         public ObservableCollection<PickListSO> PicklistSalesOrdersCollection
         {
-            get { return picklistSalesOrdersCollection; }
+            get
+            {
+                return picklistSalesOrdersCollection;
+            }
             set
             {
                 picklistSalesOrdersCollection = value;
@@ -77,7 +82,10 @@ namespace ESI_ITE.ViewModel
         private ObservableCollection<List<string>> districtCollection = new ObservableCollection<List<string>>();
         public ObservableCollection<List<string>> DistrictCollection
         {
-            get { return districtCollection; }
+            get
+            {
+                return districtCollection;
+            }
             set
             {
                 districtCollection = value;
@@ -88,7 +96,10 @@ namespace ESI_ITE.ViewModel
         private ObservableCollection<List<string>> picklistCollection = new ObservableCollection<List<string>>();
         public ObservableCollection<List<string>> PicklistCollection
         {
-            get { return picklistCollection; }
+            get
+            {
+                return picklistCollection;
+            }
             set
             {
                 picklistCollection = value;
@@ -100,7 +111,10 @@ namespace ESI_ITE.ViewModel
         private PickListSO selectedOrder;
         public PickListSO SelectedOrder
         {
-            get { return selectedOrder; }
+            get
+            {
+                return selectedOrder;
+            }
             set
             {
                 selectedOrder = value;
@@ -111,7 +125,10 @@ namespace ESI_ITE.ViewModel
         private List<string> selectedDistrict;
         public List<string> SelectedDistrict
         {
-            get { return selectedDistrict; }
+            get
+            {
+                return selectedDistrict;
+            }
             set
             {
                 selectedDistrict = value;
@@ -122,7 +139,10 @@ namespace ESI_ITE.ViewModel
         private List<string> selectedPickList;
         public List<string> SelectedPickList
         {
-            get { return selectedPickList; }
+            get
+            {
+                return selectedPickList;
+            }
             set
             {
                 selectedPickList = value;
@@ -135,7 +155,10 @@ namespace ESI_ITE.ViewModel
         private int selectedIndexOrder = -1;
         public int SelectedIndexOrder
         {
-            get { return selectedIndexOrder; }
+            get
+            {
+                return selectedIndexOrder;
+            }
             set
             {
                 selectedIndexOrder = value;
@@ -146,7 +169,10 @@ namespace ESI_ITE.ViewModel
         private int selectedIndexDistrict = 0;
         public int SelectedIndexDistrict
         {
-            get { return selectedIndexDistrict; }
+            get
+            {
+                return selectedIndexDistrict;
+            }
             set
             {
                 selectedIndexDistrict = value;
@@ -157,7 +183,10 @@ namespace ESI_ITE.ViewModel
         private int selectedIndexPickList = 0;
         public int SelectedIndexPickList
         {
-            get { return selectedIndexPickList; }
+            get
+            {
+                return selectedIndexPickList;
+            }
             set
             {
                 selectedIndexPickList = value;
@@ -169,7 +198,10 @@ namespace ESI_ITE.ViewModel
         private string orderBeginDate;
         public string OrderBeginDate
         {
-            get { return orderBeginDate; }
+            get
+            {
+                return orderBeginDate;
+            }
             set
             {
                 orderBeginDate = value;
@@ -180,7 +212,10 @@ namespace ESI_ITE.ViewModel
         private string orderEndDate;
         public string OrderEndDate
         {
-            get { return orderEndDate; }
+            get
+            {
+                return orderEndDate;
+            }
             set
             {
                 orderEndDate = value;
@@ -191,7 +226,10 @@ namespace ESI_ITE.ViewModel
         private bool hasAllSelected = false;
         public bool HasAllSelected
         {
-            get { return hasAllSelected; }
+            get
+            {
+                return hasAllSelected;
+            }
             set
             {
                 if (value != hasAllSelected)
@@ -208,7 +246,10 @@ namespace ESI_ITE.ViewModel
         private string informationUpdates;
         public string InformationUpdates
         {
-            get { return informationUpdates; }
+            get
+            {
+                return informationUpdates;
+            }
             set
             {
                 informationUpdates = value;
@@ -225,49 +266,73 @@ namespace ESI_ITE.ViewModel
         private DelegateCommand applyFilterCommand;
         public ICommand ApplyFilterCommand
         {
-            get { return applyFilterCommand; }
+            get
+            {
+                return applyFilterCommand;
+            }
         }
 
         private DelegateCommand showAllCommand;
         public ICommand ShowAllCommand
         {
-            get { return showAllCommand; }
+            get
+            {
+                return showAllCommand;
+            }
         }
 
         private DelegateCommand allocateStocksCommand;
         public ICommand AllocateStocksCommand
         {
-            get { return allocateStocksCommand; }
+            get
+            {
+                return allocateStocksCommand;
+            }
         }
 
         private DelegateCommand deallocateStocksCommand;
         public ICommand DeallocateStocksCommand
         {
-            get { return deallocateStocksCommand; }
+            get
+            {
+                return deallocateStocksCommand;
+            }
         }
 
         private DelegateCommand printPicklistCommand;
         public ICommand PrintPicklistCommand
         {
-            get { return printPicklistCommand; }
+            get
+            {
+                return printPicklistCommand;
+            }
         }
 
         private DelegateCommand itemCheckedCommand;
         public ICommand ItemCheckedCommand
         {
-            get { return itemCheckedCommand; }
+            get
+            {
+                return itemCheckedCommand;
+            }
         }
 
         private DelegateCommand itemUncheckedCommand;
         public ICommand ItemUncheckedCommand
         {
-            get { return itemUncheckedCommand; }
+            get
+            {
+                return itemUncheckedCommand;
+            }
         }
 
         private DelegateCommand selectAllCommand;
         public ICommand SelectAllCommand
         {
-            get { return selectAllCommand; }
+            get
+            {
+                return selectAllCommand;
+            }
         }
 
         #endregion
@@ -281,7 +346,10 @@ namespace ESI_ITE.ViewModel
         private bool isAllocateable = false;
         public bool IsAllocateable
         {
-            get { return isAllocateable; }
+            get
+            {
+                return isAllocateable;
+            }
             set
             {
                 isAllocateable = value;
@@ -292,7 +360,10 @@ namespace ESI_ITE.ViewModel
         private bool isDeallocateable;
         public bool IsDeallocateable
         {
-            get { return isDeallocateable; }
+            get
+            {
+                return isDeallocateable;
+            }
             set
             {
                 isDeallocateable = value;
@@ -303,7 +374,10 @@ namespace ESI_ITE.ViewModel
         private bool isWaitingVisible = false;
         public bool IsWaitingVisible
         {
-            get { return isWaitingVisible; }
+            get
+            {
+                return isWaitingVisible;
+            }
             set
             {
                 isWaitingVisible = value;
@@ -314,7 +388,10 @@ namespace ESI_ITE.ViewModel
         private bool isFilterEnabled = true;
         public bool IsFilterEnabled
         {
-            get { return isFilterEnabled; }
+            get
+            {
+                return isFilterEnabled;
+            }
             set
             {
                 isFilterEnabled = value;
@@ -325,7 +402,10 @@ namespace ESI_ITE.ViewModel
         private bool isShowAllEnabled = true;
         public bool IsShowAllEnabled
         {
-            get { return isShowAllEnabled; }
+            get
+            {
+                return isShowAllEnabled;
+            }
             set
             {
                 isShowAllEnabled = value;
@@ -715,7 +795,7 @@ namespace ESI_ITE.ViewModel
                         }
                     }
 
-                    ordersToBeRemoved.Add(index, order.SoNumber);
+                    ordersToBeRemoved.Add(index, order.SoNumber);                                                                                                  
                     allocatePerOrder(order.SoNumber, pickHead);
                 }
                 index++;
@@ -1067,7 +1147,8 @@ namespace ESI_ITE.ViewModel
 
                 var pickList = pick.FetchPerPickHead(pickhead.Id.ToString());
 
-                InventoryDummy2Model inventoryDummy = new InventoryDummy2Model(); ;
+                InventoryDummy2Model inventoryDummy = new InventoryDummy2Model();
+                ;
                 SalesOrderModel order = new SalesOrderModel();
                 CustomerModel customer = new CustomerModel();
                 TermModel term = new TermModel();
@@ -1189,6 +1270,9 @@ namespace ESI_ITE.ViewModel
 
                 foreach (var item in tempItemList)
                 {
+                    if (int.Parse(item[5]) + int.Parse(item[6]) <= 0)
+                        continue;
+
                     if (item[1].Length >= 45)
                         listHeight += 32;
                     else
@@ -1305,7 +1389,10 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        public object Dispatcher { get; private set; }
+        public object Dispatcher
+        {
+            get; private set;
+        }
         #endregion
 
         #region Validation
@@ -1434,7 +1521,10 @@ namespace ESI_ITE.ViewModel
         private bool isSelected;
         public bool IsSelected
         {
-            get { return isSelected; }
+            get
+            {
+                return isSelected;
+            }
             set
             {
                 isSelected = value;
@@ -1445,64 +1535,118 @@ namespace ESI_ITE.ViewModel
         private int orderId;
         public int OrderId
         {
-            get { return orderId; }
-            set { orderId = value; }
+            get
+            {
+                return orderId;
+            }
+            set
+            {
+                orderId = value;
+            }
         }
 
         private string soNumber;
         public string SoNumber
         {
-            get { return soNumber; }
-            set { soNumber = value; }
+            get
+            {
+                return soNumber;
+            }
+            set
+            {
+                soNumber = value;
+            }
         }
 
         private string customerName;
         public string CustomerName
         {
-            get { return customerName; }
-            set { customerName = value; }
+            get
+            {
+                return customerName;
+            }
+            set
+            {
+                customerName = value;
+            }
         }
 
         private decimal orderAmount;
         public decimal OrderAmount
         {
-            get { return orderAmount; }
-            set { orderAmount = value; }
+            get
+            {
+                return orderAmount;
+            }
+            set
+            {
+                orderAmount = value;
+            }
         }
 
         private DateTime soDate;
         public DateTime SoDate
         {
-            get { return soDate; }
-            set { soDate = value; }
+            get
+            {
+                return soDate;
+            }
+            set
+            {
+                soDate = value;
+            }
         }
 
         private string status;
         public string Status
         {
-            get { return status; }
-            set { status = value; }
+            get
+            {
+                return status;
+            }
+            set
+            {
+                status = value;
+            }
         }
 
         private string term;
         public string Term
         {
-            get { return term; }
-            set { term = value; }
+            get
+            {
+                return term;
+            }
+            set
+            {
+                term = value;
+            }
         }
 
         private string address;
         public string Address
         {
-            get { return address; }
-            set { address = value; }
+            get
+            {
+                return address;
+            }
+            set
+            {
+                address = value;
+            }
         }
 
         private string district;
         public string District
         {
-            get { return district; }
-            set { district = value; }
+            get
+            {
+                return district;
+            }
+            set
+            {
+                district = value;
+            }
         }
     }
 }

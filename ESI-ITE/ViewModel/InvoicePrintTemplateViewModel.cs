@@ -230,7 +230,7 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private bool labelVisibility = false;
+        private bool labelVisibility = true;
         public bool LabelVisibility
         {
             get { return labelVisibility; }

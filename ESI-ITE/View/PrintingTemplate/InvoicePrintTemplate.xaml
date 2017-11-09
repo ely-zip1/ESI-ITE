@@ -95,7 +95,7 @@
                 <TextBlock Text="{Binding TermCode}"/>
             </StackPanel>
 
-            <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Bottom">
+            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Bottom">
                 <TextBlock Text="    " FontSize="9" Visibility="{Binding LabelVisibility,Converter={StaticResource boolToVisConverter}}"/>
                 <TextBlock Text="{Binding Address}"/>
             </StackPanel>
