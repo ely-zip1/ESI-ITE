@@ -577,9 +577,13 @@ namespace ESI_ITE.ViewModel
                         foreach (var allocatedItem in allocatedOrderItems)
                         {
                             var itemExists = false;
+                            var priceObj = new PriceSellingModel();
 
                             inventoryDummy = (InventoryDummy2Model)inventoryDummy.Fetch(allocatedItem.InventoryDummyId.ToString(), "id");
                             itemMaster = (ItemModel)itemMaster.Fetch(inventoryDummy.ItemCode, "code");
+                            priceType = (PriceTypeModel)priceType.Fetch(inventoryDummy.PriceType, "code");
+
+                            var itemPrice = priceObj.FetchPrice(itemMaster.ItemId.ToString(), priceType.PriceTypeId.ToString());
 
                             if (invoiceableItems.Count > 0)
                             {
@@ -607,8 +611,8 @@ namespace ESI_ITE.ViewModel
                                     _invoiceableItem.ItemDescription = itemMaster.Description;
                                     _invoiceableItem.Cases = allocatedItem.Cases;
                                     _invoiceableItem.Pieces = allocatedItem.Pieces;
-                                    _invoiceableItem.PricePerCase = itemMaster.PackSize * itemMaster.PackSizeBO * itemMaster.CurrentPrice;
-                                    //_invoiceableItem.PricePerPiece = price.;
+                                    _invoiceableItem.PricePerCase = itemPrice.SellingPrice;
+                                    _invoiceableItem.PricePerPiece = itemPrice.SellingPrice / itemMaster.PackSize;
                                     _invoiceableItem.Amount = (_invoiceableItem.Cases * _invoiceableItem.PricePerCase) + (_invoiceableItem.Pieces * _invoiceableItem.PricePerPiece);
 
                                     invoiceableItems.Add(_invoiceableItem);
@@ -620,8 +624,8 @@ namespace ESI_ITE.ViewModel
                                 _invoiceableItem.ItemDescription = itemMaster.Description;
                                 _invoiceableItem.Cases = allocatedItem.Cases;
                                 _invoiceableItem.Pieces = allocatedItem.Pieces;
-                                _invoiceableItem.PricePerCase = itemMaster.PackSize * itemMaster.PackSizeBO * itemMaster.CurrentPrice;
-                                _invoiceableItem.PricePerPiece = itemMaster.CurrentPrice;
+                                _invoiceableItem.PricePerCase = itemPrice.SellingPrice;
+                                _invoiceableItem.PricePerPiece =itemPrice.SellingPrice/ itemMaster.PackSize;
                                 _invoiceableItem.Amount = (_invoiceableItem.Cases * _invoiceableItem.PricePerCase) + (_invoiceableItem.Pieces * _invoiceableItem.PricePerPiece);
 
                                 invoiceableItems.Add(_invoiceableItem);
@@ -629,7 +633,7 @@ namespace ESI_ITE.ViewModel
                         }
 
                         // content - ITEM LIST
-                        var newPage = CreateNewPage(invoiceHeader, pageNumber++);
+                        var newPage = CreateNewPage(invoiceHeader, pageNumber++); 
                         fixedDoc.Pages.Add((PageContent)newPage[1]);
                         invoiceTemplateViewModel = (InvoicePrintTemplateViewModel)newPage[0];
 
@@ -670,9 +674,9 @@ namespace ESI_ITE.ViewModel
 
                         invoiceTemplateViewModel.TotalCases = totalCases;
                         invoiceTemplateViewModel.TotalPieces = totalPieces;
-                        invoiceTemplateViewModel.TotalAmount = totalAmount.ToString();
-                        invoiceTemplateViewModel.VatAmount = (totalAmount * decimal.Parse("0.12")).ToString();
-                        invoiceTemplateViewModel.TaxedTotal = (totalAmount - decimal.Parse(invoiceTemplateViewModel.VatAmount)).ToString();
+                        invoiceTemplateViewModel.TotalAmount = totalAmount.ToString("#,###.#0");
+                        invoiceTemplateViewModel.VatAmount = (totalAmount * decimal.Parse("0.12")).ToString("#,###.#0");
+                        invoiceTemplateViewModel.TaxedTotal = (totalAmount - decimal.Parse(invoiceTemplateViewModel.VatAmount)).ToString("#,###.#0");
                     }
                 }
             });
