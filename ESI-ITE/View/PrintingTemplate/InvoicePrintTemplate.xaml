@@ -127,22 +127,22 @@
                             <TextBlock Width="270" Foreground="Black" Text="{Binding ItemDescription}"/>
                             <TextBlock Width="30" Foreground="Black" Text="{Binding Cases}" TextAlignment="Right"/>
                             <TextBlock Width="30" Foreground="Black" Text="{Binding Pieces}" TextAlignment="Right"/>
-                            <TextBlock Width="70" Foreground="Black" Text="{Binding PricePerCase, StringFormat={}{0:#,###.#0}}" TextAlignment="Right"/>
-                            <TextBlock Width="70" Foreground="Black" Text="{Binding PricePerPiece, StringFormat={}{0:#,###.#0}}" TextAlignment="Right"/>
-                            <TextBlock Width="120" Foreground="Black" FontFamily="consolas" Text="{Binding Amount, StringFormat={}{0:#,###.#0}}" TextAlignment="Right"/>
+                            <TextBlock Width="90" Foreground="Black" Text="{Binding CasesPrice}" TextAlignment="Right"/>
+                            <TextBlock Width="90" Foreground="Black" Text="{Binding PiecesPrice}" TextAlignment="Right"/>
+                            <TextBlock Width="100" Foreground="Black" Text="{Binding Amount}" TextAlignment="Right"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
 
             <!--#region Total-->
-            <Grid Grid.Row="3" Grid.ColumnSpan="2" >
+            <Grid Grid.Row="3" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="270"></ColumnDefinition>
-                    <ColumnDefinition Width="35"></ColumnDefinition>
-                    <ColumnDefinition Width="35"></ColumnDefinition>
-                    <ColumnDefinition Width="125"></ColumnDefinition>
-                    <ColumnDefinition Width="135"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                    <ColumnDefinition Width="130"></ColumnDefinition>
+                    <ColumnDefinition Width="140"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"></RowDefinition>
@@ -150,14 +150,14 @@
                     <RowDefinition Height="30"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Column="1" FontFamily="consolas" Text="{Binding TotalCases}" TextAlignment="Right" Background="Transparent" Foreground="Black" HorizontalContentAlignment="Right" BorderThickness="0,1,0,0" BorderBrush="Black" FontSize="11" IsHitTestVisible="False"/>
-                <TextBox Grid.Column="2" FontFamily="consolas" Text="{Binding TotalPieces}" TextAlignment="Right" Background="Transparent" Foreground="Black" HorizontalContentAlignment="Right" BorderThickness="0,1,0,0" BorderBrush="Black"  FontSize="11" Margin="2,0,0,0" IsHitTestVisible="False"/>
-                <TextBox Grid.Column="4" FontFamily="consolas" Text="{Binding TotalAmount}" TextAlignment="Right" Background="Transparent" Foreground="Black" HorizontalContentAlignment="Right" BorderThickness="0,1,0,0" BorderBrush="Black" FontSize="11" IsHitTestVisible="False" Height="30" VerticalAlignment="Top"/>
+                <TextBox Grid.Column="1" Text="{Binding TotalCases}" TextAlignment="Right" Background="Transparent" Foreground="Black" HorizontalContentAlignment="Right" BorderThickness="0,1,0,0" BorderBrush="Black" FontSize="11"/>
+                <TextBox Grid.Column="2" Text="{Binding TotalPieces}" TextAlignment="Right" Background="Transparent" Foreground="Black" HorizontalContentAlignment="Right" BorderThickness="0,1,0,0" BorderBrush="Black"  FontSize="11" Margin="2,0,0,0"/>
+                <TextBox Grid.Column="4" Text="{Binding TotalAmount}" TextAlignment="Right" Background="Transparent" Foreground="Black" HorizontalContentAlignment="Right" BorderThickness="0,1,0,0" BorderBrush="Black" FontSize="11"/>
 
                 <TextBox Grid.Column="3" Grid.Row="1" Text="12% VAT" Background="Transparent" Foreground="Black" HorizontalContentAlignment="Right" BorderBrush="Transparent" FontSize="11"/>
-                <TextBox Grid.Column="4" Grid.Row="1" FontFamily="consolas" Text="{Binding VatAmount}" TextAlignment="Right" Background="Transparent" Foreground="Black" HorizontalContentAlignment="Right" BorderThickness="0,0,0,1" BorderBrush="Black" FontSize="11"/>
+                <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding VatAmount}" TextAlignment="Right" Background="Transparent" Foreground="Black" HorizontalContentAlignment="Right" BorderBrush="Transparent" FontSize="11"/>
 
-                <TextBox Grid.Column="4" Grid.Row="2" FontFamily="consolas" Text="{Binding TaxedTotal}" TextAlignment="Right" Background="Transparent" Foreground="Black" HorizontalContentAlignment="Right" BorderBrush="Transparent" FontSize="11"/>
+                <TextBox Grid.Column="4" Grid.Row="2" Text="{Binding TaxedTotal}" TextAlignment="Right" Background="Transparent" Foreground="Black" HorizontalContentAlignment="Right" BorderThickness="0,1,0,0" BorderBrush="Black" FontSize="11"/>
             </Grid>
             <!--#endregion-->
         </Grid>

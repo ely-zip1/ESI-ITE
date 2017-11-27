@@ -7,7 +7,7 @@ using ESI_ITE.Data_Access;
 
 namespace ESI_ITE.Model
 {
-    public class PriceTypeModel : IModelTemplate
+    public class PriceTypeModel: IModelTemplate
     {
         #region Properties
 
@@ -16,83 +16,59 @@ namespace ESI_ITE.Model
         private int priceTypeId;
         public int PriceTypeId
         {
-            get
-            {
-                return priceTypeId;
-            }
-            set
-            {
-                priceTypeId = value;
-            }
+            get { return priceTypeId; }
+            set { priceTypeId = value; }
         }
 
         private string code;
         public string Code
         {
-            get
-            {
-                return code;
-            }
-            set
-            {
-                code = value;
-            }
+            get { return code; }
+            set { code = value; }
         }
 
         private string description;
         public string Description
         {
-            get
-            {
-                return description;
-            }
-            set
-            {
-                description = value;
-            }
+            get { return description; }
+            set { description = value; }
         }
 
         private bool modify;
         public bool Modify
         {
-            get
-            {
-                return modify;
-            }
-            set
-            {
-                modify = value;
-            }
+            get { return modify; }
+            set { modify = value; }
         }
 
 
         #endregion
 
-        public void AddNew(object item)
+        public void AddNew( object item )
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteItem(string qry)
+        public void DeleteItem( string qry )
         {
             throw new NotImplementedException();
         }
 
-        public object Fetch(string id, string type)
+        public object Fetch( string id, string type )
         {
             var pricetype = new PriceTypeModel();
 
             var record = new List<CloneableDictionary<string, string>>();
-            if (type == "code")
+            if ( type == "code" )
             {
                 record = db.SelectMultiple("select * from pricetype where code = '" + id + "'");
             }
-            else if (type == "id")
+            else if ( type == "id" )
             {
                 record = db.SelectMultiple("select * from pricetype where pricetype_id = '" + id + "'");
             }
 
-            foreach (var row in record)
+            foreach ( var row in record )
             {
                 var clone = row.Clone();
 
@@ -105,7 +81,7 @@ namespace ESI_ITE.Model
             return pricetype;
         }
 
-        public List<object> FetchAll()
+        public List<object> FetchAll( )
         {
             List<object> list = new List<object>();
 
@@ -113,7 +89,7 @@ namespace ESI_ITE.Model
 
             list.Clear();
 
-            foreach (var row in record)
+            foreach ( var row in record )
             {
                 var pricetype = new PriceTypeModel();
                 var clone = row.Clone();
@@ -129,12 +105,12 @@ namespace ESI_ITE.Model
             return list;
         }
 
-        public List<PriceTypeModel> FetchPerItem(string itemId)
+        public List<PriceTypeModel> FetchPerItem( string itemId )
         {
             var pricetypeList = new List<PriceTypeModel>();
             var results = db.SelectMultiple("select * from price_selling where item_id = '" + itemId + "'");
 
-            foreach (var row in results)
+            foreach ( var row in results )
             {
                 pricetypeList.Add((PriceTypeModel)this.Fetch(row["pricetype_id"], "id"));
             }
@@ -142,7 +118,7 @@ namespace ESI_ITE.Model
             return pricetypeList;
         }
 
-        public void UpdateItem(string qry)
+        public void UpdateItem( string qry )
         {
             throw new NotImplementedException();
         }
