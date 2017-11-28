@@ -17,50 +17,92 @@ namespace ESI_ITE.Model
         private int id;
         public int Id
         {
-            get { return id; }
-            set { id = value; }
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+            }
         }
 
         private int itemId;
         public int ItemId
         {
-            get { return itemId; }
-            set { itemId = value; }
+            get
+            {
+                return itemId;
+            }
+            set
+            {
+                itemId = value;
+            }
         }
 
         private int priceTypeId;
         public int PriceTypeId
         {
-            get { return priceTypeId; }
-            set { priceTypeId = value; }
+            get
+            {
+                return priceTypeId;
+            }
+            set
+            {
+                priceTypeId = value;
+            }
         }
 
         private decimal sellingPrice;
         public decimal SellingPrice
         {
-            get { return sellingPrice; }
-            set { sellingPrice = value; }
+            get
+            {
+                return sellingPrice;
+            }
+            set
+            {
+                sellingPrice = value;
+            }
         }
 
         private DateTime effectiveFrom;
         public DateTime EffectiveFrom
         {
-            get { return effectiveFrom; }
-            set { effectiveFrom = value; }
+            get
+            {
+                return effectiveFrom;
+            }
+            set
+            {
+                effectiveFrom = value;
+            }
         }
 
         private DateTime effectiveTo;
         public DateTime EffectiveTo
         {
-            get { return effectiveTo; }
-            set { effectiveTo = value; }
+            get
+            {
+                return effectiveTo;
+            }
+            set
+            {
+                effectiveTo = value;
+            }
         }
 
         private bool isCurrent;
         public bool IsCurrent
         {
-            get { return isCurrent; }
-            set { isCurrent = value; }
+            get
+            {
+                return isCurrent;
+            }
+            set
+            {
+                isCurrent = value;
+            }
         }
 
 
@@ -136,7 +178,7 @@ namespace ESI_ITE.Model
         {
             var price = new PriceSellingModel();
 
-            var results = db.SelectMultiple("select * from price_selling where code = '" + id + "'");
+            var results = db.SelectMultiple("select * from price_selling where item_id = '" + itemId + "' and pricetype_id = '" + priceType + "'");
 
             foreach (var row in results)
             {
