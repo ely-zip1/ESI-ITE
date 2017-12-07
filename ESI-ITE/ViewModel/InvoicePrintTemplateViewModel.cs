@@ -13,7 +13,10 @@ namespace ESI_ITE.ViewModel
         private string invoiceNumber;
         public string InvoiceNumber
         {
-            get { return invoiceNumber; }
+            get
+            {
+                return invoiceNumber;
+            }
             set
             {
                 invoiceNumber = value;
@@ -24,7 +27,10 @@ namespace ESI_ITE.ViewModel
         private string invoiceDate;
         public string InvoiceDate
         {
-            get { return invoiceDate; }
+            get
+            {
+                return invoiceDate;
+            }
             set
             {
                 invoiceDate = value;
@@ -35,7 +41,10 @@ namespace ESI_ITE.ViewModel
         private string accountNumber;
         public string AccountNumber
         {
-            get { return accountNumber; }
+            get
+            {
+                return accountNumber;
+            }
             set
             {
                 accountNumber = value;
@@ -46,7 +55,10 @@ namespace ESI_ITE.ViewModel
         private string salesman;
         public string Salesman
         {
-            get { return salesman; }
+            get
+            {
+                return salesman;
+            }
             set
             {
                 salesman = value;
@@ -57,7 +69,10 @@ namespace ESI_ITE.ViewModel
         private string district;
         public string District
         {
-            get { return district; }
+            get
+            {
+                return district;
+            }
             set
             {
                 district = value;
@@ -68,7 +83,10 @@ namespace ESI_ITE.ViewModel
         private string warehouse;
         public string Warehouse
         {
-            get { return warehouse; }
+            get
+            {
+                return warehouse;
+            }
             set
             {
                 warehouse = value;
@@ -79,7 +97,10 @@ namespace ESI_ITE.ViewModel
         private string customer;
         public string Customer
         {
-            get { return customer; }
+            get
+            {
+                return customer;
+            }
             set
             {
                 customer = value;
@@ -90,7 +111,10 @@ namespace ESI_ITE.ViewModel
         private string orderNumber;
         public string OrderNumber
         {
-            get { return orderNumber; }
+            get
+            {
+                return orderNumber;
+            }
             set
             {
                 orderNumber = value;
@@ -101,7 +125,10 @@ namespace ESI_ITE.ViewModel
         private string orderDate;
         public string OrderDate
         {
-            get { return orderDate; }
+            get
+            {
+                return orderDate;
+            }
             set
             {
                 orderDate = value;
@@ -112,7 +139,10 @@ namespace ESI_ITE.ViewModel
         private string termcode;
         public string TermCode
         {
-            get { return termcode; }
+            get
+            {
+                return termcode;
+            }
             set
             {
                 termcode = value;
@@ -123,7 +153,10 @@ namespace ESI_ITE.ViewModel
         private string address;
         public string Address
         {
-            get { return address; }
+            get
+            {
+                return address;
+            }
             set
             {
                 address = value;
@@ -134,7 +167,10 @@ namespace ESI_ITE.ViewModel
         private string deliveryNotes;
         public string DeliveryNotes
         {
-            get { return deliveryNotes; }
+            get
+            {
+                return deliveryNotes;
+            }
             set
             {
                 deliveryNotes = value;
@@ -145,7 +181,10 @@ namespace ESI_ITE.ViewModel
         private int totalCases;
         public int TotalCases
         {
-            get { return totalCases; }
+            get
+            {
+                return totalCases;
+            }
             set
             {
                 totalCases = value;
@@ -156,7 +195,10 @@ namespace ESI_ITE.ViewModel
         private int totalPieces;
         public int TotalPieces
         {
-            get { return totalPieces; }
+            get
+            {
+                return totalPieces;
+            }
             set
             {
                 totalPieces = value;
@@ -167,7 +209,10 @@ namespace ESI_ITE.ViewModel
         private string totalAmount;
         public string TotalAmount
         {
-            get { return totalAmount; }
+            get
+            {
+                return totalAmount;
+            }
             set
             {
                 totalAmount = value;
@@ -178,7 +223,10 @@ namespace ESI_ITE.ViewModel
         private string vatAmount;
         public string VatAmount
         {
-            get { return vatAmount; }
+            get
+            {
+                return vatAmount;
+            }
             set
             {
                 vatAmount = value;
@@ -189,7 +237,10 @@ namespace ESI_ITE.ViewModel
         private string taxedTotal;
         public string TaxedTotal
         {
-            get { return taxedTotal; }
+            get
+            {
+                return taxedTotal;
+            }
             set
             {
                 taxedTotal = value;
@@ -200,7 +251,10 @@ namespace ESI_ITE.ViewModel
         private string note;
         public string Note
         {
-            get { return note; }
+            get
+            {
+                return note;
+            }
             set
             {
                 note = value;
@@ -211,7 +265,10 @@ namespace ESI_ITE.ViewModel
         private int pageNumber;
         public int PageNumber
         {
-            get { return pageNumber; }
+            get
+            {
+                return pageNumber;
+            }
             set
             {
                 pageNumber = value;
@@ -222,7 +279,10 @@ namespace ESI_ITE.ViewModel
         private ObservableCollection<InvoiceItems> itemList = new ObservableCollection<InvoiceItems>();
         public ObservableCollection<InvoiceItems> ItemList
         {
-            get { return itemList; }
+            get
+            {
+                return itemList;
+            }
             set
             {
                 itemList = value;
@@ -233,7 +293,10 @@ namespace ESI_ITE.ViewModel
         private bool labelVisibility = true;
         public bool LabelVisibility
         {
-            get { return labelVisibility; }
+            get
+            {
+                return labelVisibility;
+            }
             set
             {
                 labelVisibility = value;
@@ -249,43 +312,79 @@ namespace ESI_ITE.ViewModel
         private string itemDescription;
         public string ItemDescription
         {
-            get { return itemDescription; }
-            set { itemDescription = value; }
+            get
+            {
+                return itemDescription;
+            }
+            set
+            {
+                itemDescription = value;
+            }
         }
 
         private int cases;
         public int Cases
         {
-            get { return cases; }
-            set { cases = value; }
+            get
+            {
+                return cases;
+            }
+            set
+            {
+                cases = value;
+            }
         }
 
         private int pieces;
         public int Pieces
         {
-            get { return pieces; }
-            set { pieces = value; }
+            get
+            {
+                return pieces;
+            }
+            set
+            {
+                pieces = value;
+            }
         }
 
         private decimal pricePerCase;
         public decimal PricePerCase
         {
-            get { return pricePerCase; }
-            set { pricePerCase = value; }
+            get
+            {
+                return pricePerCase;
+            }
+            set
+            {
+                pricePerCase = value;
+            }
         }
 
         private decimal pricePerPiece;
         public decimal PricePerPiece
         {
-            get { return pricePerPiece; }
-            set { pricePerPiece = value; }
+            get
+            {
+                return pricePerPiece;
+            }
+            set
+            {
+                pricePerPiece = value;
+            }
         }
 
         private decimal amount;
         public decimal Amount
         {
-            get { return amount; }
-            set { amount = value; }
+            get
+            {
+                return amount;
+            }
+            set
+            {
+                amount = value;
+            }
         }
 
     }
@@ -295,85 +394,157 @@ namespace ESI_ITE.ViewModel
         private string invoiceNumber;
         public string InvoiceNumber
         {
-            get { return invoiceNumber; }
-            set { invoiceNumber = value; }
+            get
+            {
+                return invoiceNumber;
+            }
+            set
+            {
+                invoiceNumber = value;
+            }
         }
 
         private string invoiceDate;
         public string InvoiceDate
         {
-            get { return invoiceDate; }
-            set { invoiceDate = value; }
+            get
+            {
+                return invoiceDate;
+            }
+            set
+            {
+                invoiceDate = value;
+            }
         }
 
         private string accountNumber;
         public string AccountNumber
         {
-            get { return accountNumber; }
-            set { accountNumber = value; }
+            get
+            {
+                return accountNumber;
+            }
+            set
+            {
+                accountNumber = value;
+            }
         }
 
         private string saleman;
         public string Salesman
         {
-            get { return saleman; }
-            set { saleman = value; }
+            get
+            {
+                return saleman;
+            }
+            set
+            {
+                saleman = value;
+            }
         }
 
         private string district;
         public string District
         {
-            get { return district; }
-            set { district = value; }
+            get
+            {
+                return district;
+            }
+            set
+            {
+                district = value;
+            }
         }
 
         private string warehouse;
         public string Warehouse
         {
-            get { return warehouse; }
-            set { warehouse = value; }
+            get
+            {
+                return warehouse;
+            }
+            set
+            {
+                warehouse = value;
+            }
         }
 
         private string customerName;
         public string CustomerName
         {
-            get { return customerName; }
-            set { customerName = value; }
+            get
+            {
+                return customerName;
+            }
+            set
+            {
+                customerName = value;
+            }
         }
 
         private string customerAddress;
         public string CustomerAddress
         {
-            get { return customerAddress; }
-            set { customerAddress = value; }
+            get
+            {
+                return customerAddress;
+            }
+            set
+            {
+                customerAddress = value;
+            }
         }
 
         private string soNumber;
         public string SoNumber
         {
-            get { return soNumber; }
-            set { soNumber = value; }
+            get
+            {
+                return soNumber;
+            }
+            set
+            {
+                soNumber = value;
+            }
         }
 
         private string soDate;
         public string SoDate
         {
-            get { return soDate; }
-            set { soDate = value; }
+            get
+            {
+                return soDate;
+            }
+            set
+            {
+                soDate = value;
+            }
         }
 
         private string terms;
         public string Terms
         {
-            get { return terms; }
-            set { terms = value; }
+            get
+            {
+                return terms;
+            }
+            set
+            {
+                terms = value;
+            }
         }
 
         private string deliveryNotes;
         public string DeliveryNotes
         {
-            get { return deliveryNotes; }
-            set { deliveryNotes = value; }
+            get
+            {
+                return deliveryNotes;
+            }
+            set
+            {
+                deliveryNotes = value;
+            }
         }
 
     }

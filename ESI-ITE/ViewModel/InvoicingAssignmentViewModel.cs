@@ -676,7 +676,7 @@ namespace ESI_ITE.ViewModel
                         invoiceTemplateViewModel.TotalPieces = totalPieces;
                         invoiceTemplateViewModel.TotalAmount = totalAmount.ToString("#,###.#0");
                         invoiceTemplateViewModel.VatAmount = (totalAmount * decimal.Parse("0.12")).ToString("#,###.#0");
-                        invoiceTemplateViewModel.TaxedTotal = (totalAmount - decimal.Parse(invoiceTemplateViewModel.VatAmount)).ToString("#,###.#0");
+                        invoiceTemplateViewModel.TaxedTotal = (totalAmount + decimal.Parse(invoiceTemplateViewModel.VatAmount)).ToString("#,###.#0");
                     }
                 }
             });

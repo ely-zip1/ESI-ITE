@@ -23,7 +23,10 @@ namespace ESI_ITE.ViewModel
         private ObservableCollection<List<string>> pickListCollection = new ObservableCollection<List<string>>();
         public ObservableCollection<List<string>> PickListCollection
         {
-            get { return pickListCollection; }
+            get
+            {
+                return pickListCollection;
+            }
             set
             {
                 pickListCollection = value;
@@ -34,7 +37,10 @@ namespace ESI_ITE.ViewModel
         private ObservableCollection<List<string>> invoiceCollection = new ObservableCollection<List<string>>();
         public ObservableCollection<List<string>> InvoiceCollection
         {
-            get { return invoiceCollection; }
+            get
+            {
+                return invoiceCollection;
+            }
             set
             {
                 invoiceCollection = value;
@@ -45,7 +51,10 @@ namespace ESI_ITE.ViewModel
         private List<string> selectedPickList;
         public List<string> SelectedPickList
         {
-            get { return selectedPickList; }
+            get
+            {
+                return selectedPickList;
+            }
             set
             {
                 selectedPickList = value;
@@ -56,7 +65,10 @@ namespace ESI_ITE.ViewModel
         private int selectedIndexPickList;
         public int SelectedIndexPickList
         {
-            get { return selectedIndexPickList; }
+            get
+            {
+                return selectedIndexPickList;
+            }
             set
             {
                 selectedIndexPickList = value;
@@ -70,13 +82,19 @@ namespace ESI_ITE.ViewModel
         private DelegateCommand printGatepassCommand;
         public ICommand PrintGatepassCommand
         {
-            get { return printGatepassCommand; }
+            get
+            {
+                return printGatepassCommand;
+            }
         }
 
         private DelegateCommand cancelCommand;
         public ICommand CancelCommand
         {
-            get { return cancelCommand; }
+            get
+            {
+                return cancelCommand;
+            }
         }
 
         #endregion

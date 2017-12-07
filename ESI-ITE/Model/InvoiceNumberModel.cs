@@ -40,9 +40,7 @@ namespace ESI_ITE.Model
         }
 
         #endregion
-
-
-
+        
         public void AddNew(object item)
         {
             var invoiceNumber = (InvoiceNumberModel)item;

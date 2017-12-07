@@ -197,9 +197,13 @@
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="MyGlobals.cs" />
     <Compile Include="Printing\Paginator.cs" />
+    <Compile Include="ViewModel\GatepassPrintTemplateViewModel.cs" />
     <Compile Include="ViewModel\InvoicePrintTemplateViewModel.cs" />
     <Compile Include="ViewModel\PicklistPrintTemplateViewModel.cs" />
     <Compile Include="ViewModel\PrintingMainPageViewModel.cs" />
+    <Compile Include="View\PrintingTemplate\GatepassPrintTemplate.xaml.cs">
+      <DependentUpon>GatepassPrintTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PrintingTemplate\InvoicePrintTemplate.xaml.cs">
       <DependentUpon>InvoicePrintTemplate.xaml</DependentUpon>
     </Compile>
@@ -314,6 +318,10 @@
     <Compile Include="View\TransactionEntryView.xaml.cs">
       <DependentUpon>TransactionEntryView.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\PrintingTemplate\GatepassPrintTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\PrintingTemplate\InvoicePrintTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
