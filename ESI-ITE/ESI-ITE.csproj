@@ -168,6 +168,8 @@
     <Compile Include="Model\IModelTemplate.cs" />
     <Compile Include="Model\InventoryDummy2Model.cs" />
     <Compile Include="Model\InventoryMaster2Model.cs" />
+    <Compile Include="Model\InvoiceHeadModel.cs" />
+    <Compile Include="Model\InvoiceLineModel.cs" />
     <Compile Include="Model\InvoiceNumberModel.cs" />
     <Compile Include="Model\InvoiceModel.cs" />
     <Compile Include="Model\ItemModel.cs" />

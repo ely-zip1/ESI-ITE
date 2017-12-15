@@ -7,7 +7,7 @@ using ESI_ITE.Data_Access;
 
 namespace ESI_ITE.Model
 {
-    public class DistrictModel: IModelTemplate
+    public class DistrictModel : IModelTemplate
     {
         #region Properties
 
@@ -16,49 +16,85 @@ namespace ESI_ITE.Model
         private int districtId;
         public int DistrictId
         {
-            get { return districtId; }
-            set { districtId = value; }
+            get
+            {
+                return districtId;
+            }
+            set
+            {
+                districtId = value;
+            }
         }
 
         private string districtNumber;
         public string DistrictNumber
         {
-            get { return districtNumber; }
-            set { districtNumber = value; }
+            get
+            {
+                return districtNumber;
+            }
+            set
+            {
+                districtNumber = value;
+            }
         }
 
         private string area;
         public string Area
         {
-            get { return area; }
-            set { area = value; }
+            get
+            {
+                return area;
+            }
+            set
+            {
+                area = value;
+            }
         }
 
         private int salesman;
         public int Salesman
         {
-            get { return salesman; }
-            set { salesman = value; }
+            get
+            {
+                return salesman;
+            }
+            set
+            {
+                salesman = value;
+            }
         }
 
         private decimal target;
         public decimal Target
         {
-            get { return target; }
-            set { target = value; }
+            get
+            {
+                return target;
+            }
+            set
+            {
+                target = value;
+            }
         }
 
         private int warehouse;
         public int Warehouse
         {
-            get { return warehouse; }
-            set { warehouse = value; }
+            get
+            {
+                return warehouse;
+            }
+            set
+            {
+                warehouse = value;
+            }
         }
 
         #endregion
 
 
-        public List<object> FetchAll( )
+        public List<object> FetchAll()
         {
             List<object> list = new List<object>();
 
@@ -68,7 +104,7 @@ namespace ESI_ITE.Model
 
             list.Clear();
 
-            foreach ( var row in record )
+            foreach (var row in record)
             {
                 var district = new DistrictModel();
                 var clone = row.Clone();
@@ -86,20 +122,20 @@ namespace ESI_ITE.Model
             return list;
         }
 
-        public object Fetch( string id, string type )
+        public object Fetch(string id, string type)
         {
             DistrictModel district = new DistrictModel();
 
             var record = new List<CloneableDictionary<string, string>>();
 
-            if ( type == "code" )
+            if (type == "code")
                 record = db.SelectMultiple("select * from districts where district_number = '" + id + "'");
-            else if ( type == "id" )
+            else if (type == "id")
                 record = db.SelectMultiple("select * from districts where district_id = '" + id + "'");
 
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
-            foreach ( var row in record )
+            foreach (var row in record)
             {
                 var clone = row.Clone();
 
@@ -115,17 +151,17 @@ namespace ESI_ITE.Model
             return district;
         }
 
-        public void AddNew( object item )
+        public void AddNew(object item)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateItem( string qry )
+        public void UpdateItem(string qry)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteItem( string qry )
+        public void DeleteItem(string qry)
         {
             throw new NotImplementedException();
         }

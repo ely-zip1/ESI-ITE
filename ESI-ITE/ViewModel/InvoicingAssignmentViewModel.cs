@@ -425,10 +425,11 @@ namespace ESI_ITE.ViewModel
         {
             var assignedInvoices = new Dictionary<string, string>();//
                                                                     //[0]Order Number
+                                                                    //[1]Invoice Number
 
             var invoiceObj = new InvoiceModel();
             var invoiceNumberObj = new InvoiceNumberModel();
-            var invoiceNumber = int.Parse(invoiceNumberObj.FetchLatest().InvoiceNumber);                                              //[1]Invoice Number
+            var invoiceNumber = int.Parse(invoiceNumberObj.FetchLatest().InvoiceNumber);                                              
 
             foreach (var _orderToBeInvoiced in OrdersCollection)
             {
@@ -459,35 +460,6 @@ namespace ESI_ITE.ViewModel
 
             return assignedInvoices;
         }
-
-        //private void assignInvoice()
-        //{
-        //    foreach (var _orderToBeInvoiced in OrdersCollection)
-        //    {
-        //        var invoiceObj = new InvoiceModel();
-        //        var invoiceNumberObj = new InvoiceNumberModel();
-
-        //        if (_orderToBeInvoiced.AllocCasesQuantity > 0 || _orderToBeInvoiced.AllocPiecesQuantity > 0)
-        //        {
-        //            var currentInvoiceNumber = int.Parse(invoiceNumberObj.FetchLatest().InvoiceNumber);
-        //            var invoice = new InvoiceModel();
-
-        //            invoice.InvoiceNumber = currentInvoiceNumber++.ToString();
-        //            invoice.PickheadId = _orderToBeInvoiced.PickId;
-        //            invoice.OrderId = _orderToBeInvoiced.OrderId;
-        //            invoice.UserId = MyGlobals.LoggedUser.Id;
-        //            invoice.Date = DateTime.UtcNow;
-
-        //            invoiceObj.AddNew(invoice);
-
-        //            invoiceNumberObj.AddNew(new InvoiceNumberModel());
-
-        //            _orderToBeInvoiced.InvoiceNumber = invoice.InvoiceNumber;
-        //        }
-        //    }
-
-        //    SetCurrentInvoiceNumber();
-        //}
 
         #endregion
 
@@ -625,7 +597,7 @@ namespace ESI_ITE.ViewModel
                                 _invoiceableItem.Cases = allocatedItem.Cases;
                                 _invoiceableItem.Pieces = allocatedItem.Pieces;
                                 _invoiceableItem.PricePerCase = itemPrice.SellingPrice;
-                                _invoiceableItem.PricePerPiece =itemPrice.SellingPrice/ itemMaster.PackSize;
+                                _invoiceableItem.PricePerPiece = itemPrice.SellingPrice / itemMaster.PackSize;
                                 _invoiceableItem.Amount = (_invoiceableItem.Cases * _invoiceableItem.PricePerCase) + (_invoiceableItem.Pieces * _invoiceableItem.PricePerPiece);
 
                                 invoiceableItems.Add(_invoiceableItem);
@@ -633,7 +605,7 @@ namespace ESI_ITE.ViewModel
                         }
 
                         // content - ITEM LIST
-                        var newPage = CreateNewPage(invoiceHeader, pageNumber++); 
+                        var newPage = CreateNewPage(invoiceHeader, pageNumber++);
                         fixedDoc.Pages.Add((PageContent)newPage[1]);
                         invoiceTemplateViewModel = (InvoicePrintTemplateViewModel)newPage[0];
 

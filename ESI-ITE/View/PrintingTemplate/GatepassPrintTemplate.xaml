@@ -17,7 +17,7 @@
 
     <Grid Margin="10">
         <StackPanel Orientation="Vertical">
-            
+
             <!--HEADER-->
             <Grid Height="100" VerticalAlignment="Top" Margin="10,20,10,10">
                 <Grid.ColumnDefinitions>
@@ -32,16 +32,26 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="JAY"/>
-                <TextBlock Grid.Row="1" Text="12/02/17"/>
-                <TextBlock Grid.Row="2" Text="11:07:58"/>
-                <TextBlock Grid.Row="4" Text="GATEPASS # 014089"/>
+                <TextBlock Grid.Row="0" Text="{Binding Username}"/>
+                <TextBlock Grid.Row="1" Text="{Binding GatePassDate}"/>
+                <TextBlock Grid.Row="2" Text="{Binding PrintTime}"/>
+                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                    <TextBlock Text="GATEPASS # "/>
+                    <TextBlock Text="{Binding GatepassNumber}"/>
+                </StackPanel>
 
                 <TextBlock Grid.Column="1" Grid.Row="1" TextAlignment="Center" Text="EXTRACT SALES, INC."/>
                 <TextBlock Grid.Column="1" Grid.Row="2" TextAlignment="Center" Text="GATEPASS"/>
 
-                <TextBlock Grid.Column="2" Grid.Row="1" TextAlignment="Right" Text="PAGE 001"/>
-                <TextBlock Grid.Column="2" Grid.Row="4" TextAlignment="Left" Text="PICKLIST# 053338"/>
+                <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right">
+                    <TextBlock TextAlignment="Right" Text="PAGE "/>
+                    <TextBlock Text="{Binding PageNumber}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Grid.Row="4" Orientation="Horizontal">
+                    <TextBlock Text="PICKLIST# "/>
+                    <TextBlock Text="{Binding PicklistNumber}"/>
+                </StackPanel>
             </Grid>
             <!--TABLE COLUMNS-->
             <Grid>
@@ -106,12 +116,12 @@
                     <ColumnDefinition Width="60"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                
+
                 <TextBlock Text="Totals" TextAlignment="Right" VerticalAlignment="Center" Padding="0,0,20,0"/>
-                
+
                 <TextBox Grid.Column="1" Text="{Binding TotalCases}" Margin="1" TextAlignment="Right" Background="Transparent" 
                          Foreground="Black" BorderThickness="0,1,0,0" BorderBrush="Black" IsHitTestVisible="False"/>
-                
+
                 <TextBox Grid.Column="2" Text="{Binding TotalPieces}" Margin="1" TextAlignment="Right" Background="Transparent" 
                          Foreground="Black" BorderThickness="0,1,0,0" BorderBrush="Black" IsHitTestVisible="False"/>
             </Grid>
@@ -131,8 +141,8 @@
                 <TextBlock Grid.Row="0" Grid.Column="1" Text="Weight(Tons)"/>
                 <TextBlock Grid.Row="1" Grid.Column="1" Text="Value(P)"/>
 
-                <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding TotalWeight}" TextAlignment="Right"/>
-                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding TotalValue}" TextAlignment="Right"/>
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding TotalWeight}" TextAlignment="Right" FontSize="15"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding TotalValue}" TextAlignment="Right" FontSize="15"/>
             </Grid>
 
             <!--AUTHORIZATION-->
