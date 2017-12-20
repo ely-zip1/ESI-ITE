@@ -429,27 +429,67 @@ namespace ESI_ITE.ViewModel
 
             var invoiceObj = new InvoiceModel();
             var invoiceNumberObj = new InvoiceNumberModel();
-            var invoiceNumber = int.Parse(invoiceNumberObj.FetchLatest().InvoiceNumber);                                              
+            var invoiceNumber = int.Parse(invoiceNumberObj.FetchLatest().InvoiceNumber);
 
             foreach (var _orderToBeInvoiced in OrdersCollection)
             {
-
                 if (_orderToBeInvoiced.AllocCasesQuantity > 0 || _orderToBeInvoiced.AllocPiecesQuantity > 0)
                 {
                     var invoice = new InvoiceModel();
+                    var invoiceHead = new InvoiceHeadModel();
 
-                    invoice.InvoiceNumber = invoiceNumber++.ToString();
-                    invoice.PickheadId = _orderToBeInvoiced.PickId;
-                    invoice.OrderId = _orderToBeInvoiced.OrderId;
-                    invoice.UserId = MyGlobals.LoggedUser.Id;
-                    invoice.Date = DateTime.UtcNow;
+                    invoiceHead.InvoiceNumber = invoiceNumber++.ToString();
+                    invoiceHead.InvoiceDate = DateTime.UtcNow;
+                    invoiceHead.UserId = MyGlobals.LoggedUser.Id;
+                    invoiceHead.PickId = _orderToBeInvoiced.PickId;
+                    invoiceHead.OrderId = _orderToBeInvoiced.OrderId;
 
-                    assignedInvoices.Add(_orderToBeInvoiced.OrderNumber, invoice.InvoiceNumber);
+                    var inventoryDummyObj = new InventoryDummy2Model();
+                    var inventoryDummyList = inventoryDummyObj.FetchPerOrder(_orderToBeInvoiced.OrderNumber);
+
+                    var invoiceItemList = new List<InvoiceLineModel>();
+                    foreach (var item in inventoryDummyList)
+                    {
+                        var allocatedItemObj = new AllocatedStocksModel();
+                        var allocatedItemList = allocatedItemObj.FetchPerInventoryDummyItem(item.Id.ToString());
+
+                        var itemObj = new ItemModel();
+                        itemObj = (ItemModel)itemObj.Fetch(item.ItemCode, "code");
+
+                        var invoiceLineItem = new InvoiceLineModel();
+                        invoiceLineItem.ItemId = itemObj.ItemId;
+                        invoiceLineItem.CasePrice = item.PricePerPiece * itemObj.PackSize;
+                        invoiceLineItem.PiecePrice = item.PricePerPiece;
+
+                        foreach (var row in allocatedItemList)
+                        {
+                            invoiceLineItem.Cases += row.Cases;
+                            invoiceLineItem.Pieces += row.Pieces;
+                            invoiceLineItem.LineAmount += (row.Cases * invoiceLineItem.CasePrice) + (row.Pieces * item.PricePerPiece);
+                        }
+
+                        invoiceLineItem.Cases += invoiceLineItem.Pieces / itemObj.PackSize;
+                        invoiceLineItem.Pieces = invoiceLineItem.Pieces % itemObj.PackSize;
+
+                        invoiceItemList.Add(invoiceLineItem);
+                    }
+
+                    invoiceHead.Cases = invoiceItemList.Sum(i => i.Cases);
+                    invoiceHead.Pieces = invoiceItemList.Sum(i => i.Pieces);
+                    invoiceHead.InvoiceAmount = invoiceItemList.Sum(i => i.LineAmount) + (invoiceItemList.Sum(i => i.LineAmount) * decimal.Parse("0.12"));
+
+                    //invoice.InvoiceNumber = invoiceNumber++.ToString();
+                    //invoice.PickheadId = _orderToBeInvoiced.PickId;
+                    //invoice.OrderId = _orderToBeInvoiced.OrderId;
+                    //invoice.UserId = MyGlobals.LoggedUser.Id;
+                    //invoice.Date = DateTime.UtcNow;
+
+                    //assignedInvoices.Add(_orderToBeInvoiced.OrderNumber, invoice.InvoiceNumber);
 
                     //invoiceObj.AddNew(invoice);
-                    InvoiceQueries.Add(invoiceObj.GetAddQuery(invoice));
+                    //InvoiceQueries.Add(invoiceObj.GetAddQuery(invoice));
 
-                    _orderToBeInvoiced.InvoiceNumber = invoice.InvoiceNumber;
+                    _orderToBeInvoiced.InvoiceNumber = invoiceHead.InvoiceNumber;
                 }
             }
 

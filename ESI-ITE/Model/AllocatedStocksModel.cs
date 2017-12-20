@@ -17,43 +17,79 @@ namespace ESI_ITE.Model
         private int id;
         public int Id
         {
-            get { return id; }
-            set { id = value; }
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+            }
         }
 
         private int pickHeadId;
         public int PickHeadId
         {
-            get { return pickHeadId; }
-            set { pickHeadId = value; }
+            get
+            {
+                return pickHeadId;
+            }
+            set
+            {
+                pickHeadId = value;
+            }
         }
 
         private int inventoryDummyId;
         public int InventoryDummyId
         {
-            get { return inventoryDummyId; }
-            set { inventoryDummyId = value; }
+            get
+            {
+                return inventoryDummyId;
+            }
+            set
+            {
+                inventoryDummyId = value;
+            }
         }
 
         private int cases;
         public int Cases
         {
-            get { return cases; }
-            set { cases = value; }
+            get
+            {
+                return cases;
+            }
+            set
+            {
+                cases = value;
+            }
         }
 
         private int pieces;
         public int Pieces
         {
-            get { return pieces; }
-            set { pieces = value; }
+            get
+            {
+                return pieces;
+            }
+            set
+            {
+                pieces = value;
+            }
         }
 
         private int inventoryId;
         public int InventoryId
         {
-            get { return inventoryId; }
-            set { inventoryId = value; }
+            get
+            {
+                return inventoryId;
+            }
+            set
+            {
+                inventoryId = value;
+            }
         }
 
 
@@ -217,6 +253,30 @@ namespace ESI_ITE.Model
                 }
             }
 
+            return ListOfAllocatedStocks;
+        }
+
+        public List<AllocatedStocksModel> FetchPerInventoryDummyItem(string inventoryDummyId)
+        {
+            var ListOfAllocatedStocks = new List<AllocatedStocksModel>();
+
+            var result = db.SelectMultiple("select * from allocated_stocks where inventory_dummy_id = '" + inventoryDummyId + "'");
+
+            foreach (var row in result)
+            {
+                var clone = row.Clone();
+
+                var stock = new AllocatedStocksModel();
+
+                stock.Id = int.Parse(row["allocated_stocks_id"]);
+                stock.PickHeadId = int.Parse(row["pickhead_id"]);
+                stock.InventoryDummyId = int.Parse(row["inventory_dummy_id"]);
+                stock.Cases = int.Parse(row["cases"]);
+                stock.Pieces = int.Parse(row["pieces"]);
+                stock.InventoryId = int.Parse(row["inventory_id"]);
+
+                ListOfAllocatedStocks.Add(stock);
+            }
             return ListOfAllocatedStocks;
         }
 

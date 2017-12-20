@@ -32,7 +32,10 @@ namespace ESI_ITE.ViewModel
         private ObservableCollection<List<string>> picklistCollection = new ObservableCollection<List<string>>();
         public ObservableCollection<List<string>> PicklistCollection
         {
-            get { return picklistCollection; }
+            get
+            {
+                return picklistCollection;
+            }
             set
             {
                 picklistCollection = value;
@@ -42,7 +45,10 @@ namespace ESI_ITE.ViewModel
         private ObservableCollection<CriticalItems> criticalItemCollection = new ObservableCollection<CriticalItems>();
         public ObservableCollection<CriticalItems> CriticalItemCollection
         {
-            get { return criticalItemCollection; }
+            get
+            {
+                return criticalItemCollection;
+            }
             set
             {
                 criticalItemCollection = value;
@@ -53,7 +59,10 @@ namespace ESI_ITE.ViewModel
         private ObservableCollection<PartiallyServedOrders> partiallyServedOrderCollection = new ObservableCollection<PartiallyServedOrders>();
         public ObservableCollection<PartiallyServedOrders> PartiallyServedOrderCollection
         {
-            get { return partiallyServedOrderCollection; }
+            get
+            {
+                return partiallyServedOrderCollection;
+            }
             set
             {
                 partiallyServedOrderCollection = value;
@@ -65,7 +74,10 @@ namespace ESI_ITE.ViewModel
         private List<string> selectedPicklist = new List<string>();
         public List<string> SelectedPicklist
         {
-            get { return selectedPicklist; }
+            get
+            {
+                return selectedPicklist;
+            }
             set
             {
                 selectedPicklist = value;
@@ -78,7 +90,10 @@ namespace ESI_ITE.ViewModel
         private CriticalItems selectedCriticalItem = new CriticalItems();
         public CriticalItems SelectedCriticalItem
         {
-            get { return selectedCriticalItem; }
+            get
+            {
+                return selectedCriticalItem;
+            }
             set
             {
                 selectedCriticalItem = value;
@@ -91,7 +106,10 @@ namespace ESI_ITE.ViewModel
         private PartiallyServedOrders selectedPSO = new PartiallyServedOrders();
         public PartiallyServedOrders SelectedPSO
         {
-            get { return selectedPSO; }
+            get
+            {
+                return selectedPSO;
+            }
             set
             {
                 selectedPSO = value;
@@ -102,7 +120,10 @@ namespace ESI_ITE.ViewModel
         private int selectedIndexPickList = -1;
         public int SelectedIndexPicklist
         {
-            get { return selectedIndexPickList; }
+            get
+            {
+                return selectedIndexPickList;
+            }
             set
             {
                 selectedIndexPickList = value;
@@ -113,7 +134,10 @@ namespace ESI_ITE.ViewModel
         private int selectedIndexCriticalItem = -1;
         public int SelectedIndexCriticalItem
         {
-            get { return selectedIndexCriticalItem; }
+            get
+            {
+                return selectedIndexCriticalItem;
+            }
             set
             {
                 selectedIndexCriticalItem = value;
@@ -125,7 +149,10 @@ namespace ESI_ITE.ViewModel
         private int selectedIndexPSO = -1;
         public int SelectedIndexPSO
         {
-            get { return selectedIndexPSO; }
+            get
+            {
+                return selectedIndexPSO;
+            }
             set
             {
                 selectedIndexPSO = value;
@@ -137,7 +164,10 @@ namespace ESI_ITE.ViewModel
         private int casesOnHand;
         public int CasesOnHand
         {
-            get { return casesOnHand; }
+            get
+            {
+                return casesOnHand;
+            }
             set
             {
                 casesOnHand = value;
@@ -148,7 +178,10 @@ namespace ESI_ITE.ViewModel
         private int piecesOnHand;
         public int PiecesOnHand
         {
-            get { return piecesOnHand; }
+            get
+            {
+                return piecesOnHand;
+            }
             set
             {
                 piecesOnHand = value;
@@ -161,25 +194,37 @@ namespace ESI_ITE.ViewModel
         private DelegateCommand casesValueChangedCommand;
         public ICommand CasesValueChangedCommand
         {
-            get { return casesValueChangedCommand; }
+            get
+            {
+                return casesValueChangedCommand;
+            }
         }
 
         private DelegateCommand piecesValueChangedCommand;
         public ICommand PiecesValueChangedCommand
         {
-            get { return piecesValueChangedCommand; }
+            get
+            {
+                return piecesValueChangedCommand;
+            }
         }
 
         private DelegateCommand cancelAllocationCommand;
         public ICommand CancelAllocationCommand
         {
-            get { return cancelAllocationCommand; }
+            get
+            {
+                return cancelAllocationCommand;
+            }
         }
 
         private DelegateCommand updateStocksCommand;
         public ICommand UpdateStocksCommand
         {
-            get { return updateStocksCommand; }
+            get
+            {
+                return updateStocksCommand;
+            }
         }
 
         #endregion
@@ -350,7 +395,12 @@ namespace ESI_ITE.ViewModel
 
             // Stocks On-Hand Calculator
 
-            SelectedCriticalItemChanged();
+            if (CriticalItemCollection.Count > 0)
+            {
+                SelectedCriticalItemChanged();
+                LoadOrders(CriticalItemCollection[0].ItemCode);
+            }
+
             //foreach (var item in itemList)
             //{
             //    var itemCases = 0;
@@ -390,7 +440,7 @@ namespace ESI_ITE.ViewModel
             //    QuantityOnHand.Add(itemOnHand);
             //}
 
-            LoadOrders(CriticalItemCollection[0].ItemCode);
+            //LoadOrders(CriticalItemCollection[0].ItemCode);
         }
 
         private void SelectedCriticalItemChanged()
@@ -948,7 +998,10 @@ namespace ESI_ITE.ViewModel
         private CustomerModel customer;
         public CustomerModel Customer
         {
-            get { return customer; }
+            get
+            {
+                return customer;
+            }
             set
             {
                 customer = value;
@@ -959,7 +1012,10 @@ namespace ESI_ITE.ViewModel
         private InventoryDummy2Model orderItem;
         public InventoryDummy2Model OrderItem
         {
-            get { return orderItem; }
+            get
+            {
+                return orderItem;
+            }
             set
             {
                 orderItem = value;
@@ -970,7 +1026,10 @@ namespace ESI_ITE.ViewModel
         private PickListLineModel picklistItem;
         public PickListLineModel PicklistItem
         {
-            get { return picklistItem; }
+            get
+            {
+                return picklistItem;
+            }
             set
             {
                 picklistItem = value;
@@ -981,7 +1040,10 @@ namespace ESI_ITE.ViewModel
         private string allocatedCases;
         public string AllocatedCases
         {
-            get { return allocatedCases; }
+            get
+            {
+                return allocatedCases;
+            }
             set
             {
                 allocatedCases = value;
@@ -992,7 +1054,10 @@ namespace ESI_ITE.ViewModel
         private string allocatedPieces;
         public string AllocatedPieces
         {
-            get { return allocatedPieces; }
+            get
+            {
+                return allocatedPieces;
+            }
             set
             {
                 allocatedPieces = value;
@@ -1003,7 +1068,10 @@ namespace ESI_ITE.ViewModel
         private bool isCasesValid = true;
         public bool IsCasesValid
         {
-            get { return isCasesValid; }
+            get
+            {
+                return isCasesValid;
+            }
             set
             {
                 isCasesValid = value;
@@ -1014,7 +1082,10 @@ namespace ESI_ITE.ViewModel
         private bool isPiecesValid = true;
         public bool IsPiecesValid
         {
-            get { return isPiecesValid; }
+            get
+            {
+                return isPiecesValid;
+            }
             set
             {
                 isPiecesValid = value;
@@ -1104,7 +1175,10 @@ namespace ESI_ITE.ViewModel
         private string itemCode;
         public string ItemCode
         {
-            get { return itemCode; }
+            get
+            {
+                return itemCode;
+            }
             set
             {
                 itemCode = value;
@@ -1115,7 +1189,10 @@ namespace ESI_ITE.ViewModel
         private string itemDescription;
         public string ItemDescription
         {
-            get { return itemDescription; }
+            get
+            {
+                return itemDescription;
+            }
             set
             {
                 itemDescription = value;
@@ -1126,7 +1203,10 @@ namespace ESI_ITE.ViewModel
         private int orderCases;
         public int OrderCases
         {
-            get { return orderCases; }
+            get
+            {
+                return orderCases;
+            }
             set
             {
                 orderCases = value;
@@ -1137,7 +1217,10 @@ namespace ESI_ITE.ViewModel
         private int orderPieces;
         public int OrderPieces
         {
-            get { return orderPieces; }
+            get
+            {
+                return orderPieces;
+            }
             set
             {
                 orderPieces = value;
@@ -1148,7 +1231,10 @@ namespace ESI_ITE.ViewModel
         private int allocatedCases;
         public int AllocatedCases
         {
-            get { return allocatedCases; }
+            get
+            {
+                return allocatedCases;
+            }
             set
             {
                 allocatedCases = value;
@@ -1159,7 +1245,10 @@ namespace ESI_ITE.ViewModel
         private int allocatedPieces;
         public int AllocatedPieces
         {
-            get { return allocatedPieces; }
+            get
+            {
+                return allocatedPieces;
+            }
             set
             {
                 allocatedPieces = value;
@@ -1170,7 +1259,10 @@ namespace ESI_ITE.ViewModel
         private string lc;
         public string LC
         {
-            get { return lc; }
+            get
+            {
+                return lc;
+            }
             set
             {
                 lc = value;

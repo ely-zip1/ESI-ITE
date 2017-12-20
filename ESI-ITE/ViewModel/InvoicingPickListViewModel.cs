@@ -795,7 +795,7 @@ namespace ESI_ITE.ViewModel
                         }
                     }
 
-                    ordersToBeRemoved.Add(index, order.SoNumber);                                                                                                  
+                    ordersToBeRemoved.Add(index, order.SoNumber);
                     allocatePerOrder(order.SoNumber, pickHead);
                 }
                 index++;
@@ -911,7 +911,7 @@ namespace ESI_ITE.ViewModel
                                     else
                                         allocateStocks.Cases = 0;
 
-                                    allocateStocks.Pieces = _allocatedItemInPieces % piecePerCase;
+                                    allocateStocks.Pieces = _allocatedItemInPieces - (allocateStocks.Cases * piecePerCase);
                                     allocateStocks.InventoryId = inventoryItem.Id;
 
                                     AllocationQueries.Add(allocateStocks.GetAddQuery(allocateStocks));
@@ -939,7 +939,7 @@ namespace ESI_ITE.ViewModel
                                     else
                                         allocateStocks.Cases = 0;
 
-                                    allocateStocks.Pieces = _allocatedItemInPieces % piecePerCase;
+                                    allocateStocks.Pieces = _allocatedItemInPieces - (allocateStocks.Cases * piecePerCase);
                                     allocateStocks.InventoryId = inventoryItem.Id;
 
                                     AllocationQueries.Add(allocateStocks.GetAddQuery(allocateStocks));
