@@ -246,7 +246,7 @@ namespace ESI_ITE.ViewModel
 
             var orderObj = new SalesOrderModel();
             var customerObj = new CustomerModel();
-            var invoiceObj = new InvoiceModel();
+            var invoiceObj = new InvoiceHeadModel();
 
             var picklists = PickLine.FetchPerPickHead(SelectedPickNumber[3]);
             foreach (var _picklist in picklists)
@@ -254,7 +254,7 @@ namespace ESI_ITE.ViewModel
                 var inventoryDummy = (InventoryDummy2Model)InventoryDummy.Fetch(_picklist.InventoryDummyId.ToString(), "id");
                 var order = (SalesOrderModel)orderObj.Fetch(inventoryDummy.OrderNumber, "code");
                 var customer = (CustomerModel)customerObj.Fetch(order.CustomerID.ToString(), "id");
-                var invoice = invoiceObj.FetchByOrder(_picklist.PickListHeaderId.ToString(), order.OrderId.ToString());
+                var invoice = invoiceObj.FetchPerOrder(_picklist.PickListHeaderId.ToString(), order.OrderId.ToString());
 
                 var hasDuplicate = false;
                 if (OrdersCollection.Count > 0)
@@ -427,7 +427,7 @@ namespace ESI_ITE.ViewModel
                                                                     //[0]Order Number
                                                                     //[1]Invoice Number
 
-            var invoiceObj = new InvoiceModel();
+            var invoiceObj = new InvoiceHeadModel();
             var invoiceNumberObj = new InvoiceNumberModel();
             var invoiceNumber = int.Parse(invoiceNumberObj.FetchLatest().InvoiceNumber);
 
@@ -435,7 +435,6 @@ namespace ESI_ITE.ViewModel
             {
                 if (_orderToBeInvoiced.AllocCasesQuantity > 0 || _orderToBeInvoiced.AllocPiecesQuantity > 0)
                 {
-                    var invoice = new InvoiceModel();
                     var invoiceHead = new InvoiceHeadModel();
 
                     invoiceHead.InvoiceNumber = invoiceNumber++.ToString();
@@ -444,52 +443,129 @@ namespace ESI_ITE.ViewModel
                     invoiceHead.PickId = _orderToBeInvoiced.PickId;
                     invoiceHead.OrderId = _orderToBeInvoiced.OrderId;
 
-                    var inventoryDummyObj = new InventoryDummy2Model();
-                    var inventoryDummyList = inventoryDummyObj.FetchPerOrder(_orderToBeInvoiced.OrderNumber);
+                    #region dummy
+                    //var inventoryDummyObj = new InventoryDummy2Model();
+                    //var inventoryDummyList = inventoryDummyObj.FetchPerOrder(_orderToBeInvoiced.OrderNumber);
+
+                    //var invoiceItemList = new List<InvoiceLineModel>();
+                    //foreach (var item in inventoryDummyList)
+                    //{
+                    //    var allocatedItemObj = new AllocatedStocksModel();
+                    //    var allocatedItemList = allocatedItemObj.FetchPerInventoryDummyItem(item.Id.ToString());
+
+                    //    if (allocatedItemList.Count <= 0)
+                    //        continue;
+
+                    //    var itemObj = new ItemModel();
+                    //    itemObj = (ItemModel)itemObj.Fetch(item.ItemCode, "code");
+
+                    //    var invoiceLineItem = new InvoiceLineModel();
+                    //    invoiceLineItem.ItemId = itemObj.ItemId;
+                    //    invoiceLineItem.CasePrice = item.PricePerPiece * itemObj.PackSize;
+                    //    invoiceLineItem.PiecePrice = item.PricePerPiece;
+
+                    //    foreach (var row in allocatedItemList)
+                    //    {
+                    //        if (row.Cases + row.Pieces > 0)
+                    //        {
+                    //            invoiceLineItem.Cases += row.Cases;
+                    //            invoiceLineItem.Pieces += row.Pieces;
+                    //            invoiceLineItem.LineAmount += (row.Cases * invoiceLineItem.CasePrice) + (row.Pieces * item.PricePerPiece);
+                    //        }
+                    //    }
+
+                    //    invoiceLineItem.Cases += invoiceLineItem.Pieces / itemObj.PackSize;
+                    //    invoiceLineItem.Pieces = invoiceLineItem.Pieces % itemObj.PackSize;
+
+                    //    invoiceItemList.Add(invoiceLineItem);
+                    //}
+
+                    //invoiceHead.Cases = invoiceItemList.Sum(i => i.Cases);
+                    //invoiceHead.Pieces = invoiceItemList.Sum(i => i.Pieces);
+                    //invoiceHead.InvoiceAmount = invoiceItemList.Sum(i => i.LineAmount) + (invoiceItemList.Sum(i => i.LineAmount) * decimal.Parse("0.12"));
+
+                    //InvoiceQueries.Add(invoiceHead.GetAddQuery(invoiceHead));
+
+                    //var invoiceLineObj = new InvoiceLineModel();
+                    //foreach (var row in invoiceItemList)
+                    //{
+                    //    InvoiceQueries.Add(invoiceLineObj.GetAddQuery(invoiceHead.InvoiceNumber, row));
+                    //}
+                    #endregion
 
                     var invoiceItemList = new List<InvoiceLineModel>();
-                    foreach (var item in inventoryDummyList)
+                    var allocationObj = new AllocatedStocksModel();
+                    var allocatedItems = allocationObj.FetchPerOrder(_orderToBeInvoiced.OrderNumber, SelectedPickNumber[0]);
+                    var hasDuplicate = false;
+                    foreach (var allocatedItem in allocatedItems)
                     {
-                        var allocatedItemObj = new AllocatedStocksModel();
-                        var allocatedItemList = allocatedItemObj.FetchPerInventoryDummyItem(item.Id.ToString());
-
-                        var itemObj = new ItemModel();
-                        itemObj = (ItemModel)itemObj.Fetch(item.ItemCode, "code");
-
-                        var invoiceLineItem = new InvoiceLineModel();
-                        invoiceLineItem.ItemId = itemObj.ItemId;
-                        invoiceLineItem.CasePrice = item.PricePerPiece * itemObj.PackSize;
-                        invoiceLineItem.PiecePrice = item.PricePerPiece;
-
-                        foreach (var row in allocatedItemList)
+                        if (allocatedItem.Cases + allocatedItem.Pieces > 0)
                         {
-                            invoiceLineItem.Cases += row.Cases;
-                            invoiceLineItem.Pieces += row.Pieces;
-                            invoiceLineItem.LineAmount += (row.Cases * invoiceLineItem.CasePrice) + (row.Pieces * item.PricePerPiece);
+                            var inventoryDummyObj = new InventoryDummy2Model();
+                            var itemObj = new ItemModel();
+
+                            inventoryDummyObj = (InventoryDummy2Model)inventoryDummyObj.Fetch(allocatedItem.InventoryDummyId.ToString(), "id");
+                            itemObj = (ItemModel)itemObj.Fetch(inventoryDummyObj.ItemCode, "code");
+
+                            if (invoiceItemList.Count > 0)
+                            {
+                                foreach (var row in invoiceItemList)
+                                {
+                                    if (row.ItemId == itemObj.ItemId)
+                                    {
+                                        row.Cases += allocatedItem.Cases;
+                                        row.Pieces += allocatedItem.Pieces;
+                                        row.LineAmount += allocatedItem.Cases * itemObj.PackSize * inventoryDummyObj.PricePerPiece;
+
+                                        hasDuplicate = true;
+                                    }
+                                }
+
+                                if (hasDuplicate == false)
+                                {
+
+                                    var invoiceItem = new InvoiceLineModel();
+                                    invoiceItem.ItemId = itemObj.ItemId;
+                                    invoiceItem.Cases = allocatedItem.Cases;
+                                    invoiceItem.Pieces = allocatedItem.Pieces;
+                                    invoiceItem.CasePrice = itemObj.PackSize * inventoryDummyObj.PricePerPiece;
+                                    invoiceItem.PiecePrice = inventoryDummyObj.PricePerPiece;
+                                    invoiceItem.LineAmount = allocatedItem.Cases * itemObj.PackSize * inventoryDummyObj.PricePerPiece;
+
+                                    invoiceItemList.Add(invoiceItem);
+
+                                    hasDuplicate = false;
+                                }
+                            }
+                            else
+                            {
+                                var invoiceItem = new InvoiceLineModel();
+                                invoiceItem.ItemId = itemObj.ItemId;
+                                invoiceItem.Cases = allocatedItem.Cases;
+                                invoiceItem.Pieces = allocatedItem.Pieces;
+                                invoiceItem.CasePrice = itemObj.PackSize * inventoryDummyObj.PricePerPiece;
+                                invoiceItem.PiecePrice = inventoryDummyObj.PricePerPiece;
+                                invoiceItem.LineAmount = allocatedItem.Cases * itemObj.PackSize * inventoryDummyObj.PricePerPiece;
+
+                                invoiceItemList.Add(invoiceItem);
+                            }
                         }
-
-                        invoiceLineItem.Cases += invoiceLineItem.Pieces / itemObj.PackSize;
-                        invoiceLineItem.Pieces = invoiceLineItem.Pieces % itemObj.PackSize;
-
-                        invoiceItemList.Add(invoiceLineItem);
                     }
 
                     invoiceHead.Cases = invoiceItemList.Sum(i => i.Cases);
                     invoiceHead.Pieces = invoiceItemList.Sum(i => i.Pieces);
                     invoiceHead.InvoiceAmount = invoiceItemList.Sum(i => i.LineAmount) + (invoiceItemList.Sum(i => i.LineAmount) * decimal.Parse("0.12"));
 
-                    //invoice.InvoiceNumber = invoiceNumber++.ToString();
-                    //invoice.PickheadId = _orderToBeInvoiced.PickId;
-                    //invoice.OrderId = _orderToBeInvoiced.OrderId;
-                    //invoice.UserId = MyGlobals.LoggedUser.Id;
-                    //invoice.Date = DateTime.UtcNow;
+                    InvoiceQueries.Add(invoiceHead.GetAddQuery(invoiceHead));
 
-                    //assignedInvoices.Add(_orderToBeInvoiced.OrderNumber, invoice.InvoiceNumber);
-
-                    //invoiceObj.AddNew(invoice);
-                    //InvoiceQueries.Add(invoiceObj.GetAddQuery(invoice));
+                    var invoiceLineObj = new InvoiceLineModel();
+                    foreach (var row in invoiceItemList)
+                    {
+                        InvoiceQueries.Add(invoiceLineObj.GetAddQuery(invoiceHead.InvoiceNumber, row));
+                    }
 
                     _orderToBeInvoiced.InvoiceNumber = invoiceHead.InvoiceNumber;
+                    assignedInvoices.Add(_orderToBeInvoiced.OrderNumber, invoiceHead.InvoiceNumber);
                 }
             }
 
@@ -532,12 +608,13 @@ namespace ESI_ITE.ViewModel
             Application.Current.Dispatcher.Invoke(() =>
             {
                 fixedDoc = new FixedDocument();
-                var pageNumber = 1;
 
                 foreach (var _orderToBeInvoiced in OrdersCollection)
                 {
                     if (_orderToBeInvoiced.IsSelected)
                     {
+                        var pageNumber = 1; 
+
                         var invoiceTemplateViewModel = new InvoicePrintTemplateViewModel();
                         var inventoryDummy = new InventoryDummy2Model();
                         var itemMaster = new ItemModel();
@@ -556,10 +633,10 @@ namespace ESI_ITE.ViewModel
                         var district = new DistrictModel();
                         var warehouse = new WareHouseModel();
                         var terms = new TermModel();
-                        var invoice = new InvoiceModel();
+                        var invoiceHead = new InvoiceHeadModel();
                         var priceType = new PriceTypeModel();
 
-                        invoice = (InvoiceModel)invoice.Fetch(_orderToBeInvoiced.InvoiceNumber, "code");
+                        invoiceHead = (InvoiceHeadModel)invoiceHead.Fetch(_orderToBeInvoiced.InvoiceNumber, "code");
                         customer = (CustomerModel)customer.Fetch(order.CustomerID.ToString(), "id");
                         district = (DistrictModel)district.Fetch(customer.DistrictId.ToString(), "id");
                         salesman = (SalesmanModel)salesman.Fetch(district.Salesman.ToString(), "id");

@@ -95,8 +95,8 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private ObservableCollection<GatepassItems> itemCollection = new ObservableCollection<GatepassItems>();
-        public ObservableCollection<GatepassItems> ItemCollection
+        private ObservableCollection<GatepassItem> itemCollection = new ObservableCollection<GatepassItem>();
+        public ObservableCollection<GatepassItem> ItemCollection
         {
             get
             {
@@ -161,6 +161,7 @@ namespace ESI_ITE.ViewModel
             set
             {
                 totalValue = value;
+                OnPropertyChanged();
             }
         }
 
@@ -192,10 +193,25 @@ namespace ESI_ITE.ViewModel
             }
         }
 
+        private bool isFooterVisible = true;
+        public bool IsFooterVisible
+        {
+            get
+            {
+                return isFooterVisible;
+            }
+            set
+            {
+                isFooterVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         #endregion
     }
 
-    public class GatepassItems
+    public class GatepassItem
     {
         private string itemcode;
         public string Itemcode
@@ -249,6 +265,19 @@ namespace ESI_ITE.ViewModel
             }
         }
 
+        private string casesCode;
+        public string CasesCode
+        {
+            get
+            {
+                return casesCode;
+            }
+            set
+            {
+                casesCode = value;
+            }
+        }
+        
         private string pieces;
         public string Pieces
         {
@@ -259,6 +288,19 @@ namespace ESI_ITE.ViewModel
             set
             {
                 pieces = value;
+            }
+        }
+
+        private string piecesCode;
+        public string PiecesCode
+        {
+            get
+            {
+                return piecesCode;
+            }
+            set
+            {
+                piecesCode = value;
             }
         }
 

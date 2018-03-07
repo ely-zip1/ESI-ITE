@@ -138,7 +138,7 @@ namespace ESI_ITE.Model
             StringBuilder sb = new StringBuilder();
             sb.Append("insert into invoice_head values(null, ");
             sb.Append("'" + invoiceHeadObj.InvoiceNumber + "', ");
-            sb.Append("'" + invoiceHeadObj.InvoiceDate.ToString("MM/dd/yyyy") + "', ");
+            sb.Append("str_to_date('" + invoiceHeadObj.InvoiceDate.ToString("MM/dd/yyyy") + "','%m/%d/%Y'), ");
             sb.Append("'" + invoiceHeadObj.UserId + "', ");
             sb.Append("'" + invoiceHeadObj.PickId + "', ");
             sb.Append("'" + invoiceHeadObj.OrderId + "', ");
@@ -156,7 +156,7 @@ namespace ESI_ITE.Model
 
             sb.Append("insert into invoice_head values(null, ");
             sb.Append("'" + invoiceHeadObj.InvoiceNumber + "', ");
-            sb.Append("'" + invoiceHeadObj.InvoiceDate.ToString("MM/dd/yyyy") + "', ");
+            sb.Append("str_to_date('" + invoiceHeadObj.InvoiceDate.ToString("MM/dd/yyyy") + "','%m/%d/%Y'), ");
             sb.Append("'" + invoiceHeadObj.UserId + "', ");
             sb.Append("'" + invoiceHeadObj.PickId + "', ");
             sb.Append("'" + invoiceHeadObj.OrderId + "', ");
@@ -258,6 +258,69 @@ namespace ESI_ITE.Model
             return invoiceHeadList;
         }
 
+        public List<InvoiceHeadModel> FetchPerPickHead(string pickHeadId, string type)
+        {
+            var invoiceHeadList = new List<InvoiceHeadModel>();
+
+            var results = new List<CloneableDictionary<string, string>>();
+
+            if (type == "id")
+            {
+                results = db.SelectMultiple("select * from invoice_head where id = '" + id + "'");
+            }
+            else if (type == "code")
+            {
+                var pickHead = new PickListHeaderModel();
+                pickHead = (PickListHeaderModel)pickHead.Fetch(pickHeadId, "code");
+
+                results = db.SelectMultiple("select * from invoice_head where pick_id = '" + pickHead.Id + "'");
+            }
+
+            if (results.Count > 0)
+                foreach (var row in results)
+                {
+                    var clone = row.Clone();
+                    var invoiceHead = new InvoiceHeadModel();
+
+                    invoiceHead.Id = int.Parse(row["id"]);
+                    invoiceHead.InvoiceNumber = row["invoice_number"];
+                    invoiceHead.InvoiceDate = DateTime.Parse(row["invoice_date"]);
+                    invoiceHead.UserId = int.Parse(row["user_id"]);
+                    invoiceHead.PickId = int.Parse(row["pick_id"]);
+                    invoiceHead.OrderId = int.Parse(row["order_id"]);
+                    invoiceHead.Cases = int.Parse(row["cases"]);
+                    invoiceHead.Pieces = int.Parse(row["pieces"]);
+                    invoiceHead.InvoiceAmount = decimal.Parse(row["amount"]);
+
+                    invoiceHeadList.Add(invoiceHead);
+                }
+
+            return invoiceHeadList;
+        }
+
+        public InvoiceHeadModel FetchPerOrder(string orderId, string pickId)
+        {
+            var invoiceHead = new InvoiceHeadModel();
+
+            var result = db.SelectMultiple("select * from invoice_head where pick_id = '" + pickId + "' and order_id = '" + orderId + "'");
+
+            foreach (var row in result)
+            {
+                var clone = row.Clone();
+                
+                invoiceHead.Id = int.Parse(row["id"]);
+                invoiceHead.InvoiceNumber = row["invoice_number"];
+                invoiceHead.InvoiceDate = DateTime.Parse(row["invoice_date"]);
+                invoiceHead.UserId = int.Parse(row["user_id"]);
+                invoiceHead.PickId = int.Parse(row["pick_id"]);
+                invoiceHead.OrderId = int.Parse(row["order_id"]);
+                invoiceHead.Cases = int.Parse(row["cases"]);
+                invoiceHead.Pieces = int.Parse(row["pieces"]);
+                invoiceHead.InvoiceAmount = decimal.Parse(row["amount"]);
+            }
+
+            return invoiceHead;
+        }
         public void UpdateItem(string qry)
         {
             throw new NotImplementedException();

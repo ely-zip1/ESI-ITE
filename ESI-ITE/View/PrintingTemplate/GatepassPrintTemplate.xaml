@@ -15,6 +15,10 @@
         <vm:GatepassPrintTemplateViewModel x:Name="viewModel"/>
     </UserControl.DataContext>
 
+    <UserControl.Resources>
+        <conv:BoolToVisibilityConverter x:Key="boolToVisConverter"/>
+    </UserControl.Resources>
+
     <Grid Margin="10">
         <StackPanel Orientation="Vertical">
 
@@ -84,7 +88,7 @@
             </Grid>
 
             <!--TABLE ITEMS-->
-            <Grid Margin="10,10,10,0">
+            <Grid Margin="10,10,10,0" MinHeight="50">
                 <ListView Background="Transparent" Foreground="Black" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
                           ItemsSource="{Binding ItemCollection}">
                     <ListView.ItemContainerStyle>
@@ -96,133 +100,136 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" MinHeight="10">
-                                <TextBlock Width="75" Foreground="Black" Text="{Binding Itemcode}" TextAlignment="Right"/>
+                                <TextBlock Width="75" Foreground="Black" Text="{Binding Itemcode}"/>
                                 <TextBlock Width="320" Foreground="Black" Text="{Binding Description}" TextWrapping="Wrap" Padding="0,0,10,0"/>
                                 <TextBlock Width="40" Foreground="Black" Text="{Binding Location}"/>
                                 <TextBlock Width="60" Foreground="Black" Text="{Binding Cases}"/>
                                 <TextBlock Width="60" Foreground="Black" Text="{Binding Pieces}"/>
-                                <TextBlock Foreground="Black" Text="{Binding ExpirationDate}"/>
+                                <TextBlock Foreground="Black" Text="{Binding ExpirationDate}" TextAlignment="Right"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </Grid>
 
-            <!--TOTALS-->
-            <Grid Margin="10,0,10,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="435"></ColumnDefinition>
-                    <ColumnDefinition Width="60"></ColumnDefinition>
-                    <ColumnDefinition Width="60"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
+            <!--Footer-->
+            <StackPanel Orientation="Vertical" Visibility="{Binding IsFooterVisible,Converter={StaticResource boolToVisConverter}}">
+                <!--TOTALS-->
+                <Grid Margin="10,0,10,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="435"></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Totals" TextAlignment="Right" VerticalAlignment="Center" Padding="0,0,20,0"/>
+                    <TextBlock Text="Totals" TextAlignment="Right" VerticalAlignment="Center" Padding="0,0,20,0"/>
 
-                <TextBox Grid.Column="1" Text="{Binding TotalCases}" Margin="1" TextAlignment="Right" Background="Transparent" 
+                    <TextBox Grid.Column="1" Text="{Binding TotalCases}" Margin="1" TextAlignment="Right" Background="Transparent" 
                          Foreground="Black" BorderThickness="0,1,0,0" BorderBrush="Black" IsHitTestVisible="False"/>
 
-                <TextBox Grid.Column="2" Text="{Binding TotalPieces}" Margin="1" TextAlignment="Right" Background="Transparent" 
+                    <TextBox Grid.Column="2" Text="{Binding TotalPieces}" Margin="1" TextAlignment="Right" Background="Transparent" 
                          Foreground="Black" BorderThickness="0,1,0,0" BorderBrush="Black" IsHitTestVisible="False"/>
-            </Grid>
+                </Grid>
 
-            <!--WEIGHT AND VALUE-->
-            <Grid Margin="10,20,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="20"></RowDefinition>
-                    <RowDefinition Height="20"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250"></ColumnDefinition>
-                    <ColumnDefinition Width="150"></ColumnDefinition>
-                    <ColumnDefinition Width="150"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="Weight(Tons)"/>
-                <TextBlock Grid.Row="1" Grid.Column="1" Text="Value(P)"/>
+                <!--WEIGHT AND VALUE-->
+                <Grid Margin="10,20,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Weight(Tons)"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Value(P)"/>
 
-                <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding TotalWeight}" TextAlignment="Right" FontSize="15"/>
-                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding TotalValue}" TextAlignment="Right" FontSize="15"/>
-            </Grid>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding TotalWeight}" TextAlignment="Right" FontSize="15"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding TotalValue}" TextAlignment="Right" FontSize="15"/>
+                </Grid>
 
-            <!--AUTHORIZATION-->
-            <Grid Margin="0,20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"></ColumnDefinition>
-                    <ColumnDefinition Width="200"></ColumnDefinition>
-                    <ColumnDefinition Width="20"></ColumnDefinition>
-                    <ColumnDefinition Width="80"></ColumnDefinition>
-                    <ColumnDefinition Width="150"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBox Grid.Row="0" Grid.Column="0" Text="Prepared by :" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0" VerticalContentAlignment="Bottom"/>
-                <TextBox Grid.Row="1" Grid.Column="0" Text="Checker :" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0" VerticalContentAlignment="Bottom"/>
-                <TextBox Grid.Row="2" Grid.Column="0" Text="Guard :" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0" VerticalContentAlignment="Bottom"/>
-                <TextBox Grid.Row="3" Grid.Column="0" Text="Authorized by :" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0" VerticalContentAlignment="Bottom"/>
+                <!--AUTHORIZATION-->
+                <Grid Margin="0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"></ColumnDefinition>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition Width="20"></ColumnDefinition>
+                        <ColumnDefinition Width="80"></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBox Grid.Row="0" Grid.Column="0" Text="Prepared by :" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0" VerticalContentAlignment="Bottom"/>
+                    <TextBox Grid.Row="1" Grid.Column="0" Text="Checker :" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0" VerticalContentAlignment="Bottom"/>
+                    <TextBox Grid.Row="2" Grid.Column="0" Text="Guard :" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0" VerticalContentAlignment="Bottom"/>
+                    <TextBox Grid.Row="3" Grid.Column="0" Text="Authorized by :" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0" VerticalContentAlignment="Bottom"/>
 
-                <TextBox Grid.Row="0" Grid.Column="1" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-                <TextBox Grid.Row="3" Grid.Column="1" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0,0,0,1" BorderBrush="Black"/>
 
-                <TextBox Grid.Row="0" Grid.Column="3" Text="Time :" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0" VerticalContentAlignment="Bottom"/>
-                <TextBox Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Text="Received in good condition" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0" VerticalContentAlignment="Bottom"/>
-                <TextBox Grid.Row="2" Grid.Column="3" Text="Driver :" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0" VerticalContentAlignment="Bottom"/>
-                <TextBox Grid.Row="3" Grid.Column="3" Text="Vehicle :" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0" VerticalContentAlignment="Bottom"/>
+                    <TextBox Grid.Row="0" Grid.Column="3" Text="Time :" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0" VerticalContentAlignment="Bottom"/>
+                    <TextBox Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Text="Received in good condition" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0" VerticalContentAlignment="Bottom"/>
+                    <TextBox Grid.Row="2" Grid.Column="3" Text="Driver :" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0" VerticalContentAlignment="Bottom"/>
+                    <TextBox Grid.Row="3" Grid.Column="3" Text="Vehicle :" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0" VerticalContentAlignment="Bottom"/>
 
-                <TextBox Grid.Row="0" Grid.Column="4" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-                <TextBox Grid.Row="2" Grid.Column="4" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-                <TextBox Grid.Row="3" Grid.Column="4" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0,0,0,1" BorderBrush="Black"/>
-            </Grid>
+                    <TextBox Grid.Row="0" Grid.Column="4" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+                    <TextBox Grid.Row="2" Grid.Column="4" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+                    <TextBox Grid.Row="3" Grid.Column="4" Background="Transparent" Foreground="Black" FontFamily="courier new" BorderThickness="0,0,0,1" BorderBrush="Black"/>
+                </Grid>
 
-            <!--ATTACHED INVOICES-->
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="Attached Invoices"/>
-                <ListBox Grid.Row="1" Background="Transparent" Foreground="Black" ItemsSource="{Binding AttachedInvoicesList}" Margin="0" Padding="0">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding}" Foreground="Black" Margin="0,0,40,0"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </Grid>
+                <!--ATTACHED INVOICES-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Attached Invoices"/>
+                    <ListBox Grid.Row="1" Background="Transparent" Foreground="Black" ItemsSource="{Binding AttachedInvoicesList}" Margin="0" Padding="0">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" Foreground="Black" Margin="0,0,40,0"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
 
-            <!--ATTACHED CUSTOMERS-->
-            <Grid Margin="0,40">
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
+                <!--ATTACHED CUSTOMERS-->
+                <Grid Margin="0,40">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Text="Attached Customers"/>
-                <ListBox Grid.Row="1" Background="Transparent" Foreground="Black" ItemsSource="{Binding AttachedCustomerList}" Margin="0" Padding="0">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding}" Foreground="Black" Margin="0,0,40,0"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </Grid>
+                    <TextBlock Grid.Row="0" Text="Attached Customers"/>
+                    <ListBox Grid.Row="1" Background="Transparent" Foreground="Black" ItemsSource="{Binding AttachedCustomerList}" Margin="0" Padding="0">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" Foreground="Black" Margin="0,0,40,0"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -213,10 +213,9 @@ namespace ESI_ITE.Model
 
         public List<AllocatedStocksModel> FetchPerPickList(string pickHeadNumber)
         {
-            var ListOfAllocatedStocks = new List<AllocatedStocksModel>();
+            var allocatedStocksList = new List<AllocatedStocksModel>();
             var pickHead = new PickListHeaderModel();
             var results = new List<CloneableDictionary<string, string>>();
-            var stock = new AllocatedStocksModel();
 
             pickHead = (PickListHeaderModel)pickHead.Fetch(pickHeadNumber, "code");
             results = db.SelectMultiple("select * from allocated_stocks where pickhead_id = '" + pickHead.Id + "'");
@@ -224,6 +223,7 @@ namespace ESI_ITE.Model
             foreach (var row in results)
             {
                 var clone = row.Clone();
+                var stock = new AllocatedStocksModel();
 
                 stock.Id = int.Parse(row["allocated_stocks_id"]);
                 stock.PickHeadId = int.Parse(row["pickhead_id"]);
@@ -231,9 +231,11 @@ namespace ESI_ITE.Model
                 stock.Cases = int.Parse(row["cases"]);
                 stock.Pieces = int.Parse(row["pieces"]);
                 stock.InventoryId = int.Parse(row["inventory_id"]);
+
+                allocatedStocksList.Add(stock);
             }
 
-            return ListOfAllocatedStocks;
+            return allocatedStocksList;
         }
 
         public List<AllocatedStocksModel> FetchPerOrder(string orderNumber, string pickHeadNumber)

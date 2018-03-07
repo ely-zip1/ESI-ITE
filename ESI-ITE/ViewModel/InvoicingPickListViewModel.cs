@@ -761,6 +761,7 @@ namespace ESI_ITE.ViewModel
 
         private Dictionary<int, string> allocateStocks(PickListHeaderModel pickHead)
         {
+            InventoryMasterList.Clear();
             var picknumber = new PickListNumberModel();
             Dictionary<int, string> ordersToBeRemoved = new Dictionary<int, string>();
 
@@ -831,6 +832,7 @@ namespace ESI_ITE.ViewModel
             var masterIndex = 0;
             //inventoryItems = inventory.FetchInStockItem(item.ItemId);
 
+            //Find ItemSet in Temporary Inventory
             if (InventoryMasterList.Count > 0)
             {
                 var i = 0;
@@ -852,132 +854,282 @@ namespace ESI_ITE.ViewModel
             //if (inventoryItems.Sum(inv => inv.Cases + inv.Pieces) <= 0)
             //    return;
 
-            var piecePerCase = item.PackSize * item.PackSizeBO;
+            var piecePerCase = item.PackSize;
 
             var orderedCases = orderedItem.Cases;
             var orderedPieces = orderedItem.Pieces;
             var orderInPieces = ConvertToPieces(orderedCases, orderedPieces, piecePerCase);
 
-            var allocatedInPieces = 0;
+            var allocatedCases = 0;
+            var allocatedPieces = 0;
+            var remainingOrderCases = orderedCases;
+            var remainingOrderPieces = orderedPieces;
+
             var remainingOrderInPieces = orderInPieces; // required quantity
 
             var picklistLine = new PickListLineModel();
             var allocateStocks = new AllocatedStocksModel();
             var _allocatedItemInPieces = 0;
 
-
             inventoryItems.OrderBy(i => i.ExpirationDate).ThenBy(i => i.Cases).ThenBy(i => i.Pieces);
 
+            #region perPiece
+            //if (InventoryMasterList.Count > 0)
+            //{
+            //    if (inventoryItems.Count > 0)
+            //    {
+            //        _allocatedItemInPieces = 0;
+
+            //        var i = 0;
+            //        foreach (var inventoryItem in inventoryItems.ToList())
+            //        {
+            //            _allocatedItemInPieces = 0;
+
+            //            if (inventoryItem.Cases == 0 && inventoryItem.Pieces == 0)
+            //            {
+            //                i++;
+            //                continue;
+            //            }
+
+            //            var currentItemInPieces = ConvertToPieces(inventoryItem.Cases, inventoryItem.Pieces, piecePerCase);
+
+            //            if (remainingOrderInPieces > 0)
+            //            {
+            //                if (currentItemInPieces > 0)
+            //                {
+            //                    if (currentItemInPieces >= remainingOrderInPieces)
+            //                    {
+            //                        _allocatedItemInPieces += remainingOrderInPieces;
+            //                        currentItemInPieces -= remainingOrderInPieces;
+
+            //                        //remainingOrderInPieces = orderInPieces - allocatedInPieces;
+            //                        remainingOrderInPieces = 0;
+
+            //                        inventoryItem.Cases = currentItemInPieces / piecePerCase;
+            //                        inventoryItem.Pieces = currentItemInPieces % piecePerCase;
+
+            //                        allocateStocks.PickHeadId = pickhead.Id;
+            //                        allocateStocks.InventoryDummyId = orderedItem.Id;
+
+            //                        if (_allocatedItemInPieces >= piecePerCase)
+            //                            allocateStocks.Cases = _allocatedItemInPieces / piecePerCase;
+            //                        else
+            //                            allocateStocks.Cases = 0;
+
+            //                        allocateStocks.Pieces = _allocatedItemInPieces - (allocateStocks.Cases * piecePerCase);
+            //                        allocateStocks.InventoryId = inventoryItem.Id;
+
+            //                        AllocationQueries.Add(allocateStocks.GetAddQuery(allocateStocks));
+            //                        AllocationQueries.Add(inventoryItem.GetUpdateQuery(inventoryItem));
+
+            //                        InventoryMasterList[masterIndex][i] = inventoryItem;
+            //                        break;
+            //                    }
+            //                    else
+            //                    {
+            //                        _allocatedItemInPieces += currentItemInPieces;
+            //                        currentItemInPieces = 0;
+
+            //                        remainingOrderInPieces = orderInPieces - _allocatedItemInPieces;
+
+            //                        inventoryItem.Cases = 0;
+            //                        inventoryItem.Pieces = 0;
+
+            //                        allocateStocks.PickHeadId = pickhead.Id;
+            //                        allocateStocks.InventoryDummyId = orderedItem.Id;
+
+            //                        if (_allocatedItemInPieces >= piecePerCase)
+            //                            allocateStocks.Cases = _allocatedItemInPieces / piecePerCase;
+            //                        else
+            //                            allocateStocks.Cases = 0;
+
+            //                        allocateStocks.Pieces = _allocatedItemInPieces - (allocateStocks.Cases * piecePerCase);
+            //                        allocateStocks.InventoryId = inventoryItem.Id;
+
+            //                        AllocationQueries.Add(allocateStocks.GetAddQuery(allocateStocks));
+            //                        AllocationQueries.Add(inventoryItem.GetUpdateQuery(inventoryItem));
+
+            //                        InventoryMasterList[masterIndex][i] = inventoryItem;
+            //                    }
+            //                }
+            //            }
+            //            else
+            //                break;
+
+            //            i++;
+            //        }
+
+            //        picklistLine.PickListHeaderId = pickhead.GenerateId();
+            //        picklistLine.InventoryDummyId = orderedItem.Id;
+
+            //        var orderObj = new SalesOrderModel();
+            //        orderObj = (SalesOrderModel)orderObj.Fetch(orderedItem.OrderNumber, "code");
+
+            //        picklistLine.OrderId = orderObj.OrderId;
+
+            //        if (_allocatedItemInPieces >= piecePerCase)
+            //            picklistLine.AllocatedCases = _allocatedItemInPieces / piecePerCase;
+            //        else
+            //            picklistLine.AllocatedCases = 0;
+
+            //        picklistLine.AllocatedPieces = _allocatedItemInPieces % piecePerCase;
+
+            //        if (_allocatedItemInPieces < orderInPieces)
+            //            picklistLine.IsCritical = true;
+            //        else
+            //            picklistLine.IsCritical = false;
+
+            //        AllocationQueries.Add(picklistLine.GetAddQuery(picklistLine));
+
+            //    }
+            //}
+            #endregion
 
             if (InventoryMasterList.Count > 0)
             {
                 if (inventoryItems.Count > 0)
                 {
-                    _allocatedItemInPieces = 0;
                     var i = 0;
+
+                    //allocate cases
                     foreach (var inventoryItem in inventoryItems.ToList())
                     {
-                        _allocatedItemInPieces = 0;
+                        allocatedCases = 0;
+                        allocatedPieces = 0;
 
-                        if (inventoryItem.Cases == 0 && inventoryItem.Pieces == 0)
+                        if (inventoryItem.Cases <= 0)
                         {
                             i++;
                             continue;
                         }
 
-                        var currentItemInPieces = ConvertToPieces(inventoryItem.Cases, inventoryItem.Pieces, piecePerCase);
-
-                        if (remainingOrderInPieces > 0)
+                        if (remainingOrderCases > 0)
                         {
-                            if (currentItemInPieces > 0)
+                            if (inventoryItem.Cases >= remainingOrderCases)
                             {
-                                if (currentItemInPieces >= remainingOrderInPieces)
-                                {
-                                    allocatedInPieces += remainingOrderInPieces;
-                                    _allocatedItemInPieces += remainingOrderInPieces;
-                                    currentItemInPieces -= remainingOrderInPieces;
+                                allocatedCases += remainingOrderCases;
+                                remainingOrderCases = 0;
+                                inventoryItem.Cases -= remainingOrderCases;
 
-                                    //remainingOrderInPieces = orderInPieces - allocatedInPieces;
-                                    remainingOrderInPieces = 0;
+                                allocateStocks.PickHeadId = pickhead.Id;
+                                allocateStocks.InventoryDummyId = orderedItem.Id;
 
-                                    inventoryItem.Cases = currentItemInPieces / piecePerCase;
-                                    inventoryItem.Pieces = currentItemInPieces % piecePerCase;
+                                allocateStocks.Cases = allocatedCases;
+                                allocateStocks.Pieces = 0;
+                                allocateStocks.InventoryId = inventoryItem.Id;
 
-                                    allocateStocks.PickHeadId = pickhead.Id;
-                                    allocateStocks.InventoryDummyId = orderedItem.Id;
+                                AllocationQueries.Add(allocateStocks.GetAddQuery(allocateStocks));
+                                AllocationQueries.Add(inventoryItem.GetUpdateQuery(inventoryItem));
 
-                                    if (_allocatedItemInPieces >= piecePerCase)
-                                        allocateStocks.Cases = _allocatedItemInPieces / piecePerCase;
-                                    else
-                                        allocateStocks.Cases = 0;
-
-                                    allocateStocks.Pieces = _allocatedItemInPieces - (allocateStocks.Cases * piecePerCase);
-                                    allocateStocks.InventoryId = inventoryItem.Id;
-
-                                    AllocationQueries.Add(allocateStocks.GetAddQuery(allocateStocks));
-                                    AllocationQueries.Add(inventoryItem.GetUpdateQuery(inventoryItem));
-
-                                    InventoryMasterList[masterIndex][i] = inventoryItem;
-                                    break;
-                                }
-                                else
-                                {
-                                    _allocatedItemInPieces += currentItemInPieces;
-                                    allocatedInPieces += currentItemInPieces;
-                                    currentItemInPieces = 0;
-
-                                    remainingOrderInPieces = orderInPieces - allocatedInPieces;
-
-                                    inventoryItem.Cases = 0;
-                                    inventoryItem.Pieces = 0;
-
-                                    allocateStocks.PickHeadId = pickhead.Id;
-                                    allocateStocks.InventoryDummyId = orderedItem.Id;
-
-                                    if (_allocatedItemInPieces >= piecePerCase)
-                                        allocateStocks.Cases = _allocatedItemInPieces / piecePerCase;
-                                    else
-                                        allocateStocks.Cases = 0;
-
-                                    allocateStocks.Pieces = _allocatedItemInPieces - (allocateStocks.Cases * piecePerCase);
-                                    allocateStocks.InventoryId = inventoryItem.Id;
-
-                                    AllocationQueries.Add(allocateStocks.GetAddQuery(allocateStocks));
-                                    AllocationQueries.Add(inventoryItem.GetUpdateQuery(inventoryItem));
-
-                                    InventoryMasterList[masterIndex][i] = inventoryItem;
-                                }
+                                InventoryMasterList[masterIndex][i] = inventoryItem;
+                                break;
                             }
+                            else if (inventoryItem.Cases > 0)
+                            {
+                                allocatedCases += inventoryItem.Cases;
+                                remainingOrderCases -= inventoryItem.Cases;
+                                inventoryItem.Cases = 0;
+
+                                allocateStocks.PickHeadId = pickhead.Id;
+                                allocateStocks.InventoryDummyId = orderedItem.Id;
+
+                                allocateStocks.Cases = allocatedCases;
+                                allocateStocks.Pieces = 0;
+                                allocateStocks.InventoryId = inventoryItem.Id;
+
+                                AllocationQueries.Add(allocateStocks.GetAddQuery(allocateStocks));
+                                AllocationQueries.Add(inventoryItem.GetUpdateQuery(inventoryItem));
+
+                                InventoryMasterList[masterIndex][i] = inventoryItem;
+                            }
+
+                            i++;
                         }
                         else
+                        {
                             break;
-
-                        i++;
+                        }
                     }
 
+                    //allocate pieces
+                    i = 0;
+                    foreach (var inventoryItem in inventoryItems.ToList())
+                    {
+                        allocatedCases = 0;
+                        allocatedPieces = 0;
 
-                    picklistLine.PickListHeaderId = pickhead.GenerateId();
-                    picklistLine.InventoryDummyId = orderedItem.Id;
+                        if (inventoryItem.Pieces <= 0)
+                        {
+                            i++;
+                            continue;
+                        }
+
+                        if (remainingOrderPieces > 0)
+                        {
+                            if (inventoryItem.Pieces >= remainingOrderPieces)
+                            {
+                                allocatedPieces += remainingOrderPieces;
+                                remainingOrderPieces = 0;
+                                inventoryItem.Pieces -= remainingOrderPieces;
+
+                                allocateStocks.PickHeadId = pickhead.Id;
+                                allocateStocks.InventoryDummyId = orderedItem.Id;
+
+                                allocateStocks.Cases = 0;
+                                allocateStocks.Pieces = allocatedPieces;
+                                allocateStocks.InventoryId = inventoryItem.Id;
+
+                                AllocationQueries.Add(allocateStocks.GetAddQuery(allocateStocks));
+                                AllocationQueries.Add(inventoryItem.GetUpdateQuery(inventoryItem));
+
+                                InventoryMasterList[masterIndex][i] = inventoryItem;
+                                break;
+                            }
+                            else if (inventoryItem.Pieces > 0)
+                            {
+                                allocatedPieces += inventoryItem.Pieces;
+                                remainingOrderPieces -= inventoryItem.Pieces;
+                                inventoryItem.Pieces = 0;
+
+                                allocateStocks.PickHeadId = pickhead.Id;
+                                allocateStocks.InventoryDummyId = orderedItem.Id;
+
+                                allocateStocks.Cases = 0;
+                                allocateStocks.Pieces = allocatedPieces;
+                                allocateStocks.InventoryId = inventoryItem.Id;
+
+                                AllocationQueries.Add(allocateStocks.GetAddQuery(allocateStocks));
+                                AllocationQueries.Add(inventoryItem.GetUpdateQuery(inventoryItem));
+
+                                InventoryMasterList[masterIndex][i] = inventoryItem;
+                            }
+
+                            i++;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
 
                     var orderObj = new SalesOrderModel();
                     orderObj = (SalesOrderModel)orderObj.Fetch(orderedItem.OrderNumber, "code");
 
+                    picklistLine.PickListHeaderId = pickhead.GenerateId();
+                    picklistLine.InventoryDummyId = orderedItem.Id;
                     picklistLine.OrderId = orderObj.OrderId;
+                    picklistLine.AllocatedCases = orderedCases - remainingOrderCases;
+                    picklistLine.AllocatedPieces = orderedPieces - remainingOrderPieces;
 
-                    if (allocatedInPieces >= piecePerCase)
-                        picklistLine.AllocatedCases = allocatedInPieces / piecePerCase;
-                    else
-                        picklistLine.AllocatedCases = 0;
+                    if (picklistLine.AllocatedCases > 0 || picklistLine.AllocatedPieces > 0)
+                    {
+                        if (picklistLine.AllocatedCases < orderedCases || picklistLine.AllocatedPieces < orderedPieces)
+                            picklistLine.IsCritical = true;
+                        else
+                            picklistLine.IsCritical = false;
 
-                    picklistLine.AllocatedPieces = allocatedInPieces % piecePerCase;
-
-                    if (allocatedInPieces < orderInPieces)
-                        picklistLine.IsCritical = true;
-                    else
-                        picklistLine.IsCritical = false;
-
-                    AllocationQueries.Add(picklistLine.GetAddQuery(picklistLine));
-
+                        AllocationQueries.Add(picklistLine.GetAddQuery(picklistLine));
+                    }
                 }
             }
         }
@@ -1052,32 +1204,31 @@ namespace ESI_ITE.ViewModel
                 if (line.AllocatedCases > 0 || line.AllocatedPieces > 0)
                 {
                     item = (ItemModel)item.Fetch(dummy.ItemCode, "code");
-                    piecePerCase = item.PackSize * item.PackSizeBO;
+                    piecePerCase = item.PackSize;
 
                     var stockList = allocatedStocks.FetchPerPickLine(pickHead.Id, dummy.Id);
 
                     foreach (var stock in stockList)
                     {
-                        inventoryItem = (InventoryMaster2Model)inventoryItem.Fetch(stock.Id.ToString(), "id");
+                        inventoryItem = (InventoryMaster2Model)inventoryItem.Fetch(stock.InventoryId.ToString(), "id");
 
-                        stockInPieces = (stock.Cases * piecePerCase) + stock.Pieces;
-                        inventoryItemInPieces = (inventoryItem.Cases * piecePerCase) + inventoryItem.Pieces;
+                        //stockInPieces = (stock.Cases * piecePerCase) + stock.Pieces;
+                        //inventoryItemInPieces = (inventoryItem.Cases * piecePerCase) + inventoryItem.Pieces;
 
-                        totalPieces = stockInPieces + inventoryItemInPieces;
+                        //totalPieces = stockInPieces + inventoryItemInPieces;
 
-                        if (totalPieces >= piecePerCase)
-                        {
-                            inventoryItem.Cases = totalPieces / piecePerCase;
-                        }
-                        else
-                        {
-                            inventoryItem.Cases = 0;
-                        }
-
-                        inventoryItem.Pieces = totalPieces % piecePerCase;
+                        //if (totalPieces >= piecePerCase)
+                        //{
+                        //    inventoryItem.Cases = totalPieces / piecePerCase;
+                        //}
+                        //else
+                        //{
+                        //    inventoryItem.Cases = 0;
+                        //}
+                        inventoryItem.Cases += stock.Cases;
+                        inventoryItem.Pieces += stock.Pieces;
 
                         transactionString.Add(inventoryItem.GetUpdateQuery(inventoryItem));//update inventory
-
                     }
                 }
 
@@ -1148,7 +1299,7 @@ namespace ESI_ITE.ViewModel
                 var pickList = pick.FetchPerPickHead(pickhead.Id.ToString());
 
                 InventoryDummy2Model inventoryDummy = new InventoryDummy2Model();
-                ;
+
                 SalesOrderModel order = new SalesOrderModel();
                 CustomerModel customer = new CustomerModel();
                 TermModel term = new TermModel();
@@ -1170,82 +1321,96 @@ namespace ESI_ITE.ViewModel
 
                 foreach (var pickLine in pickList)
                 {
-                    inventoryDummy = (InventoryDummy2Model)inventoryDummy.Fetch(pickLine.InventoryDummyId.ToString(), "id");
-                    order = (SalesOrderModel)order.Fetch(inventoryDummy.OrderNumber, "code");
-                    customer = (CustomerModel)customer.Fetch(order.CustomerID.ToString(), "id");
-                    term = (TermModel)term.Fetch(order.TermId.ToString(), "id");
-
-                    var isUpdated = false;
-                    if (tempItemList.Count > 0)
+                    if (pickLine.AllocatedCases + pickLine.AllocatedPieces > 0)
                     {
-                        foreach (var content in tempItemList)
+                        inventoryDummy = (InventoryDummy2Model)inventoryDummy.Fetch(pickLine.InventoryDummyId.ToString(), "id");
+                        order = (SalesOrderModel)order.Fetch(inventoryDummy.OrderNumber, "code");
+                        customer = (CustomerModel)customer.Fetch(order.CustomerID.ToString(), "id");
+                        term = (TermModel)term.Fetch(order.TermId.ToString(), "id");
+
+                        var isUpdated = false;
+                        if (tempItemList.Count > 0)
                         {
-                            if (content[0] == inventoryDummy.ItemCode)
+                            foreach (var content in tempItemList)
                             {
-                                var _orderedCases = int.Parse(content[3]);
-                                var _orderedPieces = int.Parse(content[4]);
-                                var _allocCases = int.Parse(content[5]);
-                                var _allocPieces = int.Parse(content[6]);
+                                if (content[0] == inventoryDummy.ItemCode)
+                                {
+                                    var _orderedCases = int.Parse(content[3]);
+                                    var _orderedPieces = int.Parse(content[4]);
+                                    var _allocCases = int.Parse(content[5]);
+                                    var _allocPieces = int.Parse(content[6]);
 
-                                content[3] = (_orderedCases + inventoryDummy.Cases).ToString();
-                                content[4] = (_orderedPieces + inventoryDummy.Pieces).ToString();
-                                content[5] = (_allocCases + pickLine.AllocatedCases).ToString();
-                                content[6] = (_allocPieces + pickLine.AllocatedPieces).ToString();
+                                    content[3] = (_orderedCases + inventoryDummy.Cases).ToString();
+                                    content[4] = (_orderedPieces + inventoryDummy.Pieces).ToString();
+                                    content[5] = (_allocCases + pickLine.AllocatedCases).ToString();
+                                    content[6] = (_allocPieces + pickLine.AllocatedPieces).ToString();
 
-                                totalOrderCases += inventoryDummy.Cases;
-                                totalOrderPieces += inventoryDummy.Pieces;
-                                totalAllocatedCases += pickLine.AllocatedCases;
-                                totalAllocatedPieces += pickLine.AllocatedPieces;
+                                    totalOrderCases += inventoryDummy.Cases;
+                                    totalOrderPieces += inventoryDummy.Pieces;
+                                    totalAllocatedCases += pickLine.AllocatedCases;
+                                    totalAllocatedPieces += pickLine.AllocatedPieces;
 
-                                isUpdated = true;
-                                break;
-                            }
-                            else
-                            {
-                                isUpdated = false;
-                            }
-                        }
-                    }
-
-                    if (isUpdated)
-                        continue;
-
-                    var item = new List<string>();
-                    item.Add(inventoryDummy.ItemCode);
-                    item.Add(inventoryDummy.ItemDescription);
-                    item.Add(inventoryDummy.Location);
-                    item.Add(inventoryDummy.Cases.ToString());
-                    item.Add(inventoryDummy.Pieces.ToString());
-                    item.Add(pickLine.AllocatedCases.ToString());
-                    item.Add(pickLine.AllocatedPieces.ToString());
-                    item.Add(pickLine.IsCritical ? "**" : "");
-
-                    tempItemList.Add(item);
-
-                    totalOrderCases += inventoryDummy.Cases;
-                    totalOrderPieces += inventoryDummy.Pieces;
-                    totalAllocatedCases += pickLine.AllocatedCases;
-                    totalAllocatedPieces += pickLine.AllocatedPieces;
-
-                    //Orders
-                    var hasDuplicateOrder = false;
-
-                    if (tempOrdersList.Count > 0)
-                    {
-                        foreach (var _order in orderNumberList)
-                        {
-                            if (_order == order.OrderNumber)
-                            {
-                                hasDuplicateOrder = true;
-                                break;
-                            }
-                            else
-                            {
-                                hasDuplicateOrder = false;
+                                    isUpdated = true;
+                                    break;
+                                }
+                                else
+                                {
+                                    isUpdated = false;
+                                }
                             }
                         }
 
-                        if (hasDuplicateOrder == false)
+                        if (isUpdated)
+                            continue;
+
+                        var item = new List<string>();
+                        item.Add(inventoryDummy.ItemCode);
+                        item.Add(inventoryDummy.ItemDescription);
+                        item.Add(inventoryDummy.Location);
+                        item.Add(inventoryDummy.Cases.ToString());
+                        item.Add(inventoryDummy.Pieces.ToString());
+                        item.Add(pickLine.AllocatedCases.ToString());
+                        item.Add(pickLine.AllocatedPieces.ToString());
+                        item.Add(pickLine.IsCritical ? "**" : "");
+
+                        tempItemList.Add(item);
+
+                        totalOrderCases += inventoryDummy.Cases;
+                        totalOrderPieces += inventoryDummy.Pieces;
+                        totalAllocatedCases += pickLine.AllocatedCases;
+                        totalAllocatedPieces += pickLine.AllocatedPieces;
+
+
+                        //Orders
+                        var hasDuplicateOrder = false;
+
+                        if (tempOrdersList.Count > 0)
+                        {
+                            foreach (var _order in orderNumberList)
+                            {
+                                if (_order == order.OrderNumber)
+                                {
+                                    hasDuplicateOrder = true;
+                                    break;
+                                }
+                                else
+                                {
+                                    hasDuplicateOrder = false;
+                                }
+                            }
+
+                            if (hasDuplicateOrder == false)
+                            {
+                                var orderItem = new List<string>();
+                                orderItem.Add(order.OrderNumber);
+                                orderItem.Add(term.TermCode);
+                                orderItem.Add(customer.CustomerName);
+
+                                tempOrdersList.Add(orderItem);
+                                orderNumberList.Add(order.OrderNumber);
+                            }
+                        }
+                        else
                         {
                             var orderItem = new List<string>();
                             orderItem.Add(order.OrderNumber);
@@ -1255,16 +1420,6 @@ namespace ESI_ITE.ViewModel
                             tempOrdersList.Add(orderItem);
                             orderNumberList.Add(order.OrderNumber);
                         }
-                    }
-                    else
-                    {
-                        var orderItem = new List<string>();
-                        orderItem.Add(order.OrderNumber);
-                        orderItem.Add(term.TermCode);
-                        orderItem.Add(customer.CustomerName);
-
-                        tempOrdersList.Add(orderItem);
-                        orderNumberList.Add(order.OrderNumber);
                     }
                 }
 
@@ -1367,7 +1522,6 @@ namespace ESI_ITE.ViewModel
         }
 
         #endregion
-
 
         #region IDataErrorInfo Members
         public string this[string propertyName]

@@ -121,7 +121,61 @@ namespace ESI_ITE.Model
 
         public void AddNew(object item)
         {
-            throw new NotImplementedException();
+            var invoiceLine = (InvoiceLineModel)item;
+
+            var sb = new StringBuilder();
+
+            sb.Append("insert into invoice_line values(");
+            sb.Append("null,");
+            sb.Append("'" + invoiceLine.InvoiceId + "',");
+            sb.Append("'" + invoiceLine.ItemId + "',");
+            sb.Append("'" + invoiceLine.Cases + "',");
+            sb.Append("'" + invoiceLine.Pieces + "',");
+            sb.Append("'" + invoiceLine.CasePrice + "',");
+            sb.Append("'" + invoiceLine.PiecePrice + "',");
+            sb.Append("'" + invoiceLine.LineAmount + "'");
+            sb.Append(")");
+
+            db.Insert(sb.ToString());
+        }
+
+        public string GetAddQuery(object item)
+        {
+            var invoiceLine = (InvoiceLineModel)item;
+
+            var sb = new StringBuilder();
+
+            sb.Append("insert into invoice_line values(");
+            sb.Append("null,");
+            sb.Append("'" + invoiceLine.InvoiceId + "',");
+            sb.Append("'" + invoiceLine.ItemId + "',");
+            sb.Append("'" + invoiceLine.Cases + "',");
+            sb.Append("'" + invoiceLine.Pieces + "',");
+            sb.Append("'" + invoiceLine.CasePrice + "',");
+            sb.Append("'" + invoiceLine.PiecePrice + "',");
+            sb.Append("'" + invoiceLine.LineAmount + "'");
+            sb.Append(")");
+
+            return sb.ToString();
+        }
+
+        public string GetAddQuery(string invoiceNumber, object item)
+        {
+            var invoiceLine = (InvoiceLineModel)item;
+            var sb = new StringBuilder();
+
+            sb.Append("insert into invoice_line values(");
+            sb.Append("null,");
+            sb.Append("(select id from invoice_head where invoice_number = '" + invoiceNumber + "'),");
+            sb.Append("'" + invoiceLine.ItemId + "',");
+            sb.Append("'" + invoiceLine.Cases + "',");
+            sb.Append("'" + invoiceLine.Pieces + "',");
+            sb.Append("'" + invoiceLine.CasePrice + "',");
+            sb.Append("'" + invoiceLine.PiecePrice + "',");
+            sb.Append("'" + invoiceLine.LineAmount + "'");
+            sb.Append(")");
+
+            return sb.ToString();
         }
 
         public void DeleteItem(string qry)
