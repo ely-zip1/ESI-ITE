@@ -263,6 +263,45 @@ namespace ESI_ITE.Model
             throw new NotImplementedException();
         }
 
+        public void UpdateItem(GatepassModel gatepass)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("update gatepass set ");
+            sb.Append("cases = '" + gatepass.Cases + "', ");
+            sb.Append("pieces = '" + gatepass.Pieces + "', ");
+            sb.Append("weight = '" + gatepass.Weight + "' ");
+            sb.Append("where gatepass_id = '" + gatepass.Id + "'");
+
+            db.Update(sb.ToString());
+        }
+
+        public GatepassModel GetDuplicate(GatepassModel gatepass)
+        {
+            var duplicateGatepass = new GatepassModel();
+
+            var qry = "select * from gatepass where "
+                + "gatepass_number = '" + gatepass.GatepassNumber + "' and  "
+                + "pick_id = '" + gatepass.PickId + "' and  "
+                + "item_id = '" + gatepass.ItemId + "' and  "
+                + "location_id = '" + gatepass.LocationId + "' and "
+                + "expiry = str_to_date('" + gatepass.Expiry.ToString("MM/dd/yyyy") + "','%m/%d/%Y')";
+
+            var result = db.SelectMultiple(qry);
+
+            if (result.Count > 0)
+            {
+                foreach (var row in result)
+                {
+                    duplicateGatepass = fillObject(row);
+                }
+            }
+            else
+                return null;
+
+            return duplicateGatepass;
+        }
+
         private GatepassModel fillObject(CloneableDictionary<string, string> row)
         {
             var gatepass = new GatepassModel();

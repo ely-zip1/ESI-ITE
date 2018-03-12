@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Documents;
 using System.Windows.Controls;
 using ESI_ITE.View.PrintingTemplate;
+using ESI_ITE.Data_Access;
 
 namespace ESI_ITE.ViewModel
 {
@@ -204,6 +205,7 @@ namespace ESI_ITE.ViewModel
                 var invoiceList = new List<string>();
                 var customerList = new List<string>();
                 var gatepass = new GatepassModel();
+                gatepass.UserId = MyGlobals.LoggedUser.Id;
 
                 var totalCases = 0;
                 var totalPieces = 0;
@@ -235,14 +237,24 @@ namespace ESI_ITE.ViewModel
                         gatepass.Cases = stock.Cases;
                         gatepass.Pieces = stock.Pieces;
                         gatepass.Expiry = inventoryItem.ExpirationDate;
-                        gatepass.Weight = itemModel.UnitWeight * stock.Cases + ((itemModel.UnitWeight / itemModel.PackSize)* stock.Pieces);
+                        gatepass.Weight = itemModel.UnitWeight * stock.Cases + ((itemModel.UnitWeight / itemModel.PackSize) * stock.Pieces);
                         gatepass.Date = DateTime.Now;
+                        gatepass.UserId = MyGlobals.LoggedUser.Id;
 
-                        totalCases += stock.Cases;
-                        totalPieces += stock.Pieces;
-                        totalWeight += gatepass.Weight;
+                        var _gatepass = new GatepassModel();
+                        _gatepass = _gatepass.GetDuplicate(gatepass);
 
-                        gatepass.AddNew(gatepass);
+                        if (_gatepass != null)
+                        {
+                            gatepass.Id = _gatepass.Id;
+                            gatepass.Cases += _gatepass.Cases;
+                            gatepass.Pieces += _gatepass.Pieces;
+                            gatepass.Weight += _gatepass.Weight;
+
+                            gatepass.UpdateItem(gatepass);
+                        }
+                        else
+                            gatepass.AddNew(gatepass);
                     }
                     gatepassList = gatepass.FetchPerPickhead(SelectedPickList[0], "code");
                 }
@@ -256,7 +268,7 @@ namespace ESI_ITE.ViewModel
                     itemObj = (ItemModel)itemObj.Fetch(row.ItemId.ToString(), "id");
 
                     locationObj = (LocationModel)locationObj.Fetch(row.LocationId.ToString(), "id");
-
+                    
                     gatepassItem.Itemcode = itemObj.Code;
                     gatepassItem.Description = itemObj.Description;
                     gatepassItem.Location = locationObj.Code;
@@ -267,6 +279,10 @@ namespace ESI_ITE.ViewModel
                     gatepassItem.ExpirationDate = row.Expiry.ToString("MM/dd/yyyy");
 
                     gatepassItems.Add(gatepassItem);
+
+                    totalCases += row.Cases;
+                    totalPieces += row.Pieces;
+                    totalWeight += row.Weight;
                 }
 
 
@@ -302,7 +318,7 @@ namespace ESI_ITE.ViewModel
                 // Items
                 foreach (var row in gatepassItems)
                 {
-                    if (lines >= 38)
+                    if (lines >= 42)
                     {
                         gatepassPrintTemplateViewModel.IsFooterVisible = false;
 
@@ -312,7 +328,7 @@ namespace ESI_ITE.ViewModel
 
                         lines = 0;
                     }
-                    else if (row.Description.Length >= 35)
+                    else if (row.Description.Length >= 50)
                     {
                         lines += 2;
                     }
@@ -346,7 +362,7 @@ namespace ESI_ITE.ViewModel
 
                 gatepassPrintTemplateViewModel.TotalCases = totalCases;
                 gatepassPrintTemplateViewModel.TotalPieces = totalPieces;
-                gatepassPrintTemplateViewModel.TotalWeight = totalWeight;
+                gatepassPrintTemplateViewModel.TotalWeight = totalWeight/1000000;
                 gatepassPrintTemplateViewModel.TotalValue = totalValue;
             });
 
@@ -360,16 +376,17 @@ namespace ESI_ITE.ViewModel
             var templateView = new GatepassPrintTemplate();
             var templateVM = (GatepassPrintTemplateViewModel)templateView.DataContext;
 
-            templateView.Width = 768;
+            templateView.Width = 816;
             templateView.MinHeight = 100;
 
-            fixedPage.Width = 768;
+            fixedPage.Width = 816;
             fixedPage.Height = 1056;
 
             var userObj = new UserModel();
             userObj = (UserModel)userObj.Fetch(gatepass.UserId.ToString(), "id");
 
             templateVM.PageNumber = pageNumber.ToString();
+            templateVM.Username = userObj.Username;
             templateVM.GatepassNumber = gatepass.GatepassNumber;
             templateVM.PicklistNumber = SelectedPickList[0];
             templateVM.Username = userObj.Username;
