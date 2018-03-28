@@ -12,7 +12,9 @@
 using ESI_ITE.View;
 using ESI_ITE.ViewModel;
 using ESI_ITE.ViewModel.Command;
+using MahApps.Metro;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Expression.Interactivity.Core;
 using Microsoft.Expression.Interactivity.Input;
 using Microsoft.Expression.Interactivity.Layout;

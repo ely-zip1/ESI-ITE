@@ -53,12 +53,16 @@
     <ApplicationIcon>esi1.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MahApps.Metro, Version=1.2.4.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\MahApps.Metro.dll</HintPath>
+    <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MahApps.Metro.SimpleChildWindow, Version=1.3.0.0, Culture=neutral, PublicKeyToken=bbbfdff7f500a992, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.SimpleChildWindow.1.3.0\lib\net45\MahApps.Metro.SimpleChildWindow.dll</HintPath>
+    <Reference Include="MahApps.Metro, Version=1.6.1.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.6.1\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MahApps.Metro.SimpleChildWindow, Version=1.5.0.16, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.SimpleChildWindow.1.5.0\lib\net45\MahApps.Metro.SimpleChildWindow.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -108,7 +112,7 @@
     <Reference Include="System.Windows.Controls.Layout.Toolkit.VisualStudio.Design, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
@@ -199,10 +203,29 @@
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="MyGlobals.cs" />
     <Compile Include="Printing\Paginator.cs" />
+    <Compile Include="ViewModel\CNDN\CnDnEntryOptionsViewModel.cs" />
     <Compile Include="ViewModel\GatepassPrintTemplateViewModel.cs" />
     <Compile Include="ViewModel\InvoicePrintTemplateViewModel.cs" />
     <Compile Include="ViewModel\PicklistPrintTemplateViewModel.cs" />
     <Compile Include="ViewModel\PrintingMainPageViewModel.cs" />
+    <Compile Include="View\CNDN\CnDnEntryOptionsView.xaml.cs">
+      <DependentUpon>CnDnEntryOptionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CNDN\CnDnMainPageView.xaml.cs">
+      <DependentUpon>CnDnMainPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CNDN\CNLineItemView.xaml.cs">
+      <DependentUpon>CNLineItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CNDN\CreditNoteEntryView.xaml.cs">
+      <DependentUpon>CreditNoteEntryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CNDN\DebitNoteEntryView.xaml.cs">
+      <DependentUpon>DebitNoteEntryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CNDN\DNLineItemView.xaml.cs">
+      <DependentUpon>DNLineItemView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PrintingTemplate\GatepassPrintTemplate.xaml.cs">
       <DependentUpon>GatepassPrintTemplate.xaml</DependentUpon>
     </Compile>
@@ -320,6 +343,30 @@
     <Compile Include="View\TransactionEntryView.xaml.cs">
       <DependentUpon>TransactionEntryView.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\CNDN\CnDnEntryOptionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CNDN\CnDnMainPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CNDN\CNLineItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CNDN\CreditNoteEntryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CNDN\DebitNoteEntryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CNDN\DNLineItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\PrintingTemplate\GatepassPrintTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

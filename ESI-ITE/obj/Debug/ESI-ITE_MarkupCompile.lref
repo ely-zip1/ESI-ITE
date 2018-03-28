@@ -1,5 +1,9 @@
 ﻿
 FC:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\App.xaml;;
+FC:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\View\CNDN\CnDnEntryOptionsView.xaml;;
+FC:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\View\CNDN\CnDnMainPageView.xaml;;
+FC:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\View\CNDN\CreditNoteEntryView.xaml;;
+FC:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\View\PrintingTemplate\GatepassPrintTemplate.xaml;;
 FC:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\View\PrintingTemplate\InvoicePrintTemplate.xaml;;
 FC:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\View\PrintingTemplate\PicklistPrintTemplate.xaml;;
 FC:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\Printing\PrintingFooterTemplate.xaml;;
@@ -30,5 +34,7 @@ FC:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\View\SOView.xaml;;
 FC:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\View\Transaction Printing.xaml;;
 FC:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\View\TransactionEntryPageView.xaml;;
 FC:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\View\TransactionEntryView.xaml;;
-FC:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\View\PrintingTemplate\GatepassPrintTemplate.xaml;;
+FC:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\View\CNDN\CNLineItemView.xaml;;
+FC:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\View\CNDN\DebitNoteEntryView.xaml;;
+FC:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\View\CNDN\DNLineItemView.xaml;;
 

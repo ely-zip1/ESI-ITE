@@ -1,0 +1,236 @@
+﻿<Page x:Class="ESI_ITE.View.CNDN.CNLineItemView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ESI_ITE.View.CNDN"
+      mc:Ignorable="d" 
+      d:DesignHeight="615" d:DesignWidth="900"
+      Title="CNLineItemView">
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Content="Credit Note Entry" Grid.ColumnSpan="5" HorizontalAlignment="Center" FontSize="20" VerticalAlignment="Center"/>
+
+                <Label Grid.Row="1" Content="Select VAT" VerticalAlignment="Center"/>
+                <Label Grid.Row="2" Content="Customer" VerticalAlignment="Center"/>
+                <Label Grid.Row="3" Content="Salesman" VerticalAlignment="Center"/>
+                <Label Grid.Row="4" Content="Term Code"/>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                    <RadioButton Content="VAT 10" Margin="0,0,20,0"/>
+                    <RadioButton Content="VAT 12"/>
+                </StackPanel>
+
+                <!--<Border Grid.Row="2" Grid.Column="1" BorderThickness="1" BorderBrush="DodgerBlue" Grid.ColumnSpan="2">-->
+                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Grid.ColumnSpan="2">
+                    <Label Content="012382" VerticalAlignment="Center" FontWeight="Bold" Margin="0,0,10,0" Width="60"/>
+                    <Label Content="3 BROTHERS PHARMACY/ WAO" VerticalAlignment="Center" FontWeight="Bold"/>
+                </StackPanel>
+                <!--</Border>-->
+
+                <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Grid.ColumnSpan="2">
+                    <Label Content="700744" VerticalAlignment="Center" FontWeight="Bold" Margin="0,0,10,0" Width="60"/>
+                    <Label Content="JOSE NILJEAN G. TALIBONG" VerticalAlignment="Center" FontWeight="Bold"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Grid.ColumnSpan="2">
+                    <Label Content="CR15" VerticalAlignment="Center" FontWeight="Bold" Margin="0,0,10,0" Width="60"/>
+                    <Label Content="CREDIT 15 DAYS" VerticalAlignment="Center" FontWeight="Bold"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Label Content="Price Used:"/>
+                    <Label Content="Current Price"/>
+                </StackPanel>
+                <Label Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" Content="CN No."/>
+                <Label Grid.Row="3" Grid.Column="3" HorizontalAlignment="Right" Content="Total Cases"/>
+                <Label Grid.Row="4" Grid.Column="3" HorizontalAlignment="Right" Content="Total Pieces"/>
+
+                <Label Grid.Row="2" Grid.Column="4" Width="90" HorizontalContentAlignment="Right" FontWeight="Bold" Content="020005"/>
+                <Label Grid.Row="3" Grid.Column="4" Width="90" HorizontalContentAlignment="Right" FontWeight="Bold" Content="0"/>
+                <Label Grid.Row="4" Grid.Column="4" Width="90" HorizontalContentAlignment="Right" FontWeight="Bold" Content="0"/>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <DataGrid Grid.Row="1" Margin="0,10,0,10" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1" BorderBrush="#FF3F3F46" SelectedItem="" CanUserReorderColumns="False" CanUserResizeRows="False" SelectionUnit="FullRow" HorizontalScrollBarVisibility="Auto">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="90*"  Header="Item Code" Binding="{Binding ItemCode}" >
+                            <DataGridTextColumn.CellStyle>
+                                <Style>
+                                    <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Width="45*"  Header="P/T" Binding="{Binding PriceType}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style>
+                                    <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Width="300*" Header="Description" Binding="{Binding ItemDescription}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style>
+                                    <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Width="40*"  Header="LC" Binding="{Binding Location}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style>
+                                    <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Width="100*"  Header="Lot Number" Binding="{Binding LotNumber}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style>
+                                    <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Width="60*"  Header="Cases" Binding="{Binding Cases}" >
+                            <DataGridTextColumn.CellStyle>
+                                <Style>
+                                    <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+                                    <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Width="65*"  Header="Pieces" Binding="{Binding Pieces}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style>
+                                    <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
+                                    <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Width="100*"  Header="Price/Piece" Binding="{Binding PricePerPiece, StringFormat=\{0:#\,##0.00\}}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style>
+                                    <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
+                                    <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Width="130*" Header="Line Amount" Binding="{Binding LineAmount, StringFormat=\{0:#\,##0.00\}}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style>
+                                    <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
+                                    <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.7*"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="127*"/>
+                    <ColumnDefinition Width="53*"/>
+                </Grid.ColumnDefinitions>
+
+                <DockPanel>
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Item Code" Width="90"/>
+                        <TextBox/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="5,0,0,0">
+                        <Label Content="P/T" Width="40"/>
+                        <TextBox/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="5,0,0,0">
+                        <Label Content="LC" Width="40"/>
+                        <TextBox/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="5,0,0,0">
+                        <Label Content="Cases" Width="90"/>
+                        <TextBox/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="5,0,0,0">
+                        <Label Content="Pieces" Width="90"/>
+                        <TextBox/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="5,0,0,0">
+                        <Label Content="Price/Piece" Width="90"/>
+                        <TextBox/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="5,0,0,0">
+                        <Label Content="Tax Rate" Width="60"/>
+                        <TextBox/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="5,0,0,0">
+                        <Label Content="Warehouse Code"/>
+                        <TextBox/>
+                    </StackPanel>
+                </DockPanel>
+
+                <TextBox Grid.Row="1" VerticalAlignment="Center" Height="26" Margin="0,3,0,4" HorizontalAlignment="Stretch" BorderThickness="0"/>
+
+                <StackPanel Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" HorizontalAlignment="Right" Width="200">
+
+                    <Label Content="Trucking Charge" FontWeight="Bold" FontSize="15"/>
+                    <TextBox/>
+
+                    <Label Content="Order Amount  P" FontWeight="Bold" FontSize="15"/>
+                    <TextBox MinWidth="200" Text="" HorizontalContentAlignment="Right"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Width="100" Content="Exit" Margin="10,0"/>
+                    <Button Width="100" Content="Delete Line" Margin="10,0" ToolTip="F3"/>
+                    <Button Width="100" Content="List Values" Margin="10,0" ToolTip="F5"/>
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Page>

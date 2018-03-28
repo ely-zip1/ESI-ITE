@@ -599,3 +599,17 @@ C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOLineItemsView.b
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOView.baml
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\GatepassPrintTemplate.g.cs
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\GatepassPrintTemplate.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ControlzEx.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ControlzEx.pdb
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnEntryOptionsView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMainPageView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CreditNoteEntryView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnEntryOptionsView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMainPageView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CreditNoteEntryView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CNLineItemView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DebitNoteEntryView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DNLineItemView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CNLineItemView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DebitNoteEntryView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DNLineItemView.baml

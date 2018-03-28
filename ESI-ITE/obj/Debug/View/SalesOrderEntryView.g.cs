@@ -12,7 +12,9 @@
 using ESI_ITE.View;
 using ESI_ITE.ViewModel;
 using ESI_ITE.ViewModel.Converter;
+using MahApps.Metro;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Diagnostics;
 using System.Windows;

@@ -15,6 +15,7 @@ namespace ESI_ITE.ViewModel
         public MainWindowViewModel( )
         {
             MyGlobals.MainWindow = this;
+            IsLoginVisible = true;
         }
         
         public List<IModule> Modules { get; set; }
@@ -90,7 +91,7 @@ namespace ESI_ITE.ViewModel
             }
         }
 
-        private bool isLoginVisible = true;
+        private bool isLoginVisible = false;
         public bool IsLoginVisible
         {
             get { return isLoginVisible; }

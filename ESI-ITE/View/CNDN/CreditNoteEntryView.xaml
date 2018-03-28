@@ -1,0 +1,113 @@
+﻿<Page x:Class="ESI_ITE.View.CNDN.CreditNoteEntryView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ESI_ITE.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="600"
+      Title="CreditNoteEntryView">
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Content="Credit Note Entry" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold"/>
+
+                <Button Content="Print Entries" Grid.Row="1" Width="100" Height="20" HorizontalAlignment="Left"/>
+                <StackPanel  Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
+                    <Label Content="Price used: "/>
+                    <Label Content=""/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Content="CN No."/>
+                <Label Grid.Row="1" Content="Reference No."/>
+                <Label Grid.Row="2" Content="CN Date"/>
+                <Label Grid.Row="3" Content="Customer No."/>
+                <Label Grid.Row="5" Content="Reason Code"/>
+                <Label Grid.Row="6" Content="Price Type"/>
+                <Label Grid.Row="7" Content="Term Code"/>
+                <Label Grid.Row="8" Content="Salesman No."/>
+                <Label Grid.Row="9" Content="Warehouse"/>
+                <Label Grid.Row="10" Content="Return Type"/>
+                <Label Grid.Row="11" Content="Tax Rate"/>
+                <Label Grid.Row="12" Content="Comment"/>
+
+                <ComboBox Grid.Row="0" Grid.Column="1" Height="20"></ComboBox>
+                <TextBox Grid.Row="1" Grid.Column="1" Height="20"/>
+                <DatePicker Grid.Row="2" Grid.Column="1" Height="20"></DatePicker>
+                <TextBox Grid.Row="3" Grid.Column="1" Height="20"/>
+            
+                <ComboBox Grid.Row="5" Grid.Column="1" Height="20"></ComboBox>
+                <ComboBox Grid.Row="6" Grid.Column="1" Height="20"></ComboBox>
+                <ComboBox Grid.Row="7" Grid.Column="1" Height="20"></ComboBox>
+                <ComboBox Grid.Row="8" Grid.Column="1" Height="20"></ComboBox>
+                <ComboBox Grid.Row="9" Grid.Column="1" Height="20"></ComboBox>
+                <ComboBox Grid.Row="10" Grid.Column="1" Height="20"></ComboBox>
+                <TextBox Grid.Row="11" Grid.Column="1" Height="20"/>
+                <TextBox Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="4" Height="20"/>
+
+                <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Content="Last CN No. Entered/ Updated " />
+                <Label Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Content="CN Amount " />
+                <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Content="Discount " />
+                <Label Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Content="Total Cases " />
+                <Label Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Content="Total Pieces " />
+
+                <TextBox Grid.Row="0" Grid.Column="4" Height="20"/>
+                <TextBox Grid.Row="1" Grid.Column="4" Height="20"/>
+                <TextBox Grid.Row="2" Grid.Column="4" Height="20"/>
+                <TextBox Grid.Row="9" Grid.Column="4" Height="20"/>
+                <TextBox Grid.Row="10" Grid.Column="4" Height="20"/>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Width="100" Height="20" Margin="10,10" Content="Line Items"/>
+                    <Button Width="100" Height="20" Margin="10,10" Content="Delete Entry"/>
+                    <Button Width="100" Height="20" Margin="10,10" Content="Customer List"/>
+                    <Button Width="100" Height="20" Margin="10,10" Content="Exit"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

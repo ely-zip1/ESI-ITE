@@ -85,17 +85,26 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            
+            <!--<Controls:HamburgerMenu x:Name="HamburgerMenuControl" Grid.Row="1" Grid.Column="0"
+                        Foreground="White"
+                        PaneBackground="#FF444444"
+                        IsPaneOpen="True"
+                        DisplayMode="CompactInline" ItemsSource="">
+                
+            </Controls:HamburgerMenu>-->
+
             <!--<ListView Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch">
             <TextBlock Text="Inventory Transaction" Padding="10" TextAlignment="Center" 
                        HorizontalAlignment="Center" ></TextBlock>
         </ListView>-->
 
             <Controls:TransitioningContentControl Name="contentPresenter" Grid.Row="1" Grid.Column="1" IsTabStop="False" Focusable="False"
-                          Content="{Binding UserInterface}" OpacityMask="#FF252525" Transition="Normal"/>
+                          Content="{Binding UserInterface}" OpacityMask="#FF252525"/>
         </Grid>
 
         <Popup>
-            
+
         </Popup>
     </Grid>
 </Controls:MetroWindow>

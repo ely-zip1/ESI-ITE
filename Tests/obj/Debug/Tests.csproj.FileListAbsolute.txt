@@ -71,3 +71,5 @@ C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.dll
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\System.Windows.Interactivity.dll
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.pdb
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.xml
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ControlzEx.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ControlzEx.pdb
