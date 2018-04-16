@@ -8,6 +8,7 @@ using ESI_ITE.Model;
 using ESI_ITE.View;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using ESI_ITE.ViewModel.CNDN;
 
 namespace ESI_ITE
 {
@@ -18,6 +19,7 @@ namespace ESI_ITE
         public static LoginView loginView;
 
         public static UserModel LoggedUser;
+
 
         #region Transaction Entry 
         public static ITEViewModel IteViewModel;
@@ -39,6 +41,7 @@ namespace ESI_ITE
         public static List<TransactionModel> TransactionList = new List<TransactionModel>();
 
         public static ItemModel SelectedItem = new ItemModel();
+
         #endregion
 
 
@@ -50,16 +53,29 @@ namespace ESI_ITE
         public static SalesOrderEntryView SalesOrderEntryPage;
 
         public static SalesOrderEntryViewModel SoEntryViewModel;
+
         #endregion
 
 
         #region Invoicing
-
         public static InvoicingViewModel InvoicingVM;
 
         public static InvoicingMainPageViewModel InvoicingMainVM;
 
         #endregion
+
+
+        #region CN/DN
+        public static CnDnViewModel CnDnVM;
+
+        public static CnDnEntryOptionsViewModel CnDnEntryOptionsVM;
+
+        public static string SelectedCNDNTransaction;
+
+        public static string SelectedCNDNPrice;
+
+        #endregion
+
 
         public static FixedDocument printingDoc;
 
