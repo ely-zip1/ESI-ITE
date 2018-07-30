@@ -10,24 +10,30 @@ using System.Threading;
 
 namespace ESI_ITE.ViewModel
 {
-    public class MainWindowViewModel: ViewModelBase
+    public class MainWindowViewModel : ViewModelBase
     {
-        public MainWindowViewModel( )
+        public MainWindowViewModel()
         {
             MyGlobals.MainWindow = this;
             IsLoginVisible = true;
         }
-        
-        public List<IModule> Modules { get; set; }
+
+        public List<IModule> Modules
+        {
+            get; set;
+        }
 
         IModule selectedModule;
         public IModule SelectedModule
         {
-            get { return selectedModule; }
+            get
+            {
+                return selectedModule;
+            }
 
             set
             {
-                if ( selectedModule != value )
+                if (selectedModule != value)
                 {
                     selectedModule = value;
                     OnPropertyChanged("UserInterface");
@@ -39,7 +45,7 @@ namespace ESI_ITE.ViewModel
         {
             get
             {
-                if ( selectedModule == null )
+                if (selectedModule == null)
                 {
                     return null;
                 }
@@ -50,7 +56,10 @@ namespace ESI_ITE.ViewModel
         private int selectedIndex = 0;
         public int SelectedIndex
         {
-            get { return selectedIndex; }
+            get
+            {
+                return selectedIndex;
+            }
             set
             {
                 selectedIndex = value;
@@ -61,7 +70,10 @@ namespace ESI_ITE.ViewModel
         private int blurIntensity = 10;
         public int BlurIntensity
         {
-            get { return blurIntensity; }
+            get
+            {
+                return blurIntensity;
+            }
             set
             {
                 blurIntensity = value;
@@ -72,7 +84,10 @@ namespace ESI_ITE.ViewModel
         private string windowTitle = "ESI System";
         public string WindowTitle
         {
-            get { return windowTitle; }
+            get
+            {
+                return windowTitle;
+            }
             set
             {
                 windowTitle = value;
@@ -83,7 +98,10 @@ namespace ESI_ITE.ViewModel
         private UserControl loginUi = new LoginView();
         public UserControl LoginUi
         {
-            get { return loginUi; }
+            get
+            {
+                return loginUi;
+            }
             set
             {
                 loginUi = value;
@@ -94,13 +112,58 @@ namespace ESI_ITE.ViewModel
         private bool isLoginVisible = false;
         public bool IsLoginVisible
         {
-            get { return isLoginVisible; }
+            get
+            {
+                return isLoginVisible;
+            }
             set
             {
                 isLoginVisible = value;
                 OnPropertyChanged();
             }
         }
-        
+
+        private bool isChildWindowOpen;
+        public bool IsChildWindowOpen
+        {
+            get
+            {
+                return isChildWindowOpen;
+            }
+            set
+            {
+                isChildWindowOpen = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string childWindowTitle;
+        public string ChildWindowTitle
+        {
+            get
+            {
+                return childWindowTitle;
+            }
+            set
+            {
+                childWindowTitle = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private UserControl childWindowContent;
+        public UserControl ChildWindowContent
+        {
+            get
+            {
+                return childWindowContent;
+            }
+            set
+            {
+                childWindowContent = value;
+                OnPropertyChanged();
+            }
+        }
+
     }
 }

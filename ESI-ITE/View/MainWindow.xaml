@@ -7,6 +7,7 @@
         xmlns:myControls="clr-namespace:ESI_ITE.View"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:conv="clr-namespace:ESI_ITE.ViewModel.Converter"
+        xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
         mc:Ignorable="d" 
         Title="{Binding WindowTitle}"
         Height="700" Width="1300"
@@ -85,7 +86,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            
+
             <!--<Controls:HamburgerMenu x:Name="HamburgerMenuControl" Grid.Row="1" Grid.Column="0"
                         Foreground="White"
                         PaneBackground="#FF444444"
@@ -103,8 +104,24 @@
                           Content="{Binding UserInterface}" OpacityMask="#FF252525"/>
         </Grid>
 
-        <Popup>
 
-        </Popup>
+        <simpleChildWindow:ChildWindow 
+            IsOpen="{Binding IsChildWindowOpen}" 
+            HorizontalContentAlignment="Stretch" 
+            VerticalContentAlignment="Stretch" 
+            ChildWindowHeight="500" 
+            ChildWindowWidth="400" 
+            AllowMove="True"
+            Title="{Binding ChildWindowTitle}">
+
+            <simpleChildWindow:ChildWindow.OverlayBrush>
+                <SolidColorBrush Opacity="0.8" Color="{StaticResource Gray2}" />
+            </simpleChildWindow:ChildWindow.OverlayBrush>
+
+            <Grid>
+                <ContentControl Content="{Binding ChildWindowContent}"/>
+            </Grid>
+        </simpleChildWindow:ChildWindow>
+
     </Grid>
 </Controls:MetroWindow>

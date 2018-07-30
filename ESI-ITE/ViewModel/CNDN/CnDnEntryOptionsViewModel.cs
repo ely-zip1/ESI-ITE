@@ -30,9 +30,9 @@ namespace ESI_ITE.ViewModel.CNDN
             }
             set
             {
+                creditSelected = value;
                 if (value)
                 {
-                    creditSelected = value;
                     SelectedTransaction = "Credit";
                 }
                 OnPropertyChanged();
@@ -48,9 +48,9 @@ namespace ESI_ITE.ViewModel.CNDN
             }
             set
             {
+                debitSelected = value;
                 if (value)
                 {
-                    debitSelected = value;
                     SelectedTransaction = "Debit";
                 }
                 OnPropertyChanged();
@@ -66,9 +66,10 @@ namespace ESI_ITE.ViewModel.CNDN
             }
             set
             {
+
+                isCurrentPrice = value;
                 if (value)
                 {
-                    isCurrentPrice = value;
                     SelectedPrice = "Current";
                 }
                 OnPropertyChanged();
@@ -84,9 +85,10 @@ namespace ESI_ITE.ViewModel.CNDN
             }
             set
             {
+
+                is3MonthsAgo = value;
                 if (value)
                 {
-                    is3MonthsAgo = value;
                     SelectedPrice = "3 Months Ago";
                 }
                 OnPropertyChanged();
@@ -102,9 +104,10 @@ namespace ESI_ITE.ViewModel.CNDN
             }
             set
             {
+
+                is6MonthsAgo = value;
                 if (value)
                 {
-                    is6MonthsAgo = value;
                     SelectedPrice = "6 Months Ago";
                 }
                 OnPropertyChanged();
@@ -157,18 +160,6 @@ namespace ESI_ITE.ViewModel.CNDN
 
         private void SelectTransaction()
         {
-            if (SelectedTransaction == "Credit")
-            {
-                MyGlobals.SelectedCNDNTransaction = "Credit";
-                MyGlobals.CnDnVM.SelectedPage = new CreditNoteEntryView();
-            }
-            else if (SelectedTransaction == "Debit")
-            {
-                MyGlobals.SelectedCNDNTransaction = "Debit";
-                MyGlobals.CnDnVM.SelectedPage = new DebitNoteEntryView();
-            }
-
-
             if (SelectedPrice == "Current")
             {
                 MyGlobals.SelectedCNDNPrice = "Current";
@@ -180,6 +171,18 @@ namespace ESI_ITE.ViewModel.CNDN
             else if (SelectedPrice == "6 Months Ago")
             {
                 MyGlobals.SelectedCNDNPrice = "6 Months Ago";
+            }
+
+
+            if (SelectedTransaction == "Credit")
+            {
+                MyGlobals.SelectedCNDNTransaction = "Credit";
+                MyGlobals.CnDnVM.SelectedPage = new CreditNoteEntryView();
+            }
+            else if (SelectedTransaction == "Debit")
+            {
+                MyGlobals.SelectedCNDNTransaction = "Debit";
+                MyGlobals.CnDnVM.SelectedPage = new DebitNoteEntryView();
             }
         }
 

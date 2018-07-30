@@ -615,3 +615,5 @@ C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DebitNoteEnt
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DNLineItemView.baml
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnView.g.cs
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerSelectionView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerSelectionView.baml

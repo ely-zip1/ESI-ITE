@@ -70,6 +70,8 @@ namespace ESI_ITE
 
         public static CnDnEntryOptionsViewModel CnDnEntryOptionsVM;
 
+        public static CreditNoteEntryViewModel CreditNoteEntryVM;
+
         public static string SelectedCNDNTransaction;
 
         public static string SelectedCNDNPrice;

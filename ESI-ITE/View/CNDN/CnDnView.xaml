@@ -13,5 +13,5 @@
     </UserControl.DataContext>
 
     <Frame Name="frameInvoice" Content="{Binding SelectedPage}" Padding="20 " NavigationUIVisibility="Hidden" Margin="5"
-           HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" VerticalContentAlignment="Stretch"/>
+           HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
 </UserControl>

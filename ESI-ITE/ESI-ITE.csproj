@@ -166,6 +166,9 @@
     </ApplicationDefinition>
     <Compile Include="CloneableDictionary.cs" />
     <Compile Include="Model\AllocatedStocksModel.cs" />
+    <Compile Include="Model\CnNumberModel.cs" />
+    <Compile Include="Model\CreditNoteHeaderModel.cs" />
+    <Compile Include="Model\CreditNoteLineModel.cs" />
     <Compile Include="Model\CustomerModel.cs" />
     <Compile Include="Model\DistrictModel.cs" />
     <Compile Include="Model\GatepassModel.cs" />
@@ -191,6 +194,7 @@
     <Compile Include="Model\ProgramsModel.cs" />
     <Compile Include="Model\ProgressReportModel.cs" />
     <Compile Include="Model\ReasonsModel.cs" />
+    <Compile Include="Model\ReturnTypeModel.cs" />
     <Compile Include="Model\RouteModel.cs" />
     <Compile Include="Model\SalesmanModel.cs" />
     <Compile Include="Model\SalesOrderModel.cs" />
@@ -206,7 +210,9 @@
     <Compile Include="ViewModel\CNDN\CnDnEntryOptionsViewModel.cs" />
     <Compile Include="ViewModel\CNDN\CnDnMainPageViewModel.cs" />
     <Compile Include="ViewModel\CNDN\CnDnViewModel.cs" />
+    <Compile Include="ViewModel\CNDN\CNLineItemViewModel.cs" />
     <Compile Include="ViewModel\CNDN\CreditNoteEntryViewModel.cs" />
+    <Compile Include="ViewModel\CustomerSelectionViewModel.cs" />
     <Compile Include="ViewModel\GatepassPrintTemplateViewModel.cs" />
     <Compile Include="ViewModel\InvoicePrintTemplateViewModel.cs" />
     <Compile Include="ViewModel\PicklistPrintTemplateViewModel.cs" />
@@ -231,6 +237,9 @@
     </Compile>
     <Compile Include="View\CNDN\DNLineItemView.xaml.cs">
       <DependentUpon>DNLineItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CustomerSelectionView.xaml.cs">
+      <DependentUpon>CustomerSelectionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PrintingTemplate\GatepassPrintTemplate.xaml.cs">
       <DependentUpon>GatepassPrintTemplate.xaml</DependentUpon>
@@ -374,6 +383,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CNDN\DNLineItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CustomerSelectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
