@@ -600,8 +600,6 @@ namespace ESI_ITE.ViewModel.CNDN
         {
             if (IsFirstLoad)
             {
-                var cnNumberObject = new CnNumberModel();
-                var cnObject = new CreditNoteHeaderModel();
                 var reasonsObject = new ReasonsModel();
                 var pricetypeObject = new PriceTypeModel();
                 var termsObject = new TermModel();
@@ -612,22 +610,7 @@ namespace ESI_ITE.ViewModel.CNDN
 
                 var results = new List<CloneableDictionary<string, string>>();
 
-                cnNumberObject = cnNumberObject.FetchLatest();
-
-                var cnNumberList = new List<string>();
-                cnNumberList.Add(cnNumberObject.CreditNoteNumber);
-                cnNumberList.Add("New");
-
-                CnNumberCollection.Add(cnNumberList);
-
-                foreach (CreditNoteHeaderModel row in cnObject.FetchAll())
-                {
-                    var credit = new List<string>();
-                    credit.Add(row.CnNumber);
-                    credit.Add(row.CustomerId.ToString());
-
-                    CnNumberCollection.Add(credit);
-                }
+                LoadCnNumbers();
 
                 foreach (ReasonsModel row in reasonsObject.FetchAll())
                 {
@@ -674,6 +657,32 @@ namespace ESI_ITE.ViewModel.CNDN
 
                 IsFirstLoad = false;
             }
+        }
+
+        private void LoadCnNumbers()
+        {
+            CnNumberCollection.Clear();
+
+            var cnObject = new CreditNoteHeaderModel();
+            var cnNumberObject = new CnNumberModel();
+            cnNumberObject = cnNumberObject.FetchLatest();
+
+            var cnNumberList = new List<string>();
+            cnNumberList.Add(cnNumberObject.CreditNoteNumber);
+            cnNumberList.Add("New");
+
+            CnNumberCollection.Add(cnNumberList);
+
+            foreach (CreditNoteHeaderModel row in cnObject.FetchAll())
+            {
+                var credit = new List<string>();
+                credit.Add(row.CnNumber);
+                credit.Add(row.CustomerId.ToString());
+
+                CnNumberCollection.Add(credit);
+            }
+
+            SelectedIndexCnNumber = -1;
         }
 
         private void Exit()
@@ -755,35 +764,13 @@ namespace ESI_ITE.ViewModel.CNDN
             }
 
             indexCounter = 0;
-            foreach (var row in WarehouseCollection)
-            {
-                if (customerObject.TermId == row.Id)
-                {
-                    SelectedIndexWarehouse = indexCounter;
-                    break;
-                }
-                indexCounter++;
-            }
-
-            indexCounter = 0;
-            foreach (var row in ReturnTypeCollection)
-            {
-                if (customerObject.TermId == row.Id)
-                {
-                    SelectedIndexReturnType = indexCounter;
-                    break;
-                }
-                indexCounter++;
-            }
-
-            indexCounter = 0;
             TaxRate = customerObject.TaxRate.ToString();
 
         }
 
         private void SelectedCnNumberChanged()
         {
-            if (SelectedIndexCnNumber == 0)
+            if (SelectedIndexCnNumber <= 0)
             {
                 ReferenceNumber = "";
                 CnDate = DateTime.Now;
@@ -798,10 +785,10 @@ namespace ESI_ITE.ViewModel.CNDN
                 Comment = "";
 
                 LastCreditNote = SelectedCnNumber[0];
-                CnAmount = "";
-                Discount = "";
-                TotalCases = "";
-                TotalPieces = "";
+                CnAmount = "0";
+                Discount = "0";
+                TotalCases = "0";
+                TotalPieces = "0";
             }
             else if (SelectedIndexCnNumber > 0)
             {
@@ -811,12 +798,38 @@ namespace ESI_ITE.ViewModel.CNDN
                 ReferenceNumber = cnHeaderObject.ReferenceNumber;
                 CnDate = cnHeaderObject.CnDate;
 
+                var customerObject = new CustomerModel();
+                customerObject = (CustomerModel)customerObject.Fetch(cnHeaderObject.CustomerId.ToString(), "id");
+                CustomerNumber = customerObject.CustomerNumber;
+
                 var index = 0;
                 foreach (var row in ReasonCodeCollection)
                 {
                     if (row.Id == cnHeaderObject.ReasonId)
                     {
                         SelectedIndexReasonCode = index;
+                        break;
+                    }
+                    index++;
+                }
+
+                index = 0;
+                foreach (var row in WarehouseCollection)
+                {
+                    if (row.Id == cnHeaderObject.WarehouseId)
+                    {
+                        SelectedIndexWarehouse = index;
+                        break;
+                    }
+                    index++;
+                }
+
+                index = 0;
+                foreach (var row in ReturnTypeCollection)
+                {
+                    if (row.Id == cnHeaderObject.ReturnCodeId)
+                    {
+                        SelectedIndexReturnType = index;
                         break;
                     }
                     index++;
@@ -836,12 +849,24 @@ namespace ESI_ITE.ViewModel.CNDN
 
         private void DeleteEntries()
         {
+            if (SelectedIndexCnNumber > 0)
+            {
+                var cnHeaderObj = new CreditNoteHeaderModel();
+                cnHeaderObj = (CreditNoteHeaderModel)cnHeaderObj.Fetch(SelectedCnNumber[0], "code");
 
+                cnHeaderObj.DeleteItem(cnHeaderObj);
+
+                LoadCnNumbers();
+            }
         }
 
         private void LineItems()
         {
-            if (SelectedCnNumber[1] == "New")
+            if (SelectedIndexCnNumber == -1)
+            {
+                return;
+            }
+            else if (SelectedCnNumber[1] == "New")
             {
                 var cnHeaderObj = new CreditNoteHeaderModel();
                 var customerObj = new CustomerModel();
@@ -861,11 +886,20 @@ namespace ESI_ITE.ViewModel.CNDN
                 cnHeaderObj.ReturnCodeId = SelectedReturnType.Id;
                 cnHeaderObj.PriceUsed = SelectedPrice;
                 cnHeaderObj.UserId = MyGlobals.LoggedUser.Id;
+                cnHeaderObj.ReasonId = SelectedReasonCode.Id;
 
                 cnHeaderObj.AddNew(cnHeaderObj);
             }
-            MyGlobals.SelectedCNDNTransaction = SelectedCnNumber[0];
-            MyGlobals.CnDnVM.SelectedPage = new CNLineItemView();
+
+            var cnNumberObject = new CnNumberModel();
+            cnNumberObject = cnNumberObject.FetchLatest();
+            cnNumberObject.UpdateCnNumber(cnNumberObject);
+
+            if (string.IsNullOrWhiteSpace(SelectedCnNumber[1]) == false)
+            {
+                MyGlobals.SelectedCNDNTransaction = SelectedCnNumber[0];
+                MyGlobals.CnDnVM.SelectedPage = new CNLineItemView();
+            }
         }
 
         private void StartPrinting()

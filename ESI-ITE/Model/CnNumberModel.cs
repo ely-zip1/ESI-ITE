@@ -96,7 +96,7 @@ namespace ESI_ITE.Model
 
             var cnString = currentCnNumber.ToString();
 
-            while (cnString.Length < 7)
+            while (cnString.Length < 6)
             {
                 cnString = "0" + cnString;
             }

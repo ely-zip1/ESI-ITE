@@ -77,8 +77,8 @@
                 <Label Grid.Row="4" Grid.Column="4" Width="90" HorizontalContentAlignment="Right" FontWeight="Bold" Content="0"/>
             </Grid>
 
-            <Grid Grid.Row="1">
-                <DataGrid Grid.Row="1" Margin="0,10,0,10" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1" BorderBrush="#FF3F3F46" SelectedItem="" CanUserReorderColumns="False" CanUserResizeRows="False" SelectionUnit="FullRow" HorizontalScrollBarVisibility="Auto">
+            <Grid Grid.Row="1" Margin="1">
+                <DataGrid Grid.Row="1" Margin="0,10,0,10" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1" BorderBrush="#FF3F3F46" SelectedItem="" CanUserReorderColumns="False" CanUserResizeRows="False" SelectionUnit="FullRow" HorizontalScrollBarVisibility="Auto" MinHeight="300">
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="90*"  Header="Item Code" Binding="{Binding ItemCode}" >
                             <DataGridTextColumn.CellStyle>

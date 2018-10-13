@@ -228,7 +228,7 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
 
-                <ComboBox Grid.Row="10" Grid.Column="1" Height="20" ItemsSource="{Binding ReturnTypeCollection}" SelectedItem="{Binding SelectedIndexReturnType}"
+                <ComboBox Grid.Row="10" Grid.Column="1" Height="20" ItemsSource="{Binding ReturnTypeCollection}" SelectedItem="{Binding SelectedReturnType}"
                           SelectedIndex="{Binding SelectedIndexReturnType}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>

@@ -233,7 +233,7 @@ namespace ESI_ITE.Model
             sb.Append("insert into cn_header values(");
             sb.Append("null,");
             sb.Append("'" + cnObect.CnNumber + "',");
-            sb.Append("str_to_date(" + cnObect.CnDate.ToString("MM/dd/yyyy") + ",'%m/%d/%Y'),");
+            sb.Append("str_to_date('" + cnObect.CnDate.ToString("MM/dd/yyyy") + "','%m/%d/%Y'),");
             sb.Append("'" + cnObect.ReferenceNumber + "',");
             sb.Append("'" + cnObect.CustomerId + "',");
             sb.Append("'" + cnObect.WarehouseId + "',");
@@ -256,6 +256,14 @@ namespace ESI_ITE.Model
         public void DeleteItem(string qry)
         {
             throw new NotImplementedException();
+        }
+
+        public void DeleteItem(CreditNoteHeaderModel cnHeader)
+        {
+            if (cnHeader.CnNumber != "")
+            {
+                db.Delete("delete from cn_header where id = '"+cnHeader.Id+"'");
+            }
         }
 
         public object Fetch(string id, string type)
