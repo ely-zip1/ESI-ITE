@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ESI_ITE.View.CNDN
+namespace ESI_ITE.View.PrintingTemplate
 {
     /// <summary>
-    /// Interaction logic for CreditNoteEntryView.xaml
+    /// Interaction logic for CnEntriesPrintTemplate.xaml
     /// </summary>
-    public partial class CreditNoteEntryView : Page
+    public partial class CnEntriesPrintTemplate : UserControl
     {
-        public CreditNoteEntryView()
+        public CnEntriesPrintTemplate()
         {
             InitializeComponent();
-            MyGlobals.CreditNoteEntryView = this;
         }
     }
 }

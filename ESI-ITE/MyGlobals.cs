@@ -9,6 +9,7 @@ using ESI_ITE.View;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using ESI_ITE.ViewModel.CNDN;
+using ESI_ITE.View.CNDN;
 
 namespace ESI_ITE
 {
@@ -69,6 +70,8 @@ namespace ESI_ITE
         public static CnDnViewModel CnDnVM;
 
         public static CnDnEntryOptionsViewModel CnDnEntryOptionsVM;
+
+        public static CreditNoteEntryView CreditNoteEntryView;
 
         public static CreditNoteEntryViewModel CreditNoteEntryVM;
 

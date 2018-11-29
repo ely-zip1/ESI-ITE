@@ -4,7 +4,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using ESI_ITE.Model;
+using ESI_ITE.ViewModel.Command;
 
 namespace ESI_ITE.ViewModel.CNDN
 {
@@ -12,6 +14,8 @@ namespace ESI_ITE.ViewModel.CNDN
     {
         public CNLineItemViewModel()
         {
+            exitCommand = new DelegateCommand(Exit);
+
             Load();
         }
 
@@ -382,6 +386,7 @@ namespace ESI_ITE.ViewModel.CNDN
             set
             {
                 sellingPriceList = value;
+                OnPropertyChanged();
             }
         }
 
@@ -455,6 +460,15 @@ namespace ESI_ITE.ViewModel.CNDN
             }
         }
 
+        private DelegateCommand exitCommand;
+        public ICommand ExitCommand
+        {
+            get
+            {
+                return exitCommand;
+            }
+        }
+
         #endregion
 
 
@@ -469,7 +483,7 @@ namespace ESI_ITE.ViewModel.CNDN
             var termObject = new TermModel();
 
             customerObject = (CustomerModel)customerObject.Fetch(cnHeaderObject.CustomerId.ToString(), "id");
-            districtObject = (DistrictModel)salesmanObject.Fetch(customerObject.DistrictId.ToString(), "id");
+            districtObject = (DistrictModel)districtObject.Fetch(customerObject.DistrictId.ToString(), "id");
             salesmanObject = (SalesmanModel)salesmanObject.Fetch(districtObject.Salesman.ToString(), "id");
             termObject = (TermModel)termObject.Fetch(customerObject.TermId.ToString(), "id");
 
@@ -506,7 +520,7 @@ namespace ESI_ITE.ViewModel.CNDN
                     lineItem.Add(row.PricePerPiece.ToString());
                     lineItem.Add(row.LineAmount.ToString());
 
-                    LinedItemCollection.Add(lineItem);
+                    LinedItemCollection.Add(lineItem); 
                 }
             }
 
@@ -572,6 +586,11 @@ namespace ESI_ITE.ViewModel.CNDN
 
             var warehouseObject = new WareHouseModel();
             warehouseObject = (WareHouseModel)warehouseObject.Fetch(matchedItem.Warehouse.ToString(), "Id");
+        }
+
+        private void Exit()
+        {
+            MyGlobals.CnDnVM.SelectedPage = MyGlobals.CreditNoteEntryView;
         }
     }
 }

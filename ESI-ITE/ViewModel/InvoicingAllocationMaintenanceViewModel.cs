@@ -265,7 +265,7 @@ namespace ESI_ITE.ViewModel
                     PicklistCollection.Add(picklist);
                 }
             }
-        }
+        }   
 
         private void SelectedPicklistChanged()
         {

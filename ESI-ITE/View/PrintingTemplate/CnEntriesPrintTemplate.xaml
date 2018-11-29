@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="ESI_ITE.View.PrintingTemplate.CnEntriesPrintTemplate"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ESI_ITE.View.PrintingTemplate"
+             xmlns:vm="clr-namespace:ESI_ITE.ViewModel.CNDN"
+             mc:Ignorable="d" 
+             d:DesignHeight="850" d:DesignWidth="1100"
+             Background="White"
+             FontFamily="courier new"
+             FontSize="12">
+    <UserControl.DataContext>
+        <vm:CnEntriesPrintTemplateViewModel x:Name="viewModel"/>
+    </UserControl.DataContext>
+
+    <Grid VerticalAlignment="Top" Margin="20,30">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Width="900" Name="PageHeader" Height="60" HorizontalAlignment="Left" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="JAY" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="11/24/2018" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="09:31:36" VerticalAlignment="Center"/>
+
+            <TextBlock Grid.Column="1" Grid.Row="1" Text="Extract Sales, Inc." VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <TextBlock Grid.Column="1" Grid.Row="2" Text="Credit Note Entries" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+            <StackPanel Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" Orientation="Horizontal">
+                <TextBlock Text="Page: "/>
+                <TextBlock Text="1"/>
+            </StackPanel>
+
+        </Grid>
+
+        <Grid Grid.Row="1" Height="25">
+            <Border BorderThickness="0,1">
+                <Border.BorderBrush>
+                    <VisualBrush>
+                        <VisualBrush.Visual>
+                            <Rectangle StrokeDashArray="4 2" Stroke="Gray" StrokeThickness="1"
+                                    Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualWidth}"
+                                    Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualHeight}"/>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Border.BorderBrush>
+                <Grid VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/> <!--customer name-->
+                        <ColumnDefinition Width="100"/> <!--cn number-->
+                        <ColumnDefinition Width="100"/> <!--cn date-->
+                        <ColumnDefinition Width="90"/> <!--reference-->
+                        <ColumnDefinition Width="150"/> <!--amount-->
+                        <ColumnDefinition Width="100"/> <!--printed-->
+                        <ColumnDefinition Width="200"/> <!--created by-->
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="Customer Name"/>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Text="CN Number"/>
+                    <TextBlock Grid.Column="2" HorizontalAlignment="Left" Text="CN Date"/>
+                    <TextBlock Grid.Column="3" HorizontalAlignment="Left" Text="Reference"/>
+                    <TextBlock Grid.Column="4" HorizontalAlignment="Right" Text="Amount"/>
+                    <TextBlock Grid.Column="5" HorizontalAlignment="Center" Text="Printed"/>
+                    <TextBlock Grid.Column="6" HorizontalAlignment="Left" Text="Created by"/>
+                    
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="2" Height="690">
+            <ListView Background="Transparent" Foreground="Black" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="MinHeight" Value="10"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" MinHeight="10">
+                            <TextBlock Width="270" Foreground="Black" Text="{Binding ItemDescription}"/>
+                            <TextBlock Width="30" Foreground="Black" Text="{Binding Cases}" TextAlignment="Right"/>
+                            <TextBlock Width="30" Foreground="Black" Text="{Binding Pieces}" TextAlignment="Right"/>
+                            <TextBlock Width="70" Foreground="Black" Text="{Binding PricePerCase, StringFormat={}{0:#,###.#0}}" TextAlignment="Right"/>
+                            <TextBlock Width="70" Foreground="Black" Text="{Binding PricePerPiece, StringFormat={}{0:#,###.#0}}" TextAlignment="Right"/>
+                            <TextBlock Width="120" Foreground="Black" FontFamily="consolas" Text="{Binding Amount, StringFormat={}{0:#,###.#0}}" TextAlignment="Right"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Grid>
+</UserControl>

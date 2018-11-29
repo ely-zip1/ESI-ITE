@@ -4,10 +4,15 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using ESI_ITE.Model;
+using ESI_ITE.Printing;
 using ESI_ITE.View;
 using ESI_ITE.View.CNDN;
+using ESI_ITE.View.PrintingTemplate;
 using ESI_ITE.ViewModel.Command;
 
 namespace ESI_ITE.ViewModel.CNDN
@@ -137,6 +142,7 @@ namespace ESI_ITE.ViewModel.CNDN
             set
             {
                 customerCollection = value;
+                OnPropertyChanged();
             }
         }
 
@@ -179,6 +185,17 @@ namespace ESI_ITE.ViewModel.CNDN
             set
             {
                 customerNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string customerName;
+        public string CustomerName
+        {
+            get { return customerName; }
+            set
+            {
+                customerName = value;
                 OnPropertyChanged();
             }
         }
@@ -711,6 +728,7 @@ namespace ESI_ITE.ViewModel.CNDN
             {
                 searchedCustomerChanged(SelectedCustomer[0], "code");
                 CustomerNumber = SelectedCustomer[0];
+                CustomerName = SelectedCustomer[1];
                 ShowCustomerList();
             }
         }
@@ -772,23 +790,7 @@ namespace ESI_ITE.ViewModel.CNDN
         {
             if (SelectedIndexCnNumber <= 0)
             {
-                ReferenceNumber = "";
-                CnDate = DateTime.Now;
-                CustomerNumber = "";
-                SelectedIndexReasonCode = -1;
-                SelectedIndexPriceType = -1;
-                SelectedIndexTermCode = -1;
-                SelectedIndexSalesman = -1;
-                SelectedIndexWarehouse = -1;
-                SelectedIndexReturnType = -1;
-                TaxRate = "";
-                Comment = "";
-
-                LastCreditNote = SelectedCnNumber[0];
-                CnAmount = "0";
-                Discount = "0";
-                TotalCases = "0";
-                TotalPieces = "0";
+                ClearFields();
             }
             else if (SelectedIndexCnNumber > 0)
             {
@@ -801,6 +803,7 @@ namespace ESI_ITE.ViewModel.CNDN
                 var customerObject = new CustomerModel();
                 customerObject = (CustomerModel)customerObject.Fetch(cnHeaderObject.CustomerId.ToString(), "id");
                 CustomerNumber = customerObject.CustomerNumber;
+                CustomerName = customerObject.CustomerName;//.ToUpper();
 
                 var index = 0;
                 foreach (var row in ReasonCodeCollection)
@@ -849,14 +852,19 @@ namespace ESI_ITE.ViewModel.CNDN
 
         private void DeleteEntries()
         {
-            if (SelectedIndexCnNumber > 0)
+            var dialogResult = MessageBox.Show("Do you want to delete the current CN entry?", "Confirm Delete", MessageBoxButton.OKCancel);
+            if (dialogResult == MessageBoxResult.OK)
             {
-                var cnHeaderObj = new CreditNoteHeaderModel();
-                cnHeaderObj = (CreditNoteHeaderModel)cnHeaderObj.Fetch(SelectedCnNumber[0], "code");
+                if (SelectedIndexCnNumber > 0)
+                {
+                    var cnHeaderObj = new CreditNoteHeaderModel();
+                    cnHeaderObj = (CreditNoteHeaderModel)cnHeaderObj.Fetch(SelectedCnNumber[0], "code");
 
-                cnHeaderObj.DeleteItem(cnHeaderObj);
+                    cnHeaderObj.DeleteItem(cnHeaderObj);
 
-                LoadCnNumbers();
+                    LoadCnNumbers();
+                    ClearFields();
+                }
             }
         }
 
@@ -902,9 +910,116 @@ namespace ESI_ITE.ViewModel.CNDN
             }
         }
 
+        public void ClearFields()
+        {
+            ReferenceNumber = "";
+            CnDate = DateTime.Now;
+            CustomerNumber = "";
+            CustomerName = "";
+            SelectedIndexReasonCode = -1;
+            SelectedIndexPriceType = -1;
+            SelectedIndexTermCode = -1;
+            SelectedIndexSalesman = -1;
+            SelectedIndexWarehouse = -1;
+            SelectedIndexReturnType = -1;
+            TaxRate = "";
+            Comment = "";
+
+            CnAmount = "0";
+            Discount = "0";
+            TotalCases = "0";
+            TotalPieces = "0";
+        }
+
+        #region Printing
+
         private void StartPrinting()
         {
-
+            CallPrinting();
         }
+
+        private async void CallPrinting()
+        {
+            var result = await PicklistPrintingAsync();
+
+            MyGlobals.printingDoc = result;
+
+            MyGlobals.PrintingParent = MyGlobals.CreditNoteEntryView;
+            MyGlobals.InvoicingVM.SelectedPage = new PrintingMainPageView();
+        }
+
+        private Task<FixedDocument> PicklistPrintingAsync()
+        {
+            return Task.Factory.StartNew(() => CnEntryPrinting());
+        }
+
+        private FixedDocument CnEntryPrinting()
+        {
+            FixedDocument fixedDoc = null;
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                // Your Code Goes here
+                fixedDoc = new FixedDocument();
+
+                var CnObject = new CreditNoteHeaderModel();
+                var user = MyGlobals.LoggedUser.Username;
+                var printDateTime = DateTime.UtcNow;
+                var pageNumber = 1;
+
+                var templateVM = new CnEntriesPrintTemplateViewModel();
+
+                var customerObject = new CustomerModel();
+
+                var cnList = CnObject.FetchAll();
+                foreach (var row in cnList)
+                {
+                    var cnEntry = row as CreditNoteHeaderModel;
+                    customerObject = (CustomerModel)customerObject.Fetch(cnEntry.CustomerId.ToString(), "id");
+
+                    var cnItem = new List<string>();
+                    cnItem.Add(cnEntry.CnNumber);
+                    cnItem.Add(customerObject.CustomerName);
+                    cnItem.Add(cnEntry.CnDate.ToShortDateString());
+                    cnItem.Add(cnEntry.ReferenceNumber);
+                    cnItem.Add(cnEntry.CnAmount.ToString());
+                    cnItem.Add(cnEntry.IsPrinted?"Yes":"No");
+                }
+
+            });
+            return fixedDoc;
+        }
+
+        private List<object> CreateNewPage(int pageNumber)
+        {
+            var fixedPage = new FixedPage();
+            var grid = new Grid();
+            var templateView = new CnEntriesPrintTemplate();
+            var templateVM = (CnEntriesPrintTemplateViewModel)templateView.DataContext;
+
+            templateView.Width = 768;
+            templateView.MinHeight = 100;
+
+            fixedPage.Width = 768;
+            fixedPage.Height = 1056;
+
+            templateVM.User = MyGlobals.LoggedUser.Username;
+            templateVM.PrintDate = DateTime.Now.ToShortDateString();
+            templateVM.PrintTime = DateTime.Now.ToLongTimeString();
+            templateVM.PageNumber = pageNumber;
+
+            grid.Children.Add(templateView);
+            fixedPage.Children.Add(grid);
+
+            var pageContent = new PageContent();
+            pageContent.Child = fixedPage;
+
+            var newPage = new List<object>();
+            newPage.Add(templateVM);
+            newPage.Add(pageContent);
+
+            return newPage;
+        }
+
+        #endregion
     }
 }

@@ -272,7 +272,6 @@ C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ro\Xceed.Wpf.AvalonDoc
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
-C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.g.cs
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.g.cs
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.g.cs
@@ -617,3 +616,8 @@ C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnView.g.c
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnView.baml
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerSelectionView.g.cs
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerSelectionView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojAssemblyReference.cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.CoreCompileInputs.cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.CopyComplete
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CnEntriesPrintTemplate.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CnEntriesPrintTemplate.baml

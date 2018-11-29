@@ -1305,7 +1305,6 @@ namespace ESI_ITE.ViewModel
                 TermModel term = new TermModel();
                 FixedPage fixedPage = new FixedPage();
                 Grid grid = new Grid();
-                PicklistPrintTemplate templateView = new PicklistPrintTemplate();
                 PicklistPrintTemplateViewModel templateVM = new PicklistPrintTemplateViewModel();
 
                 var listHeight = 0;

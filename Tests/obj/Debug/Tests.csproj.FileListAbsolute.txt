@@ -7,7 +7,6 @@ C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\System.Windows.Controls.
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.Toolkit.dll
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\WPFToolkit.dll
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.pdb
-C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\MainWindow.g.cs
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\App.g.cs
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests_MarkupCompile.cache
@@ -73,3 +72,7 @@ C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.pdb
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.xml
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ControlzEx.dll
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ControlzEx.pdb
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.exe.config
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csprojAssemblyReference.cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.CoreCompileInputs.cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.CopyComplete
