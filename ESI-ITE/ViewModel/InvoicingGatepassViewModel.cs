@@ -181,6 +181,7 @@ namespace ESI_ITE.ViewModel
             var result = await GatepassPrintingAsync();
 
             MyGlobals.printingDoc = result;
+            MyGlobals.PrintingRequestSource = "Invoicing";
             MyGlobals.PrintingParent = MyGlobals.InvoicingVM.SelectedPage;
             MyGlobals.InvoicingVM.SelectedPage = new PrintingMainPageView();
         }
@@ -268,7 +269,7 @@ namespace ESI_ITE.ViewModel
                     itemObj = (ItemModel)itemObj.Fetch(row.ItemId.ToString(), "id");
 
                     locationObj = (LocationModel)locationObj.Fetch(row.LocationId.ToString(), "id");
-                    
+
                     gatepassItem.Itemcode = itemObj.Code;
                     gatepassItem.Description = itemObj.Description;
                     gatepassItem.Location = locationObj.Code;
@@ -362,7 +363,7 @@ namespace ESI_ITE.ViewModel
 
                 gatepassPrintTemplateViewModel.TotalCases = totalCases;
                 gatepassPrintTemplateViewModel.TotalPieces = totalPieces;
-                gatepassPrintTemplateViewModel.TotalWeight = totalWeight/1000000;
+                gatepassPrintTemplateViewModel.TotalWeight = totalWeight / 1000000;
                 gatepassPrintTemplateViewModel.TotalValue = totalValue;
             });
 

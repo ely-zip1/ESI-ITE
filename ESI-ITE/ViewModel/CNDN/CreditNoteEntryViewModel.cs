@@ -944,8 +944,9 @@ namespace ESI_ITE.ViewModel.CNDN
 
             MyGlobals.printingDoc = result;
 
+            MyGlobals.PrintingRequestSource = "CN";
             MyGlobals.PrintingParent = MyGlobals.CreditNoteEntryView;
-            MyGlobals.InvoicingVM.SelectedPage = new PrintingMainPageView();
+            MyGlobals.CnDnVM.SelectedPage = new View.PrintingTemplate.PrintingMainPageView();
         }
 
         private Task<FixedDocument> PicklistPrintingAsync()
@@ -971,20 +972,42 @@ namespace ESI_ITE.ViewModel.CNDN
                 var customerObject = new CustomerModel();
 
                 var cnList = CnObject.FetchAll();
+
+                List<object> newPage = CreateNewPage(pageNumber++);
+                fixedDoc.Pages.Add((PageContent)newPage[1]);
+                templateVM = (CnEntriesPrintTemplateViewModel)newPage[0];
+
+                var itemcounter = 0;
                 foreach (var row in cnList)
                 {
                     var cnEntry = row as CreditNoteHeaderModel;
                     customerObject = (CustomerModel)customerObject.Fetch(cnEntry.CustomerId.ToString(), "id");
 
                     var cnItem = new List<string>();
-                    cnItem.Add(cnEntry.CnNumber);
                     cnItem.Add(customerObject.CustomerName);
+                    cnItem.Add(cnEntry.CnNumber);
                     cnItem.Add(cnEntry.CnDate.ToShortDateString());
                     cnItem.Add(cnEntry.ReferenceNumber);
                     cnItem.Add(cnEntry.CnAmount.ToString());
-                    cnItem.Add(cnEntry.IsPrinted?"Yes":"No");
-                }
+                    cnItem.Add(cnEntry.IsPrinted ? "Yes" : "No");
 
+                    templateVM.CnEntryCollection.Add(cnItem);
+
+                    if (customerObject.CustomerName.Length > 34)
+                        itemcounter += 2;
+                    else
+                        itemcounter
+                            ++;
+
+                    if (itemcounter >= 40)
+                    {
+                        List<object> newPage2 = CreateNewPage(pageNumber++);
+                        fixedDoc.Pages.Add((PageContent)newPage2[1]);
+                        templateVM = (CnEntriesPrintTemplateViewModel)newPage2[0];
+
+                        itemcounter = 0;
+                    }
+                }
             });
             return fixedDoc;
         }
@@ -996,11 +1019,11 @@ namespace ESI_ITE.ViewModel.CNDN
             var templateView = new CnEntriesPrintTemplate();
             var templateVM = (CnEntriesPrintTemplateViewModel)templateView.DataContext;
 
-            templateView.Width = 768;
+            templateView.Width = 1100;
             templateView.MinHeight = 100;
 
-            fixedPage.Width = 768;
-            fixedPage.Height = 1056;
+            fixedPage.Width = 1100;
+            fixedPage.Height = 850;
 
             templateVM.User = MyGlobals.LoggedUser.Username;
             templateVM.PrintDate = DateTime.Now.ToShortDateString();

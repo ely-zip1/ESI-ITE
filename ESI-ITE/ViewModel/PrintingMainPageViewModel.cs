@@ -13,9 +13,9 @@ using System.Windows.Input;
 
 namespace ESI_ITE.ViewModel
 {
-    public class PrintingMainPageViewModel: ViewModelBase
+    public class PrintingMainPageViewModel : ViewModelBase
     {
-        public PrintingMainPageViewModel( )
+        public PrintingMainPageViewModel()
         {
             cancelPrintingCommand = new DelegateCommand(CancelPrinting);
             Load();
@@ -38,15 +38,18 @@ namespace ESI_ITE.ViewModel
             get { return cancelPrintingCommand; }
         }
 
-        private void Load( )
+        private void Load()
         {
-            if ( MyGlobals.printingDoc != null )
+            if (MyGlobals.printingDoc != null)
                 FixedDoc = MyGlobals.printingDoc;
         }
 
-        private void CancelPrinting( )
+        private void CancelPrinting()
         {
-            MyGlobals.InvoicingVM.SelectedPage = MyGlobals.PrintingParent;
+            if (MyGlobals.PrintingRequestSource == "Invoicing")
+                MyGlobals.InvoicingVM.SelectedPage = MyGlobals.PrintingParent;
+            else if (MyGlobals.PrintingRequestSource == "CN")
+                MyGlobals.CnDnVM.SelectedPage = MyGlobals.PrintingParent;
         }
     }
 }

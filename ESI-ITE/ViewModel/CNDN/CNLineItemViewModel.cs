@@ -15,6 +15,9 @@ namespace ESI_ITE.ViewModel.CNDN
         public CNLineItemViewModel()
         {
             exitCommand = new DelegateCommand(Exit);
+            listValuesCommand = new DelegateCommand(ListItems);
+            deleteLineCommand = new DelegateCommand(DeleteLineItem);
+            selectItemSearchCommand = new DelegateCommand(SelectItem);
 
             Load();
         }
@@ -376,7 +379,7 @@ namespace ESI_ITE.ViewModel.CNDN
             }
         }
 
-        private List<PriceSellingModel> sellingPriceList;
+        private List<PriceSellingModel> sellingPriceList = new List<PriceSellingModel>();
         public List<PriceSellingModel> SellingPriceList
         {
             get
@@ -460,12 +463,51 @@ namespace ESI_ITE.ViewModel.CNDN
             }
         }
 
+        private bool isItemSearchVisible = false;
+        public bool IsItemSearchVisible
+        {
+            get { return isItemSearchVisible; }
+            set
+            {
+                isItemSearchVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         private DelegateCommand exitCommand;
         public ICommand ExitCommand
         {
             get
             {
                 return exitCommand;
+            }
+        }
+
+        private DelegateCommand listValuesCommand;
+        public ICommand ListValuesCommand
+        {
+            get
+            {
+                return listValuesCommand;
+            }
+        }
+
+        private DelegateCommand deleteLineCommand;
+        public ICommand DeleteLineCommand
+        {
+            get
+            {
+                return deleteLineCommand;
+            }
+        }
+
+        private DelegateCommand selectItemSearchCommand;
+        public ICommand SelectItemSearchCommand
+        {
+            get
+            {
+                return selectItemSearchCommand;
             }
         }
 
@@ -520,11 +562,18 @@ namespace ESI_ITE.ViewModel.CNDN
                     lineItem.Add(row.PricePerPiece.ToString());
                     lineItem.Add(row.LineAmount.ToString());
 
-                    LinedItemCollection.Add(lineItem); 
+                    LinedItemCollection.Add(lineItem);
                 }
             }
 
+            var sellingPriceObject = new PriceSellingModel();
+            foreach (PriceSellingModel row in sellingPriceObject.FetchAll())
+            {
+                SellingPriceList.Add(row);
+            }
+
             //Load search items
+
             SearchItemCollection.Clear();
             var itemModelObject = new ItemModel();
             var itemModelList = itemModelObject.FetchAll();
@@ -533,59 +582,84 @@ namespace ESI_ITE.ViewModel.CNDN
             {
                 SearchItemCollection.Add(item);
             }
+
+
         }
 
         private void ItemCodeChanged(string value)
         {
-            var matchedItem = new ItemModel();
-            foreach (var row in SearchItemCollection)
-            {
-                if (row.Code == value)
-                {
-                    matchedItem = row;
-                    break;
-                }
-            }
-            if (matchedItem.Code.Length < 6)
-            {
-                return;
-            }
+            //var matchedItem = new ItemModel();
+            //foreach (var row in SearchItemCollection)
+            //{
+            //    if (row.Code == value)
+            //    {
+            //        matchedItem = row;
+            //        break;
+            //    }
+            //}
+            //if (matchedItem.Code.Length < 6)
+            //{
+            //    return;
+            //}
 
-            var pricetypeObject = new PriceTypeModel();
-            foreach (var row in pricetypeObject.FetchPerItem(matchedItem.ItemId.ToString()))
-            {
-                PriceTypeList.Add(row);
-            }
+            //var pricetypeObject = new PriceTypeModel();
+            //foreach (var row in pricetypeObject.FetchPerItem(matchedItem.ItemId.ToString()))
+            //{
+            //    PriceTypeList.Add(row);
+            //}
 
-            SelectedIndexPriceType = 0;
+            //SelectedIndexPriceType = 0;
 
-            var sellingPriceObject = new PriceSellingModel();
-            foreach (var row in sellingPriceObject.FetchCurrentPrice(matchedItem.ItemId.ToString(), "Id"))
-            {
-                SellingPriceList.Add(row);
-            }
+            //var sellingPriceObject = new PriceSellingModel();
+            //foreach (var row in sellingPriceObject.FetchCurrentPrice(matchedItem.ItemId.ToString(), "Id"))
+            //{
+            //    SellingPriceList.Add(row);
+            //}
 
-            var locationObject = new LocationModel();
-            locationObject = (LocationModel)locationObject.Fetch(matchedItem.Location.ToString(), "id");
+            //var locationObject = new LocationModel();
+            //locationObject = (LocationModel)locationObject.Fetch(matchedItem.Location.ToString(), "id");
 
-            SelectedLocation = locationObject.Code;
+            //SelectedLocation = locationObject.Code;
 
-            Cases = 0;
-            Pieces = 0;
+            //Cases = 0;
+            //Pieces = 0;
 
-            decimal sellingPrice = 0;
-            foreach (var row in SellingPriceList)
-            {
-                if (row.PriceTypeId == SelectedPriceType.PriceTypeId)
-                    sellingPrice = row.SellingPrice;
-            }
+            //decimal sellingPrice = 0;
+            //foreach (var row in SellingPriceList)
+            //{
+            //    if (row.PriceTypeId == SelectedPriceType.PriceTypeId)
+            //        sellingPrice = row.SellingPrice;
+            //}
 
-            PricePerPiece = (sellingPrice / matchedItem.PackSize).ToString();
+            //PricePerPiece = (sellingPrice / matchedItem.PackSize).ToString();
 
-            TaxRate = matchedItem.Taxrate.ToString();
+            //TaxRate = matchedItem.Taxrate.ToString();
 
-            var warehouseObject = new WareHouseModel();
-            warehouseObject = (WareHouseModel)warehouseObject.Fetch(matchedItem.Warehouse.ToString(), "Id");
+            //var warehouseObject = new WareHouseModel();
+            //warehouseObject = (WareHouseModel)warehouseObject.Fetch(matchedItem.Warehouse.ToString(), "Id");
+        }
+
+        private void SelectItem()
+        {
+            if (IsItemSearchVisible)
+                IsItemSearchVisible = false;
+            else
+                IsItemSearchVisible = true;
+
+            SelectedItemCode = SelectedSearchItem.Code;
+        }
+
+        private void DeleteLineItem()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ListItems()
+        {
+            if (IsItemSearchVisible)
+                IsItemSearchVisible = false;
+            else
+                IsItemSearchVisible = true;
         }
 
         private void Exit()

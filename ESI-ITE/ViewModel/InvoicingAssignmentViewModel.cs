@@ -592,6 +592,7 @@ namespace ESI_ITE.ViewModel
 
             MyGlobals.printingDoc = result;
 
+            MyGlobals.PrintingRequestSource = "Invoicing";
             MyGlobals.PrintingParent = MyGlobals.InvoicingVM.SelectedPage;
             MyGlobals.InvoicingVM.SelectedPage = new PrintingMainPageView();
         }
@@ -613,7 +614,7 @@ namespace ESI_ITE.ViewModel
                 {
                     if (_orderToBeInvoiced.IsSelected)
                     {
-                        var pageNumber = 1; 
+                        var pageNumber = 1;
 
                         var invoiceTemplateViewModel = new InvoicePrintTemplateViewModel();
                         var inventoryDummy = new InventoryDummy2Model();

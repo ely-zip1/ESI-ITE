@@ -1273,6 +1273,7 @@ namespace ESI_ITE.ViewModel
 
             MyGlobals.printingDoc = result;
 
+            MyGlobals.PrintingRequestSource = "Invoicing";
             MyGlobals.PrintingParent = MyGlobals.InvoicingVM.SelectedPage;
             MyGlobals.InvoicingVM.SelectedPage = new PrintingMainPageView();
             //printingVM.FixedDoc = (FixedDocument)result;

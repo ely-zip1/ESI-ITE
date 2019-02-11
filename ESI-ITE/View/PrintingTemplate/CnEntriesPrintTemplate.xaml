@@ -32,16 +32,16 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="JAY" VerticalAlignment="Center"/>
-            <TextBlock Grid.Column="0" Grid.Row="1" Text="11/24/2018" VerticalAlignment="Center"/>
-            <TextBlock Grid.Column="0" Grid.Row="2" Text="09:31:36" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding User}" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding PrintDate}" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding PrintTime}" VerticalAlignment="Center"/>
 
             <TextBlock Grid.Column="1" Grid.Row="1" Text="Extract Sales, Inc." VerticalAlignment="Center" HorizontalAlignment="Left"/>
             <TextBlock Grid.Column="1" Grid.Row="2" Text="Credit Note Entries" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
             <StackPanel Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" Orientation="Horizontal">
                 <TextBlock Text="Page: "/>
-                <TextBlock Text="1"/>
+                <TextBlock Text="{Binding PageNumber}"/>
             </StackPanel>
 
         </Grid>
@@ -81,7 +81,8 @@
         </Grid>
 
         <Grid Grid.Row="2" Height="690">
-            <ListView Background="Transparent" Foreground="Black" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <ListView Background="Transparent" Foreground="Black" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                      ItemsSource="{Binding CnEntryCollection}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="MinHeight" Value="10"/>
@@ -91,12 +92,12 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" MinHeight="10">
-                            <TextBlock Width="270" Foreground="Black" Text="{Binding ItemDescription}"/>
-                            <TextBlock Width="30" Foreground="Black" Text="{Binding Cases}" TextAlignment="Right"/>
-                            <TextBlock Width="30" Foreground="Black" Text="{Binding Pieces}" TextAlignment="Right"/>
-                            <TextBlock Width="70" Foreground="Black" Text="{Binding PricePerCase, StringFormat={}{0:#,###.#0}}" TextAlignment="Right"/>
-                            <TextBlock Width="70" Foreground="Black" Text="{Binding PricePerPiece, StringFormat={}{0:#,###.#0}}" TextAlignment="Right"/>
-                            <TextBlock Width="120" Foreground="Black" FontFamily="consolas" Text="{Binding Amount, StringFormat={}{0:#,###.#0}}" TextAlignment="Right"/>
+                            <TextBlock Width="250" Foreground="Black" Text="{Binding [0]}" TextWrapping="Wrap"/>
+                            <TextBlock Width="100" Foreground="Black" Text="{Binding [1]}"/>
+                            <TextBlock Width="100" Foreground="Black" Text="{Binding [2]}"/>
+                            <TextBlock Width="90" Foreground="Black" Text="{Binding [3]}"/>
+                            <TextBlock Width="150" Foreground="Black" Text="{Binding [4], StringFormat={}{0:#,###.#0}}" TextAlignment="Right"/>
+                            <TextBlock Width="100" Foreground="Black" FontFamily="consolas" Text="{Binding [5]}" TextAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

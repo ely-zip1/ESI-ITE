@@ -92,5 +92,7 @@ namespace ESI_ITE
         public static float ProgressPercentComplete;
         public static float ProgressCurrentStage;
         public static string ProgressDescription;
+
+        public static string PrintingRequestSource;
     }
 }
