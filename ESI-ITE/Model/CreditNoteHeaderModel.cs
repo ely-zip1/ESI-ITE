@@ -195,7 +195,6 @@ namespace ESI_ITE.Model
         }
 
         private int reasonId;
-
         public int ReasonId
         {
             get
@@ -247,7 +246,8 @@ namespace ESI_ITE.Model
             sb.Append("'" + cnObect.ReturnCodeId + "',");
             sb.Append("'" + cnObect.PriceUsed + "',");
             sb.Append("'" + cnObect.UserId + "',");
-            sb.Append("'" + cnObect.ReasonId + "'");
+            sb.Append("'" + cnObect.ReasonId + "',");
+            sb.Append("'" + cnObect.PriceTypeId + "'");
             sb.Append(")");
 
             db.Insert(sb.ToString());
@@ -262,7 +262,7 @@ namespace ESI_ITE.Model
         {
             if (cnHeader.CnNumber != "")
             {
-                db.Delete("delete from cn_header where id = '"+cnHeader.Id+"'");
+                db.Delete("delete from cn_header where id = '" + cnHeader.Id + "'");
             }
         }
 
@@ -301,6 +301,7 @@ namespace ESI_ITE.Model
                 cnObject.PriceUsed = row["price_used"];
                 cnObject.UserId = int.Parse(row["user_id"]);
                 cnObject.ReasonId = int.Parse(row["reason_id"]);
+                cnObject.PriceTypeId = int.Parse(row["pricetype_id"]);
 
                 break;
             }
@@ -334,6 +335,7 @@ namespace ESI_ITE.Model
                 cnObject.PriceUsed = row["price_used"];
                 cnObject.UserId = int.Parse(row["user_id"]);
                 cnObject.ReasonId = int.Parse(row["reason_id"]);
+                cnObject.PriceTypeId = int.Parse(row["pricetype_id"]);
 
                 cnHeaderList.Add(cnObject);
             }

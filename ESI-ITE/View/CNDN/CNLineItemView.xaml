@@ -18,8 +18,8 @@
 
     <Grid>
         <!--ITEM SEARCH-->
-        <Grid Visibility="{Binding IsItemSearchVisible, Converter={StaticResource boolToVisConverter}}" Panel.ZIndex="100">
-            <!--<Grid Visibility="Hidden" Panel.ZIndex="100">-->
+        <!--<Grid Visibility="{Binding IsItemSearchVisible, Converter={StaticResource boolToVisConverter}}" Panel.ZIndex="100">-->
+        <Grid Visibility="Hidden" Panel.ZIndex="100">
             <Grid.Background>
                 <SolidColorBrush Color="Black" Opacity=".6"/>
             </Grid.Background>
@@ -254,14 +254,14 @@
                         <TextBox Text="{Binding SelectedItemCode}"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Vertical" Margin="5,0,0,0">
+                    <StackPanel Orientation="Vertical" Margin="5,0,0,0" IsHitTestVisible="False">
                         <Label Content="P/T" Width="40"/>
-                        <TextBox Text="{Binding SelectedPriceType}"/>
+                        <TextBox Text="{Binding PriceType}"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Vertical" Margin="5,0,0,0">
+                    <StackPanel Orientation="Vertical" Margin="5,0,0,0" IsHitTestVisible="False">
                         <Label Content="LC" Width="40"/>
-                        <TextBox Text="{Binding SelectedLocation}"/>
+                        <TextBox Text="{Binding Location}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Margin="5,0,0,0">
@@ -309,6 +309,8 @@
                             Command=""/>
                     <Button Width="100" Content="List Values" Margin="10,0" ToolTip="F5"
                             Command="{Binding ListValuesCommand}"/>
+                    <Button Width="100" Content="Add" Margin="10,0" ToolTip="F5"
+                            Command="{Binding }"/>
                 </StackPanel>
             </Grid>
 

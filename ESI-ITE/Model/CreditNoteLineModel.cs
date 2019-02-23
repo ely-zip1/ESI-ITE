@@ -220,6 +220,16 @@ namespace ESI_ITE.Model
             return lineItemList;
         }
 
+        public bool Verify(string cnHeadId, string itemId)
+        {
+            var results = db.SelectMultiple("select * from cn_line where cn_head_id = '" + cnHeadId + "' and item_id = '" + itemId + "'");
+
+            if (results.Count > 0)
+                return true;
+            else
+                return false;
+        }
+
         public List<CreditNoteLineModel> FetchPerCreditNoteHead(string creditNoteHeadId)
         {
             var lineItemList = new List<CreditNoteLineModel>();
@@ -252,5 +262,7 @@ namespace ESI_ITE.Model
         {
             throw new NotImplementedException();
         }
+
+
     }
 }

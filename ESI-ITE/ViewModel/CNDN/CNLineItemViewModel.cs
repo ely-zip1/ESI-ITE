@@ -18,14 +18,17 @@ namespace ESI_ITE.ViewModel.CNDN
             listValuesCommand = new DelegateCommand(ListItems);
             deleteLineCommand = new DelegateCommand(DeleteLineItem);
             selectItemSearchCommand = new DelegateCommand(SelectItem);
+            addItemCommand = new DelegateCommand(AddItem);
 
             Load();
         }
 
         #region Properties
 
-        private ObservableCollection<List<string>> linedItemCollection = new ObservableCollection<List<string>>();
-        public ObservableCollection<List<string>> LinedItemCollection
+        private CreditNoteHeaderModel cnHeaderObject = new CreditNoteHeaderModel();
+
+        private ObservableCollection<LineItem> linedItemCollection = new ObservableCollection<LineItem>();
+        public ObservableCollection<LineItem> LinedItemCollection
         {
             get
             {
@@ -66,33 +69,6 @@ namespace ESI_ITE.ViewModel.CNDN
             }
         }
 
-        private PriceTypeModel selectedPriceType;
-        public PriceTypeModel SelectedPriceType
-        {
-            get
-            {
-                return selectedPriceType;
-            }
-            set
-            {
-                selectedPriceType = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private int selectedIndexPriceType;
-        public int SelectedIndexPriceType
-        {
-            get
-            {
-                return selectedIndexPriceType;
-            }
-            set
-            {
-                selectedIndexPriceType = value;
-                OnPropertyChanged();
-            }
-        }
 
         private ItemModel selectedSearchItem;
         public ItemModel SelectedSearchItem
@@ -319,6 +295,12 @@ namespace ESI_ITE.ViewModel.CNDN
         }
 
 
+        private ItemModel selectedItem;
+        public ItemModel SelectedItem
+        {
+            get { return selectedItem; }
+            set { selectedItem = value; }
+        }
 
         private string selectedItemCode;
         public string SelectedItemCode
@@ -337,16 +319,52 @@ namespace ESI_ITE.ViewModel.CNDN
             }
         }
 
-        private string selectedLocation;
-        public string SelectedLocation
+        private string priceType;
+        public string PriceType
         {
             get
             {
-                return selectedLocation;
+                return priceType;
             }
             set
             {
-                selectedLocation = value;
+                priceType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private PriceTypeModel selectedPriceType;
+        public PriceTypeModel SelectedPriceType
+        {
+            get { return selectedPriceType; }
+            set
+            {
+                selectedPriceType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string location;
+        public string Location
+        {
+            get { return location; }
+            set
+            {
+                location = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ReturnTypeModel selectedReturnType;
+        public ReturnTypeModel SelectedReturnType
+        {
+            get
+            {
+                return selectedReturnType;
+            }
+            set
+            {
+                selectedReturnType = value;
                 OnPropertyChanged();
             }
         }
@@ -511,12 +529,20 @@ namespace ESI_ITE.ViewModel.CNDN
             }
         }
 
+        private DelegateCommand addItemCommand;
+        public ICommand AddItemCommand
+        {
+            get
+            {
+                return addItemCommand;
+            }
+        }
+
         #endregion
 
 
         private void Load()
         {
-            var cnHeaderObject = new CreditNoteHeaderModel();
             cnHeaderObject = (CreditNoteHeaderModel)cnHeaderObject.Fetch(MyGlobals.SelectedCNDNTransaction, "code");
 
             var customerObject = new CustomerModel();
@@ -551,16 +577,15 @@ namespace ESI_ITE.ViewModel.CNDN
                     var itemObject = new ItemModel();
                     itemObject = (ItemModel)itemObject.Fetch(row.ItemId.ToString(), "id");
 
-                    var lineItem = new List<string>();
-                    lineItem.Add(itemObject.Code);
-                    lineItem.Add(row.PriceType);
-                    lineItem.Add(itemObject.Description);
-                    lineItem.Add(row.Location);
-                    lineItem.Add(row.LotNumber);
-                    lineItem.Add(row.Cases.ToString());
-                    lineItem.Add(row.Pieces.ToString());
-                    lineItem.Add(row.PricePerPiece.ToString());
-                    lineItem.Add(row.LineAmount.ToString());
+                    var lineItem = new LineItem();
+                    lineItem.ItemCode = itemObject.Code;
+                    lineItem.PriceType = row.PriceType;
+                    lineItem.Description = itemObject.Description;
+                    lineItem.Location = row.Location;
+                    lineItem.Cases = row.Cases.ToString();
+                    lineItem.Pieces = row.Pieces.ToString();
+                    lineItem.PricePerPiece = row.PricePerPiece.ToString();
+                    lineItem.LineAmount = row.LineAmount.ToString();
 
                     LinedItemCollection.Add(lineItem);
                 }
@@ -583,24 +608,31 @@ namespace ESI_ITE.ViewModel.CNDN
                 SearchItemCollection.Add(item);
             }
 
+            var priceTypeObject = new PriceTypeModel();
+            SelectedPriceType = priceTypeObject.Fetch(cnHeaderObject.PriceTypeId.ToString(), "id") as PriceTypeModel;
+            PriceType = SelectedPriceType.Code;
 
+            var returnObject = new ReturnTypeModel();
+            SelectedReturnType = returnObject.Fetch(cnHeaderObject.ReturnCodeId.ToString(), "id") as ReturnTypeModel;
+            Location = SelectedReturnType.Code;
         }
 
         private void ItemCodeChanged(string value)
         {
-            //var matchedItem = new ItemModel();
-            //foreach (var row in SearchItemCollection)
-            //{
-            //    if (row.Code == value)
-            //    {
-            //        matchedItem = row;
-            //        break;
-            //    }
-            //}
-            //if (matchedItem.Code.Length < 6)
-            //{
-            //    return;
-            //}
+            var matchedItem = new ItemModel();
+            foreach (var row in SearchItemCollection)
+            {
+                if (row.Code == value)
+                {
+                    matchedItem = row;
+                    SelectedItem = row;
+                    break;
+                }
+            }
+            if (matchedItem.Code.Length < 6)
+            {
+                return;
+            }
 
             //var pricetypeObject = new PriceTypeModel();
             //foreach (var row in pricetypeObject.FetchPerItem(matchedItem.ItemId.ToString()))
@@ -608,35 +640,28 @@ namespace ESI_ITE.ViewModel.CNDN
             //    PriceTypeList.Add(row);
             //}
 
-            //SelectedIndexPriceType = 0;
+            var sellingPriceObject = new PriceSellingModel();
+            foreach (var row in sellingPriceObject.FetchCurrentPrice(matchedItem.ItemId.ToString(), "Id"))
+            {
+                SellingPriceList.Add(row);
+            }
 
-            //var sellingPriceObject = new PriceSellingModel();
-            //foreach (var row in sellingPriceObject.FetchCurrentPrice(matchedItem.ItemId.ToString(), "Id"))
-            //{
-            //    SellingPriceList.Add(row);
-            //}
+            Cases = 0;
+            Pieces = 0;
 
-            //var locationObject = new LocationModel();
-            //locationObject = (LocationModel)locationObject.Fetch(matchedItem.Location.ToString(), "id");
+            decimal sellingPrice = 0;
+            foreach (var row in SellingPriceList)
+            {
+                if (row.PriceTypeId == SelectedPriceType.PriceTypeId)
+                    sellingPrice = row.SellingPrice;
+            }
 
-            //SelectedLocation = locationObject.Code;
+            PricePerPiece = (sellingPrice / matchedItem.PackSize).ToString();
 
-            //Cases = 0;
-            //Pieces = 0;
+            TaxRate = matchedItem.Taxrate.ToString();
 
-            //decimal sellingPrice = 0;
-            //foreach (var row in SellingPriceList)
-            //{
-            //    if (row.PriceTypeId == SelectedPriceType.PriceTypeId)
-            //        sellingPrice = row.SellingPrice;
-            //}
-
-            //PricePerPiece = (sellingPrice / matchedItem.PackSize).ToString();
-
-            //TaxRate = matchedItem.Taxrate.ToString();
-
-            //var warehouseObject = new WareHouseModel();
-            //warehouseObject = (WareHouseModel)warehouseObject.Fetch(matchedItem.Warehouse.ToString(), "Id");
+            var warehouseObject = new WareHouseModel();
+            warehouseObject = (WareHouseModel)warehouseObject.Fetch(matchedItem.Warehouse.ToString(), "Id");
         }
 
         private void SelectItem()
@@ -662,9 +687,89 @@ namespace ESI_ITE.ViewModel.CNDN
                 IsItemSearchVisible = true;
         }
 
+        private void AddItem()
+        {
+            var cnLineObject = new CreditNoteLineModel();
+
+            cnLineObject.CreditNoteHeadId = cnHeaderObject.Id;
+            cnLineObject.ItemId = SelectedItem.ItemId;
+            cnLineObject.PriceType = PriceType;
+            cnLineObject.Cases = Cases;
+            cnLineObject.Pieces = Pieces;
+            cnLineObject.LineAmount = (((SelectedItem.PackSize * Cases) + Pieces) * decimal.Parse(PricePerPiece));
+
+            cnLineObject.AddNew(cnLineObject);
+
+            if (cnLineObject.Verify(cnHeaderObject.Id.ToString(), SelectedItem.ItemId.ToString()))
+            {
+                var listItem = new LineItem();
+            }
+
+        }
+
         private void Exit()
         {
             MyGlobals.CnDnVM.SelectedPage = MyGlobals.CreditNoteEntryView;
         }
+    }
+
+    public class LineItem
+    {
+        private string itemCode;
+        public string ItemCode
+        {
+            get { return itemCode; }
+            set { itemCode = value; }
+        }
+
+        private string priceType;
+        public string PriceType
+        {
+            get { return priceType; }
+            set { priceType = value; }
+        }
+
+        private string description;
+        public string Description
+        {
+            get { return description; }
+            set { description = value; }
+        }
+
+        private string location;
+        public string Location
+        {
+            get { return location; }
+            set { location = value; }
+        }
+
+        private string cases;
+        public string Cases
+        {
+            get { return cases; }
+            set { cases = value; }
+        }
+
+        private string pieces;
+        public string Pieces
+        {
+            get { return pieces; }
+            set { pieces = value; }
+        }
+
+        private string pricePerPiece;
+        public string PricePerPiece
+        {
+            get { return pricePerPiece; }
+            set { pricePerPiece = value; }
+        }
+
+        private string lineAmount;
+        public string LineAmount
+        {
+            get { return lineAmount; }
+            set { lineAmount = value; }
+        }
+
     }
 }
