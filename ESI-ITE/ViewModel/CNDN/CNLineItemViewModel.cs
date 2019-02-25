@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using ESI_ITE.Model;
 using ESI_ITE.ViewModel.Command;
@@ -18,7 +19,7 @@ namespace ESI_ITE.ViewModel.CNDN
             listValuesCommand = new DelegateCommand(ListItems);
             deleteLineCommand = new DelegateCommand(DeleteLineItem);
             selectItemSearchCommand = new DelegateCommand(SelectItem);
-            addItemCommand = new DelegateCommand(AddItem);
+            addItemCommand = new DelegateCommand(DuplicateCheck);
 
             Load();
         }
@@ -98,8 +99,8 @@ namespace ESI_ITE.ViewModel.CNDN
             }
         }
 
-        private List<string> selectedLinedItem;
-        public List<string> SelectedLinedItem
+        private LineItem selectedLinedItem;
+        public LineItem SelectedLinedItem
         {
             get
             {
@@ -109,6 +110,8 @@ namespace ESI_ITE.ViewModel.CNDN
             {
                 selectedLinedItem = value;
                 OnPropertyChanged();
+                if (SelectedIndexLinedItem > -1)
+                    LinedItemSelected();
             }
         }
 
@@ -302,20 +305,31 @@ namespace ESI_ITE.ViewModel.CNDN
             set { selectedItem = value; }
         }
 
-        private string selectedItemCode;
-        public string SelectedItemCode
+        private string itemCode;
+        public string ItemCode
         {
             get
             {
-                return selectedItemCode;
+                return itemCode;
             }
             set
             {
-                selectedItemCode = value;
+                itemCode = value;
                 OnPropertyChanged();
 
                 if (value.Length == 6)
                     ItemCodeChanged(value);
+            }
+        }
+
+        private string itemDescription;
+        public string ItemDescription
+        {
+            get { return itemDescription; }
+            set
+            {
+                itemDescription = value;
+                OnPropertyChanged();
             }
         }
 
@@ -467,8 +481,8 @@ namespace ESI_ITE.ViewModel.CNDN
             }
         }
 
-        private string orderAmount;
-        public string OrderAmount
+        private decimal orderAmount;
+        public decimal OrderAmount
         {
             get
             {
@@ -538,6 +552,8 @@ namespace ESI_ITE.ViewModel.CNDN
             }
         }
 
+        private bool IsFirstLoad = true;
+
         #endregion
 
 
@@ -555,6 +571,7 @@ namespace ESI_ITE.ViewModel.CNDN
             salesmanObject = (SalesmanModel)salesmanObject.Fetch(districtObject.Salesman.ToString(), "id");
             termObject = (TermModel)termObject.Fetch(customerObject.TermId.ToString(), "id");
 
+
             CustomerNumber = customerObject.CustomerNumber;
             CustomerName = customerObject.CustomerName;
             SalesmanNumber = salesmanObject.SalesmanNumber;
@@ -565,7 +582,9 @@ namespace ESI_ITE.ViewModel.CNDN
             CnNumber = cnHeaderObject.CnNumber;
             TotalCases = cnHeaderObject.TotalCases.ToString();
             TotalPieces = cnHeaderObject.TotalPieces.ToString();
-            OrderAmount = cnHeaderObject.CnAmount.ToString();
+            OrderAmount = cnHeaderObject.CnAmount;
+            TaxRate = MyGlobals.CreditNoteEntryVM.TaxRate;
+            WarehouseCode = MyGlobals.CreditNoteEntryVM.SelectedWarehouse.Code;
 
             var cnLineObject = new CreditNoteLineModel();
             var cnLineList = cnLineObject.FetchPerCreditNoteHead(cnHeaderObject.Id.ToString());
@@ -588,7 +607,9 @@ namespace ESI_ITE.ViewModel.CNDN
                     lineItem.LineAmount = row.LineAmount.ToString();
 
                     LinedItemCollection.Add(lineItem);
+                    OrderAmount += row.LineAmount;
                 }
+                OrderAmount = Math.Round(OrderAmount, 2);
             }
 
             var sellingPriceObject = new PriceSellingModel();
@@ -615,6 +636,8 @@ namespace ESI_ITE.ViewModel.CNDN
             var returnObject = new ReturnTypeModel();
             SelectedReturnType = returnObject.Fetch(cnHeaderObject.ReturnCodeId.ToString(), "id") as ReturnTypeModel;
             Location = SelectedReturnType.Code;
+
+            IsFirstLoad = false;
         }
 
         private void ItemCodeChanged(string value)
@@ -634,6 +657,7 @@ namespace ESI_ITE.ViewModel.CNDN
                 return;
             }
 
+            ItemDescription = SelectedItem.Description;
             //var pricetypeObject = new PriceTypeModel();
             //foreach (var row in pricetypeObject.FetchPerItem(matchedItem.ItemId.ToString()))
             //{
@@ -641,7 +665,7 @@ namespace ESI_ITE.ViewModel.CNDN
             //}
 
             var sellingPriceObject = new PriceSellingModel();
-            foreach (var row in sellingPriceObject.FetchCurrentPrice(matchedItem.ItemId.ToString(), "Id"))
+            foreach (var row in sellingPriceObject.FetchCurrentPrice(matchedItem.ItemId.ToString(), "id"))
             {
                 SellingPriceList.Add(row);
             }
@@ -656,12 +680,12 @@ namespace ESI_ITE.ViewModel.CNDN
                     sellingPrice = row.SellingPrice;
             }
 
-            PricePerPiece = (sellingPrice / matchedItem.PackSize).ToString();
+            PricePerPiece = Math.Round((sellingPrice / matchedItem.PackSize), 2).ToString();
 
             TaxRate = matchedItem.Taxrate.ToString();
 
             var warehouseObject = new WareHouseModel();
-            warehouseObject = (WareHouseModel)warehouseObject.Fetch(matchedItem.Warehouse.ToString(), "Id");
+            warehouseObject = (WareHouseModel)warehouseObject.Fetch(matchedItem.Warehouse.ToString(), "id");
         }
 
         private void SelectItem()
@@ -671,12 +695,39 @@ namespace ESI_ITE.ViewModel.CNDN
             else
                 IsItemSearchVisible = true;
 
-            SelectedItemCode = SelectedSearchItem.Code;
+            ItemCode = SelectedSearchItem.Code;
         }
 
         private void DeleteLineItem()
         {
-            throw new NotImplementedException();
+            var itemIndex = 0;
+            var isDeleted = false;
+            foreach (var row in LinedItemCollection)
+            {
+                if (ItemCode == row.ItemCode)
+                {
+                    var result = MessageBox.Show("Do you want to delete this entry?", "Delete Entry", MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        var itemObject = new ItemModel();
+                        itemObject = (ItemModel)itemObject.Fetch(ItemCode, "code");
+
+                        var cnLineObject = new CreditNoteLineModel();
+                        cnLineObject.DeleteItem(cnHeaderObject.Id.ToString(), itemObject.ItemId.ToString());
+
+                        isDeleted = true;
+                    }
+                    break;
+                }
+                itemIndex++;
+            }
+
+            if (isDeleted)
+            {
+                OrderAmount -= decimal.Parse(LinedItemCollection[itemIndex].LineAmount);
+                LinedItemCollection.RemoveAt(itemIndex);
+                Clear();
+            }
         }
 
         private void ListItems()
@@ -687,7 +738,23 @@ namespace ESI_ITE.ViewModel.CNDN
                 IsItemSearchVisible = true;
         }
 
-        private void AddItem()
+        private void DuplicateCheck()
+        {
+
+            foreach (var row in LinedItemCollection)
+            {
+                if (ItemCode == row.ItemCode)
+                {
+                    var result = MessageBox.Show("Do you want to update this entry?", "Duplicate Entry", MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        UpdateItem();
+                    }
+                }
+            }
+        }
+
+        private void UpdateItem()
         {
             var cnLineObject = new CreditNoteLineModel();
 
@@ -696,15 +763,98 @@ namespace ESI_ITE.ViewModel.CNDN
             cnLineObject.PriceType = PriceType;
             cnLineObject.Cases = Cases;
             cnLineObject.Pieces = Pieces;
+            cnLineObject.PricePerPiece = decimal.Parse(PricePerPiece);
+            cnLineObject.Location = Location;
             cnLineObject.LineAmount = (((SelectedItem.PackSize * Cases) + Pieces) * decimal.Parse(PricePerPiece));
 
-            cnLineObject.AddNew(cnLineObject);
+            cnLineObject.UpdateItem(cnLineObject);
 
+            var itemIndex = 0;
             if (cnLineObject.Verify(cnHeaderObject.Id.ToString(), SelectedItem.ItemId.ToString()))
             {
-                var listItem = new LineItem();
-            }
+                foreach (var row in LinedItemCollection)
+                {
+                    if (ItemCode == row.ItemCode)
+                    {
+                        break;
+                    }
+                    itemIndex++;
+                }
 
+                LinedItemCollection[itemIndex].Cases = Cases.ToString();
+                LinedItemCollection[itemIndex].Pieces = Pieces.ToString();
+                LinedItemCollection[itemIndex].LineAmount = cnLineObject.LineAmount.ToString();
+                Clear();
+            }
+        }
+
+        private void AddItem()
+        {
+            if (string.IsNullOrWhiteSpace(ItemCode))
+            {
+                //do nothing
+            }
+            else if (Cases == 0 && Pieces == 0)
+            {
+                MessageBox.Show("Please input the quantity.");
+            }
+            else
+            {
+                var cnLineObject = new CreditNoteLineModel();
+
+                cnLineObject.CreditNoteHeadId = cnHeaderObject.Id;
+                cnLineObject.ItemId = SelectedItem.ItemId;
+                cnLineObject.PriceType = PriceType;
+                cnLineObject.Cases = Cases;
+                cnLineObject.Pieces = Pieces;
+                cnLineObject.PricePerPiece = decimal.Parse(PricePerPiece);
+                cnLineObject.Location = Location;
+                cnLineObject.LineAmount = (((SelectedItem.PackSize * Cases) + Pieces) * decimal.Parse(PricePerPiece));
+
+                cnLineObject.AddNew(cnLineObject);
+
+                if (cnLineObject.Verify(cnHeaderObject.Id.ToString(), SelectedItem.ItemId.ToString()))
+                {
+                    var listItem = new LineItem();
+                    listItem.ItemCode = SelectedItem.Code;
+                    listItem.PriceType = PriceType;
+                    listItem.Description = SelectedItem.Description;
+                    listItem.Location = Location;
+                    listItem.Cases = Cases.ToString();
+                    listItem.Pieces = Pieces.ToString();
+                    listItem.PricePerPiece = PricePerPiece;
+                    listItem.LineAmount = (((SelectedItem.PackSize * Cases) + Pieces) * decimal.Parse(PricePerPiece)).ToString();
+
+                    LinedItemCollection.Add(listItem);
+                    SelectedIndexLinedItem = -1;
+                    Clear();
+                }
+                else
+                {
+                    MessageBox.Show("Error adding item!");
+                }
+            }
+        }
+
+        private void Clear()
+        {
+            ItemCode = "";
+            ItemDescription = "";
+            Cases = 0;
+            Pieces = 0;
+            PricePerPiece = "";
+        }
+
+        private void LinedItemSelected()
+        {
+            var itemObject = new ItemModel();
+            SelectedItem = (ItemModel)itemObject.Fetch(SelectedLinedItem.ItemCode, "code");
+
+            ItemCode = SelectedLinedItem.ItemCode;
+            ItemDescription = SelectedLinedItem.Description;
+            Cases = int.Parse(SelectedLinedItem.Cases);
+            Pieces = int.Parse(SelectedLinedItem.Pieces);
+            PricePerPiece = SelectedLinedItem.PricePerPiece;
         }
 
         private void Exit()
@@ -713,55 +863,83 @@ namespace ESI_ITE.ViewModel.CNDN
         }
     }
 
-    public class LineItem
+    public class LineItem : ViewModelBase
     {
         private string itemCode;
         public string ItemCode
         {
             get { return itemCode; }
-            set { itemCode = value; }
+            set
+            {
+                itemCode = value;
+                OnPropertyChanged();
+            }
         }
 
         private string priceType;
         public string PriceType
         {
             get { return priceType; }
-            set { priceType = value; }
+            set
+            {
+                priceType = value;
+                OnPropertyChanged();
+            }
         }
 
         private string description;
         public string Description
         {
             get { return description; }
-            set { description = value; }
+            set
+            {
+                description = value;
+                OnPropertyChanged();
+            }
         }
 
         private string location;
         public string Location
         {
             get { return location; }
-            set { location = value; }
+            set
+            {
+                location = value;
+                OnPropertyChanged();
+            }
         }
 
         private string cases;
         public string Cases
         {
             get { return cases; }
-            set { cases = value; }
+            set
+            {
+                cases = value;
+                OnPropertyChanged();
+            }
         }
 
         private string pieces;
         public string Pieces
         {
             get { return pieces; }
-            set { pieces = value; }
+            set
+            {
+                pieces = value;
+                OnPropertyChanged();
+            }
         }
 
         private string pricePerPiece;
         public string PricePerPiece
         {
             get { return pricePerPiece; }
-            set { pricePerPiece = value; }
+            set
+            {
+                pricePerPiece = value;
+                OnPropertyChanged();
+            }
         }
 
         private string lineAmount;

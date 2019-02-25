@@ -347,5 +347,37 @@ namespace ESI_ITE.Model
         {
             throw new NotImplementedException();
         }
+
+        public int GetCases(string cnHeadId)
+        {
+            return int.Parse(db.Select("select total_cases from cn_header where id = '" + cnHeadId + "'"));
+        }
+
+        public int GetPieces(string cnHeadId)
+        {
+            return int.Parse(db.Select("select total_pieces from cn_header where id = '" + cnHeadId + "'"));
+        }
+
+        public void AddCasesPieces(string cnHeadId, int casesToBeAdded, int piecesToBeAdded)
+        {
+            var currentCases = int.Parse(db.Select("select total_cases from cn_header where id = '" + cnHeadId + "'"));
+            var currentPieces = int.Parse(db.Select("select total_pieces from cn_header where id = '" + cnHeadId + "'"));
+
+            var totalCases = currentCases + casesToBeAdded;
+            var totalPieces = currentPieces + piecesToBeAdded;
+
+            db.Update("update cn_header set total_cases = '" + totalCases + "', total_pieces = '" + TotalPieces + "' where id = '" + cnHeadId + "'");
+        }
+
+        public void SubtractCasesPieces(string cnHeadId, int casesToBeSubtracted, int piecesToBeSubtracted)
+        {
+            var currentCases = int.Parse(db.Select("select total_cases from cn_header where id = '" + cnHeadId + "'"));
+            var currentPieces = int.Parse(db.Select("select total_pieces from cn_header where id = '" + cnHeadId + "'"));
+
+            var totalCases = currentCases - casesToBeSubtracted;
+            var totalPieces = currentPieces - piecesToBeSubtracted;
+
+            db.Update("update cn_header set total_cases = '" + totalCases + "', total_pieces = '" + TotalPieces + "' where id = '" + cnHeadId + "'");
+        }
     }
 }

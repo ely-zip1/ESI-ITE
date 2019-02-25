@@ -149,22 +149,30 @@ namespace ESI_ITE.Model
         {
             var lineItem = item as CreditNoteLineModel;
 
-            db.Insert("insert into cn_line values(null,");
-            db.Insert("'" + lineItem.CreditNoteHeadId + "',");
-            db.Insert("'" + lineItem.ItemId + "',");
-            db.Insert("'" + lineItem.PriceType + "',");
-            db.Insert("'" + lineItem.Cases + "',");
-            db.Insert("'" + lineItem.Pieces + "',");
-            db.Insert("'" + lineItem.LineAmount + "',");
-            db.Insert("'" + lineItem.LotNumber + "',");
-            db.Insert("'" + lineItem.Location + "',");
-            db.Insert("'" + lineItem.PricePerPiece + "'");
-            db.Insert(")");
+            var sb = new StringBuilder();
+            sb.Append("insert into cn_line values(null,");
+            sb.Append("'" + lineItem.CreditNoteHeadId + "',");
+            sb.Append("'" + lineItem.ItemId + "',");
+            sb.Append("'" + lineItem.PriceType + "',");
+            sb.Append("'" + lineItem.Cases + "',");
+            sb.Append("'" + lineItem.Pieces + "',");
+            sb.Append("'" + lineItem.LineAmount + "',");
+            sb.Append("'" + lineItem.LotNumber + "',");
+            sb.Append("'" + lineItem.Location + "',");
+            sb.Append("'" + lineItem.PricePerPiece + "'");
+            sb.Append(")");
+
+            db.Insert(sb.ToString());
         }
 
         public void DeleteItem(string qry)
         {
             throw new NotImplementedException();
+        }
+
+        public void DeleteItem(string CNHeadId, string itemId)
+        {
+            db.Delete("Delete from cn_line where cn_head_id = '" + CNHeadId + "' and item_id = '" + itemId + "'");
         }
 
         public object Fetch(string id, string type)
@@ -263,6 +271,11 @@ namespace ESI_ITE.Model
             throw new NotImplementedException();
         }
 
+        public void UpdateItem(CreditNoteLineModel lineItem)
+        {
+            db.Update("update cn_line set cases = '" + lineItem.Cases + "', pieces = '" + lineItem.Pieces + "', line_amount = '" + lineItem.LineAmount + "' " +
+                "where cn_head_id = '" + lineItem.CreditNoteHeadId + "' and item_id = '" + lineItem.ItemId + "'");
+        }
 
     }
 }

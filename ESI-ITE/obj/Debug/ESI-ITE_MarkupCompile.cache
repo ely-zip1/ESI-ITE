@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\
 ESI_ITE
 none
 false
 DEBUG;TRACE
-C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\App.xaml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\App.xaml
 40-1285769061
 
-1291011113250
-99-607070626
+133-1764425522
+991111740431
 View\CNDN\CnDnEntryOptionsView.xaml;View\CNDN\CnDnMainPageView.xaml;View\CNDN\CnDnView.xaml;View\CNDN\CNLineItemView.xaml;View\CNDN\CreditNoteEntryView.xaml;View\CNDN\DebitNoteEntryView.xaml;View\CNDN\DNLineItemView.xaml;View\CustomerSelectionView.xaml;View\PrintingTemplate\CnEntriesPrintTemplate.xaml;View\PrintingTemplate\GatepassPrintTemplate.xaml;View\PrintingTemplate\InvoicePrintTemplate.xaml;View\PrintingTemplate\PicklistPrintTemplate.xaml;Printing\PrintingFooterTemplate.xaml;Printing\PrintingHeaderTemplate.xaml;Printing\PrintingMainPageView.xaml;Printing\UserControl1.xaml;View\InvoicingAllocationMaintenanceView.xaml;View\InvoicingAssignmentView.xaml;View\InvoicingDispatchView.xaml;View\InvoicingGatepassView.xaml;View\InvoicingMainPageView.xaml;View\InvoicingPickListView.xaml;View\InvoicingView.xaml;View\LoginView.xaml;View\PostingPageView.xaml;View\HomeView.xaml;View\ITEView.xaml;View\LineItemPageView.xaml;View\LineItemView.xaml;View\MainWindow.xaml;Printing\PrintingCanvas.xaml;Printing\PrintingItemTemplate.xaml;View\PrintingTemplate\PrintingMainPageView.xaml;View\PrintPreviewPageView.xaml;View\SalesOrderEntryView.xaml;View\SOLineItemsView.xaml;View\SOView.xaml;View\Transaction Printing.xaml;View\TransactionEntryPageView.xaml;View\TransactionEntryView.xaml;
 
 False

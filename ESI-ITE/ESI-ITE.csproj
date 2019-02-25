@@ -170,7 +170,10 @@
     <Compile Include="Model\CreditNoteHeaderModel.cs" />
     <Compile Include="Model\CreditNoteLineModel.cs" />
     <Compile Include="Model\CustomerModel.cs" />
+    <Compile Include="Model\DebitNoteHeaderModel.cs" />
+    <Compile Include="Model\DebitNoteLineModel.cs" />
     <Compile Include="Model\DistrictModel.cs" />
+    <Compile Include="Model\DnNumberModel.cs" />
     <Compile Include="Model\GatepassModel.cs" />
     <Compile Include="Model\GatepassNumberModel.cs" />
     <Compile Include="Model\IModelTemplate.cs" />
@@ -213,6 +216,7 @@
     <Compile Include="ViewModel\CNDN\CnEntriesPrintTemplateViewModel.cs" />
     <Compile Include="ViewModel\CNDN\CNLineItemViewModel.cs" />
     <Compile Include="ViewModel\CNDN\CreditNoteEntryViewModel.cs" />
+    <Compile Include="ViewModel\CNDN\DebitNoteEntryViewModel.cs" />
     <Compile Include="ViewModel\CustomerSelectionViewModel.cs" />
     <Compile Include="ViewModel\GatepassPrintTemplateViewModel.cs" />
     <Compile Include="ViewModel\InvoicePrintTemplateViewModel.cs" />
