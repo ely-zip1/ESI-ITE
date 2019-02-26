@@ -19,7 +19,75 @@
         <conv:BoolToVisibilityConverter x:Key="boolToVisConverter"/>
     </Page.Resources>
 
-    <Grid>
+
+    <Grid MaxHeight="550" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+        <Grid Name="gridSearch" Panel.ZIndex="100" Visibility="{Binding IsCustomerListWindowOpen, Converter={StaticResource boolToVisConverter}}">
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity=".6"/>
+            </Grid.Background>
+
+            <Border Width="500" Height="500" BorderThickness="1" CornerRadius="10" Background="#FF252526" BorderBrush="#FF4BB5FF" Focusable="True">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="0"
+                          Color="#FF4BB5FF"
+                          Opacity="1"
+                          BlurRadius="10"/>
+                </Border.Effect>
+
+                <Grid>
+                    <Grid Name="grdSearchModal">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="65"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,5,10,5">
+                            <Label Content="Customer Number"/>
+                            <TextBox Width="150" Height="20" Text="{Binding SelectedItem[0], ElementName=customerSearchGrid}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10,5,10,5">
+                            <Label Content="Customer Name"/>
+                            <TextBox Text="{Binding SearchedCustomer, UpdateSourceTrigger=PropertyChanged}" Name="txtCustomerSearch">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Command="{Binding LoadCustomerCommand}" Key="Enter"/>
+                                </TextBox.InputBindings>
+                            </TextBox>
+                        </StackPanel>
+
+                        <DataGrid Grid.Row="2" Name="customerSearchGrid" AutoGenerateColumns="False" Margin="10,5,10,5"
+                              HorizontalScrollBarVisibility="Disabled"  ItemsSource="{Binding CustomerCollection}"
+                              SelectedIndex="{Binding SelectedIndexCustomer,Mode=TwoWay}"
+                              SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}"
+                              IsTextSearchEnabled="True" IsTextSearchCaseSensitive="False" TextSearch.TextPath="[1]">
+                            <DataGrid.InputBindings>
+                                <KeyBinding Command="{Binding LoadCustomerCommand}" Key="Enter"/>
+                            </DataGrid.InputBindings>
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Width="500">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding [1]}" Name="lblDataGridSearchItem"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+
+                            <Button Height="30" Width="100" Content="Select" Margin="10" Command="{Binding  LoadCustomerCommand}"/>
+
+                            <Button Height="30" Width="100" Content="Close" Margin="10" Command="{Binding SearchCommand}"/>
+
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="70"></RowDefinition>
@@ -94,38 +162,105 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <TextBox Grid.Row="1" Grid.Column="1" Height="20"/>
-                    <DatePicker Grid.Row="2" Grid.Column="1" Height="20"></DatePicker>
-                    <TextBox Grid.Row="3" Grid.Column="1" Height="20"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Height="20" Text="{Binding ReferenceNumber}"/>
+                <DatePicker Grid.Row="2" Grid.Column="1" Height="20" Text="{Binding DnDate}"></DatePicker>
+                <TextBox Grid.Row="3" Grid.Column="1" Height="20" Text="{Binding CustomerNumber}"/>
+                <TextBlock Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Text="{Binding CustomerName}"/>
 
-                    <ComboBox Grid.Row="5" Grid.Column="1" Height="20"></ComboBox>
-                    <ComboBox Grid.Row="6" Grid.Column="1" Height="20"></ComboBox>
-                    <ComboBox Grid.Row="7" Grid.Column="1" Height="20"></ComboBox>
-                    <ComboBox Grid.Row="8" Grid.Column="1" Height="20"></ComboBox>
-                    <ComboBox Grid.Row="9" Grid.Column="1" Height="20"></ComboBox>
-                    <ComboBox Grid.Row="10" Grid.Column="1" Height="20"></ComboBox>
-                    <TextBox Grid.Row="11" Grid.Column="1" Height="20"/>
-                    <TextBox Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="4" Height="20"/>
+                <ComboBox Grid.Row="5" Grid.Column="1" Height="20" ItemsSource="{Binding ReasonCodeCollection}" SelectedItem="{Binding SelectedReasonCode}"
+                          SelectedIndex="{Binding SelectedIndexReasonCode}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding ReasonCode}" Width="60"/>
+                                <TextBlock Text="{Binding Description}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
-                    <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Content="Last DN No. Entered/ Updated " />
-                    <Label Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Content="DN Amount " />
-                    <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Content="Discount " />
-                    <Label Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Content="Total Cases " />
-                    <Label Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Content="Total Pieces " />
+                <ComboBox Grid.Row="6" Grid.Column="1" Height="20" ItemsSource="{Binding PriceTypeCollection}" SelectedItem="{Binding SelectedPriceType}"
+                          SelectedIndex="{Binding SelectedIndexPriceType}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Code}" Width="60"/>
+                                <TextBlock Text="{Binding Description}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
-                    <TextBox Grid.Row="0" Grid.Column="4" Height="20"/>
-                    <TextBox Grid.Row="1" Grid.Column="4" Height="20"/>
-                    <TextBox Grid.Row="2" Grid.Column="4" Height="20"/>
-                    <TextBox Grid.Row="9" Grid.Column="4" Height="20"/>
-                    <TextBox Grid.Row="10" Grid.Column="4" Height="20"/>
+                <ComboBox Grid.Row="7" Grid.Column="1" Height="20" ItemsSource="{Binding TermCodeCollection}" SelectedItem="{Binding SelectedTermCode}"
+                          SelectedIndex="{Binding SelectedIndexTermCode}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding TermCode}" Width="60"/>
+                                <TextBlock Text="{Binding TermDescription}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <ComboBox Grid.Row="8" Grid.Column="1" Height="20" ItemsSource="{Binding SalesmanCollection}" SelectedItem="{Binding SelectedSalesman}"
+                          SelectedIndex="{Binding SelectedIndexSalesman}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding SalesmanNumber}" Width="60"/>
+                                <TextBlock Text="{Binding SalesmanName}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <ComboBox Grid.Row="9" Grid.Column="1" Height="20" ItemsSource="{Binding WarehouseCollection}" SelectedItem="{Binding SelectedWarehouse}"
+                          SelectedIndex="{Binding SelectedIndexWarehouse}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Code}" Width="60"/>
+                                <TextBlock Text="{Binding Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <ComboBox Grid.Row="10" Grid.Column="1" Height="20" ItemsSource="{Binding ReturnTypeCollection}" SelectedItem="{Binding SelectedReturnType}"
+                          SelectedIndex="{Binding SelectedIndexReturnType}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Code}" Width="60"/>
+                                <TextBlock Text="{Binding Description}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBox Grid.Row="11" Grid.Column="1" Height="20" Text="{Binding TaxRate}" />
+                <TextBox Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="4" Height="20" Text="{Binding Comment}"/>
+
+                <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Content="Last DN No. Entered/ Updated " />
+                <Label Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Content="DN Amount " />
+                <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Content="Discount " />
+                <Label Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Content="Total Cases " />
+                <Label Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Content="Total Pieces " />
+
+                <TextBox Grid.Row="0" Grid.Column="4" Height="20" Text="{Binding LastCreditNote}"/>
+                <TextBox Grid.Row="1" Grid.Column="4" Height="20" Text="{Binding DnAmount}"/>
+                <TextBox Grid.Row="2" Grid.Column="4" Height="20" Text="{Binding Discount}"/>
+                <TextBox Grid.Row="9" Grid.Column="4" Height="20" Text="{Binding TotalCases}"/>
+                <TextBox Grid.Row="10" Grid.Column="4" Height="20" Text="{Binding TotalPieces}"/>
             </Grid>
 
             <Grid Grid.Row="2">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Width="110" Height="20" Margin="10,10" Content="Line Items"/>
-                    <Button Width="110" Height="20" Margin="10,10" Content="Delete Entry"/>
-                    <Button Width="110" Height="20" Margin="10,10" Content="Customer List"/>
-                    <Button Width="100" Height="20" Margin="10,10" Content="Exit"/>
+                    <Button Width="100" Height="20" Margin="10,10" Content="Line Items" Command="{Binding LineItemsCommand}"/>
+                    <Button Width="100" Height="20" Margin="10,10" Content="Delete Entry" Command="{Binding DeleteEntryCommand}"/>
+                    <Button Width="100" Height="20" Margin="10,10" Content="Customer List" Command="{Binding ShowCustomerCommand}"/>
+                    <Button Width="100" Height="20" Margin="10,10" Content="Exit" Command="{Binding ExitCommand}"/>
                 </StackPanel>
             </Grid>
         </Grid>

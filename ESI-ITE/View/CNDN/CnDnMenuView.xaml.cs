@@ -16,14 +16,13 @@ using System.Windows.Shapes;
 namespace ESI_ITE.View.CNDN
 {
     /// <summary>
-    /// Interaction logic for DebitNoteEntryView.xaml
+    /// Interaction logic for CnDnMenuView.xaml
     /// </summary>
-    public partial class DebitNoteEntryView : Page
+    public partial class CnDnMenuView : Page
     {
-        public DebitNoteEntryView()
+        public CnDnMenuView()
         {
             InitializeComponent();
-            MyGlobals.DebitNoteEntryView = this;
         }
     }
 }

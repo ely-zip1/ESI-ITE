@@ -12,8 +12,19 @@ using System.Windows.Input;
 
 namespace ESI_ITE.ViewModel.CNDN
 {
-    public class DebitNoteEntryViewModel:ViewModelBase
+    public class DebitNoteEntryViewModel : ViewModelBase
     {
+        public DebitNoteEntryViewModel()
+        {
+            MyGlobals.DebitNoteEntryVM = this;
+            lineItemsCommand = new DelegateCommand(LineItems);
+            loadCustomerCommand = new DelegateCommand(loadCustomer);
+            deleteEntryCommand = new DelegateCommand(DeleteEntries);
+            showCustomerCommand = new DelegateCommand(ShowCustomerList);
+            exitCommand = new DelegateCommand(Exit);
+
+            Load();
+        }
         #region Properties
 
         private ObservableCollection<List<string>> dnNumberCollection = new ObservableCollection<List<string>>();
@@ -174,7 +185,10 @@ namespace ESI_ITE.ViewModel.CNDN
         private string customerName;
         public string CustomerName
         {
-            get { return customerName; }
+            get
+            {
+                return customerName;
+            }
             set
             {
                 customerName = value;
@@ -535,7 +549,7 @@ namespace ESI_ITE.ViewModel.CNDN
 
         private bool IsFirstLoad = true;
 
-        #region
+        #region Commands
 
         private DelegateCommand lineItemsCommand;
         public ICommand LineItemsCommand
@@ -641,7 +655,7 @@ namespace ESI_ITE.ViewModel.CNDN
                     CustomerCollection.Add(customer);
                 }
 
-                DnDate = DateTime.UtcNow;
+                DnDate = DateTime.UtcNow.Date;
 
                 SelectedPrice = MyGlobals.SelectedCNDNPrice;
 
@@ -653,23 +667,23 @@ namespace ESI_ITE.ViewModel.CNDN
         {
             DnNumberCollection.Clear();
 
-            var dnObject = new CreditNoteHeaderModel();
-            var cnNumberObject = new CnNumberModel();
-            cnNumberObject = cnNumberObject.FetchLatest();
+            var dnObject = new DebitNoteHeaderModel();
+            var dnNumberObject = new DnNumberModel();
+            dnNumberObject = dnNumberObject.FetchLatest();
 
-            var cnNumberList = new List<string>();
-            cnNumberList.Add(cnNumberObject.CreditNoteNumber);
-            cnNumberList.Add("New");
+            var dnNumberList = new List<string>();
+            dnNumberList.Add(dnNumberObject.DebitNoteNumber);
+            dnNumberList.Add("New");
 
-            DnNumberCollection.Add(cnNumberList);
+            DnNumberCollection.Add(dnNumberList);
 
-            foreach (CreditNoteHeaderModel row in dnObject.FetchAll())
+            foreach (DebitNoteHeaderModel row in dnObject.FetchAll())
             {
-                var credit = new List<string>();
-                credit.Add(row.CnNumber);
-                credit.Add(row.CustomerId.ToString());
+                var debit = new List<string>();
+                debit.Add(row.DnNumber);
+                debit.Add(row.CustomerId.ToString());
 
-                DnNumberCollection.Add(credit);
+                DnNumberCollection.Add(debit);
             }
 
             SelectedIndexDnNumber = -1;
@@ -767,21 +781,21 @@ namespace ESI_ITE.ViewModel.CNDN
             }
             else if (SelectedIndexDnNumber > 0)
             {
-                var cnHeaderObject = new CreditNoteHeaderModel();
-                cnHeaderObject = (CreditNoteHeaderModel)cnHeaderObject.Fetch(SelectedDnNumber[0], "code");
+                var dnHeaderObject = new DebitNoteHeaderModel();
+                dnHeaderObject = (DebitNoteHeaderModel)dnHeaderObject.Fetch(SelectedDnNumber[0], "code");
 
-                ReferenceNumber = cnHeaderObject.ReferenceNumber;
-                DnDate = cnHeaderObject.CnDate;
+                ReferenceNumber = dnHeaderObject.ReferenceNumber;
+                DnDate = dnHeaderObject.DnDate;
 
                 var customerObject = new CustomerModel();
-                customerObject = (CustomerModel)customerObject.Fetch(cnHeaderObject.CustomerId.ToString(), "id");
+                customerObject = (CustomerModel)customerObject.Fetch(dnHeaderObject.CustomerId.ToString(), "id");
                 CustomerNumber = customerObject.CustomerNumber;
                 CustomerName = customerObject.CustomerName;//.ToUpper();
 
                 var index = 0;
                 foreach (var row in ReasonCodeCollection)
                 {
-                    if (row.Id == cnHeaderObject.ReasonId)
+                    if (row.Id == dnHeaderObject.ReasonId)
                     {
                         SelectedIndexReasonCode = index;
                         break;
@@ -792,7 +806,7 @@ namespace ESI_ITE.ViewModel.CNDN
                 index = 0;
                 foreach (var row in WarehouseCollection)
                 {
-                    if (row.Id == cnHeaderObject.WarehouseId)
+                    if (row.Id == dnHeaderObject.WarehouseId)
                     {
                         SelectedIndexWarehouse = index;
                         break;
@@ -803,7 +817,7 @@ namespace ESI_ITE.ViewModel.CNDN
                 index = 0;
                 foreach (var row in ReturnTypeCollection)
                 {
-                    if (row.Id == cnHeaderObject.ReturnCodeId)
+                    if (row.Id == dnHeaderObject.ReturnCodeId)
                     {
                         SelectedIndexReturnType = index;
                         break;
@@ -811,29 +825,29 @@ namespace ESI_ITE.ViewModel.CNDN
                     index++;
                 }
 
-                searchedCustomerChanged(cnHeaderObject.CustomerId.ToString(), "id");
+                searchedCustomerChanged(dnHeaderObject.CustomerId.ToString(), "id");
 
-                Comment = cnHeaderObject.Comment;
+                Comment = dnHeaderObject.Comment;
 
                 LastCreditNote = SelectedDnNumber[0];
-                DnAmount = cnHeaderObject.CnAmount.ToString();
-                Discount = (cnHeaderObject.CnAmount * (int.Parse(TaxRate) / 100)).ToString();
-                TotalCases = cnHeaderObject.TotalCases.ToString();
-                TotalPieces = cnHeaderObject.TotalPieces.ToString();
+                DnAmount = dnHeaderObject.DnAmount.ToString();
+                Discount = (dnHeaderObject.DnAmount * (int.Parse(TaxRate) / 100)).ToString();
+                TotalCases = dnHeaderObject.TotalCases.ToString();
+                TotalPieces = dnHeaderObject.TotalPieces.ToString();
             }
         }
 
         private void DeleteEntries()
         {
-            var dialogResult = MessageBox.Show("Do you want to delete the current CN entry?", "Confirm Delete", MessageBoxButton.OKCancel);
+            var dialogResult = MessageBox.Show("Do you want to delete the current DN entry?", "Confirm Delete", MessageBoxButton.OKCancel);
             if (dialogResult == MessageBoxResult.OK)
             {
                 if (SelectedIndexDnNumber > 0)
                 {
-                    var cnHeaderObj = new CreditNoteHeaderModel();
-                    cnHeaderObj = (CreditNoteHeaderModel)cnHeaderObj.Fetch(SelectedDnNumber[0], "code");
+                    var dnHeaderObj = new DebitNoteHeaderModel();
+                    dnHeaderObj = (DebitNoteHeaderModel)dnHeaderObj.Fetch(SelectedDnNumber[0], "code");
 
-                    cnHeaderObj.DeleteItem(cnHeaderObj);
+                    dnHeaderObj.DeleteItem(dnHeaderObj);
 
                     LoadDnNumbers();
                     ClearFields();
@@ -849,37 +863,37 @@ namespace ESI_ITE.ViewModel.CNDN
             }
             else if (SelectedDnNumber[1] == "New")
             {
-                var cnHeaderObj = new CreditNoteHeaderModel();
+                var dnHeaderObj = new DebitNoteHeaderModel();
                 var customerObj = new CustomerModel();
 
                 customerObj = (CustomerModel)customerObj.Fetch(SelectedCustomer[0], "code");
 
-                cnHeaderObj.CnNumber = SelectedDnNumber[0];
-                cnHeaderObj.CnDate = DnDate;
-                cnHeaderObj.ReferenceNumber = ReferenceNumber;
-                cnHeaderObj.CustomerId = customerObj.CustomerId;
-                cnHeaderObj.WarehouseId = SelectedWarehouse.Id;
-                cnHeaderObj.Comment = Comment;
-                cnHeaderObj.CnAmount = decimal.Parse(DnAmount);
-                cnHeaderObj.TotalCases = int.Parse(TotalCases);
-                cnHeaderObj.TotalPieces = int.Parse(TotalPieces);
-                cnHeaderObj.IsPrinted = false;
-                cnHeaderObj.ReturnCodeId = SelectedReturnType.Id;
-                cnHeaderObj.PriceUsed = SelectedPrice;
-                cnHeaderObj.UserId = MyGlobals.LoggedUser.Id;
-                cnHeaderObj.ReasonId = SelectedReasonCode.Id;
+                dnHeaderObj.DnNumber = SelectedDnNumber[0];
+                dnHeaderObj.DnDate = DnDate;
+                dnHeaderObj.ReferenceNumber = ReferenceNumber;
+                dnHeaderObj.CustomerId = customerObj.CustomerId;
+                dnHeaderObj.WarehouseId = SelectedWarehouse.Id;
+                dnHeaderObj.Comment = Comment;
+                dnHeaderObj.DnAmount = decimal.Parse(DnAmount);
+                dnHeaderObj.TotalCases = int.Parse(TotalCases);
+                dnHeaderObj.TotalPieces = int.Parse(TotalPieces);
+                dnHeaderObj.IsPrinted = false;
+                dnHeaderObj.ReturnCodeId = SelectedReturnType.Id;
+                dnHeaderObj.PriceUsed = SelectedPrice;
+                dnHeaderObj.UserId = MyGlobals.LoggedUser.Id;
+                dnHeaderObj.ReasonId = SelectedReasonCode.Id;
 
-                cnHeaderObj.AddNew(cnHeaderObj);
+                dnHeaderObj.AddNew(dnHeaderObj);
             }
 
-            var cnNumberObject = new CnNumberModel();
-            cnNumberObject = cnNumberObject.FetchLatest();
-            cnNumberObject.UpdateCnNumber(cnNumberObject);
+            var dnNumberObject = new DnNumberModel();
+            dnNumberObject = dnNumberObject.FetchLatest();
+            dnNumberObject.UpdateCnNumber(dnNumberObject);
 
             if (string.IsNullOrWhiteSpace(SelectedDnNumber[1]) == false)
             {
                 MyGlobals.SelectedCNDNTransaction = SelectedDnNumber[0];
-                MyGlobals.CnDnVM.SelectedPage = new CNLineItemView();
+                MyGlobals.CnDnVM.SelectedPage = new DNLineItemView();
             }
         }
 

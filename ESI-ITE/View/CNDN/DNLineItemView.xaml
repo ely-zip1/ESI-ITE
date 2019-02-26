@@ -4,11 +4,87 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ESI_ITE.View.CNDN"
+      xmlns:conv="clr-namespace:ESI_ITE.ViewModel.Converter"
+      xmlns:vm="clr-namespace:ESI_ITE.ViewModel.CNDN"
       mc:Ignorable="d" 
       d:DesignHeight="615" d:DesignWidth="900"
       Title="DNLineItemView">
+    <Page.DataContext>
+        <vm:DNLineItemViewModel x:Name="viewModel"/>
+    </Page.DataContext>
+    <Page.Resources>
+        <conv:BoolToVisibilityConverter x:Key="boolToVisConverter"/>
+    </Page.Resources>
 
     <Grid>
+        <!--ITEM SEARCH-->
+        <Grid Visibility="{Binding IsItemSearchVisible, Converter={StaticResource boolToVisConverter}}" Panel.ZIndex="100">
+            <!--<Grid Visibility="Hidden" Panel.ZIndex="100">-->
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity=".6"/>
+            </Grid.Background>
+
+            <Border Width="500" Height="500" BorderBrush="#FF4BB5FF" CornerRadius="10" BorderThickness="1" Background="#FF252526">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="0"
+                                      Color="#FF4BB5FF"
+                                      Opacity="1"
+                                      BlurRadius="10"/>
+                </Border.Effect>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="60"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10">
+                        <Label Content="Item Code"/>
+                        <TextBox Width="150" Text="{Binding TxtSearchItemCode}" IsReadOnly="True" IsTabStop="False"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10">
+                        <Label Content="Description"/>
+                        <TextBox Width="408" Text="{Binding TxtSearchItemDescription,UpdateSourceTrigger=PropertyChanged}" Margin="0"/>
+                    </StackPanel>
+
+                    <DataGrid Name="itemSearchGrid" Grid.Row="2" Margin="10,0,10,0" ItemsSource="{Binding SearchItemCollection}" HorizontalScrollBarVisibility="Hidden" AlternatingRowBackground="#FF383838" AutoGenerateColumns="False" SelectedItem="{Binding SelectedSearchItem}"
+                              SelectedIndex="{Binding SelectedIndexSearchItem}" IsTextSearchEnabled="True" IsTextSearchCaseSensitive="False" TextSearch.TextPath="Description">
+                        <DataGrid.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding SelectItemSearchCommand}"/>
+                        </DataGrid.InputBindings>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="500">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Description}" VerticalAlignment="Center"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="true">
+                                        <Setter Property="Background" Value="DodgerBlue"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.CellStyle>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button Content="Select" Width="100" Margin="10"
+                                Command="{Binding SelectItemSearchCommand}"/>
+
+                        <Button Content="Cancel" Width="100" Margin="10"
+                                Command="{Binding ListValuesCommand}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
@@ -49,36 +125,37 @@
 
                 <!--<Border Grid.Row="2" Grid.Column="1" BorderThickness="1" BorderBrush="DodgerBlue" Grid.ColumnSpan="2">-->
                 <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Grid.ColumnSpan="2">
-                    <Label Content="012382" VerticalAlignment="Center" FontWeight="Bold" Margin="0,0,10,0" Width="60"/>
-                    <Label Content="3 BROTHERS PHARMACY/ WAO" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <Label Content="{Binding CustomerNumber}" VerticalAlignment="Center" FontWeight="Bold" Margin="0,0,10,0" Width="60"/>
+                    <Label Content="{Binding CustomerName}" VerticalAlignment="Center" FontWeight="Bold"/>
                 </StackPanel>
                 <!--</Border>-->
 
                 <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Grid.ColumnSpan="2">
-                    <Label Content="700744" VerticalAlignment="Center" FontWeight="Bold" Margin="0,0,10,0" Width="60"/>
-                    <Label Content="JOSE NILJEAN G. TALIBONG" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <Label Content="{Binding SalesmanNumber}" VerticalAlignment="Center" FontWeight="Bold" Margin="0,0,10,0" Width="60"/>
+                    <Label Content="{Binding SalesmanName}" VerticalAlignment="Center" FontWeight="Bold"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Grid.ColumnSpan="2">
-                    <Label Content="CR15" VerticalAlignment="Center" FontWeight="Bold" Margin="0,0,10,0" Width="60"/>
-                    <Label Content="CREDIT 15 DAYS" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <Label Content="{Binding TermCode}" VerticalAlignment="Center" FontWeight="Bold" Margin="0,0,10,0" Width="60"/>
+                    <Label Content="{Binding TermDescription}" VerticalAlignment="Center" FontWeight="Bold"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Price Used:"/>
-                    <Label Content="Current Price"/>
+                    <Label Content="{Binding PriceUsed}"/>
                 </StackPanel>
                 <Label Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" Content="DN No."/>
                 <Label Grid.Row="3" Grid.Column="3" HorizontalAlignment="Right" Content="Total Cases"/>
                 <Label Grid.Row="4" Grid.Column="3" HorizontalAlignment="Right" Content="Total Pieces"/>
 
-                <Label Grid.Row="2" Grid.Column="4" Width="90" HorizontalContentAlignment="Right" FontWeight="Bold" Content="020005"/>
-                <Label Grid.Row="3" Grid.Column="4" Width="90" HorizontalContentAlignment="Right" FontWeight="Bold" Content="0"/>
-                <Label Grid.Row="4" Grid.Column="4" Width="90" HorizontalContentAlignment="Right" FontWeight="Bold" Content="0"/>
+                <Label Grid.Row="2" Grid.Column="4" Width="90" HorizontalContentAlignment="Right" FontWeight="Bold" Content="{Binding DnNumber}"/>
+                <Label Grid.Row="3" Grid.Column="4" Width="90" HorizontalContentAlignment="Right" FontWeight="Bold" Content="{Binding TotalCases}"/>
+                <Label Grid.Row="4" Grid.Column="4" Width="90" HorizontalContentAlignment="Right" FontWeight="Bold" Content="{Binding TotalPieces}"/>
             </Grid>
 
-            <Grid Grid.Row="1">
-                <DataGrid Grid.Row="1" Margin="0,10,0,10" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1" BorderBrush="#FF3F3F46" SelectedItem="" CanUserReorderColumns="False" CanUserResizeRows="False" SelectionUnit="FullRow" HorizontalScrollBarVisibility="Auto">
+            <Grid Grid.Row="1" Margin="1">
+                <DataGrid Grid.Row="1" Margin="0,10,0,10" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1" BorderBrush="#FF3F3F46"
+                          ItemsSource="{Binding LinedItemCollection}" SelectedItem="{Binding SelectedLinedItem}" SelectedIndex="{Binding SelectedIndexLinedItem}" CanUserReorderColumns="False" CanUserResizeRows="False" SelectionUnit="FullRow" HorizontalScrollBarVisibility="Auto" MinHeight="300">
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="90*"  Header="Item Code" Binding="{Binding ItemCode}" >
                             <DataGridTextColumn.CellStyle>
@@ -96,7 +173,7 @@
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
 
-                        <DataGridTextColumn Width="300*" Header="Description" Binding="{Binding ItemDescription}">
+                        <DataGridTextColumn Width="300*" Header="Description" Binding="{Binding Description}">
                             <DataGridTextColumn.CellStyle>
                                 <Style>
                                     <Setter Property="FrameworkElement.Margin" Value="8,0,0,0"/>
@@ -174,60 +251,66 @@
                 <DockPanel>
                     <StackPanel Orientation="Vertical">
                         <Label Content="Item Code" Width="90"/>
-                        <TextBox/>
+                        <TextBox Text="{Binding ItemCode}"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Vertical" Margin="5,0,0,0">
+                    <StackPanel Orientation="Vertical" Margin="5,0,0,0" IsHitTestVisible="False">
                         <Label Content="P/T" Width="40"/>
-                        <TextBox/>
+                        <TextBox Text="{Binding PriceType}"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Vertical" Margin="5,0,0,0">
+                    <StackPanel Orientation="Vertical" Margin="5,0,0,0" IsHitTestVisible="False">
                         <Label Content="LC" Width="40"/>
-                        <TextBox/>
+                        <TextBox Text="{Binding Location}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Margin="5,0,0,0">
                         <Label Content="Cases" Width="90"/>
-                        <TextBox/>
+                        <TextBox Text="{Binding Cases}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Margin="5,0,0,0">
                         <Label Content="Pieces" Width="90"/>
-                        <TextBox/>
+                        <TextBox Text="{Binding Pieces}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Margin="5,0,0,0">
                         <Label Content="Price/Piece" Width="90"/>
-                        <TextBox/>
+                        <TextBox Text="{Binding PricePerPiece}" IsHitTestVisible="False"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Margin="5,0,0,0">
                         <Label Content="Tax Rate" Width="60"/>
-                        <TextBox/>
+                        <TextBox Text="{Binding TaxRate}" IsHitTestVisible="False" IsReadOnly="True" Width="60"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Vertical" Margin="5,0,0,0">
+                    <StackPanel Orientation="Vertical" Margin="5,0,0,0" HorizontalAlignment="Left">
                         <Label Content="Warehouse Code"/>
-                        <TextBox/>
+                        <TextBox Text="{Binding WarehouseCode}" IsHitTestVisible="False" IsReadOnly="True" Width="100"/>
                     </StackPanel>
                 </DockPanel>
 
-                <TextBox Grid.Row="1" VerticalAlignment="Center" Height="26" Margin="0,3,0,4" HorizontalAlignment="Stretch" BorderThickness="0"/>
+                <TextBox Grid.Row="1" VerticalAlignment="Center" Height="26" Margin="0,3,0,4" HorizontalAlignment="Stretch" BorderThickness="0" Background="DodgerBlue" Foreground="White" FontWeight="Bold"
+                         Text="{Binding ItemDescription}"/>
 
                 <StackPanel Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" HorizontalAlignment="Right" Width="200">
 
                     <Label Content="Trucking Charge" FontWeight="Bold" FontSize="15"/>
-                    <TextBox/>
+                    <TextBox Text="{Binding TruckingCharge}" IsHitTestVisible="False"/>
 
                     <Label Content="Order Amount  P" FontWeight="Bold" FontSize="15"/>
-                    <TextBox MinWidth="200" Text="" HorizontalContentAlignment="Right"/>
+                    <TextBox MinWidth="200" HorizontalContentAlignment="Right" Text="{Binding OrderAmount}" IsHitTestVisible="False"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Width="100" Content="Exit" Margin="10,0"/>
-                    <Button Width="100" Content="Delete Line" Margin="10,0" ToolTip="F3"/>
-                    <Button Width="100" Content="List Values" Margin="10,0" ToolTip="F5"/>
+                    <Button Width="100" Content="Exit" Margin="10,0" 
+                            Command="{Binding ExitCommand}"/>
+                    <Button Width="100" Content="Delete Line" Margin="10,0" ToolTip="F3"
+                            Command="{Binding DeleteLineCommand}"/>
+                    <Button Width="100" Content="Item List" Margin="10,0" ToolTip="F5"
+                            Command="{Binding ListValuesCommand}"/>
+                    <Button Width="100" Content="Add" Margin="10,0"
+                            Command="{Binding AddItemCommand}"/>
                 </StackPanel>
             </Grid>
 

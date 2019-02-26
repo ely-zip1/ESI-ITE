@@ -67,6 +67,11 @@ namespace ESI_ITE
 
 
         #region CN/DN
+
+        public static CnDnMenuView CnDnMenuView;
+
+        public static CnDnMenuViewModel CnDnMenuVM;
+
         public static CnDnViewModel CnDnVM;
 
         public static CnDnEntryOptionsViewModel CnDnEntryOptionsVM;
@@ -78,6 +83,10 @@ namespace ESI_ITE
         public static string SelectedCNDNTransaction;
 
         public static string SelectedCNDNPrice;
+
+        public static DebitNoteEntryViewModel DebitNoteEntryVM;
+
+        public static DebitNoteEntryView DebitNoteEntryView;
 
         #endregion
 

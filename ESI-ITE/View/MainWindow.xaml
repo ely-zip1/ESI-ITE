@@ -12,8 +12,8 @@
         Title="{Binding WindowTitle}"
         Height="700" Width="1300"
         WindowStartupLocation="CenterScreen" 
-        WindowState="Maximized"                  
-        GlowBrush="{DynamicResource AccentColorBrush}" MinHeight="720">
+        WindowState="Maximized"
+                      MinHeight="720">
 
     <Controls:MetroWindow.Resources>
         <conv:BoolToVisibilityConverter x:Key="boolToVisConverter"/>
@@ -115,7 +115,7 @@
             Title="{Binding ChildWindowTitle}">
 
             <simpleChildWindow:ChildWindow.OverlayBrush>
-                <SolidColorBrush Opacity="0.8" Color="{StaticResource Gray2}" />
+                <SolidColorBrush Opacity="0.8" Color="Gray" />
             </simpleChildWindow:ChildWindow.OverlayBrush>
 
             <Grid>

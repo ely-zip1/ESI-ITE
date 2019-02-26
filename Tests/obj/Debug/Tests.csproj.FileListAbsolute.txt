@@ -72,10 +72,6 @@ C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.pdb
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.xml
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ControlzEx.dll
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ControlzEx.pdb
-C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.exe.config
-C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csprojAssemblyReference.cache
-C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.CoreCompileInputs.cache
-C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.CopyComplete
 C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Tests.exe.config
 C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Tests.exe
 C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Tests.pdb
@@ -105,3 +101,4 @@ C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.CoreCom
 C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.CopyComplete
 C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.exe
 C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.pdb
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache

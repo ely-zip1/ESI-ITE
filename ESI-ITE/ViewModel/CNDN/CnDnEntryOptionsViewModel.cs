@@ -16,6 +16,7 @@ namespace ESI_ITE.ViewModel.CNDN
             MyGlobals.CnDnEntryOptionsVM = this;
 
             okCommand = new DelegateCommand(SelectTransaction);
+            cancelCommand = new DelegateCommand(CancelEntry);
 
             Load();
         }
@@ -140,12 +141,22 @@ namespace ESI_ITE.ViewModel.CNDN
             }
         }
 
+
         private DelegateCommand okCommand;
         public ICommand OkCommand
         {
             get
             {
                 return okCommand;
+            }
+        }
+
+        private DelegateCommand cancelCommand;
+        public ICommand CancelCommand
+        {
+            get
+            {
+                return cancelCommand;
             }
         }
         #endregion
@@ -184,6 +195,12 @@ namespace ESI_ITE.ViewModel.CNDN
                 MyGlobals.SelectedCNDNTransaction = "Debit";
                 MyGlobals.CnDnVM.SelectedPage = new DebitNoteEntryView();
             }
+        }
+        
+        private void CancelEntry()
+        {
+
+            MyGlobals.CnDnVM.SelectedPage = new CnDnMenuView();
         }
 
     }

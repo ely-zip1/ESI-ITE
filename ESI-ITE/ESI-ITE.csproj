@@ -212,11 +212,13 @@
     <Compile Include="Printing\Paginator.cs" />
     <Compile Include="ViewModel\CNDN\CnDnEntryOptionsViewModel.cs" />
     <Compile Include="ViewModel\CNDN\CnDnMainPageViewModel.cs" />
+    <Compile Include="ViewModel\CNDN\CnDnMenuViewModel.cs" />
     <Compile Include="ViewModel\CNDN\CnDnViewModel.cs" />
     <Compile Include="ViewModel\CNDN\CnEntriesPrintTemplateViewModel.cs" />
     <Compile Include="ViewModel\CNDN\CNLineItemViewModel.cs" />
     <Compile Include="ViewModel\CNDN\CreditNoteEntryViewModel.cs" />
     <Compile Include="ViewModel\CNDN\DebitNoteEntryViewModel.cs" />
+    <Compile Include="ViewModel\CNDN\DNLineItemViewModel.cs" />
     <Compile Include="ViewModel\CustomerSelectionViewModel.cs" />
     <Compile Include="ViewModel\GatepassPrintTemplateViewModel.cs" />
     <Compile Include="ViewModel\InvoicePrintTemplateViewModel.cs" />
@@ -227,6 +229,9 @@
     </Compile>
     <Compile Include="View\CNDN\CnDnMainPageView.xaml.cs">
       <DependentUpon>CnDnMainPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CNDN\CnDnMenuView.xaml.cs">
+      <DependentUpon>CnDnMenuView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CNDN\CnDnView.xaml.cs">
       <DependentUpon>CnDnView.xaml</DependentUpon>
@@ -373,6 +378,10 @@
     <Page Include="View\CNDN\CnDnMainPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CNDN\CnDnMenuView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\CNDN\CnDnView.xaml">
       <SubType>Designer</SubType>

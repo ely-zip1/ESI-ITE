@@ -34,7 +34,7 @@ namespace ESI_ITE.ViewModel.CNDN
         }
 
 
-        private Page selectedPage = new CnDnEntryOptionsView();
+        private Page selectedPage = new CnDnMenuView();
         public Page SelectedPage
         {
             get

@@ -242,7 +242,7 @@ namespace ESI_ITE.Model
         {
             var lineItemList = new List<DebitNoteLineModel>();
 
-            var results = db.SelectMultiple("select * from dn_line where cn_head_id = '" + debitNoteHeadId + "'");
+            var results = db.SelectMultiple("select * from dn_line where dn_head_id = '" + debitNoteHeadId + "'");
 
             foreach (var row in results)
             {
