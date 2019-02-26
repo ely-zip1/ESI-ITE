@@ -102,3 +102,18 @@ C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.CopyCom
 C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.exe
 C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.pdb
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.AvalonDock.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.DataGrid.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll

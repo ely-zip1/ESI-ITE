@@ -7,6 +7,7 @@
       xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
       xmlns:conv="clr-namespace:ESI_ITE.ViewModel.Converter"
       xmlns:vm="clr-namespace:ESI_ITE.ViewModel.CNDN"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="600"
       Title="DebitNoteEntryView">
@@ -163,7 +164,8 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBox Grid.Row="1" Grid.Column="1" Height="20" Text="{Binding ReferenceNumber}"/>
-                <DatePicker Grid.Row="2" Grid.Column="1" Height="20" Text="{Binding DnDate}"></DatePicker>
+                <!--<DatePicker Grid.Row="2" Grid.Column="1" Height="20" Text="{Binding DnDate}"></DatePicker>-->
+                <xctk:MaskedTextBox Grid.Row="2" Grid.Column="1" Mask="00/00/0000" Height="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text="{Binding DnDate}"/>
                 <TextBox Grid.Row="3" Grid.Column="1" Height="20" Text="{Binding CustomerNumber}"/>
                 <TextBlock Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Text="{Binding CustomerName}"/>
 

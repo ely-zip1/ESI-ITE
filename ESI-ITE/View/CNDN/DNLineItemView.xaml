@@ -6,6 +6,8 @@
       xmlns:local="clr-namespace:ESI_ITE.View.CNDN"
       xmlns:conv="clr-namespace:ESI_ITE.ViewModel.Converter"
       xmlns:vm="clr-namespace:ESI_ITE.ViewModel.CNDN"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:osb="clr-namespace:Xceed.Wpf.Toolkit.Obselete;assembly=WPFToolkit.Extended"
       mc:Ignorable="d" 
       d:DesignHeight="615" d:DesignWidth="900"
       Title="DNLineItemView">
@@ -266,12 +268,14 @@
 
                     <StackPanel Orientation="Vertical" Margin="5,0,0,0">
                         <Label Content="Cases" Width="90"/>
-                        <TextBox Text="{Binding Cases}"/>
+                        <!--<TextBox Text="{Binding Cases}"/>-->
+                        <xctk:MaskedTextBox Mask="##########" Text="{Binding Cases}" Height="26" VerticalContentAlignment="Center"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Margin="5,0,0,0">
                         <Label Content="Pieces" Width="90"/>
-                        <TextBox Text="{Binding Pieces}"/>
+                        <!--<TextBox Text="{Binding Pieces}"/>-->
+                        <xctk:MaskedTextBox Mask="##########" Text="{Binding Pieces}" Height="26" VerticalContentAlignment="Center"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Margin="5,0,0,0">
