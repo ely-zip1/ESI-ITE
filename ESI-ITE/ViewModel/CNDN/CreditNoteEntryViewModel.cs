@@ -895,6 +895,7 @@ namespace ESI_ITE.ViewModel.CNDN
                 cnHeaderObj.PriceUsed = SelectedPrice;
                 cnHeaderObj.UserId = MyGlobals.LoggedUser.Id;
                 cnHeaderObj.ReasonId = SelectedReasonCode.Id;
+                cnHeaderObj.PriceTypeId = SelectedPriceType.PriceTypeId;
 
                 cnHeaderObj.AddNew(cnHeaderObj);
             }

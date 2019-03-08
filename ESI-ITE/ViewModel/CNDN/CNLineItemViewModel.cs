@@ -23,6 +23,7 @@ namespace ESI_ITE.ViewModel.CNDN
             addItemCommand = new DelegateCommand(DuplicateCheck);
 
             Load();
+            Clear();
         }
 
         #region Properties
@@ -408,13 +409,14 @@ namespace ESI_ITE.ViewModel.CNDN
             }
             set
             {
-                cases = value;
+                var strCase = Regex.Replace(value.ToString(), "[^0-9+-]", "");
+                cases = strCase;
                 OnPropertyChanged();
             }
         }
 
-        private int pieces;
-        public int Pieces
+        private string pieces;
+        public string Pieces
         {
             get
             {
@@ -422,7 +424,8 @@ namespace ESI_ITE.ViewModel.CNDN
             }
             set
             {
-                pieces = value;
+                var strPiece = Regex.Replace(value.ToString(), "[^0-9+-]", "");
+                pieces = strPiece;
                 OnPropertyChanged();
             }
         }
@@ -691,7 +694,7 @@ namespace ESI_ITE.ViewModel.CNDN
             }
 
             Cases = "0";
-            Pieces = 0;
+            Pieces = "0";
 
             decimal sellingPrice = 0;
             foreach (var row in SellingPriceList)
@@ -795,10 +798,11 @@ namespace ESI_ITE.ViewModel.CNDN
             cnLineObject.ItemId = SelectedItem.ItemId;
             cnLineObject.PriceType = PriceType;
             cnLineObject.Cases = int.Parse(Cases);
-            cnLineObject.Pieces = Pieces;
+            cnLineObject.Pieces = int.Parse(Pieces);
             cnLineObject.PricePerPiece = decimal.Parse(PricePerPiece);
             cnLineObject.Location = Location;
-            cnLineObject.LineAmount = (((SelectedItem.PackSize * int.Parse(Cases)) + Pieces) * decimal.Parse(PricePerPiece));
+            cnLineObject.LineAmount = (((SelectedItem.PackSize * int.Parse(Cases)) + int.Parse(Pieces)) * decimal.Parse(PricePerPiece));
+
 
             cnLineObject.UpdateItem(cnLineObject);
 
@@ -827,7 +831,7 @@ namespace ESI_ITE.ViewModel.CNDN
             {
                 //do nothing
             }
-            else if (int.Parse(Cases) == 0 && Pieces == 0)
+            else if (int.Parse(Cases) == 0 && int.Parse(Pieces) == 0)
             {
                 MessageBox.Show("Please input the quantity.");
             }
@@ -839,10 +843,10 @@ namespace ESI_ITE.ViewModel.CNDN
                 cnLineObject.ItemId = SelectedItem.ItemId;
                 cnLineObject.PriceType = PriceType;
                 cnLineObject.Cases = int.Parse(Cases);
-                cnLineObject.Pieces = Pieces;
+                cnLineObject.Pieces = int.Parse(Pieces);
                 cnLineObject.PricePerPiece = decimal.Parse(PricePerPiece);
                 cnLineObject.Location = Location;
-                cnLineObject.LineAmount = (((SelectedItem.PackSize * int.Parse(Cases)) + Pieces) * decimal.Parse(PricePerPiece));
+                cnLineObject.LineAmount = (((SelectedItem.PackSize * int.Parse(Cases)) + int.Parse(Pieces)) * decimal.Parse(PricePerPiece));
 
                 cnLineObject.AddNew(cnLineObject);
 
@@ -856,7 +860,7 @@ namespace ESI_ITE.ViewModel.CNDN
                     listItem.Cases = Cases.ToString();
                     listItem.Pieces = Pieces.ToString();
                     listItem.PricePerPiece = PricePerPiece;
-                    listItem.LineAmount = (((SelectedItem.PackSize * int.Parse(Cases)) + Pieces) * decimal.Parse(PricePerPiece)).ToString();
+                    listItem.LineAmount = (((SelectedItem.PackSize * int.Parse(Cases)) + int.Parse(Pieces)) * decimal.Parse(PricePerPiece)).ToString();
 
                     LinedItemCollection.Add(listItem);
                     SelectedIndexLinedItem = -1;
@@ -874,7 +878,7 @@ namespace ESI_ITE.ViewModel.CNDN
             ItemCode = "";
             ItemDescription = "";
             Cases = "0";
-            Pieces = 0;
+            Pieces = "0";
             PricePerPiece = "";
         }
 
@@ -886,7 +890,7 @@ namespace ESI_ITE.ViewModel.CNDN
             ItemCode = SelectedLinedItem.ItemCode;
             ItemDescription = SelectedLinedItem.Description;
             Cases = SelectedLinedItem.Cases;
-            Pieces = int.Parse(SelectedLinedItem.Pieces);
+            Pieces = SelectedLinedItem.Pieces;
             PricePerPiece = SelectedLinedItem.PricePerPiece;
         }
 
@@ -1006,6 +1010,7 @@ namespace ESI_ITE.ViewModel.CNDN
             set
             {
                 lineAmount = value;
+                OnPropertyChanged();
             }
         }
 

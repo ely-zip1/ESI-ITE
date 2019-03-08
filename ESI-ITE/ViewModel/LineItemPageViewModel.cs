@@ -285,7 +285,11 @@ namespace ESI_ITE.ViewModel
         public ObservableCollection<ItemModel> SuggestedItemCodeList
         {
             get { return suggestedItemCodeList; }
-            set { suggestedItemCodeList = value; }
+            set
+            {
+                suggestedItemCodeList = value;
+                OnPropertyChanged();
+            }
         }
 
         private ObservableCollection<string> ptList = new ObservableCollection<string>();
@@ -689,7 +693,7 @@ namespace ESI_ITE.ViewModel
                 if (transactionModel.PriceType == "Current")
                 {
                     itemSellingPriceList = priceSelling.FetchCurrentPrice(SelectedItemCode.Code, "code");
-                } 
+                }
                 else if (transactionModel.PriceType == "3 Months Ago")
                 {
                     itemSellingPriceList = priceSelling.FetchPrice3MonthsAgo(SelectedItemCode.Code, "code");

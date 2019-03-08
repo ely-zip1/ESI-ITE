@@ -470,7 +470,9 @@ namespace ESI_ITE.Model
                 isPosted = 1;
             }
             else
-            { isPosted = 0; }
+            {
+                isPosted = 0;
+            }
 
             insert.Clear();
 
@@ -509,7 +511,7 @@ namespace ESI_ITE.Model
             commands.Add("Delete from inventory_dummy where transaction_link = " + transactionId + "");
             commands.Add("Delete from transaction_entry where trans_no = '" + transactionNumber + "'");
 
-            db.RunMySqlTransaction(commands,null, null);
+            db.RunMySqlTransaction(commands, null, null);
         }
 
         public void SetPrintedTransactions(List<string> transactionList)

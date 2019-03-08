@@ -756,6 +756,8 @@ namespace ESI_ITE.ViewModel
                     if (SelectedTransactionType != null)
                         if (!string.IsNullOrEmpty(SelectedTransactionType.Code))
                         {
+
+                            CmbReason.Clear();
                             foreach (var item in ReasonList)
                             {
                                 if (item.TransactionType == SelectedTransactionType.Code)
@@ -934,7 +936,6 @@ namespace ESI_ITE.ViewModel
         {
             IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
-            TransactionModel tm = new TransactionModel();
 
             TransactionModel lineableTransaction = new TransactionModel();
 
@@ -957,9 +958,9 @@ namespace ESI_ITE.ViewModel
             lineableTransaction.Reason = SelectedReason.Description;
             lineableTransaction.Comment = Comment;
 
-            if (SelectedTransactionNumber == latestTransNo)
+            if (SelectedTransactionNumber.Substring(0, 6) == latestTransNo)
             {
-                tm.AddTransactionEntry(lineableTransaction);
+                lineableTransaction.AddTransactionEntry(lineableTransaction);
 
                 if (updateTransNo)
                 {
@@ -973,7 +974,7 @@ namespace ESI_ITE.ViewModel
             else
             {
                 MyGlobals.IsNewTransaction = false;
-                MyGlobals.Transaction = tm.Fetch(SelectedTransactionNumber);
+                MyGlobals.Transaction = lineableTransaction.Fetch(SelectedTransactionNumber);
             }
             MyGlobals.IteViewModel.SelectedPage = new LineItemPageView();
         }

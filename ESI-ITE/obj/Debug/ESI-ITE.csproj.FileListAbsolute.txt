@@ -764,6 +764,10 @@ C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.Cor
 C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.CopyComplete
 C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
 C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
-C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMenuView.g.cs
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMenuView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojAssemblyReference.cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.CoreCompileInputs.cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.CopyComplete
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CreditNotePrintTemplate.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CreditNotePrintTemplate.baml

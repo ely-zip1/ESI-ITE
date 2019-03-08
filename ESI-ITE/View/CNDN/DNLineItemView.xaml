@@ -7,7 +7,6 @@
       xmlns:conv="clr-namespace:ESI_ITE.ViewModel.Converter"
       xmlns:vm="clr-namespace:ESI_ITE.ViewModel.CNDN"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-      xmlns:osb="clr-namespace:Xceed.Wpf.Toolkit.Obselete;assembly=WPFToolkit.Extended"
       mc:Ignorable="d" 
       d:DesignHeight="615" d:DesignWidth="900"
       Title="DNLineItemView">

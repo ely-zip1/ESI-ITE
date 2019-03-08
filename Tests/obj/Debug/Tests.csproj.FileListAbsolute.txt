@@ -101,7 +101,6 @@ C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.CoreCom
 C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.CopyComplete
 C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.exe
 C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.pdb
-C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.AvalonDock.dll
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
@@ -117,3 +116,7 @@ C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ro\Xceed.Wpf.AvalonDock.
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.exe.config
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csprojAssemblyReference.cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.CoreCompileInputs.cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.CopyComplete

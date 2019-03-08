@@ -217,6 +217,7 @@
     <Compile Include="ViewModel\CNDN\CnEntriesPrintTemplateViewModel.cs" />
     <Compile Include="ViewModel\CNDN\CNLineItemViewModel.cs" />
     <Compile Include="ViewModel\CNDN\CreditNoteEntryViewModel.cs" />
+    <Compile Include="ViewModel\CNDN\CreditNotePrintTemplateViewModel.cs" />
     <Compile Include="ViewModel\CNDN\DebitNoteEntryViewModel.cs" />
     <Compile Include="ViewModel\CNDN\DNLineItemViewModel.cs" />
     <Compile Include="ViewModel\CustomerSelectionViewModel.cs" />
@@ -253,6 +254,9 @@
     </Compile>
     <Compile Include="View\PrintingTemplate\CnEntriesPrintTemplate.xaml.cs">
       <DependentUpon>CnEntriesPrintTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PrintingTemplate\CreditNotePrintTemplate.xaml.cs">
+      <DependentUpon>CreditNotePrintTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PrintingTemplate\GatepassPrintTemplate.xaml.cs">
       <DependentUpon>GatepassPrintTemplate.xaml</DependentUpon>
@@ -408,6 +412,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PrintingTemplate\CnEntriesPrintTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PrintingTemplate\CreditNotePrintTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

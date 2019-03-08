@@ -154,8 +154,8 @@ namespace ESI_ITE.ViewModel.CNDN
             }
         }
 
-        private DateTime dnDate;
-        public DateTime DnDate
+        private string dnDate;
+        public string DnDate
         {
             get
             {
@@ -655,7 +655,7 @@ namespace ESI_ITE.ViewModel.CNDN
                     CustomerCollection.Add(customer);
                 }
 
-                DnDate = DateTime.UtcNow.Date;
+                DnDate = DateTime.UtcNow.ToShortDateString();
 
                 SelectedPrice = MyGlobals.SelectedCNDNPrice;
 
@@ -785,7 +785,7 @@ namespace ESI_ITE.ViewModel.CNDN
                 dnHeaderObject = (DebitNoteHeaderModel)dnHeaderObject.Fetch(SelectedDnNumber[0], "code");
 
                 ReferenceNumber = dnHeaderObject.ReferenceNumber;
-                DnDate = dnHeaderObject.DnDate;
+                DnDate = dnHeaderObject.DnDate.ToShortDateString();
 
                 var customerObject = new CustomerModel();
                 customerObject = (CustomerModel)customerObject.Fetch(dnHeaderObject.CustomerId.ToString(), "id");
@@ -869,7 +869,7 @@ namespace ESI_ITE.ViewModel.CNDN
                 customerObj = (CustomerModel)customerObj.Fetch(SelectedCustomer[0], "code");
 
                 dnHeaderObj.DnNumber = SelectedDnNumber[0];
-                dnHeaderObj.DnDate = DnDate;
+                dnHeaderObj.DnDate = DateTime.Parse(DnDate);
                 dnHeaderObj.ReferenceNumber = ReferenceNumber;
                 dnHeaderObj.CustomerId = customerObj.CustomerId;
                 dnHeaderObj.WarehouseId = SelectedWarehouse.Id;
@@ -882,6 +882,7 @@ namespace ESI_ITE.ViewModel.CNDN
                 dnHeaderObj.PriceUsed = SelectedPrice;
                 dnHeaderObj.UserId = MyGlobals.LoggedUser.Id;
                 dnHeaderObj.ReasonId = SelectedReasonCode.Id;
+                dnHeaderObj.PriceTypeId = SelectedPriceType.PriceTypeId;
 
                 dnHeaderObj.AddNew(dnHeaderObj);
             }
@@ -900,7 +901,7 @@ namespace ESI_ITE.ViewModel.CNDN
         public void ClearFields()
         {
             ReferenceNumber = "";
-            DnDate = DateTime.Now;
+            DnDate = DateTime.Now.ToShortDateString();
             CustomerNumber = "";
             CustomerName = "";
             SelectedIndexReasonCode = -1;
