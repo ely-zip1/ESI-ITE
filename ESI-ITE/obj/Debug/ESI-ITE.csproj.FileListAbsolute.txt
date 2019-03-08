@@ -771,3 +771,7 @@ C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.CoreCom
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.CopyComplete
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CreditNotePrintTemplate.g.cs
 C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CreditNotePrintTemplate.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnPrintingOptionsView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\DebitNotePrintTemplate.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnPrintingOptionsView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\DebitNotePrintTemplate.baml
