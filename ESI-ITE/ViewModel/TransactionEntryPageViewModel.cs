@@ -124,7 +124,11 @@ namespace ESI_ITE.ViewModel
         public ObservableCollection<ReasonsModel> CmbReason
         {
             get { return cmbReason; }
-            set { cmbReason = value; }
+            set
+            {
+                cmbReason = value;
+                OnPropertyChanged("CmbReason");
+            }
         }
         #endregion
 
@@ -161,7 +165,6 @@ namespace ESI_ITE.ViewModel
                     validateReason = false;
                     OnPropertyChanged("SelectedTransactionType");
                     SelectionChanged("SelectedTransactionType");
-                    IsDestinationEnabled(selectedTransactionType.Code);
                 }
             }
         }
@@ -583,6 +586,7 @@ namespace ESI_ITE.ViewModel
             sortable.Add(latestTransNo);
 
             sortable.Sort();
+            sortable.Reverse();
 
             CmbTransactionNumbers.Clear();
             foreach (var i in sortable)
@@ -756,8 +760,6 @@ namespace ESI_ITE.ViewModel
                     if (SelectedTransactionType != null)
                         if (!string.IsNullOrEmpty(SelectedTransactionType.Code))
                         {
-
-                            CmbReason.Clear();
                             foreach (var item in ReasonList)
                             {
                                 if (item.TransactionType == SelectedTransactionType.Code)
@@ -939,7 +941,7 @@ namespace ESI_ITE.ViewModel
 
             TransactionModel lineableTransaction = new TransactionModel();
 
-            lineableTransaction.TransactionNumber = SelectedTransactionNumber;
+            lineableTransaction.TransactionNumber = SelectedTransactionNumber.Substring(0, 6);
             lineableTransaction.TransactionTypeCode = SelectedTransactionType.Code;
             lineableTransaction.TransactionType = SelectedTransactionType.Description;
             lineableTransaction.DocumentNumber = DocumentNumber;

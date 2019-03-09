@@ -61,7 +61,7 @@
 
                     <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
                         <TextBlock Text="DN No: " VerticalAlignment="Center" FontSize="15"/>
-                        <TextBlock Text="{Binding CnNumber}" VerticalAlignment="Center"  FontSize="15" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding DnNumber}" VerticalAlignment="Center"  FontSize="15" FontWeight="Bold"/>
                     </StackPanel>
                 </Grid>
 
@@ -103,7 +103,7 @@
 
                     <StackPanel Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" Orientation="Horizontal">
                         <TextBlock Text="DN Date: " VerticalAlignment="Center" Margin="175,0,0,0"/>
-                        <TextBlock Text="{Binding CnDate}" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding DnDate}" VerticalAlignment="Center"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Orientation="Horizontal">
@@ -159,7 +159,7 @@
             <Grid Grid.Row="2">
                 <Grid Grid.Row="2">
                     <ListView Background="Transparent" Foreground="Black" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                              ItemsSource="{Binding CnItemCollection}">
+                              ItemsSource="{Binding DnItemCollection}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="MinHeight" Value="10"/>
@@ -205,7 +205,7 @@
 
 
                 <Border Grid.Row="0" Grid.Column="4" BorderThickness="0,1,0,0" BorderBrush="Black" Margin="0,0,0,1"></Border>
-                <TextBlock Text="{Binding Total}" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="4"/>
+                <TextBlock Text="{Binding DnTotal}" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="4"/>
 
             </Grid>
             <!--END TOTAL-->
