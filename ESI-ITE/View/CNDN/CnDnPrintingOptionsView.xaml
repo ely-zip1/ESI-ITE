@@ -4,12 +4,20 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ESI_ITE.View.CNDN"
+      xmlns:vm="clr-namespace:ESI_ITE.ViewModel.CNDN"
+      xmlns:conv="clr-namespace:ESI_ITE.ViewModel.Converter"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CnDnPrintingOptionsView"
       Foreground="White">
+    <Page.DataContext>
+        <vm:CnDnPrintingOptionsViewModel x:Name="viewModel"/>
+    </Page.DataContext>
 
-    <Grid>
+    <Page.Resources>
+        <conv:BoolToVisibilityConverter x:Key="boolToVisConverter"/>
+    </Page.Resources>
+        <Grid>
         <Grid VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -41,11 +49,23 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="{Binding}" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="0" Margin="5"/>
-                <TextBlock Text="{Binding}" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0" Margin="5"/>
+                <TextBlock Text="{Binding StartingNoteLabel}" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="0" Margin="5"/>
+                <TextBlock Text="{Binding EndingNoteLabel}" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0" Margin="5"/>
+
+                <ComboBox Width="150" Height="30" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" ItemsSource="{Binding StartingNoteCollection}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding [0]}" Width="60"/>
+                                <TextBlock Text="{Binding [1]}" Width="60"/>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
                 
-                <ComboBox Width="100" Height="30" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left"></ComboBox>
-                <ComboBox Width="100" Height="30"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left"></ComboBox>
+                <ComboBox Width="150" Height="30"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" ItemsSource="{Binding EndingNoteCollection}">
+                    
+                </ComboBox>
 
             </Grid>
 

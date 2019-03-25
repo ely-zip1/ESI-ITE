@@ -586,7 +586,6 @@ namespace ESI_ITE.ViewModel
             sortable.Add(latestTransNo);
 
             sortable.Sort();
-            sortable.Reverse();
 
             CmbTransactionNumbers.Clear();
             foreach (var i in sortable)

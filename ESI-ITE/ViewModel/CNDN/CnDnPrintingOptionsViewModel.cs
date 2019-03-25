@@ -106,10 +106,10 @@ namespace ESI_ITE.ViewModel.CNDN
             IsCreditNoteSelected = true;
             IsDebitNoteSelected = false;
 
-            StartingNoteLabel = "Starting Credit Note:";
-            EndingNoteLabel = "Ending Credit Note:";
+            StartingNoteLabel = "Starting Credit Note : ";
+            EndingNoteLabel = "Ending Credit Note : ";
 
-
+            
         }
     }
 }
