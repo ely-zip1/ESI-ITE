@@ -64,15 +64,22 @@
                 </ComboBox>
                 
                 <ComboBox Width="150" Height="30"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" ItemsSource="{Binding EndingNoteCollection}">
-                    
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding [0]}" Width="60"/>
+                                <TextBlock Text="{Binding [1]}" Width="60"/>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                 </ComboBox>
 
             </Grid>
 
             <Grid Grid.Row="2">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Content="OK" Width="100" Margin="5,0"/>
-                    <Button Content="Exit" Width="100" Margin="5,0"/>
+                    <Button Command="{Binding OkCommand}" Content="OK" Width="100" Margin="5,0"/>
+                    <Button Command="{Binding ExitCommand}" Content="Exit" Width="100" Margin="5,0"/>
                 </StackPanel>
             </Grid>
         </Grid>

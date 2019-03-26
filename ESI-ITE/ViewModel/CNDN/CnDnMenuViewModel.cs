@@ -58,7 +58,7 @@ namespace ESI_ITE.ViewModel.CNDN
 
         private void GoToPrinting()
         {
-
+            MyGlobals.CnDnVM.SelectedPage = new CnDnPrintingOptionsView();
         }
 
         private void GoToPosting()
