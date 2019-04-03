@@ -88,6 +88,11 @@ namespace ESI_ITE
 
         public static DebitNoteEntryView DebitNoteEntryView;
 
+        public static CnDnPrintingOptionsView CnDnPrintingOptionsView;
+
+        public static CnDnPrintingOptionsViewModel CnDnPrintingOptionsVM;
+
+        
         #endregion
 
 

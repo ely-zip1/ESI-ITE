@@ -30,6 +30,7 @@ namespace ESI_ITE.ViewModel.CNDN
             {
                 isCreditNoteSelected = value;
                 OnPropertyChanged();
+                CreditNoteSelected();
             }
         }
 
@@ -41,6 +42,7 @@ namespace ESI_ITE.ViewModel.CNDN
             {
                 isDebitNoteSelected = value;
                 OnPropertyChanged();
+                DebitNoteSelected();
             }
         }
 
@@ -88,6 +90,49 @@ namespace ESI_ITE.ViewModel.CNDN
             }
         }
 
+        private List<string> selectedStartingNote;
+        public List<string> SelectedStartingNote
+        {
+            get { return selectedStartingNote; }
+            set
+            {
+                selectedStartingNote = value;
+                OnPropertyChanged();
+            }
+        }
+        private List<string> selectedEndingNote;
+        public List<string> SelectedEndingNote
+        {
+            get { return selectedEndingNote; }
+            set
+            {
+                selectedEndingNote = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int selectedIndexStartingNote;
+        public int SelectedIndexStartingNote
+        {
+            get { return selectedIndexStartingNote; }
+            set
+            {
+                selectedIndexStartingNote = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int selectedIndexEndingNote;
+        public int SelectedIndexEndingNote
+        {
+            get { return selectedIndexEndingNote; }
+            set
+            {
+                selectedIndexEndingNote = value;
+                OnPropertyChanged();
+            }
+        }
+
         private DelegateCommand okCommand;
         public ICommand OkCommand
         {
@@ -106,7 +151,7 @@ namespace ESI_ITE.ViewModel.CNDN
             }
         }
 
-        
+
         private void Load()
         {
             IsCreditNoteSelected = true;
@@ -119,7 +164,7 @@ namespace ESI_ITE.ViewModel.CNDN
             var customerObject = new CustomerModel();
 
             var cnHeadList = cnHeadObject.FetchAll();
-            foreach(CreditNoteHeaderModel row in cnHeadList)
+            foreach (CreditNoteHeaderModel row in cnHeadList)
             {
                 var customer = (CustomerModel)customerObject.Fetch(row.CustomerId.ToString(), "id");
 
@@ -133,6 +178,22 @@ namespace ESI_ITE.ViewModel.CNDN
         }
 
 
+        private void DebitNoteSelected()
+        {
+            if (IsDebitNoteSelected)
+            {
+                IsCreditNoteSelected = false;
+            }
+        }
+
+        private void CreditNoteSelected()
+        {
+            if (IsCreditNoteSelected)
+            {
+                IsDebitNoteSelected = false;
+            }
+        }
+
         #region Printing
 
         private void StartPrinting()
@@ -145,8 +206,8 @@ namespace ESI_ITE.ViewModel.CNDN
             var result = await PicklistPrintingAsync();
 
             MyGlobals.printingDoc = result;
-            
-            MyGlobals.PrintingParent = MyGlobals.cre;
+
+            MyGlobals.PrintingParent = MyGlobals.CnDnPrintingOptionsView;
             MyGlobals.CnDnVM.SelectedPage = new View.PrintingTemplate.PrintingMainPageView();
         }
 
@@ -163,62 +224,66 @@ namespace ESI_ITE.ViewModel.CNDN
                 // Your Code Goes here
                 fixedDoc = new FixedDocument();
 
-                var CnObject = new CreditNoteHeaderModel();
-                var user = MyGlobals.LoggedUser.Username;
-                var printDateTime = DateTime.UtcNow;
-                var pageNumber = 1;
-
-                var templateVM = new CnEntriesPrintTemplateViewModel();
-
-                var customerObject = new CustomerModel();
-
-                var cnList = CnObject.FetchAll();
-
-                List<object> newPage = CreateNewPage(pageNumber++);
-                fixedDoc.Pages.Add((PageContent)newPage[1]);
-                templateVM = (CnEntriesPrintTemplateViewModel)newPage[0];
-
-                var itemcounter = 0;
-                foreach (var row in cnList)
+                if (IsCreditNoteSelected)
                 {
-                    var cnEntry = row as CreditNoteHeaderModel;
-                    customerObject = (CustomerModel)customerObject.Fetch(cnEntry.CustomerId.ToString(), "id");
+                    var CnObject = new CreditNoteHeaderModel();
+                    var user = MyGlobals.LoggedUser.Username;
+                    var printDateTime = DateTime.UtcNow;
+                    var pageNumber = 1;
 
-                    var cnItem = new List<string>();
-                    cnItem.Add(customerObject.CustomerName);
-                    cnItem.Add(cnEntry.CnNumber);
-                    cnItem.Add(cnEntry.CnDate.ToShortDateString());
-                    cnItem.Add(cnEntry.ReferenceNumber);
-                    cnItem.Add(cnEntry.CnAmount.ToString());
-                    cnItem.Add(cnEntry.IsPrinted ? "Yes" : "No");
+                    var templateVM = new CreditNotePrintTemplateViewModel();
 
-                    templateVM.CnEntryCollection.Add(cnItem);
+                    var customerObject = new CustomerModel();
 
-                    if (customerObject.CustomerName.Length > 34)
-                        itemcounter += 2;
-                    else
-                        itemcounter
-                            ++;
+                    var cnList = CnObject.FetchAll();
+                    var startingCN = (CreditNoteHeaderModel)CnObject.Fetch(SelectedStartingNote[0], "code");
 
-                    if (itemcounter >= 40)
+                    List<object> newPage = CreateNewPage(pageNumber, startingCN);
+                    fixedDoc.Pages.Add((PageContent)newPage[1]);
+                    templateVM = (CreditNotePrintTemplateViewModel)newPage[0];
+
+                    var itemcounter = 0;
+                    foreach (var row in cnList)
                     {
-                        List<object> newPage2 = CreateNewPage(pageNumber++);
-                        fixedDoc.Pages.Add((PageContent)newPage2[1]);
-                        templateVM = (CnEntriesPrintTemplateViewModel)newPage2[0];
+                        var cnEntry = row as CreditNoteHeaderModel;
+                        customerObject = (CustomerModel)customerObject.Fetch(cnEntry.CustomerId.ToString(), "id");
 
-                        itemcounter = 0;
+                        var cnItem = new List<string>();
+                        cnItem.Add(customerObject.CustomerName);
+                        cnItem.Add(cnEntry.CnNumber);
+                        cnItem.Add(cnEntry.CnDate.ToShortDateString());
+                        cnItem.Add(cnEntry.ReferenceNumber);
+                        cnItem.Add(cnEntry.CnAmount.ToString());
+                        cnItem.Add(cnEntry.IsPrinted ? "Yes" : "No");
+
+                        templateVM.CnEntryCollection.Add(cnItem);
+
+                        if (customerObject.CustomerName.Length > 34)
+                            itemcounter += 2;
+                        else
+                            itemcounter
+                                ++;
+
+                        if (itemcounter >= 40)
+                        {
+                            List<object> newPage2 = CreateNewPage(pageNumber++);
+                            fixedDoc.Pages.Add((PageContent)newPage2[1]);
+                            templateVM = (CreditNotePrintTemplateViewModel)newPage2[0];
+
+                            itemcounter = 0;
+                        }
                     }
                 }
             });
             return fixedDoc;
         }
 
-        private List<object> CreateNewPage(int pageNumber)
+        private List<object> CreateNewPage(int pageNumber, CreditNoteHeaderModel cnHead)
         {
             var fixedPage = new FixedPage();
             var grid = new Grid();
             var templateView = new CreditNotePrintTemplate();
-            var templateVM = (CnEntriesPrintTemplateViewModel)templateView.DataContext;
+            var templateVM = (CreditNotePrintTemplateViewModel)templateView.DataContext;
 
             templateView.Width = 1100;
             templateView.MinHeight = 100;
@@ -229,7 +294,8 @@ namespace ESI_ITE.ViewModel.CNDN
             templateVM.User = MyGlobals.LoggedUser.Username;
             templateVM.PrintDate = DateTime.Now.ToShortDateString();
             templateVM.PrintTime = DateTime.Now.ToLongTimeString();
-            templateVM.PageNumber = pageNumber;
+            templateVM.PageNumber = pageNumber.ToString();
+            templateVM.CnNumber =
 
             grid.Children.Add(templateView);
             fixedPage.Children.Add(grid);
