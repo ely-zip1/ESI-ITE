@@ -53,7 +53,7 @@
                 <TextBlock Text="{Binding EndingNoteLabel}" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0" Margin="5"/>
 
                 <ComboBox Width="150" Height="30" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" ItemsSource="{Binding StartingNoteCollection}"
-                          SelectedItem="">
+                          SelectedItem="{Binding SelectedStartingNote}" SelectedIndex="{Binding SelectedIndexStartingNote}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -64,7 +64,8 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 
-                <ComboBox Width="150" Height="30"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" ItemsSource="{Binding EndingNoteCollection}">
+                <ComboBox Width="150" Height="30"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" ItemsSource="{Binding EndingNoteCollection}"
+                          SelectedItem="{Binding SelectedEndingNote}" SelectedIndex="{Binding SelectedIndexEndingNote}" >
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">

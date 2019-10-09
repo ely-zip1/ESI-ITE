@@ -1,0 +1,21 @@
+﻿<Page x:Class="ESI_ITE.View.Reports.SalesReportsPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ESI_ITE.View.Reports"
+      mc:Ignorable="d" 
+      d:DesignHeight="545" d:DesignWidth="730"
+      Title="SalesReportsPageView">
+
+    <Grid>
+        <Canvas Margin="10">
+            <Label Content="Sales Reports" Canvas.Left="299.263" Canvas.Top="10" FontWeight="Bold" FontSize="16"/>
+            <Label Content="Select Report" Canvas.Left="10" Canvas.Top="60" FontWeight="Bold"/>
+            <Label Content="Report" Canvas.Left="29.54" Canvas.Top="90.96"/>
+            <ComboBox Height="9.04" Canvas.Left="79.967" Canvas.Top="90.96" Width="400.033"/>
+
+        </Canvas>
+
+    </Grid>
+</Page>

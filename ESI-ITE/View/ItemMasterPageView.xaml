@@ -1,0 +1,102 @@
+﻿<Page x:Class="ESI_ITE.View.ItemMasterPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ESI_ITE.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="550"
+      Title="ItemMasterPageView"
+      xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls" Width="885.5">
+
+    <Grid>
+        <StackPanel>
+            <Grid Height="50">
+                <Label Content="Item Master Maintenance" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+            <Grid Height="270" Margin="10,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Item Code:"/>
+                <Label Grid.Row="1" Content="Description:"/>
+                <Label Grid.Row="2" Content="Smallest Unit of Measure:"/>
+                <Label Grid.Row="3" Content="Stock Unit of Measure:"/>
+                <Label Grid.Row="4" Content="Pieces Per Unit:"/>
+                <Label Grid.Row="5" Content="Weight Per Stock Unit:"/>
+                <Label Grid.Row="6" Content="Tax Rate:"/>
+                <Label Grid.Row="7" Content="Target Weeks Cover:"/>
+                <TextBox Grid.Column="1" Margin="0,4,13.334,0" TextWrapping="Wrap"/>
+                <TextBox Grid.Column="1" Margin="0,4,13.334,0" TextWrapping="Wrap" Grid.Row="1" Grid.ColumnSpan="5"/>
+                <TextBox Grid.Column="1" Height="23" Margin="0,4,13.334,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                <TextBox Grid.Column="1" Margin="0,4,13.334,0" TextWrapping="Wrap" Grid.Row="4"/>
+                <TextBox Grid.Column="1" Margin="0,4,38.334,0" TextWrapping="Wrap" Grid.Row="5"/>
+                <TextBox Grid.Column="1" Margin="0,4,38.334,0" TextWrapping="Wrap" Grid.Row="6"/>
+                <TextBox Grid.Column="1" Margin="0,4,13.334,0" TextWrapping="Wrap" Grid.Row="7"/>
+                <ComboBox Grid.Column="1" Margin="0,4,13.334,0" Grid.Row="2" d:LayoutOverrides="Height"/>
+                <Label Content="grams" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,-4.443,-1.96" Grid.Row="5" VerticalAlignment="Bottom"/>
+                <Label Content="%" Grid.Column="1" HorizontalAlignment="Right" Margin="0,2.96,14,2.04" Grid.Row="6" Width="23.334"/>
+                <Button Content="Search" Grid.Column="2" HorizontalAlignment="Left" Margin="-8.334,4,0,1" Width="75" d:LayoutOverrides="Height"/>
+                <Label Content="Selling Price:" Grid.Column="4" Margin="10,0" Grid.Row="2" HorizontalAlignment="Right"/>
+                <Label Content="Purchase Price:" Grid.Column="4" Margin="0,0,10,0" Grid.Row="3" HorizontalAlignment="Right"/>
+                <Label Content="Pieces Per Unit for B.O." Grid.Column="4" Margin="-13,0,10,0" Grid.Row="4" HorizontalAlignment="Right" Width="136.334"/>
+                <TextBox Grid.Column="5" Margin="0,4,13.334,0" TextWrapping="Wrap" Grid.Row="2"/>
+                <TextBox Grid.Column="5" Margin="0,4,13.334,0" TextWrapping="Wrap" Grid.Row="3"/>
+                <TextBox Grid.Column="5" Margin="0,4,13.334,0" TextWrapping="Wrap" Grid.Row="4"/>
+                <CheckBox Content="OPG Active" Grid.Column="4" Margin="-51.001,10,49.334,0" Grid.Row="5"/>
+                <CheckBox Content="Active Item" Grid.Column="4" Margin="-51.001,0,49.334,10" Grid.Row="6"/>
+                <CheckBox Content="Lot Number Controlled" Grid.Column="5" Margin="-15.001,10,13.334,0" Grid.Row="5"/>
+                <CheckBox Content="BFAD Required" Grid.Column="5" Margin="-15.001,0,13.334,10" Grid.Row="6"/>
+            </Grid>
+            <Grid Height="213" Margin="10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="53*"/>
+                    <ColumnDefinition Width="207*"/>
+                    <ColumnDefinition Width="130*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Supplier" Margin="0,0,10,0"/>
+                <Label Content="Source" Margin="0,0,10,0" Grid.Row="1"/>
+                <Label Content="Brand" Margin="0,0,10,0" Grid.Row="2"/>
+                <Label Content="Category" Margin="0,0,10,0" Grid.Row="3"/>
+                <ComboBox Grid.Column="1" Margin="0,4,103,0"/>
+                <ComboBox Grid.Column="1" Margin="0,4,103,0" Grid.Row="1"/>
+                <ComboBox Grid.Column="1" Margin="0,4,103,0" Grid.Row="2"/>
+                <ComboBox Grid.Column="1" Margin="0,4,103,0" Grid.Row="3"/>
+                <Button Content="Search" Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,19,0" Grid.Row="2" Width="79"/>
+                <Button Content="Search" Grid.Column="1" HorizontalAlignment="Right" Margin="0,4,19,1" Grid.Row="3" Width="79"/>
+                <Button Content="Print Item Profile" Height="26" Margin="0,0,-37,-53" Grid.Row="4" VerticalAlignment="Bottom"/>
+                <Label Content="SP per PC" Margin="198,0,156,-32.5" Grid.Row="4" Grid.Column="1" Height="30" VerticalAlignment="Bottom"/>
+                <TextBox Grid.Column="1" Height="17" Margin="176,0,156,-53" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="107"/>
+                <Label Content="PP per PC" Margin="0,0,44,-32.84" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Height="30" VerticalAlignment="Bottom" Width="60"/>
+                <TextBox Grid.Column="1" Height="17" Margin="0,0,19,-52.84" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="107"/>
+                <Button Content="Edit" Grid.Column="2" Margin="99.333,-2,10,7" Grid.Row="3"/>
+                <Button Content="Item List" Grid.Column="2" Margin="99.333,-2,10,7" Grid.Row="4"/>
+                <Button Content="Create File" Grid.Column="2" Margin="99.333,0,10,-23" Grid.Row="4" Height="25" VerticalAlignment="Bottom"/>
+                <Button Content="Delete Item" Grid.Column="2" Margin="99.333,0,10,-53" Grid.Row="4" Height="25" VerticalAlignment="Bottom"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Page>

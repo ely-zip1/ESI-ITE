@@ -100,6 +100,7 @@ namespace ESI_ITE.ViewModel.CNDN
                 OnPropertyChanged();
             }
         }
+
         private List<string> selectedEndingNote;
         public List<string> SelectedEndingNote
         {
@@ -119,6 +120,7 @@ namespace ESI_ITE.ViewModel.CNDN
             {
                 selectedIndexStartingNote = value;
                 OnPropertyChanged();
+                StartingNoteChanged();
             }
         }
 
@@ -132,6 +134,9 @@ namespace ESI_ITE.ViewModel.CNDN
                 OnPropertyChanged();
             }
         }
+
+        private ObservableCollection<List<string>> PrintNoteCollection = new ObservableCollection<List<string>>();
+
 
         private DelegateCommand okCommand;
         public ICommand OkCommand
@@ -164,6 +169,8 @@ namespace ESI_ITE.ViewModel.CNDN
             var customerObject = new CustomerModel();
 
             var cnHeadList = cnHeadObject.FetchAll();
+            StartingNoteCollection.Add(new List<string>());
+
             foreach (CreditNoteHeaderModel row in cnHeadList)
             {
                 var customer = (CustomerModel)customerObject.Fetch(row.CustomerId.ToString(), "id");
@@ -173,8 +180,9 @@ namespace ESI_ITE.ViewModel.CNDN
                 cnList.Add(customer.CustomerName);
 
                 StartingNoteCollection.Add(cnList);
-                EndingNoteCollection.Add(cnList);
             }
+
+            SelectedIndexStartingNote = 0;
         }
 
 
@@ -191,6 +199,46 @@ namespace ESI_ITE.ViewModel.CNDN
             if (IsCreditNoteSelected)
             {
                 IsDebitNoteSelected = false;
+            }
+        }
+
+        private void StartingNoteChanged()
+        {
+            EndingNoteCollection.Clear();
+
+            var index = SelectedIndexStartingNote;
+            if (IsCreditNoteSelected)
+            {
+                while (true)
+                {
+                    try
+                    {
+                        EndingNoteCollection.Add(StartingNoteCollection[index]);
+                        index++;
+                    }
+                    catch (Exception e)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void CreatePrintNoteCollection()
+        {
+            var index = 0;
+            foreach (var row in EndingNoteCollection)
+            {
+                if (index == SelectedIndexEndingNote)
+                {
+                    PrintNoteCollection.Add(row);
+                    break;
+                }
+                else
+                {
+                    PrintNoteCollection.Add(row);
+                    index++;
+                }
             }
         }
 
@@ -226,10 +274,11 @@ namespace ESI_ITE.ViewModel.CNDN
 
                 if (IsCreditNoteSelected)
                 {
+                    CreatePrintNoteCollection();
+
                     var CnObject = new CreditNoteHeaderModel();
                     var user = MyGlobals.LoggedUser.Username;
                     var printDateTime = DateTime.UtcNow;
-                    var pageNumber = 1;
 
                     var templateVM = new CreditNotePrintTemplateViewModel();
 
@@ -238,39 +287,52 @@ namespace ESI_ITE.ViewModel.CNDN
                     var cnList = CnObject.FetchAll();
                     var startingCN = (CreditNoteHeaderModel)CnObject.Fetch(SelectedStartingNote[0], "code");
 
-                    List<object> newPage = CreateNewPage(pageNumber, startingCN);
-                    fixedDoc.Pages.Add((PageContent)newPage[1]);
-                    templateVM = (CreditNotePrintTemplateViewModel)newPage[0];
-
                     var itemcounter = 0;
-                    foreach (var row in cnList)
+                    foreach (var row in PrintNoteCollection)
                     {
-                        var cnEntry = row as CreditNoteHeaderModel;
+                        var pageNumber = 1;
+                        List<object> newPage = CreateNewPage(pageNumber, startingCN);
+                        fixedDoc.Pages.Add((PageContent)newPage[1]);
+                        templateVM = (CreditNotePrintTemplateViewModel)newPage[0];
+
+                        var cnEntry = (CreditNoteHeaderModel)CnObject.Fetch(row[0], "code");
                         customerObject = (CustomerModel)customerObject.Fetch(cnEntry.CustomerId.ToString(), "id");
 
-                        var cnItem = new List<string>();
-                        cnItem.Add(customerObject.CustomerName);
-                        cnItem.Add(cnEntry.CnNumber);
-                        cnItem.Add(cnEntry.CnDate.ToShortDateString());
-                        cnItem.Add(cnEntry.ReferenceNumber);
-                        cnItem.Add(cnEntry.CnAmount.ToString());
-                        cnItem.Add(cnEntry.IsPrinted ? "Yes" : "No");
+                        var cnLineObject = new CreditNoteLineModel();
+                        var cnLine = cnLineObject.FetchPerCreditNoteHead(cnEntry.Id.ToString());
 
-                        templateVM.CnEntryCollection.Add(cnItem);
-
-                        if (customerObject.CustomerName.Length > 34)
-                            itemcounter += 2;
-                        else
-                            itemcounter
-                                ++;
-
-                        if (itemcounter >= 40)
+                        foreach (var lineItem in cnLine)
                         {
-                            List<object> newPage2 = CreateNewPage(pageNumber++);
-                            fixedDoc.Pages.Add((PageContent)newPage2[1]);
-                            templateVM = (CreditNotePrintTemplateViewModel)newPage2[0];
+                            var printItem = new CnItem();
+                            var itemMasterObject = new ItemModel();
+                            var currentItem = (ItemModel)itemMasterObject.Fetch(lineItem.ItemId.ToString(), "id");
+                            var pricetypeObject = new PriceTypeModel();
+                            var currentPricetype = (PriceTypeModel)pricetypeObject.Fetch(cnEntry.PriceTypeId.ToString(), "id");
+                            var purchasePriceObject = new PricePurchaseModel();
+                            var purchasePrice = purchasePriceObject.FetchCurrentPrice(lineItem.ItemId.ToString(), "id");
 
-                            itemcounter = 0;
+
+                            printItem.ItemDescription = currentItem.Description;
+                            printItem.ItemNumber = currentItem.Code;
+                            printItem.PriceType = lineItem.PriceType;
+                            printItem.Cases = lineItem.Cases.ToString();
+                            printItem.Pieces = lineItem.Pieces.ToString();
+                            printItem.UnitPrice = purchasePrice.PurchasePrice.ToString();
+                            printItem.PricePerPiece = lineItem.PricePerPiece.ToString();
+                            printItem.Amount = lineItem.LineAmount.ToString();
+
+                            templateVM.CnItemCollection.Add(printItem);
+                            itemcounter++;
+
+
+                            if (itemcounter >= 40)
+                            {
+                                List<object> newPage2 = CreateNewPage(pageNumber++, startingCN);
+                                fixedDoc.Pages.Add((PageContent)newPage2[1]);
+                                templateVM = (CreditNotePrintTemplateViewModel)newPage2[0];
+
+                                itemcounter = 0;
+                            }
                         }
                     }
                 }
@@ -295,7 +357,6 @@ namespace ESI_ITE.ViewModel.CNDN
             templateVM.PrintDate = DateTime.Now.ToShortDateString();
             templateVM.PrintTime = DateTime.Now.ToLongTimeString();
             templateVM.PageNumber = pageNumber.ToString();
-            templateVM.CnNumber =
 
             grid.Children.Add(templateView);
             fixedPage.Children.Add(grid);

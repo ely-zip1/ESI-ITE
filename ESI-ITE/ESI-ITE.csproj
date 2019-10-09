@@ -254,8 +254,26 @@
     <Compile Include="View\CNDN\DNLineItemView.xaml.cs">
       <DependentUpon>DNLineItemView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CodesMasterMaintenancePageView.xaml.cs">
+      <DependentUpon>CodesMasterMaintenancePageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CustomerMasterPageView.xaml.cs">
+      <DependentUpon>CustomerMasterPageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CustomerSelectionView.xaml.cs">
       <DependentUpon>CustomerSelectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\GeographicMaintenancePageView.xaml.cs">
+      <DependentUpon>GeographicMaintenancePageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ItemMasterPageView.xaml.cs">
+      <DependentUpon>ItemMasterPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LocationMaintenancePageView.xaml.cs">
+      <DependentUpon>LocationMaintenancePageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PriceTypeMaintenancePageView.xaml.cs">
+      <DependentUpon>PriceTypeMaintenancePageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PrintingTemplate\CnEntriesPrintTemplate.xaml.cs">
       <DependentUpon>CnEntriesPrintTemplate.xaml</DependentUpon>
@@ -365,6 +383,18 @@
     <Compile Include="View\PrintPreviewPageView.xaml.cs">
       <DependentUpon>PrintPreviewPageView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Reports\SalesReportsPageView.xaml.cs">
+      <DependentUpon>SalesReportsPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RouteMaintenancePageView.xaml.cs">
+      <DependentUpon>RouteMaintenancePageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SalesDistrictMaintenancePageView.xaml.cs">
+      <DependentUpon>SalesDistrictMaintenancePageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SalesmanMaintenancePageView.xaml.cs">
+      <DependentUpon>SalesmanMaintenancePageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SalesOrderEntryView.xaml.cs">
       <DependentUpon>SalesOrderEntryView.xaml</DependentUpon>
     </Compile>
@@ -374,6 +404,12 @@
     <Compile Include="View\SOView.xaml.cs">
       <DependentUpon>SOView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SupplierMaintenancePageView.xaml.cs">
+      <DependentUpon>SupplierMaintenancePageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TradeClassMaintenancePageView.xaml.cs">
+      <DependentUpon>TradeClassMaintenancePageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Transaction Printing.xaml.cs">
       <DependentUpon>Transaction Printing.xaml</DependentUpon>
     </Compile>
@@ -382,6 +418,12 @@
     </Compile>
     <Compile Include="View\TransactionEntryView.xaml.cs">
       <DependentUpon>TransactionEntryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TransactionTypeMaintenancePageView.xaml.cs">
+      <DependentUpon>TransactionTypeMaintenancePageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WarehouseMaintenancePageView.xaml.cs">
+      <DependentUpon>WarehouseMaintenancePageView.xaml</DependentUpon>
     </Compile>
     <Page Include="View\CNDN\CnDnEntryOptionsView.xaml">
       <SubType>Designer</SubType>
@@ -419,7 +461,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\CodesMasterMaintenancePageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CustomerMasterPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CustomerSelectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\GeographicMaintenancePageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ItemMasterPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LocationMaintenancePageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PriceTypeMaintenancePageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -544,6 +610,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Reports\SalesReportsPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RouteMaintenancePageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SalesDistrictMaintenancePageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SalesmanMaintenancePageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SalesOrderEntryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -556,6 +638,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\SupplierMaintenancePageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TradeClassMaintenancePageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Transaction Printing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -565,6 +655,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TransactionEntryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TransactionTypeMaintenancePageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WarehouseMaintenancePageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -624,6 +722,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="esi_logo_uu6_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bank.png" />
+    <Resource Include="Images\inventory.png" />
+    <Resource Include="Images\map.png" />
+    <Resource Include="Images\online-store.png" />
+    <Resource Include="Images\placeholder.png" />
+    <Resource Include="Images\route.png" />
+    <Resource Include="Images\salesman.png" />
+    <Resource Include="Images\supplier.png" />
+    <Resource Include="Images\warehouse.png" />
+    <Resource Include="Images\worldwide.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

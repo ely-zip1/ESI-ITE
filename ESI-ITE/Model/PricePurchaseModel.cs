@@ -129,6 +129,8 @@ namespace ESI_ITE.Model
             }
             else if (type == "id")
             {
+                itemObj = (ItemModel)itemObj.Fetch(item, "id");
+
                 result = db.SelectMultiple("select * from price_purchase where item_id = '" + item + "' order by date desc limit 1");
             }
 

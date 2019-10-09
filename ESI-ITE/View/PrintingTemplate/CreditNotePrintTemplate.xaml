@@ -169,7 +169,7 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top" MinHeight="10">
-                                    <TextBlock Width="300" VerticalAlignment="Center" Text="{Binding ItemDescription}"/>
+                                    <TextBlock Width="300" VerticalAlignment="Center" Text="{Binding ItemDescription}" TextWrapping="Wrap"/>
                                     <TextBlock Width="60" VerticalAlignment="Center" Text="{Binding ItemNumber}"/>
                                     <TextBlock Width="50" VerticalAlignment="Center" Text="{Binding PriceType}"/>
                                     <TextBlock Width="50" VerticalAlignment="Center" Text="{Binding Cases}"/>
