@@ -659,7 +659,7 @@ namespace ESI_ITE.ViewModel.CNDN
 
                 SelectedPrice = MyGlobals.SelectedCNDNPrice;
 
-                IsFirstLoad = false;
+                IsFirstLoad = false; 
             }
         }
 

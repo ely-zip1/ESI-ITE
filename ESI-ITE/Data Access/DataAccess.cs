@@ -33,7 +33,7 @@ namespace ESI_ITE.Data_Access
             server = "localhost";
             database = "esidb2";
             uid = "root";
-            password = "admin";
+            password = "123456";
 
             string connectionString;
             connectionString = "Server=" + server + ";Database=" + database +
