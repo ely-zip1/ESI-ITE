@@ -246,7 +246,7 @@ namespace ESI_ITE.ViewModel.CNDN
 
         private void StartPrinting()
         {
-            if (SelectedIndexStartingNote > 0 && SelectedIndexEndingNote > 0)
+            if (SelectedIndexStartingNote > -1 && SelectedIndexEndingNote > -1)
             {
                 CallPrinting();
             }

@@ -208,14 +208,14 @@ namespace ESI_ITE.Model
                 itemObj = (ItemModel)itemObj.Fetch(itemId, "id");
 
                 results = db.SelectMultiple("select * from " +
-                    "(select * from price_selling where item_id = '" + itemId + "' group by pricetype_id asc, effective_from desc) as temp group by pricetype_id");
+                    "(select * from price_selling where item_id = '" + itemId + "' order by pricetype_id asc, effective_from desc) as temp group by pricetype_id");
             }
             else if (type == "code")
             {
                 itemObj = (ItemModel)itemObj.Fetch(itemId, "code");
 
                 results = db.SelectMultiple("select * from " +
-                    "(select * from price_selling where item_id = '" + itemObj.ItemId + "' group by pricetype_id asc, effective_from desc) as temp group by pricetype_id");
+                    "(select * from price_selling where item_id = '" + itemObj.ItemId + "' order by pricetype_id asc, effective_from desc) as temp group by pricetype_id");
             }
 
             var packSize = itemObj.PackSize;
