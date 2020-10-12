@@ -1,4 +1,5 @@
 ﻿using ESI_ITE.Model;
+using ESI_ITE.View.CNDN;
 using ESI_ITE.View.PrintingTemplate;
 using ESI_ITE.ViewModel.Command;
 using System;
@@ -19,6 +20,7 @@ namespace ESI_ITE.ViewModel.CNDN
         public CnDnPrintingOptionsViewModel()
         {
             okCommand = new DelegateCommand(StartPrinting);
+            exitCommand = new DelegateCommand(ExitMenu);
             Load();
         }
 
@@ -258,6 +260,7 @@ namespace ESI_ITE.ViewModel.CNDN
 
             MyGlobals.printingDoc = result;
 
+            MyGlobals.PrintingRequestSource = "CN";
             MyGlobals.PrintingParent = MyGlobals.CnDnPrintingOptionsView;
             MyGlobals.CnDnVM.SelectedPage = new View.PrintingTemplate.PrintingMainPageView();
         }
@@ -375,5 +378,11 @@ namespace ESI_ITE.ViewModel.CNDN
         }
 
         #endregion
+
+
+        private void ExitMenu()
+        {
+            MyGlobals.CnDnVM.SelectedPage = new CnDnMenuView();
+        }
     }
 }
