@@ -1,0 +1,46 @@
+﻿<Page x:Class="ESI_ITE.View.CNDN.CnDnEntryOptionsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ESI_ITE.View"
+      xmlns:vm ="clr-namespace:ESI_ITE.ViewModel.CNDN"
+      mc:Ignorable="d" 
+      d:DesignHeight="345" d:DesignWidth="400"
+      Title="CnDnEntryOptionsView"
+      xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls">
+    <Page.DataContext>
+        <vm:CnDnEntryOptionsViewModel x:Name="viewModel"/>
+    </Page.DataContext>
+
+    <Grid Width="400" Height="345">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Content="CN / DN Entry" VerticalAlignment="Bottom" FontWeight="Bold"/>
+
+            <StackPanel Grid.Row="1" Orientation="Vertical">
+                <Label Content="Transaction Type" FontWeight="Medium"/>
+                <RadioButton GroupName="Transaction" Content="Credit Notes" Margin="10,2" IsChecked="{Binding CreditSelected}"/>
+                <RadioButton GroupName="Transaction" Content="Debit Notes" Margin="10,2" IsChecked="{Binding DebitSelected}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Orientation="Vertical">
+                <Label Content="Select Price to Use" FontWeight="Medium"/>
+                <RadioButton GroupName="Price" Content="Current Price" Margin="10,2" IsChecked="{Binding IsCurrentPrice}"/>
+                <RadioButton GroupName="Price" Content="3 Months Ago" Margin="10,2" IsChecked="{Binding Is3MonthsAgo}"/>
+                <RadioButton GroupName="Price" Content="6 Months Ago" Margin="10,2" IsChecked="{Binding Is6MonthsAgo}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Button Content="OK" Width="100" Margin="10,10" Command="{Binding OkCommand}"/>
+                <Button Content="Cancel" Width="100" Margin="10,10" Command="{Binding CancelCommand}"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,18 @@
+CREATE VIEW `view_allocated_stocks` AS
+select 
+item.description,
+alloc.cases,
+alloc.pieces,
+ord.order_number,
+cust.customer_number,
+cust.customer_name,
+price.selling_price as price_per_case,
+((price.selling_price/item.packsize)/item.pack_size_bo) as price_per_piece,
+(price.selling_price * alloc.cases) + (price_per_piece* alloc.pieces) as item_amount
+from allocated_stocks as alloc
+
+join inventory_dummy_2 as dummy on alloc.inventory_dummy_id = dummy.id
+join item_master as item on dummy.item = item.item_master2_id
+join price_selling as price on item.item_master2_id = price.item_id
+join orders as ord on dummy.order_id = ord.order_id
+join customers as cust on ord.customer_id = cust.customer_id

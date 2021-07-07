@@ -1,0 +1,165 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ESI_ITE.Data_Access;
+
+namespace ESI_ITE.Model
+{
+    public class SupplierModel : IModelTemplate
+    {
+        #region Properties
+
+        DataAccess db = new DataAccess();
+
+        private int supplierId;
+        public int SupplierId
+        {
+            get { return supplierId; }
+            set { supplierId = value; }
+        }
+
+        private string supplierCode;
+        public string SupplierCode
+        {
+            get { return supplierCode; }
+            set { supplierCode = value; }
+        }
+
+        private string supplierName;
+        public string SupplierName
+        {
+            get { return supplierName; }
+            set { supplierName = value; }
+        }
+
+        private string address;
+        public string Address
+        {
+            get { return address; }
+            set { address = value; }
+        }
+
+        private string contactPerson;
+        public string ContactPerson
+        {
+            get { return contactPerson; }
+            set { contactPerson = value; }
+        }
+
+        private string contactnumber;
+        public string ContactNumber
+        {
+            get { return contactnumber; }
+            set { contactnumber = value; }
+        }
+
+        private int termId;
+        public int TermId
+        {
+            get { return termId; }
+            set { termId = value; }
+        }
+
+        #endregion
+
+        public List<object> FetchAll()
+        {
+            List<object> list = new List<object>();
+            list.Clear();
+
+            var record = db.SelectMultiple("select * from supplier");
+
+            IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
+
+            foreach (var row in record)
+            {
+                var supplier = new SupplierModel();
+                var clone = row.Clone();
+
+                supplier.SupplierId = int.Parse(row["supplier_id"]);
+                supplier.SupplierCode = row["supplier_code"].ToString();
+                supplier.SupplierName = row["supplier_name"].ToString();
+                supplier.Address = row["address"].ToString();
+                supplier.ContactPerson = row["contact_person"].ToString();
+                supplier.ContactNumber = row["contact_number"].ToString();
+                supplier.TermId = int.Parse(row["term_id"]);
+
+                list.Add(supplier);
+            }
+
+            return list;
+        }
+
+        public object Fetch(string id, string type)
+        {
+            var supplier = new SupplierModel();
+
+            var record = new List<CloneableDictionary<string, string>>();
+
+            if (type == "code")
+                record = db.SelectMultiple("select * from supplier where supplier_code = '" + id + "'");
+            else if (type == "id")
+                record = db.SelectMultiple("select * from supplier where supplier_id = '" + id + "'");
+
+            IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
+
+            foreach (var row in record)
+            {
+                var clone = row.Clone();
+
+                supplier.SupplierId = int.Parse(row["supplier_id"]);
+                supplier.SupplierCode = row["supplier_code"].ToString();
+                supplier.SupplierName = row["supplier_name"].ToString();
+                supplier.Address = row["address"].ToString();
+                supplier.ContactPerson = row["contact_person"].ToString();
+                supplier.ContactNumber = row["contact_number"].ToString();
+                supplier.TermId = int.Parse(row["term_id"]);
+            }
+
+            return supplier;
+        }
+
+        public void AddNew(object item)
+        {
+            throw new NotImplementedException();
+
+            //var newSupplier = item as SupplierModel;
+            //var results = db.SelectMultiple("select * from supplier order by supplier_id desc limit 1");
+            //int lastSupplierCode = 0;
+
+            //foreach (var row in results)
+            //{
+            //    var clone = row.Clone();
+
+            //    lastSupplierCode = int.Parse(row["supplier_code"]);
+            //}
+            //var newSupplierCode = lastSupplierCode + 1;
+
+            //StringBuilder sb = new StringBuilder();
+
+            //sb.Append("insert into supplier values(null, ");
+            //sb.Append("'" + newSupplierCode + "', ");
+            //sb.Append("'" + newSupplier.SupplierName + "', ");
+            //sb.Append("'" + newSupplier.Address + "', ");
+            //sb.Append("'" + newSupplier.ContactPerson + "', ");
+            //sb.Append("'" + newSupplier.ContactNumber + "', ");
+            //sb.Append("'" + 1 + "'");
+            //sb.Append(")");
+
+            //db.Insert(sb.ToString());
+        }
+
+        public void UpdateItem(string qry)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteItem(string qry)
+        {
+            throw new NotImplementedException();
+        }
+
+    }
+}

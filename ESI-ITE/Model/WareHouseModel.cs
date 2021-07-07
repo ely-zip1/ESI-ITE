@@ -9,12 +9,12 @@ namespace ESI_ITE.Model
 {
     public class WareHouseModel
     {
-        public WareHouseModel()
+        public WareHouseModel( )
         {
 
         }
 
-        public WareHouseModel(WareHouseModel source)
+        public WareHouseModel( WareHouseModel source )
         {
             Id = source.Id;
             Code = source.Code;
@@ -30,10 +30,10 @@ namespace ESI_ITE.Model
         public string Name { get; set; }
         public string Location { get; set; }
 
-        public List<WareHouseModel> FetchAll()
+        public List<WareHouseModel> FetchAll( )
         {
             List<CloneableDictionary<string, string>> table = db.SelectMultiple("select * from warehouse");
-            foreach (var row in table)
+            foreach ( var row in table )
             {
                 var temp = new WareHouseModel();
                 var clone = row.Clone();
@@ -45,6 +45,29 @@ namespace ESI_ITE.Model
                 _warehouses.Add(temp);
             }
             return _warehouses;
+        }
+
+        public object Fetch( string id, string type )
+        {
+            var warehouse = new WareHouseModel();
+
+            var record = new List<CloneableDictionary<string, string>>();
+
+            if ( type == "code" )
+                record = db.SelectMultiple("select * from warehouse where code =  '" + id + "'");
+            else if ( type == "id" )
+                record = db.SelectMultiple("select * from warehouse where warehouse_id =  '" + id + "'");
+
+            foreach ( var row in record )
+            {
+                var clone = row.Clone();
+                warehouse.Id = int.Parse(row["warehouse_id"]);
+                warehouse.Code = row["code"].ToString();
+                warehouse.Name = row["name"];
+                warehouse.Location = row["location"];
+            }
+
+            return warehouse;
         }
     }
 }

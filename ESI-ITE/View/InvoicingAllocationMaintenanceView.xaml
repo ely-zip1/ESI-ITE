@@ -1,0 +1,215 @@
+﻿<Page x:Class="ESI_ITE.View.InvoicingAllocationMaintenanceView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:ESI_ITE.View"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:vm="clr-namespace:ESI_ITE.ViewModel"
+      mc:Ignorable="d"
+      d:DesignHeight="710" d:DesignWidth="1495"
+      Title="InvoicingAllocationMaintenanceView">
+
+    <Page.DataContext>
+        <vm:InvoicingAllocationMaintenanceViewModel x:Name="viewModel"/>
+    </Page.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Content="Critical Items" FontSize="15" FontWeight="Bold"/>
+                <CheckBox Content="Show All" HorizontalAlignment="Right" FontSize="15" FontWeight="Bold"/>
+            </Grid>
+
+            <DataGrid Grid.Row="1" AutoGenerateColumns="False" BorderThickness="1" 
+                      ItemsSource="{Binding CriticalItemCollection}" SelectedItem="{Binding SelectedCriticalItem}"
+                      SelectedIndex="{Binding SelectedIndexCriticalItem}" CanUserReorderColumns="False"
+                      CanUserSortColumns="False" CanUserAddRows="False" GridLinesVisibility="All">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Item Code" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ItemCode}" Padding="5"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Item Description" Width="200">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ItemDescription}" Padding="5"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Order Cases" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding OrderCases}" TextAlignment="Right" Padding="5"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Order Pieces" Width="105">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding OrderPieces}" TextAlignment="Right" Padding="5"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Allocated Cases" Width="130">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding AllocatedCases}" TextAlignment="Right" Padding="5"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Allocated Pieces" Width="130">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding AllocatedPieces}" TextAlignment="Right" Padding="5"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="LC" Width="50">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding LC}" Padding="5"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Label Grid.Row="2" Content="Partially Served Orders" FontSize="15" FontWeight="Bold"/>
+
+            <DataGrid Grid.Row="3" BorderThickness="1" ItemsSource="{Binding PartiallyServedOrderCollection}"
+                      SelectedItem="{Binding SelectedPSO}" SelectedIndex="{Binding SelectedIndexPSO}" 
+                      AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserAddRows="False"
+                      GridLinesVisibility="All" Validation.ErrorTemplate="{x:Null}">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Customer #" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Customer.CustomerNumber}" Padding="5"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Customer Name" Width="200">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Customer.CustomerName}" Padding="5"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Order Cases" Width="105">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding OrderItem.Cases}" TextAlignment="Right" Padding="5"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Order Pieces" Width="105">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding OrderItem.Pieces}" TextAlignment="Right" Padding="5"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Allocated Cases" Width="130">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding AllocatedCases,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" TextAlignment="Right" Padding="5"
+                                         BorderBrush="Transparent" Background="#2C3E50" TextChanged="TextBox_TextChanged"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Allocated Pieces" Width="130">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding AllocatedPieces,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" TextAlignment="Right" Padding="5"
+                                         BorderBrush="Transparent" Background="#2C3E50" TextChanged="TextBox_TextChanged_1"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="LC" Width="50">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding OrderItem.Location}" Padding="5"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Grid Grid.Column="1" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Content="Select PickList Number" FontSize="15" FontWeight="Bold"/>
+
+            <ComboBox Grid.Row="1" VerticalAlignment="Top" ItemsSource="{Binding PicklistCollection}"
+                      SelectedItem="{Binding SelectedPicklist}" SelectedIndex="{Binding SelectedIndexPicklist}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <TextBlock Text="{Binding [0]}" Width="60"/>
+                            <TextBlock Text="{Binding [1]}" Width="60"/>
+                            <TextBlock Text="{Binding [2]}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
+                <Button Content="Update Stocks" Width="100" Margin="0,0,10,0" Command="{Binding UpdateStocksCommand}"/>
+                <Button Content="Cancel" Width="100" Command="{Binding CancelAllocationCommand}"/>
+            </StackPanel>
+
+            <Label Grid.Row="3" Content="Current Stocks On-Hand" FontSize="15" FontWeight="Bold"/>
+
+            <StackPanel Grid.Row="4" Orientation="Horizontal">
+                <StackPanel Margin="0,0,10,0">
+                    <Label Content="Cases"/>
+                    <TextBox Width="140" Text="{Binding CasesOnHand}" IsHitTestVisible="False"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="Pieces"/>
+                    <TextBox Width="140" Text="{Binding PiecesOnHand}" IsHitTestVisible="False"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

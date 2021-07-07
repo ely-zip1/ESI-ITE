@@ -1,0 +1,364 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ESI_ITE.View"
+      xmlns:vm="clr-namespace:ESI_ITE.ViewModel"
+      xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:conv="clr-namespace:ESI_ITE.ViewModel.Converter"
+      xmlns:wpfx="http://schemas.xceed.com/wpf/xaml/toolkit"
+      x:Class="ESI_ITE.View.SalesOrderEntryView"
+      mc:Ignorable="d"   
+      d:DesignHeight="750" d:DesignWidth="750"
+      Title="SalesOrderEntryView"
+      Focusable="False"
+    FocusManager.FocusedElement="{Binding ElementName=cmbOrderNumber}">
+
+    <Page.DataContext>
+        <vm:SalesOrderEntryViewModel x:Name="viewModel"/>
+    </Page.DataContext>
+
+    <Page.Resources>
+        <conv:BoolToVisibilityConverter x:Key="boolToVisConverter"/>
+    </Page.Resources>
+
+    <Grid UseLayoutRounding="True"
+        RenderOptions.BitmapScalingMode="NearestNeighbor"
+        SnapsToDevicePixels="True"
+        RenderOptions.ClearTypeHint="Enabled">
+
+        <!--CUSTOMER SEARCH-->
+
+        <Grid Name="gridSearch" Panel.ZIndex="100" Visibility="{Binding IsSearchVisible, Converter={StaticResource boolToVisConverter}}" IsVisibleChanged="gridSearch_IsVisibleChanged" >
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity=".6"/>
+            </Grid.Background>
+
+            <Border Width="500" Height="500" BorderThickness="1" CornerRadius="10" Background="#FF252526" BorderBrush="#FF4BB5FF" Focusable="True">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="0"
+                          Color="#FF4BB5FF"
+                          Opacity="1"
+                          BlurRadius="10"/>
+                </Border.Effect>
+
+                <Grid Width="500" Height="500" Panel.ZIndex="100" Name="grdSearchModal">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="60"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,5,10,5">
+                        <Label Content="Customer Number"/>
+                        <TextBox Width="150" Height="20" Text="{Binding SelectedItem[0], ElementName=customerSearchGrid}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10,5,10,5">
+                        <Label Content="Customer Name"/>
+                        <TextBox Text="{Binding SearchedCustomer, UpdateSourceTrigger=PropertyChanged}" Name="txtCustomerSearch">
+                            <TextBox.InputBindings>
+                                <KeyBinding Command="{Binding LoadCustomerCommand}" Key="Enter"/>
+                            </TextBox.InputBindings>
+                        </TextBox>
+                    </StackPanel>
+
+                    <DataGrid Grid.Row="2" Name="customerSearchGrid" AutoGenerateColumns="False" Margin="10,5,10,5" 
+                              HorizontalScrollBarVisibility="Disabled"  ItemsSource="{Binding CustomerList}" 
+                              SelectedIndex="{Binding SelectedIndexSearchedCustomer,Mode=TwoWay}" 
+                              SelectedItem="{Binding SelectedSearchedCustomer, Mode=TwoWay}"
+                              IsTextSearchEnabled="True" IsTextSearchCaseSensitive="False" TextSearch.TextPath="[1]"
+                              SelectionChanged="customerSearchGrid_SelectionChanged">
+                        <DataGrid.InputBindings>
+                            <KeyBinding Command="{Binding LoadCustomerCommand}" Key="Enter"/>
+                        </DataGrid.InputBindings>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="500">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding [1]}" Name="lblDataGridSearchItem"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+
+                        <Button Height="30" Width="100" Content="Select" Margin="10" Command="{Binding  LoadCustomerCommand}"/>
+
+                        <Button Height="30" Width="100" Content="Close" Margin="10" Command="{Binding SearchCommand}"/>
+
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!--SALES ORDER DELETION-->
+
+        <Grid Name="grdSoDeletion" Visibility="{Binding IsDeletionVisible, Converter={StaticResource boolToVisConverter}}" Panel.ZIndex="100">
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity=".6"/>
+            </Grid.Background>
+
+            <Border Width="500" Height="300" BorderThickness="1" CornerRadius="10" Background="#FF252526" BorderBrush="DodgerBlue">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="0" Opacity="1" Color="#FF4BB5FF" BlurRadius="10"/>
+                </Border.Effect>
+
+                <Grid Width="500" Height="300">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="This procedure will delete all sales order from cut-off date and down." 
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Cut-Off Date: "/>
+                        <!--<TextBox Width="150" Text="{Binding TxtCutOffDate,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Custom:TextBoxHelper.Watermark="mm/dd/yyyy"/>-->
+                        <wpfx:MaskedTextBox Mask="00/00/0000" Width="150" Text="{Binding TxtCutOffDate,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal"  HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button Content="Delete" Width="100" Margin="5"
+                                IsEnabled="{Binding IsDateValid}" Command="{Binding DeleteOrdersCommand}"/>
+
+                        <Button Content="Cancel" Width="100" Margin="5"
+                                Command="{Binding ToggleDeleteVisibilityCommand}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MaxWidth="150"/>
+                <ColumnDefinition MaxWidth="150"/>
+                <ColumnDefinition MaxWidth="150"/>
+                <ColumnDefinition MinWidth="150" Width="*"/>
+                <ColumnDefinition MaxWidth="150"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+            </Grid.RowDefinitions>
+
+
+            <Label Grid.Column="0" Grid.Row="1" Content="Order Number" VerticalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="2" Content="Customer Number" VerticalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="4" Content="Order Date" VerticalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="5" Content="Required Ship Date" VerticalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="6" Content="District" VerticalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="7" Content="Price Type" VerticalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="8" Content="Term Code" VerticalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="9" Content="Salesman Number" VerticalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="10" Content="Route Code" VerticalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="11" Content="Warehouse" VerticalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="12" Content="Customer P.O. Number" VerticalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="13" Content="Tax Rate" VerticalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="14" Content="Order Note" VerticalContentAlignment="Center"/>
+
+            <!--Order Number-->
+            <ComboBox Grid.Row="1" Grid.Column="1" Margin="2" Height="20" Name="cmbOrderNumber"
+				ItemsSource="{Binding CmbOrders}" SelectedItem="{Binding SelectedSalesOrder, ValidatesOnDataErrors=True}" SelectedIndex="{Binding SelectedIndexSalesOrder}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding [0]}" Width="60" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding [1]}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <!--Customer Number-->
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="2" Height="20" Width="146"
+				Text="{Binding CustomerNumber, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" IsHitTestVisible="{Binding IsEnabled}"/>
+                <Button Content="Search" Margin="1" Height="26" Command="{Binding SearchCommand}" IsHitTestVisible="{Binding IsEnabled}"/>
+            </StackPanel>
+
+            <!--Customer Details-->
+            <StackPanel Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal">
+                <Label Content="{Binding CustomerName}" FontWeight="Bold" Margin="0,0,10,0"/>
+                <Label Content="{Binding CustomerAddress}" Margin="10,0,0,0"/>
+            </StackPanel>
+
+            <!--Order Date-->
+            <TextBox Grid.Row="4" Grid.Column="1" Margin="2" Height="20"
+				Text="{Binding OrderDate, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" IsHitTestVisible="False" />
+
+            <!--Required Ship Date-->
+            <TextBox Grid.Row="5" Grid.Column="1" Margin="2" Height="20"
+				Text="{Binding RequiredShipDate, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"/>
+
+            <!--Districts-->
+            <ComboBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Margin="2" Height="20"
+				ItemsSource="{Binding DistrictList}" SelectedItem="{Binding SelectedDistrict, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedIndexDistrict}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding DistrictNumber}" FontWeight="Bold" TextTrimming="CharacterEllipsis" Width="60"/>
+                            <TextBlock Text="{Binding Area}" TextTrimming="CharacterEllipsis" Width="200"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <!--Price Type-->
+            <ComboBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="2" Height="20"
+				ItemsSource="{Binding PriceTypeList}" SelectedItem="{Binding SelectedPriceType, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedIndexPriceType}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <TextBlock Text="{Binding Code}" Width="60" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Description}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <!--Term Code-->
+            <ComboBox Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Margin="2" Height="20"
+				ItemsSource="{Binding TermList}" SelectedItem="{Binding SelectedTerm, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedIndexTerm}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <TextBlock Text="{Binding TermCode}" Width="60" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding TermDescription}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <!--Salesman-->
+            <ComboBox Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Margin="2" Height="20"
+				ItemsSource="{Binding SalesmanCollection}" SelectedItem="{Binding SelectedSalesman, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedIndexSalesman}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <TextBlock Text="{Binding SalesmanNumber}" Width="60" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding SalesmanName}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <!--Route Code-->
+            <ComboBox Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Margin="2" Height="20"
+				ItemsSource="{Binding RouteList}" SelectedItem="{Binding SelectedRoute, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedIndexRoute}" IsHitTestVisible="{Binding IsEnabled}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <TextBlock Text="{Binding RouteCode}" Width="60" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding RouteDescription}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <!--Warehouse-->
+            <ComboBox Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2" Margin="2" Height="20"
+				ItemsSource="{Binding WarehouseList}" SelectedItem="{Binding SelectedWarehouse, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedIndexWarehouse}" IsHitTestVisible="False">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <TextBlock Text="{Binding Code}" Width="60" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Name}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <!--Customer PO Number-->
+            <TextBox Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2" Margin="2" Height="20"
+				Text="{Binding CustomerPONumber, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" IsHitTestVisible="{Binding IsEnabled}"/>
+
+            <!--Tax Rate-->
+            <TextBox Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="2" Margin="2" Height="20"
+				Text="{Binding TaxRate, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" IsHitTestVisible="False"/>
+
+            <!--Order Note-->
+            <TextBox Grid.Row="14" Grid.Column="1" Grid.ColumnSpan="4" Margin="2" Height="20" MinWidth="596" MaxWidth="800" HorizontalAlignment="Left"
+				Text="{Binding OrderNote, ValidatesOnDataErrors=True}" IsHitTestVisible="{Binding IsEnabled}"/>
+
+
+            <Label Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Right"
+				Content="Last Sales Order Entered/Updated" VerticalContentAlignment="Center" />
+
+            <Label Grid.Column="3" Grid.Row="4" HorizontalAlignment="Right"
+				Content="Order Amount" VerticalContentAlignment="Center"/>
+
+            <Label Grid.Column="3" Grid.Row="5" HorizontalAlignment="Right"
+				Content="Discount" VerticalContentAlignment="Center"/>
+
+            <Label Grid.Column="3" Grid.Row="6" HorizontalAlignment="Right"
+				Content="Credit Limit" VerticalContentAlignment="Center"/>
+
+            <Label Grid.Column="3" Grid.Row="12" HorizontalAlignment="Right"
+				Content="Total Cases" VerticalContentAlignment="Center"/>
+
+            <Label Grid.Column="3" Grid.Row="13" HorizontalAlignment="Right"
+				Content="Total Pieces" VerticalContentAlignment="Center"/>
+
+            <!--Last SO-->
+            <TextBox Grid.Row="1" Grid.Column="4" Margin="2" Height="20"
+				Text="{Binding LastSOEntered}" IsHitTestVisible="False" IsReadOnly="True"/>
+
+            <!--Order Amount-->
+            <TextBox Grid.Row="4" Grid.Column="4" Margin="2" Height="20"
+				Text="{Binding OrderAmount}" IsHitTestVisible="False" IsReadOnly="True"/>
+
+            <!--Discount-->
+            <TextBox Grid.Row="5" Grid.Column="4" Margin="2" Height="20"
+				Text="{Binding Discount}" IsHitTestVisible="False" IsReadOnly="True"/>
+
+            <!--Credit Limit-->
+            <TextBox Grid.Row="6" Grid.Column="4" Margin="2" Height="20"
+				Text="{Binding CreditLimit}" IsHitTestVisible="False" IsReadOnly="True"/>
+
+            <!--Total Cases-->
+            <TextBox Grid.Row="12" Grid.Column="4" Margin="2" Height="20"
+				Text="{Binding TotalCases}" IsHitTestVisible="False" IsReadOnly="True"/>
+
+            <!--Total Pieces-->
+            <TextBox Grid.Row="13" Grid.Column="4" Margin="2" Height="20"
+				Text="{Binding TotalPieces}" IsHitTestVisible="False" IsReadOnly="True"/>
+
+
+            <StackPanel Grid.Row="16" Grid.ColumnSpan="5" Orientation="Horizontal" HorizontalAlignment="Right">
+
+                <Button Grid.Row="16" Grid.Column="1" Margin="5,2,5,2" Content="Line Items" Width="110"
+                        IsEnabled="{Binding IsLineable}" Command="{Binding LineItemCommand}"/>
+
+                <Button Grid.Row="16" Grid.Column="2" Margin="5,2,5,2" Content="Delete Entry" Width="110"
+                        IsEnabled="{Binding IsDeleteable}" Command="{Binding DeleteEntryCommand}"/>
+
+                <Button Name="btnCustomerList" Grid.Row="16" Grid.Column="3" Margin="5,2,5,2" Content="Customer List" Width="110" Command="{Binding SearchCommand}" IsHitTestVisible="{Binding IsEnabled}"/>
+
+                <Button Grid.Row="16" Grid.Column="4" Margin="5,2,5,2" Content="SO Deletion" Width="110"
+                        Command="{Binding ToggleDeleteVisibilityCommand}"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

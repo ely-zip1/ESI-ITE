@@ -1,31 +1,127 @@
-﻿<Window x:Class="ESI_ITE.View.MainWindow"
+﻿<Controls:MetroWindow x:Class="ESI_ITE.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ESI_ITE.ViewModel"
         xmlns:myControls="clr-namespace:ESI_ITE.View"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="786" Width="1226">
-    <Window.Resources>
-        <local:TransactionEntryViewModel x:Key="transEntryVM"/>
-    </Window.Resources>
-    <Grid HorizontalAlignment="Center">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:conv="clr-namespace:ESI_ITE.ViewModel.Converter"
+        xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
+        mc:Ignorable="d" 
+        Title="{Binding WindowTitle}"
+        Height="700" Width="1300"
+        WindowStartupLocation="CenterScreen" 
+        WindowState="Maximized"
+                      MinHeight="720">
+
+    <Controls:MetroWindow.Resources>
+        <conv:BoolToVisibilityConverter x:Key="boolToVisConverter"/>
+    </Controls:MetroWindow.Resources>
 
 
-        <!--Region Transaction Entry-->
-        <myControls:TransactionEntryView x:Name="ucTransactionEntry" Grid.Column="0" Grid.Row="1" Margin="10"/>
-        <!--End Region-->
+    <Grid UseLayoutRounding="True"
+        RenderOptions.BitmapScalingMode="NearestNeighbor"
+        SnapsToDevicePixels="True"
+        RenderOptions.ClearTypeHint="Enabled">
 
-        <myControls:LineItemView x:Name="ucLineItems" Grid.Column="1" Grid.Row="1" Margin="10" VerticalAlignment="Top"/>
+        <Grid Name="LoginGrid" Panel.ZIndex="200" Visibility="{Binding IsLoginVisible, Converter={StaticResource boolToVisConverter}}">
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity=".5"/>
+            </Grid.Background>
+            <Controls:TransitioningContentControl Transition="Normal" Content="{Binding LoginUi}"/>
+        </Grid>
+
+        <!--<Grid Panel.ZIndex="100" Visibility="{Binding lkj, Converter={StaticResource boolToVisConverter}}">-->
+
+        <Grid Panel.ZIndex="100" Visibility="Hidden">
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity=".6"/>
+            </Grid.Background>
+
+            <Grid Height="400" Background="DodgerBlue">
+                <Grid Width="500">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                               Text="Do you want this program to make changes to this computer?"/>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button Content="Yes" Width="100" Margin="10"/>
+                        <Button Content="No" Width="100" Margin="10"/>
+                    </StackPanel>
+
+                </Grid>
+            </Grid>
+
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="191"></ColumnDefinition>
+                <ColumnDefinition Width="5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="19*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.Effect>
+                <BlurEffect Radius="{Binding BlurIntensity}"/>
+            </Grid.Effect>
+            <Grid Grid.ColumnSpan="2" Background="#FF212121"></Grid>
+
+            <ListView Name="lvModulesList" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch"
+                  ItemsSource="{Binding Modules}"
+                  SelectedItem="{Binding SelectedModule, Mode=TwoWay}"
+                  SelectedIndex="{Binding SelectedIndex}" BorderBrush="#FF3F3F46" BorderThickness="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" MinWidth="100" 
+                               TextAlignment="Center" Padding="10"></TextBlock>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!--<Controls:HamburgerMenu x:Name="HamburgerMenuControl" Grid.Row="1" Grid.Column="0"
+                        Foreground="White"
+                        PaneBackground="#FF444444"
+                        IsPaneOpen="True"
+                        DisplayMode="CompactInline" ItemsSource="">
+                
+            </Controls:HamburgerMenu>-->
+
+            <!--<ListView Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch">
+            <TextBlock Text="Inventory Transaction" Padding="10" TextAlignment="Center" 
+                       HorizontalAlignment="Center" ></TextBlock>
+        </ListView>-->
+
+            <Controls:TransitioningContentControl Name="contentPresenter" Grid.Row="1" Grid.Column="1" IsTabStop="False" Focusable="False"
+                          Content="{Binding UserInterface}" OpacityMask="#FF252525"/>
+        </Grid>
+
+
+        <simpleChildWindow:ChildWindow 
+            IsOpen="{Binding IsChildWindowOpen}" 
+            HorizontalContentAlignment="Stretch" 
+            VerticalContentAlignment="Stretch" 
+            ChildWindowHeight="500" 
+            ChildWindowWidth="400" 
+            AllowMove="True"
+            Title="{Binding ChildWindowTitle}">
+
+            <simpleChildWindow:ChildWindow.OverlayBrush>
+                <SolidColorBrush Opacity="0.8" Color="Gray" />
+            </simpleChildWindow:ChildWindow.OverlayBrush>
+
+            <Grid>
+                <ContentControl Content="{Binding ChildWindowContent}"/>
+            </Grid>
+        </simpleChildWindow:ChildWindow>
 
     </Grid>
-</Window>
+</Controls:MetroWindow>

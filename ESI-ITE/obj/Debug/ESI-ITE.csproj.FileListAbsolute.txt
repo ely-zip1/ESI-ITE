@@ -117,20 +117,6 @@ G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.g.cs
 G:\Documents\Google Drive\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.baml
 G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe.config
-G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
-G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
-G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache
-G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.g.cs
-G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.g.cs
-G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.g.cs
-G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.g.cs
-G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.g.cs
-G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.g.cs
-G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.g.cs
-G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\App.g.cs
-G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\GeneratedInternalTypeHelper.g.cs
-G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.cache
-G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.lref
 G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe
 G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.pdb
 G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Expression.Interactions.dll
@@ -169,15 +155,1146 @@ G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\ko\System.Windows.Interactivity.resources.d
 G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\ru\System.Windows.Interactivity.resources.dll
 G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.g.cs
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.g.cs
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.g.cs
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.g.cs
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemPageView.g.cs
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.g.cs
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.g.cs
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.g.cs
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.g.cs
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.g.cs
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryPageView.g.cs
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.g.cs
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\App.g.cs
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\GeneratedInternalTypeHelper.g.cs
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.cache
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.lref
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\App.baml
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.baml
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.baml
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.baml
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.baml
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemPageView.baml
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.baml
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.baml
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.baml
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.baml
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.baml
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryPageView.baml
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.baml
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.g.resources
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI_ITE.Properties.Resources.resources
 G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.GenerateResource.Cache
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.g.cs
+G:\PROJECT\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.baml
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Controls.Input.Toolkit.Design.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Controls.Input.Toolkit.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Controls.Input.Toolkit.VisualStudio.Design.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Controls.Layout.Toolkit.Design.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Controls.Layout.Toolkit.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Controls.Layout.Toolkit.VisualStudio.Design.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\WPFToolkit.Design.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\WPFToolkit.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\WPFToolkit.VisualStudio.Design.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Controls.Input.Toolkit.pdb
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Controls.Input.Toolkit.Design.pdb
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Controls.Input.Toolkit.VisualStudio.Design.pdb
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Controls.Layout.Toolkit.pdb
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Controls.Layout.Toolkit.Design.pdb
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Controls.Layout.Toolkit.VisualStudio.Design.pdb
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\WPFToolkit.pdb
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\WPFToolkit.Design.pdb
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\WPFToolkit.VisualStudio.Design.pdb
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.DataGrid.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.Toolkit.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+G:\PROJECT\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe.config
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.pdb
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Expression.Interactions.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Composition.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Interactivity.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.Desktop.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.PubSubEvents.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.DataGrid.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Composition.xml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Interactivity.xml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.xml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.xml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\de\Microsoft.Expression.Interactions.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\en\Microsoft.Expression.Interactions.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\es\Microsoft.Expression.Interactions.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\fr\Microsoft.Expression.Interactions.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\it\Microsoft.Expression.Interactions.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ja\Microsoft.Expression.Interactions.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ko\Microsoft.Expression.Interactions.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ru\Microsoft.Expression.Interactions.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\Microsoft.Expression.Interactions.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\zh-Hant\Microsoft.Expression.Interactions.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemPageView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryPageView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\App.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.lref
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\App.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemPageView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryPageView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.g.resources
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI_ITE.Properties.Resources.resources
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.GenerateResource.Cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintPreviewPageView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintPreviewPageView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PostingPageView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PostingPageView.baml
+E:\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe.config
+E:\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
+E:\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe.config
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.pdb
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Expression.Interactions.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Composition.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Interactivity.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.Desktop.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.PubSubEvents.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Interactivity.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\WpfAnimatedGif.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.DataGrid.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.Toolkit.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.pdb
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.xml
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.pdb
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.xml
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Composition.xml
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Interactivity.xml
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.xml
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.xml
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\WpfAnimatedGif.xml
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\de\Microsoft.Expression.Interactions.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\en\Microsoft.Expression.Interactions.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\es\Microsoft.Expression.Interactions.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\fr\Microsoft.Expression.Interactions.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\it\Microsoft.Expression.Interactions.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ja\Microsoft.Expression.Interactions.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ko\Microsoft.Expression.Interactions.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ru\Microsoft.Expression.Interactions.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\Microsoft.Expression.Interactions.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\zh-Hant\Microsoft.Expression.Interactions.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PicklistPrintTemplate.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingMainPageView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAllocationMaintenanceView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAssignmentView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingDispatchView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingGatepassView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingMainPageView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingPickListView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LoginView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PostingPageView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemPageView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PrintingMainPageView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintPreviewPageView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SalesOrderEntryView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOLineItemsView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryPageView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\App.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\GeneratedInternalTypeHelper.g.cs
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.cache
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.lref
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\App.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PicklistPrintTemplate.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingMainPageView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAllocationMaintenanceView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAssignmentView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingDispatchView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingGatepassView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingMainPageView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingPickListView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LoginView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PostingPageView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemPageView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PrintingMainPageView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintPreviewPageView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SalesOrderEntryView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOLineItemsView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryPageView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.baml
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.g.resources
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI_ITE.Properties.Resources.resources
+E:\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.GenerateResource.Cache
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\InvoicePrintTemplate.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PicklistPrintTemplate.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingMainPageView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAllocationMaintenanceView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAssignmentView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingDispatchView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingGatepassView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingMainPageView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingPickListView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LoginView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PostingPageView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemPageView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PrintingMainPageView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintPreviewPageView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SalesOrderEntryView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOLineItemsView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryPageView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\App.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.cache
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.lref
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe.config
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.pdb
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Expression.Interactions.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Composition.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Interactivity.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.Desktop.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.PubSubEvents.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\WpfAnimatedGif.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.DataGrid.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.pdb
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.xml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.pdb
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.xml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Composition.xml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Interactivity.xml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.xml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.xml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\WpfAnimatedGif.xml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\de\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\en\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\es\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\fr\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\it\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ja\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ko\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ru\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\zh-Hant\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\App.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\InvoicePrintTemplate.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PicklistPrintTemplate.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingMainPageView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAllocationMaintenanceView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAssignmentView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingDispatchView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingGatepassView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingMainPageView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingPickListView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LoginView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PostingPageView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemPageView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PrintingMainPageView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintPreviewPageView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SalesOrderEntryView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOLineItemsView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryPageView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.g.resources
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI_ITE.Properties.Resources.resources
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.GenerateResource.Cache
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
+C:\Users\Ely\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.CoreCompileInputs.cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\WpfAnimatedGif.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.pdb
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.xml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.pdb
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.xml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\WpfAnimatedGif.xml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\InvoicePrintTemplate.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PicklistPrintTemplate.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingMainPageView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAllocationMaintenanceView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAssignmentView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingDispatchView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingGatepassView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingMainPageView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingPickListView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LoginView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PrintingMainPageView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SalesOrderEntryView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOLineItemsView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\InvoicePrintTemplate.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PicklistPrintTemplate.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingMainPageView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAllocationMaintenanceView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAssignmentView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingDispatchView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingGatepassView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingMainPageView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingPickListView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LoginView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PrintingMainPageView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SalesOrderEntryView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOLineItemsView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\GatepassPrintTemplate.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\GatepassPrintTemplate.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ControlzEx.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ControlzEx.pdb
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnEntryOptionsView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMainPageView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CreditNoteEntryView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnEntryOptionsView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMainPageView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CreditNoteEntryView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CNLineItemView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DebitNoteEntryView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DNLineItemView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CNLineItemView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DebitNoteEntryView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DNLineItemView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerSelectionView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerSelectionView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CnEntriesPrintTemplate.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CnEntriesPrintTemplate.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe.config
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.pdb
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ControlzEx.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Composition.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Interactivity.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.Desktop.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.PubSubEvents.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\WpfAnimatedGif.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.DataGrid.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ControlzEx.pdb
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.pdb
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.xml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.pdb
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.xml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Composition.xml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Interactivity.xml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.xml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.xml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\WpfAnimatedGif.xml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\de\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\en\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\es\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\fr\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\it\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ja\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ko\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ru\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\zh-Hant\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojAssemblyReference.cache
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnEntryOptionsView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMainPageView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CNLineItemView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CreditNoteEntryView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DebitNoteEntryView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DNLineItemView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerSelectionView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CnEntriesPrintTemplate.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\GatepassPrintTemplate.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\InvoicePrintTemplate.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PicklistPrintTemplate.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingMainPageView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAllocationMaintenanceView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAssignmentView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingDispatchView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingGatepassView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingMainPageView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingPickListView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LoginView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PostingPageView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemPageView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PrintingMainPageView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintPreviewPageView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SalesOrderEntryView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOLineItemsView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryPageView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\App.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.cache
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.lref
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\App.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnEntryOptionsView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMainPageView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CNLineItemView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CreditNoteEntryView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DebitNoteEntryView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DNLineItemView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerSelectionView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CnEntriesPrintTemplate.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\GatepassPrintTemplate.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\InvoicePrintTemplate.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PicklistPrintTemplate.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingMainPageView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAllocationMaintenanceView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAssignmentView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingDispatchView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingGatepassView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingMainPageView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingPickListView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LoginView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PostingPageView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemPageView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PrintingMainPageView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintPreviewPageView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SalesOrderEntryView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOLineItemsView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryPageView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.g.resources
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI_ITE.Properties.Resources.resources
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.GenerateResource.cache
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.CoreCompileInputs.cache
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.CopyComplete
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMenuView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMenuView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojAssemblyReference.cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.CoreCompileInputs.cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.CopyComplete
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CreditNotePrintTemplate.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CreditNotePrintTemplate.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnPrintingOptionsView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\DebitNotePrintTemplate.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnPrintingOptionsView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\DebitNotePrintTemplate.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe.config
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.pdb
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ControlzEx.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Expression.Interactions.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Composition.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Interactivity.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.Desktop.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.PubSubEvents.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\WpfAnimatedGif.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.DataGrid.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ControlzEx.pdb
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.pdb
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.xml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.pdb
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.xml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Composition.xml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Interactivity.xml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.xml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.xml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\WpfAnimatedGif.xml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\de\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\en\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\es\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\fr\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\it\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ja\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ko\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ru\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\zh-Hant\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnEntryOptionsView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMainPageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMenuView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnPrintingOptionsView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CNLineItemView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CreditNoteEntryView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DebitNoteEntryView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DNLineItemView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerSelectionView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CnEntriesPrintTemplate.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CreditNotePrintTemplate.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\DebitNotePrintTemplate.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\GatepassPrintTemplate.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\InvoicePrintTemplate.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PicklistPrintTemplate.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingMainPageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAllocationMaintenanceView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAssignmentView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingDispatchView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingGatepassView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingMainPageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingPickListView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LoginView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PostingPageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemPageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PrintingMainPageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintPreviewPageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SalesOrderEntryView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOLineItemsView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryPageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\App.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.cache
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.lref
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\App.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnEntryOptionsView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMainPageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMenuView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnPrintingOptionsView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CNLineItemView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CreditNoteEntryView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DebitNoteEntryView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DNLineItemView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerSelectionView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CnEntriesPrintTemplate.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CreditNotePrintTemplate.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\DebitNotePrintTemplate.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\GatepassPrintTemplate.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\InvoicePrintTemplate.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PicklistPrintTemplate.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingMainPageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAllocationMaintenanceView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAssignmentView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingDispatchView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingGatepassView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingMainPageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingPickListView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LoginView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PostingPageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemPageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PrintingMainPageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PrintPreviewPageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SalesOrderEntryView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOLineItemsView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SOView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryPageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.g.resources
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI_ITE.Properties.Resources.resources
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.GenerateResource.Cache
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe.config
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.pdb
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\ControlzEx.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Expression.Interactions.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Composition.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Interactivity.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.Desktop.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.PubSubEvents.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Interactivity.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\WpfAnimatedGif.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.DataGrid.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.Toolkit.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\ControlzEx.pdb
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.pdb
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.xml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.pdb
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.xml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Composition.xml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Interactivity.xml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.xml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.xml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\WpfAnimatedGif.xml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\de\Microsoft.Expression.Interactions.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\en\Microsoft.Expression.Interactions.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\es\Microsoft.Expression.Interactions.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\fr\Microsoft.Expression.Interactions.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\it\Microsoft.Expression.Interactions.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\ja\Microsoft.Expression.Interactions.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\ko\Microsoft.Expression.Interactions.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\ru\Microsoft.Expression.Interactions.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\Microsoft.Expression.Interactions.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\zh-Hant\Microsoft.Expression.Interactions.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnEntryOptionsView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMainPageView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMenuView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnPrintingOptionsView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CNLineItemView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CreditNoteEntryView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DebitNoteEntryView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DNLineItemView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerSelectionView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CnEntriesPrintTemplate.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CreditNotePrintTemplate.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\DebitNotePrintTemplate.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\GatepassPrintTemplate.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\InvoicePrintTemplate.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PicklistPrintTemplate.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingMainPageView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAllocationMaintenanceView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAssignmentView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingDispatchView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingGatepassView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingMainPageView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingPickListView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\LoginView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\PostingPageView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemPageView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PrintingMainPageView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\PrintPreviewPageView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\SalesOrderEntryView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\SOLineItemsView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\SOView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryPageView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\App.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.cache
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.lref
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\App.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnEntryOptionsView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMainPageView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMenuView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnPrintingOptionsView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CNLineItemView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CreditNoteEntryView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DebitNoteEntryView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DNLineItemView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerSelectionView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CnEntriesPrintTemplate.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CreditNotePrintTemplate.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\DebitNotePrintTemplate.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\GatepassPrintTemplate.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\InvoicePrintTemplate.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PicklistPrintTemplate.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingMainPageView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAllocationMaintenanceView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAssignmentView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingDispatchView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingGatepassView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingMainPageView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingPickListView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\LoginView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\PostingPageView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemPageView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PrintingMainPageView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\PrintPreviewPageView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\SalesOrderEntryView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\SOLineItemsView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\SOView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryPageView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.baml
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.g.resources
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\ESI_ITE.Properties.Resources.resources
+D:\PROJECT FILES\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.GenerateResource.Cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CodesMasterMaintenancePageView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerMasterPageView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\ItemMasterPageView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\ItemMasterPageView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CodesMasterMaintenancePageView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerMasterPageView.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\WarehouseMaintenancePageView.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\WarehouseMaintenancePageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CodesMasterMaintenancePageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerMasterPageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\GeographicMaintenancePageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\ItemMasterPageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LocationMaintenancePageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PriceTypeMaintenancePageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\Reports\SalesReportsPageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\RouteMaintenancePageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SalesDistrictMaintenancePageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SalesmanMaintenancePageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SupplierMaintenancePageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TradeClassMaintenancePageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionTypeMaintenancePageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\WarehouseMaintenancePageView.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CodesMasterMaintenancePageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerMasterPageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\GeographicMaintenancePageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\ItemMasterPageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\LocationMaintenancePageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\PriceTypeMaintenancePageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\Reports\SalesReportsPageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\RouteMaintenancePageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SalesDistrictMaintenancePageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SalesmanMaintenancePageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\SupplierMaintenancePageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TradeClassMaintenancePageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionTypeMaintenancePageView.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\ESI-ITE\obj\Debug\View\WarehouseMaintenancePageView.baml
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe.config
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.exe
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.pdb
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.exe
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\ESI-ITE.pdb
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\ControlzEx.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Expression.Interactions.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Composition.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Interactivity.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.Desktop.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.PubSubEvents.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\System.Windows.Interactivity.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\WpfAnimatedGif.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.DataGrid.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Xceed.Wpf.Toolkit.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\ControlzEx.pdb
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.pdb
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.xml
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.pdb
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\MahApps.Metro.SimpleChildWindow.xml
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Composition.xml
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Interactivity.xml
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.Mvvm.xml
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.xml
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\WpfAnimatedGif.xml
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\de\Microsoft.Expression.Interactions.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\en\Microsoft.Expression.Interactions.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\es\Microsoft.Expression.Interactions.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\fr\Microsoft.Expression.Interactions.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\it\Microsoft.Expression.Interactions.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\ja\Microsoft.Expression.Interactions.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\ko\Microsoft.Expression.Interactions.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\ru\Microsoft.Expression.Interactions.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\Microsoft.Expression.Interactions.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\zh-Hant\Microsoft.Expression.Interactions.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csprojResolveAssemblyReference.cache
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnEntryOptionsView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMainPageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMenuView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnPrintingOptionsView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CNLineItemView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CreditNoteEntryView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DebitNoteEntryView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DNLineItemView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CodesMasterMaintenancePageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerMasterPageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerSelectionView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\GeographicMaintenancePageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\ItemMasterPageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\LocationMaintenancePageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PriceTypeMaintenancePageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CnEntriesPrintTemplate.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CreditNotePrintTemplate.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\DebitNotePrintTemplate.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\GatepassPrintTemplate.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\InvoicePrintTemplate.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PicklistPrintTemplate.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingMainPageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAllocationMaintenanceView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAssignmentView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingDispatchView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingGatepassView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingMainPageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingPickListView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\LoginView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PostingPageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemPageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PrintingMainPageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PrintPreviewPageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\Reports\SalesReportsPageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\RouteMaintenancePageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\SalesDistrictMaintenancePageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\SalesmanMaintenancePageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\SalesOrderEntryView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\SOLineItemsView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\SOView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\SupplierMaintenancePageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\TradeClassMaintenancePageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryPageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionTypeMaintenancePageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\WarehouseMaintenancePageView.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\App.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.cache
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE_MarkupCompile.lref
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\App.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnEntryOptionsView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMainPageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnMenuView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnPrintingOptionsView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CnDnView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CNLineItemView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\CreditNoteEntryView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DebitNoteEntryView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CNDN\DNLineItemView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CodesMasterMaintenancePageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerMasterPageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\CustomerSelectionView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\GeographicMaintenancePageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\ItemMasterPageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\LocationMaintenancePageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PriceTypeMaintenancePageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CnEntriesPrintTemplate.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\CreditNotePrintTemplate.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\DebitNotePrintTemplate.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\GatepassPrintTemplate.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\InvoicePrintTemplate.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PicklistPrintTemplate.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingFooterTemplate.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingHeaderTemplate.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingMainPageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\Printing\UserControl1.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAllocationMaintenanceView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingAssignmentView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingDispatchView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingGatepassView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingMainPageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingPickListView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\InvoicingView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\LoginView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PostingPageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\HomeView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\ITEView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemPageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\LineItemView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\MainWindow.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingCanvas.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\Printing\PrintingItemTemplate.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PrintingTemplate\PrintingMainPageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\PrintPreviewPageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\Reports\SalesReportsPageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\RouteMaintenancePageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\SalesDistrictMaintenancePageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\SalesmanMaintenancePageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\SalesOrderEntryView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\SOLineItemsView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\SOView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\SupplierMaintenancePageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\TradeClassMaintenancePageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\Transaction Printing.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryPageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionEntryView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\TransactionTypeMaintenancePageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\View\WarehouseMaintenancePageView.baml
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.g.resources
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\ESI_ITE.Properties.Resources.resources
+D:\Github\ESI-ITE\ESI-ITE\obj\Debug\ESI-ITE.csproj.GenerateResource.Cache

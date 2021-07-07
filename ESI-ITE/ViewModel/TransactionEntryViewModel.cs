@@ -8,6 +8,8 @@ using ESI_ITE.ViewModel.Command;
 using System.Diagnostics;
 using System.Windows.Input;
 using ESI_ITE.View;
+using System.Windows.Controls;
+using System.ComponentModel.Composition;
 
 namespace ESI_ITE.ViewModel
 {
@@ -539,7 +541,7 @@ namespace ESI_ITE.ViewModel
                 {
                     //transaction type
                     foreach (var transType in transactionType.FetchAll())
-                        if (transType.Code == trans.TransactionCode)
+                        if (transType.Code == trans.TransactionTypeCode)
                         {
                             IndexTransactionType = transType.Id;
                             SelectedTransactionType = transType;
@@ -870,9 +872,6 @@ namespace ESI_ITE.ViewModel
                     transaction.AddTransactionEntry(transaction);
                 }
             }
-
-            var v = new LineItemView();
-            var vm = new LineItemViewModel(this.transaction);
         }
 
         private void DeleteTransaction()
@@ -895,6 +894,7 @@ namespace ESI_ITE.ViewModel
                 return null;
             }
         }
+
 
         public string this[string propertyName]
         {
@@ -1151,5 +1151,6 @@ namespace ESI_ITE.ViewModel
         }
 
         #endregion
+        
     }
 }

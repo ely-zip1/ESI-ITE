@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="ESI_ITE.View.CustomerSelectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ESI_ITE.View"
+             xmlns:vm="clr-namespace:ESI_ITE.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="400">
+
+    <UserControl.DataContext>
+        <vm:CustomerSelectionViewModel x:Name="viewModel"/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Grid Name="grdSearchModal">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="65"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,5,10,5">
+                <Label Content="Customer Number"/>
+                <TextBox Width="150" Height="20" Text="{Binding SelectedItem[0], ElementName=customerSearchGrid}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10,5,10,5">
+                <Label Content="Customer Name"/>
+                <TextBox Text="{Binding SearchedCustomer, UpdateSourceTrigger=PropertyChanged}" Name="txtCustomerSearch">
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="{Binding LoadCustomerCommand}" Key="Enter"/>
+                    </TextBox.InputBindings>
+                </TextBox>
+            </StackPanel>
+
+            <DataGrid Grid.Row="2" Name="customerSearchGrid" AutoGenerateColumns="False" Margin="10,5,10,5"
+                              HorizontalScrollBarVisibility="Disabled"  ItemsSource="{Binding CustomerList}"
+                              SelectedIndex="{Binding SelectedIndexSearchedCustomer,Mode=TwoWay}"
+                              SelectedItem="{Binding SelectedSearchedCustomer, Mode=TwoWay}"
+                              IsTextSearchEnabled="True" IsTextSearchCaseSensitive="False" TextSearch.TextPath="[1]">
+                <DataGrid.InputBindings>
+                    <KeyBinding Command="{Binding LoadCustomerCommand}" Key="Enter"/>
+                </DataGrid.InputBindings>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Width="500">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding [1]}" Name="lblDataGridSearchItem"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+
+                <Button Height="30" Width="100" Content="Select" Margin="10" Command="{Binding  LoadCustomerCommand}"/>
+
+                <Button Height="30" Width="100" Content="Close" Margin="10" Command="{Binding ToggleSearchVisibilityCommand}"/>
+
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

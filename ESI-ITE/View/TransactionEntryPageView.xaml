@@ -1,0 +1,274 @@
+﻿<Page x:Class="ESI_ITE.View.TransactionEntryPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ESI_ITE.View"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:si="http://schemas.microsoft.com/expression/2010/interactions"
+      xmlns:vm ="clr-namespace:ESI_ITE.ViewModel"
+      mc:Ignorable="d" 
+      Title="TransactionEntryPageView"
+      Background="Transparent">
+    <Page.DataContext>
+        <vm:TransactionEntryPageViewModel x:Name="viewModel"></vm:TransactionEntryPageViewModel>
+    </Page.DataContext>
+
+    <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="155"/>
+                <ColumnDefinition Width="280"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Transaction Number-->
+
+            <Label Target="{Binding ElementName=cmbTransactionNumber}" Margin="10,8,0,9" 
+			HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="auto" Content="Transaction Number"/>
+            <ComboBox x:Name="cmbTransactionNumber" Grid.Column="1" Height="20"
+			HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0" 
+                  ItemsSource="{Binding CmbTransactionNumbers}" 
+                  SelectedValue="{Binding SelectedTransactionNumber, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                  VerticalContentAlignment="Center" FontSize="11">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <si:CallMethodAction TargetObject="{Binding}" MethodName="ToggleFirstLoad"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+
+            <!--Transaction Type-->
+
+            <Label Target="{Binding ElementName=cmbTransactionType}" Margin="10,9,0,8" Grid.Row="1"
+			HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="auto" Content="Transaction Type"/>
+            <ComboBox x:Name="cmbTransactionType" Grid.Column="1" Grid.Row="1" Height="20" HorizontalAlignment="Stretch" VerticalAlignment="center" Margin="0" 
+                  ItemsSource="{Binding CmbTransactionType}" SelectedValue="{Binding SelectedTransactionType, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                  SelectedIndex="{Binding IndexTransactionType, Mode=TwoWay}" 
+                  IsHitTestVisible="{Binding CanEdit}" Focusable="{Binding CanEdit}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownOpened">
+                        <si:CallMethodAction TargetObject="{Binding}" MethodName="ToggleFirstLoad"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel Orientation="Horizontal" Height="14">
+                            <Label Content="{Binding Code}" MinWidth="25" FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Margin="0" Padding="0" FontWeight="Bold" Width="18"/>
+                            <Label Content="{Binding Description}" Padding="0" FontSize="10" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <!--Document Number-->
+
+            <Label Target="{Binding ElementName=txtDocumentNumber}" Margin="10,8,0,9" Grid.Row="2"
+			HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="auto" Content="Document Number"/>
+            <TextBox x:Name="txtDocumentNumber" Grid.Column="1" Grid.Row="2" Height="20" HorizontalAlignment="Stretch" VerticalAlignment="center" Margin="0"
+                 Text="{Binding DocumentNumber, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" FontSize="12" VerticalContentAlignment="Center"
+                 IsHitTestVisible="{Binding CanEdit}" Focusable="{Binding CanEdit}"/>
+
+            <!--Transaction Date-->
+
+            <Label Target="{Binding ElementName=txtTransactionDate}" Margin="10,9,0,8" Grid.Row="3"
+			HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="auto" Content="Transaction Date"/>
+            <TextBox x:Name="txtTransactionDate" Grid.Column="1" Grid.Row="3" Height="20"
+			HorizontalAlignment="Stretch" VerticalAlignment="center" Margin="0" 
+			Text="{Binding TransactionDate, Mode=OneWay, ValidatesOnDataErrors=True}" FontSize="11" VerticalContentAlignment="Center"
+                 IsReadOnly="{Binding CanEdit}" IsHitTestVisible="{Binding CanEdit}" Focusable="{Binding CanEdit}"/>
+
+            <!--Source WareHouse-->
+
+            <Label Target="{Binding ElementName=cmbSourceWareHouse}" Margin="10,8,0,9" Grid.Row="4"
+			HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="auto" Content="Source Warehouse"/>
+            <ComboBox x:Name="cmbSourceWareHouse" Grid.Column="1" Grid.Row="4" Height="20"
+			HorizontalAlignment="Stretch" VerticalAlignment="center" Margin="0" 
+                  ItemsSource="{Binding CmbWarehouse}"
+                  SelectedValue="{Binding SelectedSourceWarehouse, ValidatesOnDataErrors=True, Mode=TwoWay}" 
+                  SelectedIndex="{Binding IndexSourceWarehouse, Mode=TwoWay}"
+                  IsHitTestVisible="{Binding CanEdit}" Focusable="{Binding CanEdit}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel Orientation="Horizontal" Height="14">
+                            <Label Content="{Binding Code}" MinWidth="25" FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Margin="0" Padding="0" FontWeight="Bold" Width="18"/>
+                            <Label Content="{Binding Location}" Padding="0" FontSize="10" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <!--Source Location-->
+
+            <Label Target="{Binding ElementName=cmbTransactionType}" Margin="10,9,0,8" Grid.Row="5"
+			HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="auto" Content="Location"/>
+            <ComboBox x:Name="cmbSourceLocation" Grid.Column="1" Grid.Row="5" Height="20"
+			HorizontalAlignment="Stretch" VerticalAlignment="center" Margin="0" 
+                  ItemsSource="{Binding CmbLocation}"
+                  SelectedValue="{Binding SelectedSourceLocation, ValidatesOnDataErrors=True}"
+                  SelectedIndex="{Binding IndexSourceLocation, Mode=TwoWay}"
+                  IsHitTestVisible="{Binding CanEdit}" Focusable="{Binding CanEdit}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel Orientation="Horizontal" Height="14">
+                            <Label Content="{Binding Code}" MinWidth="25" FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Margin="0" Padding="0" FontWeight="Bold" Width="18"/>
+                            <Label Content="{Binding Location}" Padding="0" FontSize="10" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <!--Source Salesman-->
+
+            <Label Margin="10,8,0,9" Grid.Row="6" 
+			HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="auto" Content="Salesman"/>
+
+            <!--Price Category-->
+
+            <Label Target="{Binding ElementName=cmbPriceCategory}" Margin="10,9,0,8" Grid.Row="7"
+			HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="auto" Content="Select Price Category"/>
+            <ComboBox x:Name="cmbPriceCategory" Grid.Column="1" Grid.Row="7" Height="20"
+			HorizontalAlignment="Stretch" VerticalAlignment="center" Margin="0" ItemsSource="{Binding PriceCategoryList}" 
+                  SelectedValue="{Binding SelectedPriceCategory, ValidatesOnDataErrors=True, Mode=TwoWay}"
+                  SelectedIndex="{Binding IndexPriceCategory, Mode=TwoWay}"
+                  IsHitTestVisible="{Binding CanEdit}" Focusable="{Binding CanEdit}"/>
+
+
+            <!--Price Type-->
+
+            <Label Target="{Binding ElementName=cmbPriceType}" Margin="10,8,0,9" Grid.Row="8"
+			HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="auto" Content="Select Price"/>
+            <ComboBox x:Name="cmbPriceType" Grid.Column="1" Grid.Row="8" Height="20"
+			HorizontalAlignment="Stretch" VerticalAlignment="center" Margin="0" ItemsSource="{Binding PriceTypeList}"
+                  SelectedValue="{Binding SelectedPriceType, ValidatesOnDataErrors=True, Mode=TwoWay}"
+                  SelectedIndex="{Binding IndexPriceType, Mode=TwoWay}"
+                      IsHitTestVisible="{Binding CanEdit}" Focusable="{Binding CanEdit}"/>
+
+
+            <!--Destination Warehouse-->
+
+            <Label Target="{Binding ElementName=cmbDestinationWareHouse}" Margin="10,9,0,8" Grid.Row="9" HorizontalAlignment="Left" VerticalAlignment="Center"
+                       Height="26" Width="auto" Content="Destination Warehouse"/>
+            <ComboBox x:Name="cmbDestinationWareHouse" Grid.Column="1" Grid.Row="9" Height="20" HorizontalAlignment="Stretch" VerticalAlignment="center" 
+                          Margin="0" ItemsSource="{Binding CmbWarehouse}"
+                  SelectedValue="{Binding SelectedDestinationWarehouse, ValidatesOnDataErrors=True}"
+                  IsEnabled="{Binding EnableDestination, Mode=OneWay}"
+                  SelectedIndex="{Binding IndexDestinationWarehouse, Mode=TwoWay}"
+                          IsHitTestVisible="{Binding CanEdit}" Focusable="{Binding CanEdit}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel Orientation="Horizontal" Height="14">
+                            <Label Content="{Binding Code}" MinWidth="25" FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Margin="0" Padding="0" FontWeight="Bold" Width="18"/>
+                            <Label Content="{Binding Location}" Padding="0" FontSize="10" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+
+            <!--Destination Location-->
+
+            <Label Target="{Binding ElementName=cmbDestinationLocation}" Margin="10,0,0,0" Grid.Row="10"
+			HorizontalAlignment="Left" VerticalAlignment="Center" Content="Location"/>
+            <ComboBox x:Name="cmbDestinationLocation" Grid.Column="1" Grid.Row="10" Height="20"
+			HorizontalAlignment="Stretch" VerticalAlignment="center" ItemsSource="{Binding CmbLocation}"
+                  SelectedValue="{Binding SelectedDestinationLocation, ValidatesOnDataErrors=True}"
+                  IsEnabled="{Binding EnableDestination, Mode=OneWay}"
+                  SelectedIndex="{Binding IndexDestinationLocation, Mode=TwoWay}"
+                          IsHitTestVisible="{Binding CanEdit}" Focusable="{Binding CanEdit}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel Orientation="Horizontal" Height="14">
+                            <Label Content="{Binding Code}" MinWidth="25" FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Margin="0" Padding="0" FontWeight="Bold" Width="18"/>
+                            <Label Content="{Binding Location}" Padding="0" FontSize="10" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+
+            <!--Destination Salesman-->
+
+            <Label Margin="10,0,0,0" Grid.Row="11"
+			HorizontalAlignment="Left" VerticalAlignment="Center" Content="Salesman"/>
+
+
+            <!--Reason Code-->
+
+            <Label Target="{Binding ElementName=cmbReasonCode}" Margin="10,0,0,0" Grid.Row="12"
+			HorizontalAlignment="Left" VerticalAlignment="Center" Content="Reason Code"/>
+            <ComboBox x:Name="cmbReasonCode" Grid.Column="1" Grid.Row="12" Height="20"
+			HorizontalAlignment="Stretch" VerticalAlignment="center" ItemsSource="{Binding CmbReason}" 
+                  SelectedValue="{Binding SelectedReason, ValidatesOnDataErrors=True}"
+                      SelectedIndex="{Binding IndexReason, Mode=TwoWay}"
+                          IsHitTestVisible="{Binding CanEdit}" Focusable="{Binding CanEdit}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel Orientation="Horizontal" Height="14">
+                            <Label Content="{Binding ReasonCode}" MinWidth="25" FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Margin="0" Padding="0" FontWeight="Bold" Width="18"/>
+                            <Label Content="{Binding Description}" Padding="0" FontSize="10" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+
+            <!--Comment-->
+
+            <Label Target="{Binding ElementName=txtComment}" Margin="10,0,0,0" Grid.Row="13"
+			HorizontalAlignment="Left" VerticalAlignment="Center" Content="Comment/ Ref. No."/>
+            <TextBox x:Name="txtComment" Grid.Column="1" Grid.Row="13" Height="20"
+			HorizontalAlignment="Stretch" VerticalAlignment="center" 
+                 Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                         IsHitTestVisible="{Binding CanEdit}" Focusable="{Binding CanEdit}"/>
+
+
+            <Grid Grid.ColumnSpan="2" Grid.Row="14">
+                <Grid.ColumnDefinitions>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" 
+                    Margin="0,0,0,0" Padding="5" Content="Line Items" IsEnabled="{Binding IsLineable, Mode=TwoWay}" 
+                    Command="{Binding LineItemCommand}"/>
+
+                    <Button  HorizontalAlignment="Left" VerticalAlignment="Center"
+                    Margin="10,0,0,0" Padding="5" Content="Delete Entry" IsEnabled="{Binding IsLineable, Mode=TwoWay}" 
+                    Command="{Binding DeleteTransactionCommand}"/>
+
+                </StackPanel>
+
+                <Button Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Width="152"
+                    Margin="20,0,0,0" Padding="5" Content="Print Transactions" 
+                    Command="{Binding PrintCommand}"/>
+
+                <Button Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Width="152"
+                    Margin="20,0,0,0" Padding="5" Content="Post Transactions" 
+                    Command="{Binding PostingCommand}"/>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</Page>

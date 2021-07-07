@@ -2,22 +2,24 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ESI_ITE.ViewModel
 {
-    public abstract class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase: INotifyPropertyChanged
     {
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected internal void OnPropertyChanged(string propertyName)
+        protected internal void OnPropertyChanged( [CallerMemberName] string propertyName = "" )
         {
-            if (this.PropertyChanged != null)
+            var handler = PropertyChanged;
+            if ( handler != null )
             {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 

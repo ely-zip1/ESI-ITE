@@ -1,0 +1,204 @@
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Tests.exe.config
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Tests.exe
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Tests.pdb
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.exe
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MySql.Data.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\System.Windows.Controls.Input.Toolkit.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\WPFToolkit.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.pdb
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\MainWindow.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\App.g.cs
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests_MarkupCompile.cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests_MarkupCompile.lref
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\MainWindow.baml
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.g.resources
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.Properties.Resources.resources
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.GenerateResource.Cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.exe
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.pdb
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Tests.exe.config
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Tests.exe
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Tests.pdb
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.exe
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MySql.Data.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\System.Windows.Controls.Input.Toolkit.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\WPFToolkit.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.pdb
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.pdb
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.xml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\MainWindow.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\App.g.cs
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests_MarkupCompile.cache
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests_MarkupCompile.lref
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\MainWindow.baml
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.g.resources
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.Properties.Resources.resources
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.GenerateResource.Cache
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.exe
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.pdb
+E:\GitHub\ESI-ITE\Tests\bin\Debug\Tests.exe.config
+E:\GitHub\ESI-ITE\Tests\bin\Debug\Tests.exe
+E:\GitHub\ESI-ITE\Tests\bin\Debug\Tests.pdb
+E:\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.exe
+E:\GitHub\ESI-ITE\Tests\bin\Debug\MySql.Data.dll
+E:\GitHub\ESI-ITE\Tests\bin\Debug\System.Windows.Controls.Input.Toolkit.dll
+E:\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.Toolkit.dll
+E:\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.dll
+E:\GitHub\ESI-ITE\Tests\bin\Debug\WPFToolkit.dll
+E:\GitHub\ESI-ITE\Tests\bin\Debug\System.Windows.Interactivity.dll
+E:\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.pdb
+E:\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.pdb
+E:\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.xml
+E:\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache
+E:\GitHub\ESI-ITE\Tests\obj\Debug\MainWindow.g.cs
+E:\GitHub\ESI-ITE\Tests\obj\Debug\App.g.cs
+E:\GitHub\ESI-ITE\Tests\obj\Debug\Tests_MarkupCompile.cache
+E:\GitHub\ESI-ITE\Tests\obj\Debug\Tests_MarkupCompile.lref
+E:\GitHub\ESI-ITE\Tests\obj\Debug\MainWindow.baml
+E:\GitHub\ESI-ITE\Tests\obj\Debug\Tests.g.resources
+E:\GitHub\ESI-ITE\Tests\obj\Debug\Tests.Properties.Resources.resources
+E:\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.GenerateResource.Cache
+E:\GitHub\ESI-ITE\Tests\obj\Debug\Tests.exe
+E:\GitHub\ESI-ITE\Tests\obj\Debug\Tests.pdb
+C:\Users\Ely\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.exe.config
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.pdb
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.xml
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ControlzEx.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ControlzEx.pdb
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Tests.exe.config
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Tests.exe
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Tests.pdb
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.exe
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MySql.Data.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\bin\Debug\System.Windows.Controls.Input.Toolkit.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\bin\Debug\WPFToolkit.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ControlzEx.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.pdb
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.exe.config
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.pdb
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.xml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ControlzEx.pdb
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csprojAssemblyReference.cache
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\MainWindow.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\App.g.cs
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests_MarkupCompile.cache
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests_MarkupCompile.lref
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\MainWindow.baml
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.g.resources
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.Properties.Resources.resources
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.GenerateResource.cache
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.CoreCompileInputs.cache
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.CopyComplete
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.exe
+C:\Users\Ely Lapiz\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.pdb
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.AvalonDock.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.DataGrid.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.exe.config
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csprojAssemblyReference.cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.CoreCompileInputs.cache
+C:\Users\elish\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.CopyComplete
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Tests.exe.config
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Tests.exe
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Tests.pdb
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.exe
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.AvalonDock.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.DataGrid.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MySql.Data.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\System.Windows.Controls.Input.Toolkit.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\WPFToolkit.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ControlzEx.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ESI-ITE.pdb
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.pdb
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\MahApps.Metro.xml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ControlzEx.pdb
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\obj\Debug\MainWindow.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\obj\Debug\App.g.cs
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests_MarkupCompile.cache
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests_MarkupCompile.lref
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\obj\Debug\MainWindow.baml
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.g.resources
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.Properties.Resources.resources
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.csproj.GenerateResource.Cache
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.exe
+C:\Users\Eli\Documents\GitHub\ESI-ITE\Tests\obj\Debug\Tests.pdb
+D:\Github\ESI-ITE\Tests\bin\Debug\Tests.exe.config
+D:\Github\ESI-ITE\Tests\bin\Debug\Tests.exe
+D:\Github\ESI-ITE\Tests\bin\Debug\Tests.pdb
+D:\Github\ESI-ITE\Tests\bin\Debug\ESI-ITE.exe
+D:\Github\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.AvalonDock.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.DataGrid.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\Xceed.Wpf.Toolkit.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\MySql.Data.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\System.Windows.Controls.Input.Toolkit.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\MahApps.Metro.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\WPFToolkit.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\ControlzEx.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\System.Windows.Interactivity.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\ESI-ITE.pdb
+D:\Github\ESI-ITE\Tests\bin\Debug\MahApps.Metro.pdb
+D:\Github\ESI-ITE\Tests\bin\Debug\MahApps.Metro.xml
+D:\Github\ESI-ITE\Tests\bin\Debug\ControlzEx.pdb
+D:\Github\ESI-ITE\Tests\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\Tests\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+D:\Github\ESI-ITE\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache
+D:\Github\ESI-ITE\Tests\obj\Debug\MainWindow.g.cs
+D:\Github\ESI-ITE\Tests\obj\Debug\App.g.cs
+D:\Github\ESI-ITE\Tests\obj\Debug\Tests_MarkupCompile.cache
+D:\Github\ESI-ITE\Tests\obj\Debug\Tests_MarkupCompile.lref
+D:\Github\ESI-ITE\Tests\obj\Debug\MainWindow.baml
+D:\Github\ESI-ITE\Tests\obj\Debug\Tests.g.resources
+D:\Github\ESI-ITE\Tests\obj\Debug\Tests.Properties.Resources.resources
+D:\Github\ESI-ITE\Tests\obj\Debug\Tests.csproj.GenerateResource.Cache
+D:\Github\ESI-ITE\Tests\obj\Debug\Tests.exe
+D:\Github\ESI-ITE\Tests\obj\Debug\Tests.pdb

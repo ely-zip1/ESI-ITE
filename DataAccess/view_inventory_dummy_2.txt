@@ -1,0 +1,23 @@
+CREATE VIEW `view_inventory_dummy_2` AS
+ 
+select 
+d.id
+,
+o.order_number
+,
+p.code as price_type,
+l.code as location,
+i.item_code,
+i.description,
+d.cases,
+d.pieces,
+d.price_per_piece,
+d.line_amount,
+d.lot_number
+from inventory_dummy_2 as d
+left join orders as o on o.order_id = d.order
+left join so_pricetype as p on p.pricetype_id = d.price_type
+left join location as l on l.location_id = d.location
+left join item_master2 as i on i.item_master2_id = d.item
+
+

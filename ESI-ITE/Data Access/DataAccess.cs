@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 using System.Windows;
 
 using MySql.Data.MySqlClient;
+using ESI_ITE.Model;
+using System.Threading;
 
 namespace ESI_ITE.Data_Access
 {
     public class DataAccess
     {
+        public event EventHandler ItemPosted;
+
         private MySqlConnection connection;
         private string server;
         private string database;
@@ -88,6 +92,10 @@ namespace ESI_ITE.Data_Access
                 cmd.ExecuteNonQuery();
                 this.CloseConnection();
             }
+
+            if (this.OpenConnection() == true)
+                this.CloseConnection();
+
         }
 
         //Update statement
@@ -101,6 +109,9 @@ namespace ESI_ITE.Data_Access
                 cmd.ExecuteNonQuery();
                 this.CloseConnection();
             }
+
+            if (this.OpenConnection() == true)
+                this.CloseConnection();
         }
 
         //Delete statement
@@ -112,6 +123,9 @@ namespace ESI_ITE.Data_Access
                 cmd.ExecuteNonQuery();
                 this.CloseConnection();
             }
+
+            if (this.OpenConnection() == true)
+                this.CloseConnection();
         }
 
         //Select multiple statement
@@ -143,8 +157,12 @@ namespace ESI_ITE.Data_Access
             }
             else
             {
+                if (this.OpenConnection() == true)
+                    this.CloseConnection();
+
                 return lol;
             }
+
 
         }
 
@@ -175,26 +193,34 @@ namespace ESI_ITE.Data_Access
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                while (dataReader.Read())
+                if (dataReader.Read())
                 {
-                    record = dataReader.GetString(i);
-                    sb.Append(record);
+                    int x = dataReader.FieldCount;
 
-                    i++;
-
-                    if (dataReader.NextResult())
+                    do
                     {
-                        sb.Append("|");
-                    }
+                        record = dataReader[i].ToString();
+                        sb.Append(record);
+                        i++;
+
+                        if (i < x)
+                        {
+                            sb.Append("|");
+                        }
+
+                    } while (dataReader.Read() && i < x);
                 }
                 dataReader.Close();
                 this.CloseConnection();
 
-                return record;
+                return sb.ToString();
             }
             else
             {
-                return record;
+                if (this.OpenConnection() == true)
+                    this.CloseConnection();
+
+                return sb.ToString();
             }
         }
 
@@ -219,49 +245,87 @@ namespace ESI_ITE.Data_Access
             }
             else
             {
+                if (this.OpenConnection() == true)
+                    this.CloseConnection();
+
                 return Count;
             }
         }
 
         //Transaction 
-        public void RunMySqlTransaction(List<string> transString)
+        public void RunMySqlTransaction(List<string> transString, IProgress<ProgressReportModel> progress, ProgressReportModel progressReport)
         {
+            float currentStep = 0;
+            float percentComplete = 0;
+            float queryCount = transString.Count();
+
+            if (progressReport != null)
+            {
+                progressReport.TotalStep = transString.Count();
+            }
+
             if (this.OpenConnection() == true)
             {
-                MySqlTransaction myTransaction =
-                    connection.BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                //MySqlTransaction myTransaction = connection.BeginTransaction();
+                MySqlTransaction myTransaction = connection.BeginTransaction(System.Data.IsolationLevel.RepeatableRead);
                 try
                 {
                     MySqlCommand cmd = new MySqlCommand();
+                    cmd.Connection = connection;
+                    cmd.Transaction = myTransaction;
 
                     foreach (var query in transString)
                     {
                         cmd.CommandText = query;
                         cmd.ExecuteNonQuery();
+
+                        if (progress != null)
+                        {
+                            progressReport.CurrentStep = currentStep++;
+                            progressReport.PercentComplete = currentStep / queryCount * 100;
+
+                            progress.Report(progressReport);
+                        }
                     }
                     myTransaction.Commit();
                 }
                 catch (MySqlException ex)
                 {
+                    MessageBox.Show("COMMIT ERROR : " + ex.Message, "Posting Message");
                     try
                     {
                         myTransaction.Rollback();
                     }
                     catch (MySqlException ex1)
                     {
-                        MessageBox.Show("Error: {0}", ex1.Message);
+                        MessageBox.Show("ROLLBACK ERROR : " + ex1.Message, "Posting Message");
                     }
-                    MessageBox.Show("Error: {0}", ex.Message);
+
+                    MyGlobals.hasTransactionError = true;
                 }
                 finally
                 {
-                    if (this.OpenConnection() == true)
-                    {
-                        this.CloseConnection();
-                    }
-
+                    this.CloseConnection();
                 }
 
+            }
+
+            if (this.OpenConnection() == true)
+                this.CloseConnection();
+
+        }
+
+        public void Test(IProgress<ProgressReportModel> progress, ProgressReportModel progressReport)
+        {
+            float totalItems = 100;
+
+            for (float x = 1; x <= totalItems; x++)
+            {
+                Thread.Sleep(100);
+                progressReport.CurrentStep = x;
+                progressReport.PercentComplete = (x / totalItems) * 100;
+
+                progress.Report(progressReport);
             }
         }
     }

@@ -87,11 +87,15 @@ namespace ESI_ITE.Model
 
         public List<ReasonsModel> FetchAll()
         {
+            _reasons.Clear();
+
             List<CloneableDictionary<string, string>> table = db.SelectMultiple("select * from reason_code");
+
             foreach (var row in table)
             {
                 var temp = new ReasonsModel();
                 var clone = row.Clone();
+
                 temp.Id = Int32.Parse(row["reasoncode_id"]);
                 temp.TransactionType = row["transaction_type"];
                 temp.ReasonCode = row["reason_code"];

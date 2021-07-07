@@ -8,6 +8,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("externalassemblies/system.windows.interactivity.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/bank.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/inventory.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/map.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/online-store.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/placeholder.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/route.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/salesman.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/supplier.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/warehouse.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/worldwide.png")]
 
 
